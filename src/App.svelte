@@ -56,9 +56,21 @@
     {#if activeTab === 'portal'}
       <Hero 
         bind:searchQuery 
+        onSelectTab={(tab) => activeTab = tab}
         onOpenAuth={() => isAuthOpen = true}
         onOpenQrCard={() => isQrCardOpen = true}
       />
+      
+      <!-- Interactive Floor Plan directly on Portal Homepage -->
+      <div class="portal-denah-preview">
+        <DenahFloorPlan 
+          onSelectBooth={(ind) => {
+            searchQuery = ind.nomor_stand;
+            activeTab = 'lowongan';
+          }}
+        />
+      </div>
+
       <div class="container">
         <IndustryDirectory 
           {searchQuery} 
@@ -166,6 +178,11 @@
 
   .main-body {
     flex-grow: 1;
+  }
+
+  .portal-denah-preview {
+    margin-top: -10px;
+    margin-bottom: 20px;
   }
 
   .app-footer {

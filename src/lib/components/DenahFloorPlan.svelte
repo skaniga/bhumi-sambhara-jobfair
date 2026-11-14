@@ -118,7 +118,7 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    <img src="/companies/{ind?.id}.svg?v=2" alt="{ind?.nama_perusahaan}" class="booth-img" />
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan}</span>
                 </div>
@@ -147,7 +147,7 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    <img src="/companies/{ind?.id}.svg?v=2" alt="{ind?.nama_perusahaan}" class="booth-img" />
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan}</span>
                 </div>
@@ -190,7 +190,7 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    <img src="/companies/{ind?.id}.svg?v=2" alt="{ind?.nama_perusahaan}" class="booth-img" />
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan}</span>
                 </div>
@@ -219,7 +219,7 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    <img src="/companies/{ind?.id}.svg?v=2" alt="{ind?.nama_perusahaan}" class="booth-img" />
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan}</span>
                 </div>

@@ -206,7 +206,7 @@
               </td>
               <td>
                 <div class="admin-company-cell">
-                  <img src="/companies/{row.id}.svg" alt="{row.perusahaan}" class="admin-logo-micro" />
+                  <img src="/companies/{row.id}.svg?v=2" alt="{row.perusahaan}" class="admin-logo-micro" />
                   <span class="perusahaan-cell">{row.perusahaan}</span>
                 </div>
               </td>

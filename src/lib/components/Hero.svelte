@@ -1,8 +1,9 @@
 <script>
   import { EVENT_DETAILS } from '../initialData.js';
-  import { Calendar, MapPin, Building, Users, Search, QrCode, X, Image as ImageIcon, Download, Eye } from '@lucide/svelte';
+  import { Calendar, MapPin, Building, Users, Search, QrCode, X, Image as ImageIcon, Download, Eye, Compass, Grid } from '@lucide/svelte';
 
   export let searchQuery = '';
+  export let onSelectTab = (tab) => {};
 
   let isPamfletModalOpen = false;
 </script>
@@ -55,6 +56,22 @@
               <X size={16} />
             </button>
           {/if}
+        </div>
+
+        <!-- Quick Access Buttons -->
+        <div class="hero-quick-nav">
+          <button class="btn-hero-chip" on:click={() => onSelectTab('lowongan')}>
+            <Grid size={15} />
+            <span>Katalog 20 Industri</span>
+          </button>
+          <button class="btn-hero-chip highlight-amber" on:click={() => onSelectTab('denah')}>
+            <Compass size={15} />
+            <span>🗺️ Buka Peta Denah 20 Stand</span>
+          </button>
+          <button class="btn-hero-chip" on:click={() => isPamfletModalOpen = true}>
+            <Eye size={15} />
+            <span>Lihat Pamflet Resmi</span>
+          </button>
         </div>
       </div>
 
@@ -239,6 +256,44 @@
     outline: none;
     font-size: 0.875rem;
     color: var(--color-text-main);
+  }
+
+  .hero-quick-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .btn-hero-chip:hover {
+    background-color: #FFFFFF;
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+  }
+
+  .btn-hero-chip.highlight-amber {
+    background-color: var(--color-amber-light);
+    border-color: #FBBF24;
+    color: #92400E;
+  }
+
+  .btn-hero-chip.highlight-amber:hover {
+    background-color: #FDE68A;
   }
 
   .btn-clear-search {
