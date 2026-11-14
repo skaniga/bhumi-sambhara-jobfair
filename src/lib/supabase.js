@@ -230,6 +230,12 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
 
 export function logoutUser() {
   currentUser.set(null);
+  // Clear persistent local user cache immediately
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.removeItem(STORAGE_PREFIX + 'current_user');
+    } catch (e) {}
+  }
   if (supabase) {
     supabase.auth.signOut().catch(() => {});
   }

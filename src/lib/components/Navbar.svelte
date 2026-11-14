@@ -85,7 +85,7 @@
           </span>
         </div>
 
-        <button class="btn-logout" on:click={logoutUser} title="Keluar Akun">
+        <button class="btn-logout" on:click={() => { logoutUser(); activeTab = 'portal'; }} title="Keluar Akun">
           <LogOut size={16} />
         </button>
       {:else}

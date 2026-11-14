@@ -27,6 +27,11 @@
     syncFromSupabase();
   });
 
+  // Jika user logout ($currentUser menjadi null), otomatis arahkan kembali ke halaman awal web (portal)
+  $: if (!$currentUser) {
+    activeTab = 'portal';
+  }
+
   function handleSelectVacancy(vac, ind) {
     activeVacancy = vac;
     activeIndustry = ind;

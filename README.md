@@ -10,6 +10,15 @@ Pelaksanaan Acara:
 
 ---
 
+## Dokumentasi Panduan Pengguna per Peran
+
+Panduan terperinci untuk masing-masing peran pengguna telah disediakan pada folder `docs/`:
+- 📘 **[Panduan Pengguna: Role Pelamar](docs/PANDUAN_PELAMAR.md)** — Langkah registrasi akun, pembuatan Kartu QR, pelamaran kerja, dan presensi stand.
+- 🏢 **[Panduan Pengguna: Role Pemberi Kerja (Stand Industri)](docs/PANDUAN_PEMBERI_KERJA.md)** — Cara masuk 20 stand industri, scan barcode pelamar di booth, dan verifikasi berkas di tempat.
+- 🛡️ **[Panduan Pengguna: Role Admin Panitia (BKK & UNTIDAR)](docs/PANDUAN_ADMIN_PANITIA.md)** — Monitoring telemetri live, denah 4 zona hall, scanner master pintu masuk, dan ekspor laporan CSV/Excel.
+
+---
+
 ## Akun Demo & Akses Resmi (Seed Credentials)
 
 Berikut daftar akun resmi yang telah di-seed langsung ke sistem database Supabase Auth & PostgreSQL:
