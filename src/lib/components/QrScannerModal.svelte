@@ -18,6 +18,34 @@
   let verificationSuccess = false;
   let errorMessage = '';
 
+  function playSuccessFeedback() {
+    try {
+      if (typeof window !== 'undefined') {
+        // Haptic feedback if supported (mobile devices)
+        if ('vibrate' in navigator) {
+          navigator.vibrate([80, 40, 80]);
+        }
+        // Web Audio API beep synth (crisp confirmation tone)
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          const ctx = new AudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, ctx.currentTime); // A5 tone
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.12);
+        }
+      }
+    } catch (e) {
+      // Audio or vibration not critical, fail silently
+    }
+  }
+
   onMount(async () => {
     try {
       html5QrCode = new Html5Qrcode(scannerElementId);
@@ -78,8 +106,8 @@
       // plain text token
     }
 
+    playSuccessFeedback();
     const found = await lookupApplicant(token);
-
     if (found) {
       selectApplicant(found);
     } else {

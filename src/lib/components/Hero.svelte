@@ -6,6 +6,32 @@
   export let onSelectTab = (tab) => {};
 
   let isPamfletModalOpen = false;
+
+  // Real-time Event Status & Countdown
+  let eventStatusText = '';
+  let eventStatusBadgeClass = 'badge-stand';
+
+  function updateEventStatus() {
+    // Event date: Thursday, 19 November 2026 09:00 WIB (UTC+7)
+    // 2026-11-19T02:00:00Z
+    const eventStart = new Date('2026-11-19T02:00:00Z').getTime();
+    const eventEnd = new Date('2026-11-19T08:10:00Z').getTime(); // 15:10 WIB
+    const now = new Date().getTime();
+
+    if (now < eventStart) {
+      const diffDays = Math.ceil((eventStart - now) / (1000 * 60 * 60 * 24));
+      eventStatusText = diffDays > 1 ? `H-${diffDays} Menuju Pelaksanaan Expo` : 'Besok Pelaksanaan Expo';
+      eventStatusBadgeClass = 'badge-stand';
+    } else if (now >= eventStart && now <= eventEnd) {
+      eventStatusText = 'SEDANG BERLANGSUNG HARI INI (09.00 - 15.10 WIB)';
+      eventStatusBadgeClass = 'badge-terverifikasi';
+    } else {
+      eventStatusText = 'Pelaksanaan Expo Selesai';
+      eventStatusBadgeClass = 'badge-stand';
+    }
+  }
+
+  updateEventStatus();
 </script>
 
 <section class="hero-section">
@@ -18,6 +44,9 @@
       <div class="hero-content">
         <div class="institution-tag">
           <span>KOLABORASI: K1 PARIWISATA 2024 UNTIDAR × SMK NEGERI 1 MAGELANG</span>
+          {#if eventStatusText}
+            <span class="badge {eventStatusBadgeClass} event-countdown-pill">{eventStatusText}</span>
+          {/if}
         </div>
 
         <h1 class="heading-xl hero-title">
@@ -188,6 +217,15 @@
     letter-spacing: 0.05em;
     color: var(--color-primary);
     margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .event-countdown-pill {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    letter-spacing: normal;
   }
 
   .hero-title {

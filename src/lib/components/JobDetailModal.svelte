@@ -1,6 +1,6 @@
 <script>
   import { currentUser, applications, applyJob } from '../supabase.js';
-  import { X, Building2, MapPin, Briefcase, GraduationCap, CheckCircle, AlertCircle } from '@lucide/svelte';
+  import { X, Building2, MapPin, Briefcase, GraduationCap, CheckCircle, AlertCircle, Share2 } from '@lucide/svelte';
 
   /** @type {any} */
   export let vacancy = null;
@@ -13,6 +13,17 @@
   let submitting = false;
   let statusMessage = '';
   let isError = false;
+  let shareNotice = '';
+
+  function handleShareWhatsApp() {
+    if (!vacancy || !industry) return;
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://jobfair.skanisa.sch.id';
+    const text = `Lowongan *${vacancy.judul_posisi}* di ${industry.nama_perusahaan} (${industry.nomor_stand}) - Bhumi Sambhara Expo 2026. Lamar online: ${origin}`;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank');
+    }
+  }
 
   $: existingApplication = ($currentUser && vacancy)
     ? $applications.find(a => a.vacancy_id === vacancy.id && a.applicant_id === $currentUser.id)
@@ -143,6 +154,10 @@
       </div>
 
       <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" on:click={handleShareWhatsApp} title="Bagikan Lowongan ke Teman via WhatsApp">
+          <Share2 size={15} /> WhatsApp
+        </button>
+
         <button class="btn btn-secondary" on:click={onClose}>
           Tutup
         </button>

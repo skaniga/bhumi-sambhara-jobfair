@@ -34,6 +34,23 @@
     }
   });
 
+  // Save offline snapshot for guaranteed accessibility without internet
+  $: if ($currentUser && $currentUser.role === 'pelamar') {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('bhumi_offline_qr_card', JSON.stringify({
+          id: $currentUser.id,
+          nama_lengkap: $currentUser.nama_lengkap,
+          token_qr: qrTokenValue,
+          nik_nisn: $currentUser.nik_nisn,
+          asal_sekolah: $currentUser.asal_sekolah,
+          jurusan: $currentUser.jurusan,
+          nomor_telepon: $currentUser.nomor_telepon,
+          saved_at: new Date().toISOString()
+        }));
+      } catch (e) {}
+    }
+  }
   function handlePrint() {
     window.print();
   }
