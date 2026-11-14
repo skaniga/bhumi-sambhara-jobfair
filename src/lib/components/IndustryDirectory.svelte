@@ -187,10 +187,12 @@
 
   .company-card-banner {
     width: 100%;
-    height: 70px;
-    object-fit: cover;
+    height: 78px;
+    object-fit: contain;
     border-radius: var(--radius-sm);
     display: block;
+    background-color: #FFFFFF;
+    padding: 2px;
   }
 
   .font-bold {

@@ -325,12 +325,14 @@
   }
 
   .admin-logo-micro {
-    width: 44px;
-    height: 22px;
-    object-fit: cover;
+    width: 68px;
+    height: 32px;
+    object-fit: contain;
     border-radius: var(--radius-sm);
+    background-color: #FFFFFF;
     border: 1px solid var(--color-border);
     flex-shrink: 0;
+    padding: 2px;
   }
 
   .mt-1 { margin-top: 4px; }

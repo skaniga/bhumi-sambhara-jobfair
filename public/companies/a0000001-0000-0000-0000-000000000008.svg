@@ -1,14 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
-  <defs>
-    <linearGradient id="grad-a0000001" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00529C" />
-      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.85" />
-    </linearGradient>
-  </defs>
-  <rect width="240" height="120" rx="10" fill="url(#grad-a0000001)" />
-  <rect x="4" y="4" width="232" height="112" rx="8" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
-  <circle cx="42" cy="60" r="24" fill="rgba(255,255,255,0.12)" />
-  <text x="42" y="67" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="800" fill="#FFFFFF" text-anchor="middle">BA</text>
-  <text x="78" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.02em">BANK BCA</text>
-  <text x="78" y="72" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.75)">Perbankan & Finansial</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+    <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <g transform="translate(18, 24)">
+      <rect x="0" y="0" width="80" height="72" rx="10" fill="#00529C"/>
+      <path d="M20 22 C32 10, 48 10, 60 22 C48 34, 32 34, 20 22 Z" fill="#00A4E4"/>
+      <path d="M20 50 C32 62, 48 62, 60 50 C48 38, 32 38, 20 50 Z" fill="#00A4E4"/>
+      <circle cx="40" cy="36" r="8" fill="#FFFFFF"/>
+    </g>
+    <text x="110" y="54" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="28" font-weight="900" fill="#00529C" letter-spacing="0.05em">BCA</text>
+    <text x="110" y="74" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#0F172A">BANK CENTRAL ASIA</text>
+    <text x="110" y="90" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Senantiasa di Sisi Anda • KCU Magelang</text>
+  </svg>

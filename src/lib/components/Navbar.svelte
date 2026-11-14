@@ -34,6 +34,13 @@
         20 Industri Partner
       </button>
 
+      <button 
+        class="nav-item {activeTab === 'denah' ? 'active' : ''}" 
+        on:click={() => activeTab = 'denah'}
+      >
+        Denah Stand
+      </button>
+
       {#if $currentUser}
         {#if $currentUser.role === 'pelamar'}
           <button 
@@ -114,6 +121,14 @@
   >
     <Grid size={20} />
     <span>20 Stand</span>
+  </button>
+
+  <button 
+    class="bottom-nav-item {activeTab === 'denah' ? 'active' : ''}"
+    on:click={() => activeTab = 'denah'}
+  >
+    <Compass size={20} />
+    <span>Denah</span>
   </button>
 
   {#if $currentUser}

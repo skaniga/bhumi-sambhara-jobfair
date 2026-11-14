@@ -10,6 +10,7 @@
   import ApplicantProfile from './lib/components/ApplicantProfile.svelte';
   import CompanyDashboard from './lib/components/CompanyDashboard.svelte';
   import AdminDashboard from './lib/components/AdminDashboard.svelte';
+  import DenahFloorPlan from './lib/components/DenahFloorPlan.svelte';
   import AuthModal from './lib/components/AuthModal.svelte';
   import { Building2, Calendar, MapPin, QrCode, Shield, CheckCircle } from '@lucide/svelte';
 
@@ -71,6 +72,13 @@
           onSelectVacancy={handleSelectVacancy} 
         />
       </div>
+    {:else if activeTab === 'denah'}
+      <DenahFloorPlan 
+        onSelectBooth={(ind) => {
+          searchQuery = ind.nomor_stand;
+          activeTab = 'lowongan';
+        }}
+      />
     {:else if activeTab === 'profil_pelamar'}
       <ApplicantProfile 
         onOpenQrCard={() => isQrCardOpen = true}

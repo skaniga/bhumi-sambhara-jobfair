@@ -124,6 +124,26 @@
       </div>
     </div>
 
+    <!-- 4 Quick Stat Banners -->
+    <div class="quick-overview-bar mb-3">
+      <div class="overview-item">
+        <span class="text-xs text-muted">Status Stand</span>
+        <span class="badge badge-terverifikasi mt-1">Stand Aktif &amp; Siap Melayani</span>
+      </div>
+      <div class="overview-item">
+        <span class="text-xs text-muted">Zona Hall Expo</span>
+        <span class="text-xs font-bold text-primary mt-1">Indoor Graha Krida Wiyata</span>
+      </div>
+      <div class="overview-item">
+        <span class="text-xs text-muted">Kehadiran Hari Ini</span>
+        <span class="text-xs font-bold text-success tabular-nums mt-1">{totalStandScans} Peserta Check-in</span>
+      </div>
+      <div class="overview-item">
+        <span class="text-xs text-muted">Kandidat Wawancara</span>
+        <span class="text-xs font-bold text-info tabular-nums mt-1">{totalWawancara} Dijadwalkan</span>
+      </div>
+    </div>
+
     {#if editMode}
       <div class="edit-company-form">
         <div class="grid-3">
@@ -319,11 +339,13 @@
   }
 
   .company-stand-logo-img {
-    width: 140px;
-    height: 70px;
-    object-fit: cover;
+    width: 180px;
+    height: 78px;
+    object-fit: contain;
     border-radius: var(--radius-md);
+    background-color: #FFFFFF;
     border: 1px solid var(--color-border);
+    padding: 2px;
   }
 
   .stand-badge-box {
@@ -358,6 +380,26 @@
     gap: 8px;
     align-items: flex-end;
   }
+
+  .quick-overview-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .overview-item {
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mb-3 { margin-bottom: 12px; }
 
   .edit-company-form {
     margin-top: 20px;
