@@ -11,7 +11,7 @@
 <header class="navbar">
   <div class="container nav-container">
     <div class="brand" on:click={() => activeTab = 'portal'} role="button" tabindex="0" on:keydown={(e) => e.key === 'Enter' && (activeTab = 'portal')}>
-      <img src="/brand-logo.png" alt="Logo Bhumi Sambhara UNTIDAR x SKANISA" class="brand-logo-img" />
+      <img src="/logo-bhumi-sambhara-icon.svg" alt="Logo Bhumi Sambhara 2026" class="brand-logo-img" />
       <div class="brand-text">
         <span class="brand-title">BHUMI SAMBHARA</span>
         <span class="brand-subtitle">EXPO & JOBFAIR 2026</span>

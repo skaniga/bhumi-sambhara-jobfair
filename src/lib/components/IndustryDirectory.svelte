@@ -76,8 +76,11 @@
         {@const vacs = getVacanciesForIndustry(ind.id)}
         <div class="card industry-card">
           <div class="card-top">
+            <div class="company-banner-wrap">
+              <img src="/companies/{ind.id}.svg" alt="{ind.nama_perusahaan}" class="company-card-banner" />
+            </div>
             <div class="ind-badge-row">
-              <span class="badge badge-stand">{ind.nomor_stand}</span>
+              <span class="badge badge-stand font-bold">{ind.nomor_stand}</span>
               <span class="text-xs text-muted">{ind.bidang_industri}</span>
             </div>
             <h3 class="heading-md ind-name">{ind.nama_perusahaan}</h3>
@@ -176,6 +179,22 @@
   .industry-card:hover {
     box-shadow: var(--shadow-md);
     border-color: var(--color-border-strong);
+  }
+
+  .company-banner-wrap {
+    margin-bottom: 12px;
+  }
+
+  .company-card-banner {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+
+  .font-bold {
+    font-weight: 700;
   }
 
   .ind-badge-row {

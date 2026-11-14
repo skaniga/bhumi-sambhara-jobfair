@@ -86,9 +86,9 @@
   <!-- Stand & Company Header -->
   <div class="card stand-hero-card">
     <div class="stand-hero-content">
-      <div class="stand-badge-box">
-        <span class="badge badge-stand text-sm">{company?.nomor_stand}</span>
-        <span class="text-xs text-muted">Booth Resmi Expo</span>
+      <div class="stand-logo-col">
+        <img src="/companies/{company?.id}.svg" alt="{company?.nama_perusahaan}" class="company-stand-logo-img" />
+        <span class="badge badge-stand text-sm mt-1">{company?.nomor_stand}</span>
       </div>
 
       <div class="stand-main-info">
@@ -294,6 +294,22 @@
     align-items: flex-start;
     gap: 20px;
     flex-wrap: wrap;
+  }
+
+  .stand-logo-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .company-stand-logo-img {
+    width: 140px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
   }
 
   .stand-badge-box {

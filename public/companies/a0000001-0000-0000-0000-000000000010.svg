@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <defs>
+    <linearGradient id="grad-a0000001" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4338CA" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+  <rect width="240" height="120" rx="10" fill="url(#grad-a0000001)" />
+  <rect x="4" y="4" width="232" height="112" rx="8" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+  <circle cx="42" cy="60" r="24" fill="rgba(255,255,255,0.12)" />
+  <text x="42" y="67" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="800" fill="#FFFFFF" text-anchor="middle">SU</text>
+  <text x="78" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.02em">SUKSES MANDIRI</text>
+  <text x="78" y="72" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.75)">Logistik & Manufaktur</text>
+</svg>

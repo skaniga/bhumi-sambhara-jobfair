@@ -135,6 +135,36 @@
     </div>
   </div>
 
+  <!-- Denah Zona Stand Expo -->
+  <div class="card zone-map-card">
+    <div class="card-header">
+      <h3 class="heading-sm">Denah Zona 20 Stand (Indoor Graha Krida Wiyata)</h3>
+      <span class="text-xs text-muted">Tata Letak Penempatan Booth Expo</span>
+    </div>
+    <div class="zone-grid">
+      <div class="zone-box zone-a">
+        <span class="badge badge-stand font-bold">ZONA A</span>
+        <span class="zone-name">Manufaktur, Ritel Modern & Manpower</span>
+        <p class="text-xs text-muted mt-1">Stand A1 s/d A5 • Quick Traktor, Daihatsu, Indomaret, Shelter, Alfamart</p>
+      </div>
+      <div class="zone-box zone-b">
+        <span class="badge badge-stand font-bold">ZONA B</span>
+        <span class="zone-name">Hospitality, Farmasi & Perbankan</span>
+        <p class="text-xs text-muted mt-1">Stand B1 s/d B5 • Grand Artos, Bintang 7, Bank BCA, Pharos, Sukses Mandiri</p>
+      </div>
+      <div class="zone-box zone-c">
+        <span class="badge badge-stand font-bold">ZONA C</span>
+        <span class="zone-name">Ritel Pangan, Otomotif & Garmen</span>
+        <p class="text-xs text-muted mt-1">Stand C1 s/d C5 • Alfamidi, Hotel Atria, Yamaha, Toyota Nasmoco, USG Garment</p>
+      </div>
+      <div class="zone-box zone-d">
+        <span class="badge badge-stand font-bold">ZONA D</span>
+        <span class="zone-name">Pariwisata Budaya, Keuangan & Agribisnis</span>
+        <p class="text-xs text-muted mt-1">Stand D1 s/d D5 • Borobudur Park, BFI Finance, Plataran, Triputra, Prima MS</p>
+      </div>
+    </div>
+  </div>
+
   <!-- 20 Stand Matrix Table -->
   <div class="card matrix-card">
     <div class="matrix-header-row">
@@ -172,10 +202,13 @@
             {@const rasio = row.totalPendaftar > 0 ? Math.round((row.totalTerverifikasi / row.totalPendaftar) * 100) : 0}
             <tr>
               <td>
-                <span class="badge badge-stand tabular-nums">{row.stand}</span>
+                <span class="badge badge-stand tabular-nums font-bold">{row.stand}</span>
               </td>
               <td>
-                <span class="perusahaan-cell">{row.perusahaan}</span>
+                <div class="admin-company-cell">
+                  <img src="/companies/{row.id}.svg" alt="{row.perusahaan}" class="admin-logo-micro" />
+                  <span class="perusahaan-cell">{row.perusahaan}</span>
+                </div>
               </td>
               <td>
                 <span class="text-xs text-muted">{row.bidang}</span>
@@ -257,6 +290,50 @@
     display: flex;
     gap: 10px;
   }
+
+  /* Zone Map Grid */
+  .zone-map-card {
+    padding: 20px 24px;
+  }
+
+  .zone-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .zone-box {
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .zone-name {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .admin-company-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .admin-logo-micro {
+    width: 44px;
+    height: 22px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .mt-1 { margin-top: 4px; }
 
   .kpi-card {
     display: flex;
