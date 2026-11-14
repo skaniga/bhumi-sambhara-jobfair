@@ -121,5 +121,20 @@ ON CONFLICT (id) DO UPDATE SET
   persyaratan = EXCLUDED.persyaratan,
   lokasi_penempatan = EXCLUDED.lokasi_penempatan;
 
--- SELESAI: 20 Industri dan 25 Lowongan Kerja Resmi Siap Digunakan.
--- Tabel profiles, job_applications, dan stand_attendances akan terisi secara organik oleh pelamar dan petugas stand saat acara berlangsung.
+-- 3. SEED AKUN RESMI: PANITIA BKK, UNTIDAR & STAND INDUSTRI
+INSERT INTO public.profiles (email, nama_lengkap, role, nomor_wa, company_id, qr_code_token)
+VALUES
+  ('bkk@skanisa.sch.id', 'BKK SMK Negeri 1 Magelang', 'admin', '0858-6873-3378', NULL, 'BSJ2026-ADM-BKK01'),
+  ('untidar@jobfair.id', 'K1 Pariwisata 2024 UNTIDAR', 'admin', '0812-3456-7890', NULL, 'BSJ2026-ADM-UNTIDAR01'),
+  ('hrd@quick.co.id', 'HRD CV Karya Hidup Sentosa (Quick)', 'pemberi_kerja', '0812-2334-4550', 'a0000001-0000-0000-0000-000000000001', 'BSJ2026-IND-QUICK01'),
+  ('hrd@armada-daihatsu.com', 'HRD Armada Daihatsu Magelang', 'pemberi_kerja', '0812-2334-4551', 'a0000001-0000-0000-0000-000000000002', 'BSJ2026-IND-DAIHATSU01'),
+  ('karir@indomaret.co.id', 'HRD PT Indomarco Prismatama', 'pemberi_kerja', '0812-2334-4552', 'a0000001-0000-0000-0000-000000000003', 'BSJ2026-IND-INDOMARET01'),
+  ('hrm@grandartoshotel.com', 'HRD Grand Artos Hotel & Convention', 'pemberi_kerja', '0812-2334-4555', 'a0000001-0000-0000-0000-000000000006', 'BSJ2026-IND-ARTOS01'),
+  ('recruitment@bca.co.id', 'Recruitment KCU BCA Magelang', 'pemberi_kerja', '0812-2334-4557', 'a0000001-0000-0000-0000-000000000008', 'BSJ2026-IND-BCA01'),
+  ('sdm@borobudurpark.co.id', 'SDM PT Taman Wisata Candi Borobudur', 'pemberi_kerja', '0812-2334-4565', 'a0000001-0000-0000-0000-000000000016', 'BSJ2026-IND-BOROBUDUR01')
+ON CONFLICT (email) DO UPDATE SET
+  nama_lengkap = EXCLUDED.nama_lengkap,
+  role = EXCLUDED.role,
+  nomor_wa = EXCLUDED.nomor_wa,
+  company_id = EXCLUDED.company_id,
+  qr_code_token = EXCLUDED.qr_code_token;
