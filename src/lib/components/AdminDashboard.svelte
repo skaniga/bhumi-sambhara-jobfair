@@ -1,10 +1,17 @@
 <script>
-  import { industries, vacancies, applications, allUsers, standAttendances } from '../supabase.js';
-  import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search } from '@lucide/svelte';
+  import { industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase } from '../supabase.js';
+  import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search, RefreshCw } from '@lucide/svelte';
 
   export let onOpenScanner = () => {};
 
   let filterSearch = '';
+  let syncing = false;
+
+  async function handleRefresh() {
+    syncing = true;
+    await syncFromSupabase();
+    setTimeout(() => { syncing = false; }, 600);
+  }
 
   // Calculate Metrics
   $: totalJobseekers = $allUsers.filter(u => u.role === 'pelamar').length;
@@ -83,6 +90,11 @@
       </div>
 
       <div class="admin-hero-actions">
+        <button class="btn btn-secondary btn-sm" on:click={handleRefresh} disabled={syncing} title="Tarik pembaruan data real-time">
+          <RefreshCw size={14} class={syncing ? 'animate-spin' : ''} />
+          <span>{syncing ? 'Sinkron...' : 'Perbarui'}</span>
+        </button>
+
         <button class="btn btn-amber" on:click={onOpenScanner}>
           <ScanLine size={16} />
           <span>Scanner Master Panitia</span>

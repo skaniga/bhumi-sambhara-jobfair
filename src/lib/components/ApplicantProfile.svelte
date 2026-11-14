@@ -17,6 +17,18 @@
   let saving = false;
   let saveMessage = '';
 
+  $: if ($currentUser && !saving) {
+    nama = $currentUser.nama_lengkap || '';
+    nikNisn = $currentUser.nik_nisn || '';
+    nomorWa = $currentUser.nomor_wa || '';
+    pendidikan = $currentUser.pendidikan_terakhir || 'SMK / SMA (Lulusan 2026)';
+    sekolah = $currentUser.asal_sekolah_kampus || '';
+    jurusan = $currentUser.jurusan || '';
+    skillsText = ($currentUser.keahlian || []).join(', ');
+    cvLink = $currentUser.link_cv_portofolio || '';
+    ringkasan = $currentUser.ringkasan_profil || '';
+  }
+
   $: myApplications = $applications.filter(a => a.applicant_id === $currentUser?.id);
 
   function getVacancy(vacId) {

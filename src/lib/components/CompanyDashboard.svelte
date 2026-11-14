@@ -9,8 +9,9 @@
   let searchQuery = '';
 
   // Current company
-  $: currentCompanyId = $currentUser?.company_id || 'ind-01';
-  $: company = $industries.find(i => i.id === currentCompanyId) || $industries[0];
+  let selectedCompanyId = '';
+  $: effectiveCompanyId = selectedCompanyId || $currentUser?.company_id || ($industries[0] ? $industries[0].id : '');
+  $: company = $industries.find(i => i.id === effectiveCompanyId) || $industries[0];
 
   // Editable fields
   let editNama = '';

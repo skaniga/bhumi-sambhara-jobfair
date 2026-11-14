@@ -35,6 +35,18 @@ function saveStorage(key, value) {
   }
 }
 
+// ── RFC4122 v4 UUID Generator (Guarantees Valid Postgres UUID) ──
+export function generateUUID() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 // ── Svelte Reactive Stores ──
 // Clean state: no dummy mock applicants or dummy applications
 export const currentUser = writable(loadStorage('current_user', null));
@@ -160,7 +172,7 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
   const qrToken = 'BSJ2026-' + (role === 'pelamar' ? 'PEL' : 'IND') + '-' + Math.floor(10000 + Math.random() * 90000);
 
   const newUser = {
-    id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : 'usr-' + Date.now().toString(36),
+    id: generateUUID(),
     email: cleanEmail,
     nama_lengkap: cleanNama,
     role: role || 'pelamar',
@@ -254,7 +266,7 @@ export async function applyJob(vacancyId, applicantId, coverNote = '') {
   }
 
   const newApp = {
-    id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : 'app-' + Date.now().toString(36),
+    id: generateUUID(),
     vacancy_id: vacancyId,
     applicant_id: applicantId,
     status: 'menunggu',
@@ -311,7 +323,7 @@ export async function recordStandScan(industryId, applicantId, notes = '', scann
   const existing = attendances.find(a => a.industry_id === industryId && a.applicant_id === applicantId);
 
   const newRecord = {
-    id: existing ? existing.id : (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : 'att-' + Date.now().toString(36)),
+    id: existing ? existing.id : generateUUID(),
     industry_id: industryId,
     applicant_id: applicantId,
     scanned_at: new Date().toISOString(),
@@ -351,4 +363,44 @@ export async function recordStandScan(industryId, applicantId, notes = '', scann
   }
 
   return { success: true, record: newRecord };
+}
+
+// ── Live Applicant Lookup (Local + Supabase Cloud Fallback) ──
+export async function lookupApplicant(tokenOrId) {
+  const query = tokenOrId.trim();
+  const localList = get(allUsers);
+  let found = localList.find(u => 
+    u.qr_code_token === query || 
+    u.nik_nisn === query || 
+    u.id === query ||
+    u.email.toLowerCase() === query.toLowerCase()
+  );
+
+  if (found) return found;
+
+  // Query Supabase directly
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .or(`qr_code_token.eq.${query},nik_nisn.eq.${query},id.eq.${query},email.eq.${query}`)
+        .limit(1);
+
+      if (!error && data && data.length > 0) {
+        const remoteUser = data[0];
+        allUsers.update(list => {
+          if (!list.some(u => u.id === remoteUser.id)) {
+            return [...list, remoteUser];
+          }
+          return list;
+        });
+        return remoteUser;
+      }
+    } catch (e) {
+      console.warn('Supabase lookup applicant notice:', e);
+    }
+  }
+
+  return null;
 }

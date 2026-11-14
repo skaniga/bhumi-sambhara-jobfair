@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { Html5Qrcode } from 'html5-qrcode';
-  import { allUsers, currentUser, recordStandScan, updateApplicationStatus, applications, vacancies } from '../supabase.js';
+  import { allUsers, currentUser, recordStandScan, updateApplicationStatus, applications, vacancies, lookupApplicant } from '../supabase.js';
   import { X, Camera, CheckCircle, AlertCircle, User, Briefcase, Search, Scan } from '@lucide/svelte';
 
   export let onClose = () => {};
@@ -65,32 +65,22 @@
     }
   }
 
-  function handleScanSuccess(rawText) {
+  async function handleScanSuccess(rawText) {
     let token = rawText.trim();
     try {
       const parsed = JSON.parse(rawText);
       if (parsed.token) token = parsed.token;
-      if (parsed.applicant_id) {
-        const foundById = $allUsers.find(u => u.id === parsed.applicant_id);
-        if (foundById) {
-          selectApplicant(foundById);
-          return;
-        }
-      }
+      if (parsed.applicant_id) token = parsed.applicant_id;
     } catch (e) {
       // plain text token
     }
 
-    const found = $allUsers.find(u => 
-      u.qr_code_token === token || 
-      u.email.toLowerCase() === token.toLowerCase() ||
-      u.nik_nisn === token
-    );
+    const found = await lookupApplicant(token);
 
     if (found) {
       selectApplicant(found);
     } else {
-      errorMessage = `Kode token "${token}" tidak terdaftar dalam sistem peserta expo.`;
+      errorMessage = `Kode token atau NIK "${token}" tidak terdaftar dalam database peserta expo.`;
     }
   }
 
@@ -104,6 +94,16 @@
     scannedApplicant = user;
     errorMessage = '';
     verificationSuccess = false;
+    stopScanning();
+  }
+
+  async function resetScan() {
+    scannedApplicant = null;
+    verificationSuccess = false;
+    errorMessage = '';
+    setTimeout(() => {
+      startScanning();
+    }, 150);
   }
 
   async function handleVerifyPresence() {
@@ -232,7 +232,7 @@
           {/if}
 
           <div class="action-buttons-row">
-            <button class="btn btn-secondary" on:click={() => { scannedApplicant = null; verificationSuccess = false; }}>
+            <button class="btn btn-secondary" on:click={resetScan}>
               Scan Pelamar Lain
             </button>
 
