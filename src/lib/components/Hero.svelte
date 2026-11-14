@@ -332,11 +332,11 @@
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    transition: transform 0.25s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .pamflet-preview-wrap:hover .pamflet-thumbnail {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   .pamflet-overlay {

@@ -387,13 +387,17 @@
     align-items: center;
     text-align: center;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
   }
 
   .booth-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 12px -2px rgb(15 23 42 / 0.12);
     border-color: var(--color-amber-accent);
+  }
+
+  .booth-card:active {
+    transform: translateY(-1px) scale(1.0);
   }
 
   .booth-tag-top {

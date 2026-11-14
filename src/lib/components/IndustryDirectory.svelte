@@ -173,12 +173,34 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .industry-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-amber-accent) 100%);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
   }
 
   .industry-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--color-border-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: #CBD5E1;
+  }
+
+  .industry-card:hover::before {
+    opacity: 1;
   }
 
   .company-banner-wrap {

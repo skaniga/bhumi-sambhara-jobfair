@@ -124,6 +124,33 @@
       </div>
     </div>
 
+    <!-- Walk-in Pipeline Status Visual Tracker -->
+    <div class="pipeline-tracker-box">
+      <div class="pipeline-step {totalStandScans > 0 ? 'active' : ''}">
+        <div class="step-num-circle">1</div>
+        <div class="step-label-group">
+          <span class="step-title">Check-in Stand</span>
+          <span class="step-sub">{totalStandScans} Peserta Hadir</span>
+        </div>
+      </div>
+      <div class="pipeline-connector {totalStandScans > 0 ? 'active' : ''}"></div>
+      <div class="pipeline-step {totalWawancara > 0 ? 'active' : ''}">
+        <div class="step-num-circle">2</div>
+        <div class="step-label-group">
+          <span class="step-title">Wawancara Booth</span>
+          <span class="step-sub">{totalWawancara} Dijadwalkan</span>
+        </div>
+      </div>
+      <div class="pipeline-connector {totalWawancara > 0 ? 'active' : ''}"></div>
+      <div class="pipeline-step {companyApplications.filter(a => a.status === 'diterima').length > 0 ? 'active' : ''}">
+        <div class="step-num-circle">3</div>
+        <div class="step-label-group">
+          <span class="step-title">Lolos Seleksi</span>
+          <span class="step-sub">{companyApplications.filter(a => a.status === 'diterima').length} Kandidat</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 4 Quick Stat Banners -->
     <div class="quick-overview-bar mb-3">
       <div class="overview-item">
@@ -379,6 +406,76 @@
     flex-direction: column;
     gap: 8px;
     align-items: flex-end;
+  }
+
+  .pipeline-tracker-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 20px;
+    margin-top: 18px;
+    gap: 12px;
+  }
+
+  .pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .pipeline-step.active {
+    opacity: 1;
+  }
+
+  .step-num-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--color-surface-muted);
+    border: 2px solid var(--color-border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+  }
+
+  .pipeline-step.active .step-num-circle {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .step-label-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+  }
+
+  .step-sub {
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+  }
+
+  .pipeline-connector {
+    flex: 1;
+    height: 2px;
+    background-color: var(--color-border);
+    margin: 0 4px;
+  }
+
+  .pipeline-connector.active {
+    background-color: var(--color-primary);
   }
 
   .quick-overview-bar {

@@ -39,6 +39,34 @@
   --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.04);
+
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+/* Subtle, Natural Micro-Interactions (Anti-Slop Craftsmanship) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.88; transform: scale(0.99); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
 }
 
 *, *::before, *::after {
@@ -130,6 +158,14 @@ a {
 }
 
 /* Buttons */
+.card {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -142,6 +178,14 @@ a {
   transition: all 0.15s ease-in-out;
   border: 1px solid transparent;
   white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn-primary {
@@ -285,11 +329,13 @@ a {
   position: fixed;
   inset: 0;
   background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
   padding: 16px;
+  animation: fadeIn 0.15s ease forwards;
 }
 
 .modal-content {
@@ -301,6 +347,7 @@ a {
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
+  animation: scaleIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
 }
 
 .modal-header {
