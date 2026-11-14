@@ -1,6 +1,6 @@
 <script>
   import { EVENT_DETAILS } from '../initialData.js';
-  import { Calendar, MapPin, Building, Users, Search, QrCode } from '@lucide/svelte';
+  import { Calendar, MapPin, Building, Users, Search, QrCode, X } from '@lucide/svelte';
 
   export let searchQuery = '';
 </script>
@@ -44,6 +44,11 @@
             placeholder="Cari lowongan (Mekanik, Perhotelan, Ritel, Kasir, atau nama PT)..." 
             class="search-input"
           />
+          {#if searchQuery}
+            <button class="btn-clear-search" on:click={() => searchQuery = ''} title="Hapus pencarian">
+              <X size={16} />
+            </button>
+          {/if}
         </div>
       </div>
 
@@ -176,6 +181,18 @@
     outline: none;
     font-size: 0.875rem;
     color: var(--color-text-main);
+  }
+
+  .btn-clear-search {
+    padding: 4px;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-clear-search:hover {
+    color: var(--color-primary);
   }
 
   .hero-stats-card {

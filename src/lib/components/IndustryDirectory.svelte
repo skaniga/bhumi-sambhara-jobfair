@@ -35,6 +35,11 @@
   function getVacanciesForIndustry(indId) {
     return $vacancies.filter(v => v.industry_id === indId);
   }
+
+  function getSectorCount(sec) {
+    if (sec === 'Semua') return $industries.length;
+    return $industries.filter(i => i.bidang_industri.toLowerCase().includes(sec.toLowerCase())).length;
+  }
 </script>
 
 <div class="directory-wrap">
@@ -48,12 +53,15 @@
 
     <div class="filter-pills">
       {#each SECTORS as sec}
-        <button 
-          class="filter-pill {selectedSector === sec ? 'active' : ''}"
-          on:click={() => selectedSector = sec}
-        >
-          {sec}
-        </button>
+        {@const cnt = getSectorCount(sec)}
+        {#if cnt > 0 || sec === 'Semua'}
+          <button 
+            class="filter-pill {selectedSector === sec ? 'active' : ''}"
+            on:click={() => selectedSector = sec}
+          >
+            {sec} <span class="pill-count tabular-nums">({cnt})</span>
+          </button>
+        {/if}
       {/each}
     </div>
   </div>

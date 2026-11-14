@@ -53,6 +53,10 @@
 
     <div class="modal-body id-card-body">
       <div class="jobfair-id-pass">
+        <div class="lanyard-hole-wrap">
+          <div class="lanyard-slot"></div>
+        </div>
+
         <div class="pass-ribbon">
           <span class="ribbon-text">K1 PARIWISATA UNTIDAR X SMKN 1 MAGELANG</span>
         </div>
@@ -145,6 +149,23 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
+    position: relative;
+  }
+
+  .lanyard-hole-wrap {
+    display: flex;
+    justify-content: center;
+    background-color: #FFFFFF;
+    padding: 8px 0 6px;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .lanyard-slot {
+    width: 60px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: var(--color-surface-subtle);
+    border: 1.5px solid var(--color-border-strong);
   }
 
   .pass-ribbon {
