@@ -1,12 +1,19 @@
 <script>
-  import { currentUser, industries, vacancies, applications, allUsers, updateApplicationStatus, updateCompany } from '../supabase.js';
-  import { Building2, ScanLine, CheckCircle, Clock, UserCheck, XCircle, Search, Edit, Save } from '@lucide/svelte';
+  import { currentUser, industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase, updateApplicationStatus, updateCompany } from '../supabase.js';
+  import { Building2, ScanLine, CheckCircle, Clock, UserCheck, XCircle, Search, Edit, Save, RefreshCw } from '@lucide/svelte';
 
   export let onOpenScanner = () => {};
 
   let editMode = false;
   let filterStatus = 'all';
   let searchQuery = '';
+  let syncing = false;
+
+  async function handleRefresh() {
+    syncing = true;
+    await syncFromSupabase();
+    setTimeout(() => { syncing = false; }, 600);
+  }
 
   // Current company
   let selectedCompanyId = '';
@@ -52,8 +59,10 @@
   });
 
   // KPIs
+  $: compAttendances = $standAttendances.filter(s => s.industry_id === company?.id);
+  $: totalStandScans = compAttendances.length;
   $: totalPendaftar = compApplications.length;
-  $: totalTerverifikasi = compApplications.filter(a => a.status === 'terverifikasi_stand').length;
+  $: totalTerverifikasi = Math.max(compApplications.filter(a => a.status === 'terverifikasi_stand').length, totalStandScans);
   $: totalWawancara = compApplications.filter(a => a.status === 'wawancara').length;
   $: totalDiterima = compApplications.filter(a => a.status === 'diterima').length;
 
@@ -98,6 +107,11 @@
       </div>
 
       <div class="stand-actions">
+        <button class="btn btn-secondary btn-sm" on:click={handleRefresh} disabled={syncing} title="Sinkronkan data live dari Supabase">
+          <RefreshCw size={14} class={syncing ? 'animate-spin' : ''} />
+          <span>{syncing ? 'Memperbarui...' : 'Sinkron Data'}</span>
+        </button>
+
         <button class="btn btn-amber" on:click={onOpenScanner}>
           <ScanLine size={18} />
           <span>Scan Barcode Pelamar</span>

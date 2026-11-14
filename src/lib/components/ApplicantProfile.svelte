@@ -1,13 +1,13 @@
 <script>
-  import { currentUser, updateProfile, applications, vacancies, industries } from '../supabase.js';
-  import { User, QrCode, Save, Briefcase, CheckCircle, ExternalLink, Clock, Building2 } from '@lucide/svelte';
+  import { currentUser, updateProfile, applications, vacancies, industries, standAttendances, syncFromSupabase } from '../supabase.js';
+  import { User, QrCode, Save, Briefcase, CheckCircle, ExternalLink, Clock, Building2, RefreshCw, Check } from '@lucide/svelte';
 
   export let onOpenQrCard = () => {};
 
   let nama = $currentUser?.nama_lengkap || '';
   let nikNisn = $currentUser?.nik_nisn || '';
   let nomorWa = $currentUser?.nomor_wa || '';
-  let pendidikan = $currentUser?.pendidikan_terakhir || 'SMK / SMA';
+  let pendidikan = $currentUser?.pendidikan_terakhir || 'SMK / SMA (Lulusan 2026)';
   let sekolah = $currentUser?.asal_sekolah_kampus || '';
   let jurusan = $currentUser?.jurusan || '';
   let skillsText = ($currentUser?.keahlian || []).join(', ');
@@ -16,6 +16,13 @@
 
   let saving = false;
   let saveMessage = '';
+  let syncing = false;
+
+  async function handleRefresh() {
+    syncing = true;
+    await syncFromSupabase();
+    setTimeout(() => { syncing = false; }, 600);
+  }
 
   $: if ($currentUser && !saving) {
     nama = $currentUser.nama_lengkap || '';
@@ -30,6 +37,7 @@
   }
 
   $: myApplications = $applications.filter(a => a.applicant_id === $currentUser?.id);
+  $: myAttendances = $standAttendances.filter(a => a.applicant_id === $currentUser?.id);
 
   function getVacancy(vacId) {
     return $vacancies.find(v => v.id === vacId);
@@ -82,6 +90,10 @@
       </div>
 
       <div class="qr-action-col">
+        <button class="btn btn-secondary btn-sm" on:click={handleRefresh} disabled={syncing} title="Perbarui data dari server">
+          <RefreshCw size={15} class={syncing ? 'animate-spin' : ''} />
+          <span>{syncing ? 'Memperbarui...' : 'Sinkron Data'}</span>
+        </button>
         <button class="btn btn-primary" on:click={onOpenQrCard}>
           <QrCode size={18} />
           <span>Lihat Kartu QR Saya</span>
@@ -170,14 +182,33 @@
       </div>
     </div>
 
-    <!-- Riwayat Lamaran Pelamar -->
+    <!-- Riwayat Lamaran & Presensi Stand Pelamar -->
     <div class="card applications-card">
       <div class="card-header">
-        <h3 class="heading-sm">Lamaran Saya ({myApplications.length})</h3>
+        <h3 class="heading-sm">Lamaran & Presensi Stand ({myApplications.length})</h3>
         <span class="text-xs text-muted">Kunjungi stand untuk presensi</span>
       </div>
 
-      {#if myApplications.length === 0}
+      {#if myAttendances.length > 0}
+        <div class="attendances-box mb-3">
+          <div class="attendances-title">
+            <CheckCircle size={15} color="#15803D" />
+            <span class="text-xs font-bold text-success">Presensi Stand Terverifikasi ({myAttendances.length}):</span>
+          </div>
+          <div class="attendances-list">
+            {#each myAttendances as att}
+              {@const ind = getIndustry(att.industry_id)}
+              <div class="attendance-pill">
+                <span class="badge badge-stand">{ind?.nomor_stand || 'Stand'}</span>
+                <span class="text-xs font-semibold">{ind?.nama_perusahaan}</span>
+                <span class="badge badge-terverifikasi text-xs">Hadir Terverifikasi</span>
+              </div>
+            {/each}
+          </div>
+        </div>
+      {/if}
+
+      {#if myApplications.length === 0 && myAttendances.length === 0}
         <div class="empty-applications">
           <Briefcase size={36} class="text-muted" />
           <p class="text-xs text-muted mt-2">Anda belum mengirimkan lamaran pekerjaan ke 20 industri partner.</p>
@@ -297,6 +328,42 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .attendances-box {
+    background-color: var(--color-success-bg);
+    border: 1px solid #BBF7D0;
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+
+  .attendances-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .text-success {
+    color: var(--color-success);
+  }
+
+  .attendances-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .attendance-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    gap: 8px;
   }
 
   .timeline-item {

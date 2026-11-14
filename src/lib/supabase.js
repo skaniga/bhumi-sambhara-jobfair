@@ -347,28 +347,49 @@ export async function recordStandScan(industryId, applicantId, notes = '', scann
     standAttendances.update(list => [newRecord, ...list]);
   }
 
-  // Automatically upgrade pending applications for this industry to 'terverifikasi_stand'
-  const currentVacancies = get(vacancies).filter(v => v.industry_id === industryId);
-  const vacIds = currentVacancies.map(v => v.id);
-
-  applications.update(list => list.map(app => {
-    if (app.applicant_id === applicantId && vacIds.includes(app.vacancy_id) && app.status === 'menunggu') {
-      return {
-        ...app,
-        status: 'terverifikasi_stand',
-        catatan_industri: 'Telah scan barcode dan diverifikasi langsung di stand booth.',
-        waktu_verifikasi: new Date().toISOString(),
-        verified_by: scannedBy
-      };
-    }
-    return app;
-  }));
-
   if (supabase) {
     try {
       await supabase.from('stand_attendances').upsert([newRecord]);
     } catch (e) {
       console.warn('Supabase recordStandScan notice:', e);
+    }
+  }
+
+  // Find existing applications for this industry
+  const currentVacancies = get(vacancies).filter(v => v.industry_id === industryId);
+  const vacIds = currentVacancies.map(v => v.id);
+  const existingApps = get(applications).filter(a => a.applicant_id === applicantId && vacIds.includes(a.vacancy_id));
+
+  if (existingApps.length > 0) {
+    for (const app of existingApps) {
+      const nextStatus = app.status === 'menunggu' ? 'terverifikasi_stand' : app.status;
+      await updateApplicationStatus(
+        app.id,
+        nextStatus,
+        notes || 'Telah scan barcode dan diverifikasi langsung di stand booth.',
+        scannedBy
+      );
+    }
+  } else if (currentVacancies.length > 0) {
+    // Walk-in candidate: automatically register application for primary vacancy of this stand
+    const primaryVac = currentVacancies[0];
+    const walkInApp = {
+      id: generateUUID(),
+      vacancy_id: primaryVac.id,
+      applicant_id: applicantId,
+      status: 'terverifikasi_stand',
+      catatan_industri: notes || 'Pendaftaran & Verifikasi On-the-spot di Stand ' + (primaryVac.lokasi || ''),
+      waktu_melamar: new Date().toISOString(),
+      waktu_verifikasi: new Date().toISOString(),
+      verified_by: scannedBy
+    };
+    applications.update(list => [walkInApp, ...list]);
+    if (supabase) {
+      try {
+        await supabase.from('job_applications').insert([walkInApp]);
+      } catch (e) {
+        console.warn('Supabase walk-in app notice:', e);
+      }
     }
   }
 
