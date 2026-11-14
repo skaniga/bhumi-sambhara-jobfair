@@ -58,7 +58,7 @@ Sebagai perwakilan HRD / Rekruter industri di booth expo, Anda dapat:
   - Nomor Stand (contoh: *Stand A1*)
   - Nama Perusahaan & Kontak PIC
   - Total Lamaran Masuk, Terverifikasi, dan Wawancara.
-* Jika ingin memperbarui kontak PIC atau deskripsi perusahaan, klik **Edit Profil Stand** $\rightarrow$ perbarui data $\rightarrow$ klik **Simpan Data Stand**.
+* Jika ingin memperbarui kontak PIC atau deskripsi perusahaan, klik **Edit Profil Stand** -> perbarui data -> klik **Simpan Data Stand**.
 
 ### 3. Memindai QR Code Pelamar di Meja Booth
 Saat pencari kerja mendatangi booth Anda:
@@ -67,7 +67,7 @@ Saat pencari kerja mendatangi booth Anda:
 3. Arahkan kamera laptop atau smartphone Anda ke kode QR pelamar:
    - Kamera langsung mengenali kode dalam hitungan detik.
    - Layar otomatis menampilkan data lengkap pelamar: Nama Lengkap, Asal Sekolah/Kampus, Jurusan, NIK, dan Nomor WhatsApp.
-4. **Jika Perangkat Tidak Memiliki Kamera**: Ketik token pelamar (contoh: `BSJ2026-PEL-75600`) atau nomor NIK pelamar pada kotak input manual di bawah viewfinder $\rightarrow$ klik **Cari**.
+4. **Jika Perangkat Tidak Memiliki Kamera**: Ketik token pelamar (contoh: `BSJ2026-PEL-75600`) atau nomor NIK pelamar pada kotak input manual di bawah viewfinder -> klik **Cari**.
 
 ### 4. Tindakan Seleksi & Verifikasi di Stand
 Pada kartu data pelamar yang muncul setelah scan:

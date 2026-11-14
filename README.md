@@ -1,6 +1,6 @@
 # Bhumi Sambhara Career Portal & Jobfair 2026
 
-Portal seleksi kerja dan bursa karir resmi acara **Bhumi Sambhara Expo & Jobfair 2026**, hasil kolaborasi antara **K1 Pariwisata 2024 Universitas Tidar (UNTIDAR)** $\times$ **SMK Negeri 1 Magelang (SKANISA)**.
+Portal seleksi kerja dan bursa karir resmi acara **Bhumi Sambhara Expo & Jobfair 2026**, hasil kolaborasi antara **K1 Pariwisata 2024 Universitas Tidar (UNTIDAR)** x **SMK Negeri 1 Magelang (SKANISA)**.
 
 Pelaksanaan Acara:
 - **Tanggal**: Kamis, 19 November 2026
@@ -107,7 +107,7 @@ Pencari kerja (siswa, alumni, atau umum) dapat mendaftar mandiri secara instan m
 Proyek ini telah dikonfigurasi dengan `vercel.json` dan siap di-deploy langsung ke Vercel:
 
 ### 1. Environment Variables di Vercel
-Tambahkan di **Project Settings $\rightarrow$ Environment Variables**:
+Tambahkan di **Project Settings -> Environment Variables**:
 
 | Variable Key | Value | Keterangan |
 | :--- | :--- | :--- |
