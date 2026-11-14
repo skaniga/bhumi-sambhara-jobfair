@@ -11,9 +11,7 @@
 <header class="navbar">
   <div class="container nav-container">
     <div class="brand" on:click={() => activeTab = 'portal'} role="button" tabindex="0" on:keydown={(e) => e.key === 'Enter' && (activeTab = 'portal')}>
-      <div class="logo-box">
-        <Building2 size={20} color="#FFFFFF" />
-      </div>
+      <img src="/brand-logo.png" alt="Logo Bhumi Sambhara UNTIDAR x SKANISA" class="brand-logo-img" />
       <div class="brand-text">
         <span class="brand-title">BHUMI SAMBHARA</span>
         <span class="brand-subtitle">EXPO & JOBFAIR 2026</span>
@@ -220,6 +218,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .brand-logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
   }
 
   .brand-text {

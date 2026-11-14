@@ -7,6 +7,10 @@
 
 <section class="hero-section">
   <div class="container">
+    <div class="hero-logos-strip">
+      <img src="/institutional-logos.png" alt="Logo Resmi UNTIDAR x SMK Negeri 1 Magelang" class="logos-strip-img" />
+    </div>
+
     <div class="hero-grid">
       <div class="hero-content">
         <div class="institution-tag">
@@ -91,7 +95,22 @@
   .hero-section {
     background-color: #FFFFFF;
     border-bottom: 1px solid var(--color-border);
-    padding: 40px 0 36px;
+    padding: 30px 0 36px;
+  }
+
+  .hero-logos-strip {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .logos-strip-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.05));
   }
 
   .hero-grid {
