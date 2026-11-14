@@ -3,7 +3,7 @@
   import { Building2, Briefcase, MapPin, ChevronRight, Filter } from '@lucide/svelte';
 
   export let searchQuery = '';
-  export let onSelectVacancy = () => {};
+  export let onSelectVacancy = (vac, ind) => {};
 
   let selectedSector = 'Semua';
 

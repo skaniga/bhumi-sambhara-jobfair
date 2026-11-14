@@ -5,12 +5,15 @@
   import { X, Camera, CheckCircle, AlertCircle, User, Briefcase, Search, Scan } from '@lucide/svelte';
 
   export let onClose = () => {};
+  /** @type {any} */
   export let currentIndustry = null;
 
   let scannerElementId = 'qr-reader-region';
+  /** @type {any} */
   let html5QrCode = null;
   let isScanning = false;
   let manualInput = '';
+  /** @type {any} */
   let scannedApplicant = null;
   let verificationSuccess = false;
   let errorMessage = '';
@@ -136,7 +139,7 @@
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
-  <div class="modal-content scanner-modal" on:click|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
+  <div class="modal-content scanner-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
       <div>
         <h3 class="heading-sm">Scanner QR Barcode Pelamar</h3>

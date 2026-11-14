@@ -10,7 +10,7 @@
   let email = '';
   let password = '';
   let role = 'pelamar';
-  let companyId = 'ind-01';
+  let companyId = 'a0000001-0000-0000-0000-000000000001';
   let errorMessage = '';
   let loading = false;
 
@@ -51,7 +51,7 @@
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
-  <div class="modal-content auth-modal" on:click|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
+  <div class="modal-content auth-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
       <div>
         <h3 class="heading-md auth-title">{isRegisterMode ? 'Daftar Akun Jobfair 2026' : 'Masuk ke Portal Jobfair'}</h3>

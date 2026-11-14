@@ -2,7 +2,9 @@
   import { currentUser, applications, applyJob } from '../supabase.js';
   import { X, Building2, MapPin, Briefcase, GraduationCap, CheckCircle, AlertCircle } from '@lucide/svelte';
 
+  /** @type {any} */
   export let vacancy = null;
+  /** @type {any} */
   export let industry = null;
   export let onClose = () => {};
   export let onRequireAuth = () => {};
@@ -47,7 +49,7 @@
 
 {#if vacancy}
   <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
-    <div class="modal-content" on:click|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
       <div class="modal-header">
         <div>
           <span class="badge badge-stand">{industry?.nomor_stand || 'Stand Industri'}</span>

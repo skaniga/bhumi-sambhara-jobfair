@@ -40,7 +40,7 @@
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
-  <div class="modal-content id-card-modal" on:click|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
+  <div class="modal-content id-card-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
       <div class="header-titles">
         <h3 class="heading-sm">Kartu Peserta Resmi Jobfair</h3>
