@@ -30,16 +30,30 @@ Berikut daftar akun resmi yang telah di-seed langsung ke sistem database Supabas
 
 ---
 
-### 2. Akun Perwakilan Stand Industri (Role: Pemberi Kerja)
+### 2. Akun 20 Stand Industri Resmi (Role: Pemberi Kerja)
 
 | Stand Booth | Nama Industri / Perusahaan | Alamat Email | Kata Sandi | Peran |
 | :--- | :--- | :--- | :--- | :--- |
 | **Stand A1** | CV Karya Hidup Sentosa (Quick) | `hrd@quick.co.id` | `QuickStandA1!` | `pemberi_kerja` |
-| **Stand A2** | Armada Daihatsu Magelang | `hrd@armada-daihatsu.com` | `DaihatsuStandA2!` | `pemberi_kerja` |
+| **Stand A2** | Armada Daihatsu (PT Astra Daihatsu) | `hrd@armada-daihatsu.com` | `DaihatsuStandA2!` | `pemberi_kerja` |
 | **Stand A3** | Indomaret Group (PT Indomarco) | `karir@indomaret.co.id` | `IndomaretStandA3!` | `pemberi_kerja` |
+| **Stand A4** | PT Shelter Indonesia | `recruitment@shelter.co.id` | `ShelterStandA4!` | `pemberi_kerja` |
+| **Stand A5** | PT Sumber Alfaria Trijaya (Alfamart) | `karir@alfamartku.com` | `AlfamartStandA5!` | `pemberi_kerja` |
 | **Stand B1** | Grand Artos Hotel & Convention | `hrm@grandartoshotel.com` | `GrandArtosStandB1!` | `pemberi_kerja` |
+| **Stand B2** | PT Bintang Toedjoe (Kalbe Group) | `career@bintang7.com` | `Bintang7StandB2!` | `pemberi_kerja` |
 | **Stand B3** | PT Bank Central Asia Tbk (BCA) | `recruitment@bca.co.id` | `BcaStandB3!` | `pemberi_kerja` |
+| **Stand B4** | PT Pharos Indonesia | `recruitment@pharos.co.id` | `PharosStandB4!` | `pemberi_kerja` |
+| **Stand B5** | PT Sukses Mandiri Utama | `info@suksesmandiri.co.id` | `SuksesMandiriStandB5!` | `pemberi_kerja` |
+| **Stand C1** | PT Midi Utama Indonesia (Alfamidi) | `karir@alfamidiku.com` | `AlfamidiStandC1!` | `pemberi_kerja` |
+| **Stand C2** | Hotel Atria Magelang (Parador) | `hrd@atriahotelmagelang.com` | `AtriaHotelStandC2!` | `pemberi_kerja` |
+| **Stand C3** | PT Mataram Sakti (Yamaha) | `hr@mataramsakti.co.id` | `MataramSaktiStandC3!` | `pemberi_kerja` |
+| **Stand C4** | PT Nasmoco Magelang (Toyota) | `recruitment@nasmoco.co.id` | `NasmocoStandC4!` | `pemberi_kerja` |
+| **Stand C5** | PT Ungaran Sari Garments | `hrd@usg.co.id` | `UsgGarmentStandC5!` | `pemberi_kerja` |
 | **Stand D1** | PT Taman Wisata Candi Borobudur | `sdm@borobudurpark.co.id` | `BorobudurStandD1!` | `pemberi_kerja` |
+| **Stand D2** | PT BFI Finance Indonesia Tbk | `recruitment@bfi.co.id` | `BfiFinanceStandD2!` | `pemberi_kerja` |
+| **Stand D3** | Plataran Borobudur Resort & Spa | `career@plataran.com` | `PlataranStandD3!` | `pemberi_kerja` |
+| **Stand D4** | PT Triputra Agro Persada | `recruitment@tap-agri.com` | `TriputraAgroStandD4!` | `pemberi_kerja` |
+| **Stand D5** | PT Prima Multi Sarana | `karir@primamultisarana.com` | `PrimaMsStandD5!` | `pemberi_kerja` |
 
 *Hak Akses Pemberi Kerja*:
 - Mengelola profil stand, nomor booth, kontak PIC, dan deskripsi perusahaan.

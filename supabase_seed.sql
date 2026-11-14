@@ -121,17 +121,31 @@ ON CONFLICT (id) DO UPDATE SET
   persyaratan = EXCLUDED.persyaratan,
   lokasi_penempatan = EXCLUDED.lokasi_penempatan;
 
--- 3. SEED AKUN RESMI: PANITIA BKK, UNTIDAR & STAND INDUSTRI
+-- 3. SEED 22 AKUN RESMI: PANITIA BKK, UNTIDAR & 20 STAND INDUSTRI
 INSERT INTO public.profiles (email, nama_lengkap, role, nomor_wa, company_id, qr_code_token)
 VALUES
   ('bkk@skanisa.sch.id', 'BKK SMK Negeri 1 Magelang', 'admin', '0858-6873-3378', NULL, 'BSJ2026-ADM-BKK01'),
   ('untidar@jobfair.id', 'K1 Pariwisata 2024 UNTIDAR', 'admin', '0812-3456-7890', NULL, 'BSJ2026-ADM-UNTIDAR01'),
-  ('hrd@quick.co.id', 'HRD CV Karya Hidup Sentosa (Quick)', 'pemberi_kerja', '0812-2334-4550', 'a0000001-0000-0000-0000-000000000001', 'BSJ2026-IND-QUICK01'),
-  ('hrd@armada-daihatsu.com', 'HRD Armada Daihatsu Magelang', 'pemberi_kerja', '0812-2334-4551', 'a0000001-0000-0000-0000-000000000002', 'BSJ2026-IND-DAIHATSU01'),
-  ('karir@indomaret.co.id', 'HRD PT Indomarco Prismatama', 'pemberi_kerja', '0812-2334-4552', 'a0000001-0000-0000-0000-000000000003', 'BSJ2026-IND-INDOMARET01'),
-  ('hrm@grandartoshotel.com', 'HRD Grand Artos Hotel & Convention', 'pemberi_kerja', '0812-2334-4555', 'a0000001-0000-0000-0000-000000000006', 'BSJ2026-IND-ARTOS01'),
-  ('recruitment@bca.co.id', 'Recruitment KCU BCA Magelang', 'pemberi_kerja', '0812-2334-4557', 'a0000001-0000-0000-0000-000000000008', 'BSJ2026-IND-BCA01'),
-  ('sdm@borobudurpark.co.id', 'SDM PT Taman Wisata Candi Borobudur', 'pemberi_kerja', '0812-2334-4565', 'a0000001-0000-0000-0000-000000000016', 'BSJ2026-IND-BOROBUDUR01')
+  ('hrd@quick.co.id', 'HRD CV Karya Hidup Sentosa (Quick)', 'pemberi_kerja', '0812-2334-4550', 'a0000001-0000-0000-0000-000000000001', 'BSJ2026-IND-StandA1'),
+  ('hrd@armada-daihatsu.com', 'HRD Armada Daihatsu (PT Astra Daihatsu)', 'pemberi_kerja', '0812-2334-4551', 'a0000001-0000-0000-0000-000000000002', 'BSJ2026-IND-StandA2'),
+  ('karir@indomaret.co.id', 'HRD Indomaret Group (PT Indomarco Prismatama)', 'pemberi_kerja', '0812-2334-4552', 'a0000001-0000-0000-0000-000000000003', 'BSJ2026-IND-StandA3'),
+  ('recruitment@shelter.co.id', 'HRD PT Shelter Indonesia', 'pemberi_kerja', '0812-2334-4553', 'a0000001-0000-0000-0000-000000000004', 'BSJ2026-IND-StandA4'),
+  ('karir@alfamartku.com', 'HRD PT Sumber Alfaria Trijaya Tbk (Alfamart)', 'pemberi_kerja', '0812-2334-4554', 'a0000001-0000-0000-0000-000000000005', 'BSJ2026-IND-StandA5'),
+  ('hrm@grandartoshotel.com', 'HRD Grand Artos Hotel & Convention', 'pemberi_kerja', '0812-2334-4555', 'a0000001-0000-0000-0000-000000000006', 'BSJ2026-IND-StandB1'),
+  ('career@bintang7.com', 'HRD PT Bintang Toedjoe (Kalbe Group)', 'pemberi_kerja', '0812-2334-4556', 'a0000001-0000-0000-0000-000000000007', 'BSJ2026-IND-StandB2'),
+  ('recruitment@bca.co.id', 'HRD PT Bank Central Asia Tbk (BCA)', 'pemberi_kerja', '0812-2334-4557', 'a0000001-0000-0000-0000-000000000008', 'BSJ2026-IND-StandB3'),
+  ('recruitment@pharos.co.id', 'HRD PT Pharos Indonesia', 'pemberi_kerja', '0812-2334-4558', 'a0000001-0000-0000-0000-000000000009', 'BSJ2026-IND-StandB4'),
+  ('info@suksesmandiri.co.id', 'HRD PT Sukses Mandiri Utama', 'pemberi_kerja', '0812-2334-4559', 'a0000001-0000-0000-0000-000000000010', 'BSJ2026-IND-StandB5'),
+  ('karir@alfamidiku.com', 'HRD PT Midi Utama Indonesia Tbk (Alfamidi)', 'pemberi_kerja', '0812-2334-4560', 'a0000001-0000-0000-0000-000000000011', 'BSJ2026-IND-StandC1'),
+  ('hrd@atriahotelmagelang.com', 'HRD Hotel Atria Magelang (Parador Hotels)', 'pemberi_kerja', '0812-2334-4561', 'a0000001-0000-0000-0000-000000000012', 'BSJ2026-IND-StandC2'),
+  ('hr@mataramsakti.co.id', 'HRD PT Mataram Sakti (Dealer Yamaha)', 'pemberi_kerja', '0812-2334-4562', 'a0000001-0000-0000-0000-000000000013', 'BSJ2026-IND-StandC3'),
+  ('recruitment@nasmoco.co.id', 'HRD PT Nasmoco Magelang (Dealer Toyota)', 'pemberi_kerja', '0812-2334-4563', 'a0000001-0000-0000-0000-000000000014', 'BSJ2026-IND-StandC4'),
+  ('hrd@usg.co.id', 'HRD PT Ungaran Sari Garments', 'pemberi_kerja', '0812-2334-4564', 'a0000001-0000-0000-0000-000000000015', 'BSJ2026-IND-StandC5'),
+  ('sdm@borobudurpark.co.id', 'HRD PT Taman Wisata Candi Borobudur', 'pemberi_kerja', '0812-2334-4565', 'a0000001-0000-0000-0000-000000000016', 'BSJ2026-IND-StandD1'),
+  ('recruitment@bfi.co.id', 'HRD PT BFI Finance Indonesia Tbk', 'pemberi_kerja', '0812-2334-4566', 'a0000001-0000-0000-0000-000000000017', 'BSJ2026-IND-StandD2'),
+  ('career@plataran.com', 'HRD Plataran Borobudur Resort & Spa', 'pemberi_kerja', '0812-2334-4567', 'a0000001-0000-0000-0000-000000000018', 'BSJ2026-IND-StandD3'),
+  ('recruitment@tap-agri.com', 'HRD PT Triputra Agro Persada', 'pemberi_kerja', '0812-2334-4568', 'a0000001-0000-0000-0000-000000000019', 'BSJ2026-IND-StandD4'),
+  ('karir@primamultisarana.com', 'HRD PT Prima Multi Sarana', 'pemberi_kerja', '0812-2334-4569', 'a0000001-0000-0000-0000-000000000020', 'BSJ2026-IND-StandD5')
 ON CONFLICT (email) DO UPDATE SET
   nama_lengkap = EXCLUDED.nama_lengkap,
   role = EXCLUDED.role,
