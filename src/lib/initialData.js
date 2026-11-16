@@ -20,7 +20,7 @@ export const INITIAL_INDUSTRIES = [
     deskripsi: "Pabrikan alat dan mesin pertanian modern merk Quick Traktor dengan jangkauan distribusi nasional dan ekspor.",
     alamat: "Jl. Magelang No. 144, Yogyakarta",
     kontak_pic: "0811 2701 3215",
-    email: "hrd@quick.co.id",
+    email: "rekrutmen@quick.co.id",
     website: "https://quick.co.id"
   },
   {
@@ -417,7 +417,7 @@ export const INITIAL_VACANCIES = [
     industry_id: "a0000001-0000-0000-0000-000000000006",
     judul_posisi: "Konseling Karir & Registrasi Program Diklat Perhotelan",
     tipe_pekerjaan: "Bimbingan & Program Diklat Profesi",
-    kuota: 50,
+    kuota: 0,
     gaji: "Bimbingan Penempatan Kerja Resmi Internasional",
     pendidikan: "SMA / SMK Semua Jurusan",
     lokasi: "Kampus LPK Platinum Magelang",
