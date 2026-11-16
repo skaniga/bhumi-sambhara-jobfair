@@ -112,16 +112,31 @@ ALTER TABLE public.job_vacancies ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.job_applications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.stand_attendances ENABLE ROW LEVEL SECURITY;
 
--- Industries: Public Read, Authenticated Admin/Industri Update
+-- Industries: Public Read, Insert, Update, Delete
 DROP POLICY IF EXISTS "Public can view industries" ON public.industries;
 CREATE POLICY "Public can view industries" ON public.industries FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow industry inserts" ON public.industries;
+CREATE POLICY "Allow industry inserts" ON public.industries FOR INSERT WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow industry updates" ON public.industries;
 CREATE POLICY "Allow industry updates" ON public.industries FOR UPDATE USING (true);
 
--- Job Vacancies: Public Read
+DROP POLICY IF EXISTS "Allow industry deletes" ON public.industries;
+CREATE POLICY "Allow industry deletes" ON public.industries FOR DELETE USING (true);
+
+-- Job Vacancies: Public Read, Insert, Update, Delete
 DROP POLICY IF EXISTS "Public can view vacancies" ON public.job_vacancies;
 CREATE POLICY "Public can view vacancies" ON public.job_vacancies FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow vacancy inserts" ON public.job_vacancies;
+CREATE POLICY "Allow vacancy inserts" ON public.job_vacancies FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow vacancy updates" ON public.job_vacancies;
+CREATE POLICY "Allow vacancy updates" ON public.job_vacancies FOR UPDATE USING (true);
+
+DROP POLICY IF EXISTS "Allow vacancy deletes" ON public.job_vacancies;
+CREATE POLICY "Allow vacancy deletes" ON public.job_vacancies FOR DELETE USING (true);
 
 -- Profiles: Public Read & Insert, Owner Update
 DROP POLICY IF EXISTS "Allow profile inserts" ON public.profiles;

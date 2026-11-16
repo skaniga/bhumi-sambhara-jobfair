@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(20, 22)">
-      <rect x="0" y="0" width="76" height="76" rx="12" fill="#7C3AED"/>
-      <path d="M18 20 Q 38 48 58 20 L58 56 Q 38 28 18 56 Z" fill="#FFFFFF"/>
-      <circle cx="38" cy="38" r="6" fill="#FDE047"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#B91C1C"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">C3</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="50" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="22" font-weight="900" fill="#7C3AED" letter-spacing="0.04em">USG GARMENT</text>
-    <text x="110" y="70" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#0F172A">PT UNGARAN SARI GARMENTS</text>
-    <text x="110" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Apparel Manufacturer &amp; World Exporter</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#B91C1C" letter-spacing="0.03em">NEW ARMADA</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">KAROSERI & AUTOMOTIVE STAMPING</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Mekar Armada Jaya</text>
   </svg>

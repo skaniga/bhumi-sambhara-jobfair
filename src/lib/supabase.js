@@ -85,7 +85,18 @@ export async function syncFromSupabase() {
       .select('*')
       .order('nomor_stand', { ascending: true });
     if (!indErr && indData && indData.length > 0) {
-      industries.set(indData);
+      const mergedInds = INITIAL_INDUSTRIES.map(init => {
+        const remote = indData.find(d => d.id === init.id || d.nomor_stand === init.nomor_stand);
+        return remote ? { ...init, ...remote } : init;
+      });
+      for (const r of indData) {
+        if (!mergedInds.some(m => m.id === r.id)) {
+          mergedInds.push(r);
+        }
+      }
+      industries.set(mergedInds);
+    } else {
+      industries.set(INITIAL_INDUSTRIES);
     }
 
     // 2. Fetch live vacancies
@@ -94,7 +105,18 @@ export async function syncFromSupabase() {
       .select('*')
       .order('created_at', { ascending: true });
     if (!vacErr && vacData && vacData.length > 0) {
-      vacancies.set(vacData);
+      const mergedVacs = [...INITIAL_VACANCIES];
+      for (const v of vacData) {
+        const idx = mergedVacs.findIndex(mv => mv.id === v.id);
+        if (idx >= 0) {
+          mergedVacs[idx] = { ...mergedVacs[idx], ...v };
+        } else {
+          mergedVacs.push(v);
+        }
+      }
+      vacancies.set(mergedVacs);
+    } else {
+      vacancies.set(INITIAL_VACANCIES);
     }
 
     // 3. Fetch applications

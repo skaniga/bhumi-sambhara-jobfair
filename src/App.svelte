@@ -157,7 +157,7 @@
 
       <div class="footer-right">
         <div class="footer-meta">
-          <span class="badge badge-stand">20 Stand Industri Terverifikasi</span>
+          <span class="badge badge-stand">23 Mitra Industri Terverifikasi</span>
           <span class="badge badge-terverifikasi">Sistem Scan Barcode QR Terpadu</span>
         </div>
         <p class="text-xs text-muted text-right">

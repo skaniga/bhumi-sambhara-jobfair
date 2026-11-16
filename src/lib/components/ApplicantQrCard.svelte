@@ -61,7 +61,7 @@
     <div class="modal-header">
       <div class="header-titles">
         <h3 class="heading-sm">Kartu Peserta Resmi Jobfair</h3>
-        <p class="text-xs text-muted">ID Digital untuk Verifikasi di 20 Stand Booth</p>
+        <p class="text-xs text-muted">ID Digital untuk Verifikasi di 23 Stand Booth</p>
       </div>
       <button class="btn-close" on:click={onClose}>
         <X size={20} />

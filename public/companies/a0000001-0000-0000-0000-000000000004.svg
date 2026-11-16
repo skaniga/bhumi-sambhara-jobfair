@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(20, 20)">
-      <path d="M40 8 L72 20 L72 52 C72 70 40 82 40 82 C40 82 8 70 8 52 L8 20 Z" fill="#047857"/>
-      <path d="M40 16 L64 26 L64 50 C64 64 40 74 40 74 C40 74 16 64 16 50 L16 26 Z" fill="#065F46"/>
-      <path d="M40 30 L43 38 L52 38 L45 44 L47 52 L40 47 L33 52 L35 44 L28 38 L37 38 Z" fill="#FDE047"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#2563EB"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">A4</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="52" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="23" font-weight="900" fill="#047857" letter-spacing="0.06em">SHELTER</text>
-    <text x="110" y="72" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#0F172A">INDONESIA</text>
-    <text x="110" y="88" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Facility Services & Manpower</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#2563EB" letter-spacing="0.03em">LPK ATARA</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">TRAINING & APPRENTICESHIP</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Lembaga Pelatihan Kerja Atara</text>
   </svg>

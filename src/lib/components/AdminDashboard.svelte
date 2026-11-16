@@ -85,7 +85,7 @@
         </div>
         <h2 class="heading-lg admin-headline">Panel Kendali & Monitoring Expo</h2>
         <p class="text-xs text-muted">
-          Pantau okupansi pelamar, kehadiran barcode stand secara real-time, dan ekspor rekapitulasi 20 stand industri.
+          Pantau okupansi pelamar, kehadiran barcode stand secara real-time, dan ekspor rekapitulasi 23 stand industri.
         </p>
       </div>
 
@@ -119,7 +119,7 @@
     <div class="card kpi-card">
       <span class="kpi-label">Total Lamaran Masuk</span>
       <span class="kpi-value tabular-nums">{totalApplications}</span>
-      <span class="text-xs text-muted">Lamaran ke 20 stand</span>
+      <span class="text-xs text-muted">Lamaran ke 23 stand</span>
     </div>
 
     <div class="card kpi-card">
@@ -138,29 +138,29 @@
   <!-- Denah Zona Stand Expo -->
   <div class="card zone-map-card">
     <div class="card-header">
-      <h3 class="heading-sm">Denah Zona 20 Stand (Indoor Graha Krida Wiyata)</h3>
+      <h3 class="heading-sm">Denah Zona 23 Stand (Indoor Graha Krida Wiyata)</h3>
       <span class="text-xs text-muted">Tata Letak Penempatan Booth Expo</span>
     </div>
     <div class="zone-grid">
       <div class="zone-box zone-a">
         <span class="badge badge-stand font-bold">ZONA A</span>
-        <span class="zone-name">Manufaktur, Ritel Modern & Manpower</span>
-        <p class="text-xs text-muted mt-1">Stand A1 s/d A5 • Quick Traktor, Daihatsu, Indomaret, Shelter, Alfamart</p>
+        <span class="zone-name">Manufaktur, Jasa & Pelatihan Vokasi</span>
+        <p class="text-xs text-muted mt-1">Stand A1 s/d A6 • Quick Traktor, DeWave Salon, HK Gold, LPK Atara, Captain's Club, LPK Platinum</p>
       </div>
       <div class="zone-box zone-b">
         <span class="badge badge-stand font-bold">ZONA B</span>
-        <span class="zone-name">Hospitality, Farmasi & Perbankan</span>
-        <p class="text-xs text-muted mt-1">Stand B1 s/d B5 • Grand Artos, Bintang 7, Bank BCA, Pharos, Sukses Mandiri</p>
+        <span class="zone-name">Penyalur Global, Garmen, Telco & Keuangan</span>
+        <p class="text-xs text-muted mt-1">Stand B1 s/d B6 • Teratai Gogakuin, Anugerah Abadi, XL Smart, PNM, Gisara Tantra, Alfamidi</p>
       </div>
       <div class="zone-box zone-c">
         <span class="badge badge-stand font-bold">ZONA C</span>
-        <span class="zone-name">Ritel Pangan, Otomotif & Garmen</span>
-        <p class="text-xs text-muted mt-1">Stand C1 s/d C5 • Alfamidi, Hotel Atria, Yamaha, Toyota Nasmoco, USG Garment</p>
+        <span class="zone-name">BPO, Bahan Bangunan, Karoseri & Properti</span>
+        <p class="text-xs text-muted mt-1">Stand C1 s/d C6 • Shelter Indonesia, Clay Jaya (BIG), Mekar Armada Jaya, Sindoro College, Uniloa, BMC</p>
       </div>
       <div class="zone-box zone-d">
         <span class="badge badge-stand font-bold">ZONA D</span>
-        <span class="zone-name">Pariwisata Budaya, Keuangan & Agribisnis</span>
-        <p class="text-xs text-muted mt-1">Stand D1 s/d D5 • Borobudur Park, BFI Finance, Plataran, Triputra, Prima MS</p>
+        <span class="zone-name">Ritel Modern, Toiletries, HVACR & Solusi SDM</span>
+        <p class="text-xs text-muted mt-1">Stand D1 s/d D5 • Indomaret Group, Lidah Buaya Group, Putra Teknik AC, Staffinc, Candi Bangun Persada</p>
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
   <div class="card matrix-card">
     <div class="matrix-header-row">
       <div>
-        <h3 class="heading-md">Rekapitulasi 20 Stand Industri Expo</h3>
+        <h3 class="heading-md">Rekapitulasi 23 Stand Industri Expo</h3>
         <p class="text-xs text-muted">Statistik persebaran pelamar dan kehadiran fisik per booth stand.</p>
       </div>
 

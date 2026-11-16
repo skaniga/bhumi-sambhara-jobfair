@@ -57,7 +57,7 @@ console.log('🧪 RUNNING SENIOR USER TESTER AUDIT & UAT SUITE');
 console.log('====================================================\n');
 
 // ── Test Suite 1: Event Identity & Directory Catalog ──
-console.log('▶ TEST SUITE 1: Verifikasi Identitas Acara & Katalog 20 Industri');
+console.log('▶ TEST SUITE 1: Verifikasi Identitas Acara & Katalog 23 Industri');
 
 it('Memastikan metadata acara Bhumi Sambhara Expo 2026 otentik', () => {
   assert.equal(EVENT_DETAILS.title, 'BHUMI SAMBHARA EXPO & JOBFAIR 2026');
@@ -66,20 +66,21 @@ it('Memastikan metadata acara Bhumi Sambhara Expo 2026 otentik', () => {
   assert.equal(EVENT_DETAILS.venue, 'Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang');
 });
 
-it('Memastikan 20 Stand Industri Partner Resmi terdaftar lengkap (Stand A1 s/d D5)', () => {
+it('Memastikan 23 Stand Industri Partner Resmi terdaftar lengkap (Stand A1 s/d D5)', () => {
   const inds = get(industries);
-  assert.equal(inds.length, 20, 'Harus tepat 20 industri partner resmi');
+  assert.equal(inds.length, 23, 'Harus tepat 23 industri partner resmi');
   
   const standNumbers = inds.map(i => i.nomor_stand);
   assert.ok(standNumbers.includes('Stand A1'), 'Quick Traktor harus Stand A1');
-  assert.ok(standNumbers.includes('Stand A2'), 'Daihatsu harus Stand A2');
-  assert.ok(standNumbers.includes('Stand A3'), 'Indomaret harus Stand A3');
-  assert.ok(standNumbers.includes('Stand B1'), 'Grand Artos harus Stand B1');
-  assert.ok(standNumbers.includes('Stand B3'), 'BCA harus Stand B3');
-  assert.ok(standNumbers.includes('Stand C3'), 'Yamaha harus Stand C3');
-  assert.ok(standNumbers.includes('Stand C4'), 'Toyota Nasmoco harus Stand C4');
-  assert.ok(standNumbers.includes('Stand D1'), 'Borobudur harus Stand D1');
-  assert.ok(standNumbers.includes('Stand D5'), 'Prima Multi Sarana harus Stand D5');
+  assert.ok(standNumbers.includes('Stand A2'), 'DeWave harus Stand A2');
+  assert.ok(standNumbers.includes('Stand A3'), 'HK Gold harus Stand A3');
+  assert.ok(standNumbers.includes('Stand A6'), 'LPK Platinum harus Stand A6');
+  assert.ok(standNumbers.includes('Stand B1'), 'LPK Teratai harus Stand B1');
+  assert.ok(standNumbers.includes('Stand B6'), 'Alfamidi harus Stand B6');
+  assert.ok(standNumbers.includes('Stand C1'), 'Shelter harus Stand C1');
+  assert.ok(standNumbers.includes('Stand C3'), 'Mekar Armada harus Stand C3');
+  assert.ok(standNumbers.includes('Stand D1'), 'Indomaret harus Stand D1');
+  assert.ok(standNumbers.includes('Stand D5'), 'Candi Bangun Persada harus Stand D5');
 });
 
 it('Memastikan seluruh ID industri dan lowongan bertipe UUID yang valid', () => {
@@ -90,7 +91,7 @@ it('Memastikan seluruh ID industri dan lowongan bertipe UUID yang valid', () => 
   }
 
   const vacs = get(vacancies);
-  assert.ok(vacs.length >= 20, 'Harus memiliki minimal 20 posisi lowongan');
+  assert.ok(vacs.length >= 23, 'Harus memiliki minimal 23 posisi lowongan');
   for (const vac of vacs) {
     assert.match(vac.id, uuidRegex, `ID Lowongan ${vac.judul_posisi} harus UUID valid`);
     assert.match(vac.industry_id, uuidRegex, `Industry ID foreign key harus UUID valid`);
@@ -179,10 +180,10 @@ it('Token QR Pelamar unik dan scannable', () => {
 });
 
 // ── Test Suite 4: Pelamaran Kerja ke Stand Industri ──
-console.log('\n▶ TEST SUITE 4: Pelamaran Kerja ke 20 Industri Partner');
+console.log('\n▶ TEST SUITE 4: Pelamaran Kerja ke 23 Industri Partner');
 
 const quickVacId = 'b0000001-0000-0000-0000-000000000001'; // Operator Perakitan Mesin Traktor
-const daihatsuVacId = 'b0000001-0000-0000-0000-000000000003'; // Mekanik Kendaraan Ringan
+const dewaveVacId = 'b0000001-0000-0000-0000-000000000003'; // Terapis Massage & Reflexology
 
 await itAsync('Pelamar berhasil melamar lowongan di Stand A1 (Quick)', async () => {
   const res = await applyJob(quickVacId, applicantUser.id, 'Saya siap ditempatkan di pabrik perakitan traktor.');
@@ -199,8 +200,8 @@ await itAsync('Pelamar dicegah melamar posisi yang sama dua kali', async () => {
   assert.match(res.error, /sudah melamar/i);
 });
 
-await itAsync('Pelamar berhasil melamar lowongan kedua di Stand A2 (Daihatsu)', async () => {
-  const res = await applyJob(daihatsuVacId, applicantUser.id, 'Pernah servis transmisi saat PKL.');
+await itAsync('Pelamar berhasil melamar lowongan kedua di Stand A2 (DeWave)', async () => {
+  const res = await applyJob(dewaveVacId, applicantUser.id, 'Tertarik mengikuti pelatihan terapis.');
   assert.equal(res.success, true);
 });
 
@@ -209,7 +210,7 @@ it('Daftar lamaran pelamar bertambah sesuai lowongan yang diajukan', () => {
   assert.equal(myApps.length, 2);
   const vacIds = myApps.map(a => a.vacancy_id);
   assert.ok(vacIds.includes(quickVacId));
-  assert.ok(vacIds.includes(daihatsuVacId));
+  assert.ok(vacIds.includes(dewaveVacId));
 });
 
 // ── Test Suite 5: Stand Industri Dashboard & Verifikasi Kehadiran Barcode ──
@@ -220,8 +221,8 @@ it('HRD Quick hanya melihat pelamar yang melamar ke lowongannya', () => {
   const compApps = get(applications).filter(a => compVacIds.includes(a.vacancy_id));
   
   assert.ok(compApps.some(a => a.applicant_id === applicantUser.id && a.vacancy_id === quickVacId));
-  // Pastikan lamaran Daihatsu tidak bercampur ke Quick
-  assert.ok(!compApps.some(a => a.vacancy_id === daihatsuVacId));
+  // Pastikan lamaran DeWave tidak bercampur ke Quick
+  assert.ok(!compApps.some(a => a.vacancy_id === dewaveVacId));
 });
 
 await itAsync('Scanner Stand mengenali token QR pelamar saat datang fisik ke booth', async () => {
@@ -247,9 +248,9 @@ await itAsync('HRD Quick scan QR barcode pelamar di Stand A1: Status otomatis me
   assert.equal(appQuick.status, 'terverifikasi_stand');
   assert.ok(appQuick.waktu_verifikasi);
 
-  // Pastikan lamaran Daihatsu tetap menunggu (karena belum didatangi fisiknya)
-  const appDaihatsu = get(applications).find(a => a.applicant_id === applicantUser.id && a.vacancy_id === daihatsuVacId);
-  assert.equal(appDaihatsu.status, 'menunggu');
+  // Pastikan lamaran DeWave tetap menunggu (karena belum didatangi fisiknya)
+  const appDewave = get(applications).find(a => a.applicant_id === applicantUser.id && a.vacancy_id === dewaveVacId);
+  assert.equal(appDewave.status, 'menunggu');
 });
 
 await itAsync('HRD Quick memanggil pelamar untuk wawancara di booth', async () => {
@@ -286,9 +287,9 @@ it('Admin mendapatkan total rekapitulasi pendaftar, lamaran, dan status verifika
   assert.equal(totalAccepted, 1, 'Tepat 1 pelamar diterima di Stand A1');
 });
 
-it('Admin matriks 20 stand memetakan data dengan akurat tanpa duplikasi', () => {
+it('Admin matriks 23 stand memetakan data dengan akurat tanpa duplikasi', () => {
   const inds = get(industries);
-  assert.equal(inds.length, 20);
+  assert.equal(inds.length, 23);
 
   const quickRow = inds.find(i => i.nomor_stand === 'Stand A1');
   assert.ok(quickRow);

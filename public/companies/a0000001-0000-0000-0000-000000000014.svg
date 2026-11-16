@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(20, 24)">
-      <ellipse cx="38" cy="36" rx="36" ry="26" fill="none" stroke="#DC2626" stroke-width="5"/>
-      <ellipse cx="38" cy="30" rx="16" ry="10" fill="none" stroke="#DC2626" stroke-width="4"/>
-      <ellipse cx="38" cy="36" rx="8" ry="22" fill="none" stroke="#DC2626" stroke-width="4"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#EA580C"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">C2</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="52" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="24" font-weight="900" fill="#DC2626" letter-spacing="0.06em">TOYOTA</text>
-    <text x="110" y="72" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="800" fill="#0F172A">NASMOCO MAGELANG</text>
-    <text x="110" y="88" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Dealer Resmi Penjualan &amp; Servis</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#EA580C" letter-spacing="0.03em">BIG</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">SUPERMARKET BAHAN BANGUNAN</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Clay Jaya Bersama</text>
   </svg>

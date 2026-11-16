@@ -1,15 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(20, 22)">
-      <circle cx="38" cy="38" r="36" fill="#DC2626"/>
-      <circle cx="38" cy="38" r="30" fill="none" stroke="#FFFFFF" stroke-width="4"/>
-      <!-- Tuning fork tri-spoke -->
-      <line x1="38" y1="12" x2="38" y2="64" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
-      <line x1="38" y1="38" x2="16" y2="50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
-      <line x1="38" y1="38" x2="60" y2="50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="38" cy="38" r="7" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#0284C7"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">C1</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="52" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="24" font-weight="900" fill="#DC2626" letter-spacing="0.06em">YAMAHA</text>
-    <text x="110" y="72" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="800" fill="#0F172A">MATARAM SAKTI</text>
-    <text x="110" y="88" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Main Dealer &amp; Bengkel Resmi Yamaha</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#0284C7" letter-spacing="0.03em">SHELTER</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">FACILITY & MANPOWER SERVICES</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Shelter Indonesia</text>
   </svg>

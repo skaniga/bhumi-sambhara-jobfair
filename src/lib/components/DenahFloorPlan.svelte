@@ -11,31 +11,31 @@
       id: 'A',
       name: 'Zona A (Sayap Kiri Depan)',
       badge: 'ZONA A',
-      focus: 'Manufaktur, Ritel Modern & Manpower',
+      focus: 'Manufaktur, Jasa & LPK Pelatihan',
       color: '#1D4ED8',
-      stands: ['Stand A1', 'Stand A2', 'Stand A3', 'Stand A4', 'Stand A5']
+      stands: ['Stand A1', 'Stand A2', 'Stand A3', 'Stand A4', 'Stand A5', 'Stand A6']
     },
     {
       id: 'B',
       name: 'Zona B (Sayap Kanan Depan)',
       badge: 'ZONA B',
-      focus: 'Hospitality, Farmasi, Finansial & Logistik',
+      focus: 'Penyalur Global, Garmen, Telco, Keuangan & Ritel',
       color: '#B45309',
-      stands: ['Stand B1', 'Stand B2', 'Stand B3', 'Stand B4', 'Stand B5']
+      stands: ['Stand B1', 'Stand B2', 'Stand B3', 'Stand B4', 'Stand B5', 'Stand B6']
     },
     {
       id: 'C',
       name: 'Zona C (Sayap Kiri Belakang)',
       badge: 'ZONA C',
-      focus: 'Ritel Pangan, Kuliner, Otomotif & Garmen',
+      focus: 'BPO, Bahan Bangunan, Karoseri, Perhotelan & Alat Berat',
       color: '#DC2626',
-      stands: ['Stand C1', 'Stand C2', 'Stand C3', 'Stand C4', 'Stand C5']
+      stands: ['Stand C1', 'Stand C2', 'Stand C3', 'Stand C4', 'Stand C5', 'Stand C6']
     },
     {
       id: 'D',
       name: 'Zona D (Sayap Kanan Belakang)',
       badge: 'ZONA D',
-      focus: 'Pariwisata Budaya, Multi-finance & Agribisnis',
+      focus: 'Ritel Modern, Toiletries, HVACR & Solusi SDM',
       color: '#047857',
       stands: ['Stand D1', 'Stand D2', 'Stand D3', 'Stand D4', 'Stand D5']
     }
@@ -55,7 +55,7 @@
       </div>
       <div>
         <span class="badge badge-stand font-bold">PETA TATA LETAK RESMI</span>
-        <h2 class="heading-lg">Denah 20 Stand Booth Expo</h2>
+        <h2 class="heading-lg">Denah 23 Stand Booth Expo</h2>
         <p class="text-xs text-muted">
           Gedung Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang • 19 November 2026
         </p>
@@ -68,7 +68,7 @@
         class="zone-btn {activeZone === 'all' ? 'active' : ''}" 
         on:click={() => activeZone = 'all'}
       >
-        Semua Area (20 Booth)
+        Semua Area (23 Booth)
       </button>
       {#each ZONES as z}
         <button 

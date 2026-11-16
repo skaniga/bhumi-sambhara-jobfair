@@ -9,12 +9,15 @@
 
   const SECTORS = [
     'Semua',
-    'Manufaktur & Mesin',
+    'Manufaktur',
+    'Retail',
+    'Pendidikan',
+    'Perhotelan',
     'Otomotif',
-    'Ritel Modern',
-    'Hospitality & Pariwisata',
-    'Farmasi & Kesehatan',
-    'Perbankan & Keuangan'
+    'HVAC',
+    'Keuangan',
+    'Telekomunikasi',
+    'Jasa'
   ];
 
   $: filteredIndustries = $industries.filter(ind => {
@@ -45,7 +48,7 @@
 <div class="directory-wrap">
   <div class="directory-header">
     <div class="header-left">
-      <h2 class="heading-lg">20 Industri Partner Resmi</h2>
+      <h2 class="heading-lg">{$industries.length || 23} Mitra Industri & LPK Resmi</h2>
       <p class="text-sm text-muted">
         Daftar seluruh stand perusahaan yang membuka rekrutmen kerja pada Bhumi Sambhara Expo 2026.
       </p>

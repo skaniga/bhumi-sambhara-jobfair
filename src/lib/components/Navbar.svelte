@@ -31,7 +31,7 @@
         class="nav-item {activeTab === 'lowongan' ? 'active' : ''}" 
         on:click={() => activeTab = 'lowongan'}
       >
-        20 Industri Partner
+        23 Mitra Industri
       </button>
 
       <button 
@@ -120,7 +120,7 @@
     on:click={() => activeTab = 'lowongan'}
   >
     <Grid size={20} />
-    <span>20 Stand</span>
+    <span>23 Stand</span>
   </button>
 
   <button 

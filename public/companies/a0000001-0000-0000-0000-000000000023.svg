@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+    <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#0891B2"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">D5</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
+    </g>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#0891B2" letter-spacing="0.03em">CANDI BANGUN</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">AUTHORIZED DEALER & HVAC SYSTE</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Candi Bangun Persada</text>
+  </svg>

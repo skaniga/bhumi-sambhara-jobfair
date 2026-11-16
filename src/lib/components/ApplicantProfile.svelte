@@ -211,7 +211,7 @@
       {#if myApplications.length === 0 && myAttendances.length === 0}
         <div class="empty-applications">
           <Briefcase size={36} class="text-muted" />
-          <p class="text-xs text-muted mt-2">Anda belum mengirimkan lamaran pekerjaan ke 20 industri partner.</p>
+          <p class="text-xs text-muted mt-2">Anda belum mengirimkan lamaran pekerjaan ke 23 industri partner.</p>
         </div>
       {:else}
         <div class="apps-timeline">

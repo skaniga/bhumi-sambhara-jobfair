@@ -6,8 +6,8 @@ export const EVENT_DETAILS = {
   timeText: "09.00 - 15.10 WIB",
   venue: "Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang",
   location: "Magelang, Jawa Tengah",
-  totalPartners: "20 Partner Perusahaan",
-  totalVacancies: "2.000+ Lapangan Pekerjaan",
+  totalPartners: "23 Mitra Industri & LPK",
+  totalVacancies: "1.600+ s/d 2.600+ Lapangan Pekerjaan",
   targetAudience: "Terbuka untuk Pelajar, Alumni SMK/SMA/Universitas, dan Masyarakat Umum"
 };
 
@@ -15,546 +15,881 @@ export const INITIAL_INDUSTRIES = [
   {
     id: "a0000001-0000-0000-0000-000000000001",
     nama_perusahaan: "CV Karya Hidup Sentosa (Quick)",
-    bidang_industri: "Manufaktur & Mesin Pertanian",
+    bidang_industri: "Industri Manufaktur dan Perdagangan",
     nomor_stand: "Stand A1",
     deskripsi: "Pabrikan alat dan mesin pertanian modern merk Quick Traktor dengan jangkauan distribusi nasional dan ekspor.",
     alamat: "Jl. Magelang No. 144, Yogyakarta",
-    kontak_pic: "081223344550",
-    email: "rekrutmen@quick.co.id",
+    kontak_pic: "0811 2701 3215",
+    email: "hrd@quick.co.id",
     website: "https://quick.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000002",
-    nama_perusahaan: "Armada Daihatsu (PT Astra Daihatsu)",
-    bidang_industri: "Otomotif & Layanan Purna Jual",
+    nama_perusahaan: "DEWAVE FAMILY MASSAGE & BEAUTY SALON",
+    bidang_industri: "Jasa Relaksasi & Salon Kecantikan",
     nomor_stand: "Stand A2",
-    deskripsi: "Dealer resmi penjualan kendaraan Daihatsu, bengkel perawatan berkala, dan penyedia suku cadang resmi area Kedu.",
-    alamat: "Jl. Jenderal Sudirman No. 120, Magelang",
-    kontak_pic: "081223344551",
-    email: "hrd@armada-daihatsu.com",
-    website: "https://armadadaihatsu.co.id"
+    deskripsi: "Jaringan luxury family massage, reflexology, dan salon kecantikan modern dengan puluhan cabang di kota-kota besar Indonesia.",
+    alamat: "Jl. Mayjen Bambang Soegeng No. 8, Magelang",
+    kontak_pic: "0821 3502 4190",
+    email: "karir@dewavespa.com",
+    website: "https://dewavespa.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000003",
-    nama_perusahaan: "Indomaret Group (PT Indomarco Prismatama)",
-    bidang_industri: "Ritel Modern & Distribusi Logistik",
+    nama_perusahaan: "HK GOLD",
+    bidang_industri: "Toko Emas & Perhiasan Mulia",
     nomor_stand: "Stand A3",
-    deskripsi: "Jaringan waralaba minimarket dan pusat pergudangan logistik terbesar di Indonesia.",
-    alamat: "Kawasan Industri Candi Blok A No. 5, Semarang",
-    kontak_pic: "081223344552",
-    email: "karir@indomaret.co.id",
-    website: "https://indomaret.co.id"
+    deskripsi: "Ritel perhiasan emas dan logam mulia terkemuka dengan standar kemurnian tinggi dan jaringan toko perhiasan prestisius.",
+    alamat: "Jl. Pemuda No. 78, Kota Magelang",
+    kontak_pic: "0813 4287 8303",
+    email: "hrd@hkgold.co.id",
+    website: "https://hkgold.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000004",
-    nama_perusahaan: "PT Shelter Indonesia",
-    bidang_industri: "Facility Services & Manpower Solutions",
+    nama_perusahaan: "LPK ATARA",
+    bidang_industri: "Pendidikan dan Pelatihan Kerja",
     nomor_stand: "Stand A4",
-    deskripsi: "Penyedia tenaga kerja profesional, pengelolaan fasilitas gedung perkantoran, dan pengamanan terlatih.",
-    alamat: "Jl. Kaliurang KM 7, Sleman, Yogyakarta",
-    kontak_pic: "081223344553",
-    email: "recruitment@shelter.co.id",
-    website: "https://shelterindonesia.com"
+    deskripsi: "Lembaga Pelatihan Kerja penyedia program sertifikasi kompetensi, vokasi praktis, dan penyaluran kerja industri nasional dan global.",
+    alamat: "Jl. Pahlawan No. 42, Magelang",
+    kontak_pic: "0821 3054 9549 / 0896 8895 5550",
+    email: "info@lpkatara.com",
+    website: "https://lpkatara.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000005",
-    nama_perusahaan: "PT Sumber Alfaria Trijaya Tbk (Alfamart)",
-    bidang_industri: "Ritel Modern & Consumer Goods",
+    nama_perusahaan: "LPK CAPTAIN'S CLUB YOGYAKARTA",
+    bidang_industri: "Pendidikan & Diklat Perhotelan / Kapal Pesiar",
     nomor_stand: "Stand A5",
-    deskripsi: "Perusahaan ritel terkemuka pengelola puluhan ribu gerai minimarket Alfamart di seluruh Indonesia.",
-    alamat: "Jl. Soekarno Hatta KM 25, Bergas, Kab. Semarang",
-    kontak_pic: "081223344554",
-    email: "karir@alfamartku.com",
-    website: "https://alfamart.co.id"
+    deskripsi: "Pusat pendidikan dan pelatihan profesi perhotelan internasional dan awak kapal pesiar bintang lima dunia.",
+    alamat: "Jl. Ringroad Utara, Sleman, Yogyakarta",
+    kontak_pic: "0813 2557 8171",
+    email: "career@captainsclubjogja.com",
+    website: "https://captainsclubjogja.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000006",
-    nama_perusahaan: "Grand Artos Hotel & Convention",
-    bidang_industri: "Hospitality & Pariwisata",
-    nomor_stand: "Stand B1",
-    deskripsi: "Hotel bintang 4 dan convention center bertaraf internasional terintegrasi dengan pusat belanja terbesar Magelang.",
-    alamat: "Jl. Mayjen Bambang Soegeng No. 1, Magelang",
-    kontak_pic: "081223344555",
-    email: "hrm@grandartoshotel.com",
-    website: "https://grandartoshotel.com"
+    nama_perusahaan: "LPK PLATINUM MAGELANG",
+    bidang_industri: "Pendidikan Perhotelan & Kapal Pesiar",
+    nomor_stand: "Stand A6",
+    deskripsi: "Lembaga sertifikasi profesi dan bimbingan karir perhotelan kapal pesiar terakreditasi di Magelang.",
+    alamat: "Jl. Tentara Pelajar No. 15, Magelang",
+    kontak_pic: "0819 1767 1025",
+    email: "info@lpkplatinum.com",
+    website: "https://lpkplatinum.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000007",
-    nama_perusahaan: "PT Bintang Toedjoe (Kalbe Group)",
-    bidang_industri: "Farmasi & Consumer Health",
-    nomor_stand: "Stand B2",
-    deskripsi: "Produsen produk farmasi, jamu modern, dan suplemen kesehatan ternama di bawah naungan Kalbe Group.",
-    alamat: "Kawasan Industri Pulogadung, Jakarta Timur",
-    kontak_pic: "081223344556",
-    email: "career@bintang7.com",
-    website: "https://bintang7.com"
+    nama_perusahaan: "LPK TERATAI GOGAKUIN",
+    bidang_industri: "Penyalur Tenaga Kerja ke Jepang (Sending Organization)",
+    nomor_stand: "Stand B1",
+    deskripsi: "Lembaga pelatihan bahasa Jepang dan Sending Organization (SO) resmi penempatan pekerja terampil (Specified Skilled Worker / SSW) dan magang ke Jepang.",
+    alamat: "Jl. Raya Magelang - Purworejo KM 6, Mertoyudan, Magelang",
+    kontak_pic: "0823 2361 0036",
+    email: "info@terataigogakuin.com",
+    website: "https://terataigogakuin.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000008",
-    nama_perusahaan: "PT Bank Central Asia Tbk (BCA)",
-    bidang_industri: "Perbankan & Keuangan",
-    nomor_stand: "Stand B3",
-    deskripsi: "Bank swasta terbesar di Indonesia penyedia layanan transaksi keuangan dan perbankan digital terdepan.",
-    alamat: "KCU Magelang, Jl. Pemuda No. 40, Magelang",
-    kontak_pic: "081223344557",
-    email: "recruitment@bca.co.id",
-    website: "https://karir.bca.co.id"
+    nama_perusahaan: "PT ANUGERAH ABADI MAGELANG",
+    bidang_industri: "Garmen & Industri Tekstil Ekspor",
+    nomor_stand: "Stand B2",
+    deskripsi: "Perusahaan manufaktur garmen terkemuka di Magelang yang memproduksi busana kualitas ekspor untuk berbagai brand global ternama.",
+    alamat: "Kawasan Industri Sraten, Mertoyudan, Magelang",
+    kontak_pic: "0857 1625 7630",
+    email: "hrd@anugerahabadi.co.id",
+    website: "https://anugerahabadi.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000009",
-    nama_perusahaan: "PT Pharos Indonesia",
-    bidang_industri: "Farmasi & Industri Kesehatan",
-    nomor_stand: "Stand B4",
-    deskripsi: "Perusahaan farmasi terkemuka penghasil produk obat resep, suplemen kesehatan, dan nutrisi berkualitas tinggi.",
-    alamat: "Jl. Limo No. 40, Permata Hijau, Jakarta",
-    kontak_pic: "081223344558",
-    email: "recruitment@pharos.co.id",
-    website: "https://pharos.co.id"
+    nama_perusahaan: "PT KSA XL SMART",
+    bidang_industri: "Telekomunikasi & Distribusi Jaringan",
+    nomor_stand: "Stand B3",
+    deskripsi: "Dealer resmi distribusi produk telekomunikasi seluler, paket data, dan layanan digital connectivity XL Axiata / Smartfren.",
+    alamat: "Jl. Mayjen Bambang Soegeng No. 88, Magelang",
+    kontak_pic: "0858 0137 8742",
+    email: "karir@ksaxlsmart.com",
+    website: "https://ksaxlsmart.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000010",
-    nama_perusahaan: "PT Sukses Mandiri Utama",
-    bidang_industri: "Logistik & Penempatan Tenaga Kerja",
-    nomor_stand: "Stand B5",
-    deskripsi: "Mitra penyedia tenaga kerja manufaktur, teknik mesin presisi, dan operasional rantai pasok industri.",
-    alamat: "Jl. Gajah Mada No. 88, Semarang",
-    kontak_pic: "081223344559",
-    email: "info@suksesmandiri.co.id",
-    website: "https://suksesmandiri.co.id"
+    nama_perusahaan: "PT PERMODALAN NASIONAL MADANI",
+    bidang_industri: "Keuangan & Pemberdayaan Mikro (BUMN)",
+    nomor_stand: "Stand B4",
+    deskripsi: "BUMN lembaga pembiayaan dan pemberdayaan ekonomi perempuan pelaku usaha mikro di seluruh nusantara.",
+    alamat: "KC PNM Magelang, Jl. Gatot Soebroto No. 34, Magelang",
+    kontak_pic: "0811 8111 2362",
+    email: "rekrutmen@pnm.co.id",
+    website: "https://pnm.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000011",
-    nama_perusahaan: "PT Midi Utama Indonesia Tbk (Alfamidi)",
-    bidang_industri: "Ritel Modern & Fresh Market",
-    nomor_stand: "Stand C1",
-    deskripsi: "Jaringan supermarket ukuran menengah penyedia produk pangan segar, sayuran, dan kebutuhan sehari-hari.",
-    alamat: "Boyolali DC, Jl. Raya Boyolali-Semarang",
-    kontak_pic: "081223344560",
+    nama_perusahaan: "PT GISARA TANTRA BERKARYA",
+    bidang_industri: "Manufaktur Pengolahan Tembakau",
+    nomor_stand: "Stand B5",
+    deskripsi: "Industri pengolahan tembakau modern dan manufaktur hasil tembakau berskala regional Jawa Tengah.",
+    alamat: "Jl. Secang - Temanggung KM 3, Secang, Magelang",
+    kontak_pic: "0852 6153 9626",
+    email: "hrd@gisaratantra.co.id",
+    website: "https://gisaratantra.co.id"
+  },
+  {
+    id: "a0000001-0000-0000-0000-000000000012",
+    nama_perusahaan: "PT MIDI UTAMA INDONESIA (ALFAMIDI)",
+    bidang_industri: "Retail Modern & Supermarket",
+    nomor_stand: "Stand B6",
+    deskripsi: "Jaringan supermarket midi penyedia produk segar, sayuran higienis, dan kebutuhan harian keluarga di Indonesia.",
+    alamat: "Jl. Raya Boyolali-Semarang KM 12, Boyolali DC",
+    kontak_pic: "0853 3407 0511",
     email: "karir@alfamidiku.com",
     website: "https://alfamidi.id"
   },
   {
-    id: "a0000001-0000-0000-0000-000000000012",
-    nama_perusahaan: "Hotel Atria Magelang (Parador Hotels)",
-    bidang_industri: "Hospitality & Kuliner Pariwisata",
-    nomor_stand: "Stand C2",
-    deskripsi: "Hotel bintang 4 berkonsep perpaduan tradisi budaya dan kenyamanan modern dengan fasilitas banquet terkemuka.",
-    alamat: "Jl. Jenderal Sudirman No. 35, Magelang",
-    kontak_pic: "081223344561",
-    email: "hrd@atriahotelmagelang.com",
-    website: "https://parador-hotels.com"
-  },
-  {
     id: "a0000001-0000-0000-0000-000000000013",
-    nama_perusahaan: "PT Mataram Sakti (Dealer Yamaha)",
-    bidang_industri: "Otomotif & Sepeda Motor",
-    nomor_stand: "Stand C3",
-    deskripsi: "Main dealer resmi penjualan, perbaikan teknis bengkel, dan suku cadang sepeda motor Yamaha wilayah Jateng & DIY.",
-    alamat: "Jl. Magelang - Purworejo KM 4, Magelang",
-    kontak_pic: "081223344562",
-    email: "hr@mataramsakti.co.id",
-    website: "https://mataramsakti.co.id"
+    nama_perusahaan: "PT SHETLER INDONESIA",
+    bidang_industri: "Alih Daya / Facility Services (BPO)",
+    nomor_stand: "Stand C1",
+    deskripsi: "Penyedia jasa ketenagakerjaan terintegrasi, pengelolaan gedung, kebersihan fasilitas, dan keamanan profesional.",
+    alamat: "Jl. Kaliurang KM 7, Sleman, Yogyakarta",
+    kontak_pic: "0877 6780 1991",
+    email: "recruitment@shelter.co.id",
+    website: "https://shelterindonesia.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000014",
-    nama_perusahaan: "PT Nasmoco Magelang (Dealer Toyota)",
-    bidang_industri: "Otomotif & Bengkel Resmi",
-    nomor_stand: "Stand C4",
-    deskripsi: "Dealer resmi kendaraan Toyota dengan fasilitas bengkel body repair dan servis berkala terstandarisasi Jepang.",
-    alamat: "Jl. Urip Sumoharjo No. 18, Magelang",
-    kontak_pic: "081223344563",
-    email: "recruitment@nasmoco.co.id",
-    website: "https://nasmoco.co.id"
+    nama_perusahaan: "PT CLAY JAYA BERSAMA (BIG)",
+    bidang_industri: "Retail Bahan Bangunan Modern",
+    nomor_stand: "Stand C2",
+    deskripsi: "Supermarket modern penyedia bahan bangunan, sanitary, keramik, dan perlengkapan hunian terdepan (BIG Supermarket Bahan Bangunan).",
+    alamat: "Jl. Magelang - Yogyakarta KM 9, Muntilan, Magelang",
+    kontak_pic: "0896 8800 9591",
+    email: "karir@clayjayabersama.com",
+    website: "https://clayjayabersama.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000015",
-    nama_perusahaan: "PT Ungaran Sari Garments",
-    bidang_industri: "Tekstil, Garmen & Ekspor Fashion",
-    nomor_stand: "Stand C5",
-    deskripsi: "Eksportir pakaian jadi terkemuka di Asia Tenggara bermitra dengan merk busana ternama dunia.",
-    alamat: "Jl. Pangeran Diponegoro No. 235, Ungaran",
-    kontak_pic: "081223344564",
-    email: "hrd@usg.co.id",
-    website: "https://ungaransari.com"
+    nama_perusahaan: "PT MEKAR ARMADA JAYA",
+    bidang_industri: "Manufaktur Otomotif (Karoseri Bus)",
+    nomor_stand: "Stand C3",
+    deskripsi: "Pabrikan karoseri kendaraan bus dan produsen komponen otomotif stamping & tooling terbesar di Asia Tenggara (New Armada).",
+    alamat: "Jl. Mayjen Bambang Soegeng No. 7, Mertoyudan, Magelang",
+    kontak_pic: "0853 8562 5000",
+    email: "hrd@mekararmadajaya.com",
+    website: "https://newarmada.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000016",
-    nama_perusahaan: "PT Taman Wisata Candi Borobudur",
-    bidang_industri: "Pariwisata, Kebudayaan & Event",
-    nomor_stand: "Stand D1",
-    deskripsi: "BUMN pengelola kawasan destinasi pariwisata warisan dunia Candi Borobudur, Prambanan, dan Ratu Boko.",
-    alamat: "Kompleks Taman Wisata Candi Borobudur, Magelang",
-    kontak_pic: "081223344565",
-    email: "sdm@borobudurpark.co.id",
-    website: "https://borobudurpark.com"
+    nama_perusahaan: "SINDORO HOTEL COLLEGE MAGELANG",
+    bidang_industri: "Perhotelan dan Kapal Pesiar",
+    nomor_stand: "Stand C4",
+    deskripsi: "Kampus vokasi perhotelan profesional penyedia program diklat perhotelan, kapal pesiar, dan penempatan industri pariwisata.",
+    alamat: "Jl. Sindoro No. 10, Magelang",
+    kontak_pic: "0895 4058 27080",
+    email: "info@sindorohotelcollege.com",
+    website: "https://sindorohotelcollege.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000017",
-    nama_perusahaan: "PT BFI Finance Indonesia Tbk",
-    bidang_industri: "Lembaga Pembiayaan & Multi-finance",
-    nomor_stand: "Stand D2",
-    deskripsi: "Perusahaan pembiayaan terlama dan terpercaya penyedia fasilitas dana tunai, modal kerja, dan multiguna.",
-    alamat: "Jl. Tidar No. 56, Magelang",
-    kontak_pic: "081223344566",
-    email: "recruitment@bfi.co.id",
-    website: "https://bfi.co.id"
+    nama_perusahaan: "PT UNILOA ARDIYANTO INVESTAMA",
+    bidang_industri: "Developer Property & Real Estate",
+    nomor_stand: "Stand C5",
+    deskripsi: "Pengembang kawasan perumahan, properti komersial, dan investasi hunian terintegrasi di kawasan Jawa Tengah & DIY.",
+    alamat: "Ruko Grand Tidar Blok B, Jl. Tidar, Magelang",
+    kontak_pic: "0813 3756 3335",
+    email: "hrd@uniloa.com",
+    website: "https://uniloa.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000018",
-    nama_perusahaan: "Plataran Borobudur Resort & Spa",
-    bidang_industri: "Luxury Hospitality & Eco-Tourism",
-    nomor_stand: "Stand D3",
-    deskripsi: "Resor mewah berkelas internasional berwawasan kearifan lokal dengan pemandangan langsung Candi Borobudur.",
-    alamat: "Dusun Tanjungan, Borobudur, Magelang",
-    kontak_pic: "081223344567",
-    email: "career@plataran.com",
-    website: "https://plataran.com"
+    nama_perusahaan: "BMC DHARMADITNA YOGYAKARTA",
+    bidang_industri: "Pelatihan Mekanik Alat Berat",
+    nomor_stand: "Stand C6",
+    deskripsi: "Pusat pendidikan teknologi alat berat (Heavy Equipment Mechanic Center) bermitra dengan industri pertambangan dan konstruksi nasional.",
+    alamat: "Jl. Raya Solo KM 11, Kalasan, Sleman, Yogyakarta",
+    kontak_pic: "0821 4616 0214",
+    email: "info@bmcdharmaditna.com",
+    website: "https://bmcdharmaditna.com"
   },
   {
     id: "a0000001-0000-0000-0000-000000000019",
-    nama_perusahaan: "PT Triputra Agro Persada",
-    bidang_industri: "Agribisnis & Pengolahan Hasil Alam",
-    nomor_stand: "Stand D4",
-    deskripsi: "Kelompok usaha agribisnis perkebunan kelapa sawit dan karet berkelanjutan dengan tata kelola lingkungan terdepan.",
-    alamat: "The East Tower Lt. 23, Kuningan, Jakarta",
-    kontak_pic: "081223344568",
-    email: "recruitment@tap-agri.com",
-    website: "https://tap-agri.com"
+    nama_perusahaan: "PT. INDOMARCO PRISMATAMA",
+    bidang_industri: "Retail Modern & Distribusi Logistik",
+    nomor_stand: "Stand D1",
+    deskripsi: "Jaringan ritel minimarket waralaba terbesar di Indonesia penyedia layanan harian masyarakat di pelosok nusantara.",
+    alamat: "Kawasan Industri Candi Blok A No. 5, Semarang / Area Magelang",
+    kontak_pic: "0899 9172 359",
+    email: "karir@indomaret.co.id",
+    website: "https://indomaret.co.id"
   },
   {
     id: "a0000001-0000-0000-0000-000000000020",
-    nama_perusahaan: "PT Prima Multi Sarana",
-    bidang_industri: "Teknik Mesin, Fabrikasi & Konstruksi",
+    nama_perusahaan: "LIDAH BUAYA GROUP",
+    bidang_industri: "Manufaktur Toiletries & Kosmetik",
+    nomor_stand: "Stand D2",
+    deskripsi: "Kelompok industri manufaktur terkemuka penghasil produk perawatan tubuh, sabun, sampo, deterjen, dan kosmetik berkualitas nasional.",
+    alamat: "Jl. Beringin III No. 8, Tidar Selatan, Magelang",
+    kontak_pic: "0811 2510 1138",
+    email: "hrd@lidahbuayagroup.com",
+    website: "https://lidahbuayagroup.com"
+  },
+  {
+    id: "a0000001-0000-0000-0000-000000000021",
+    nama_perusahaan: "PUTRA TEKNIK AC",
+    bidang_industri: "Layanan Tata Udara & Pendingin (HVACR)",
+    nomor_stand: "Stand D3",
+    deskripsi: "Spesialis penyedia jasa instalasi, perawatan, perbaikan, dan suku cadang pendingin ruangan (AC) rumah tangga dan perkantoran.",
+    alamat: "Jl. Tentara Pelajar No. 88, Magelang",
+    kontak_pic: "0852 9112 35232",
+    email: "karir@putrateknikac.com",
+    website: "https://putrateknikac.com"
+  },
+  {
+    id: "a0000001-0000-0000-0000-000000000022",
+    nama_perusahaan: "STAFFINC",
+    bidang_industri: "Penyedia Solusi Tenaga Kerja & Teknologi SDM",
+    nomor_stand: "Stand D4",
+    deskripsi: "Perusahaan teknologi penyedia solusi manajemen tenaga kerja on-demand dan rekrutmen berbasis aplikasi terdepan di Indonesia.",
+    alamat: "Menara Satrio Lt. 14, Mega Kuningan, Jakarta Selatan",
+    kontak_pic: "0857 1580 1723",
+    email: "careers@staffinc.co",
+    website: "https://staffinc.co"
+  },
+  {
+    id: "a0000001-0000-0000-0000-000000000023",
+    nama_perusahaan: "PT. CANDI BANGUN PERSADA",
+    bidang_industri: "Jasa Dealer Resmi, Pemasangan & Perawatan HVAC",
     nomor_stand: "Stand D5",
-    deskripsi: "Spesialis rekayasa mekanikal industri, fabrikasi baja presisi, dan pemeliharaan instalasi pabrik modern.",
-    alamat: "Kawasan Industri Wijayakusuma, Semarang",
-    kontak_pic: "081223344569",
-    email: "karir@primamultisarana.com",
-    website: "https://primamultisarana.com"
+    deskripsi: "Distributor resmi, perancang sistem, dan aplikator instalasi tata udara AC VRF / Chiller gedung komersial dan residensial.",
+    alamat: "Jl. Magelang - Semarang KM 5, Secang, Magelang",
+    kontak_pic: "0857 0002 5566",
+    email: "hrd@candibangunpersada.com",
+    website: "https://candibangunpersada.com"
   }
 ];
 
 export const INITIAL_VACANCIES = [
-  // Quick (Stand A1)
+  // CV Karya Hidup Sentosa (Quick) (Stand A1)
   {
     id: "b0000001-0000-0000-0000-000000000001",
     industry_id: "a0000001-0000-0000-0000-000000000001",
     judul_posisi: "Operator Perakitan Mesin Traktor",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 35,
+    kuota: 10,
     gaji: "Rp 2.450.000 - Rp 3.200.000",
     pendidikan: "SMK Teknik Pemesinan / Otomotif",
     lokasi: "Pabrik Yogyakarta & Tuksono Kulon Progo",
     kualifikasi: "Laki-laki/Perempuan, usia maksimal 23 tahun, mampu membaca gambar teknik dan memakai alat ukur jangka sorong.",
     persyaratan: ["Fotokopi Ijazah / SKL SMK Mesin/Otomotif", "CV & Pas Foto 4x6", "Surat Keterangan Sehat Dokter"]
   },
+  // CV Karya Hidup Sentosa (Quick) (Stand A1)
   {
     id: "b0000001-0000-0000-0000-000000000002",
     industry_id: "a0000001-0000-0000-0000-000000000001",
-    judul_posisi: "Teknisi Pengelasan (Welder GMAW/SMAW)",
+    judul_posisi: "Teknisi Pengelasan & Fabrikasi Welder",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 20,
+    kuota: 5,
     gaji: "Rp 2.600.000 - Rp 3.500.000",
     pendidikan: "SMK Teknik Pengelasan / Fabrikasi",
     lokasi: "Pabrik Yogyakarta",
     kualifikasi: "Menguasai teknik las busur listrik SMAW atau MIG/GMAW, teliti, tidak buta warna, dan disiplin tinggi.",
-    persyaratan: ["Sertifikat Uji Kompetensi Las", "Fotokopi KTP & SKCK Aktif", "Portofolio Hasil Sambungan Las"]
+    persyaratan: ["Sertifikat Uji Kompetensi Las", "Fotokopi KTP & SKCK Aktif", "Portofolio Pengelasan"]
   },
-  // Daihatsu (Stand A2)
+  // DEWAVE FAMILY MASSAGE & BEAUTY SALON (Stand A2)
   {
     id: "b0000001-0000-0000-0000-000000000003",
     industry_id: "a0000001-0000-0000-0000-000000000002",
-    judul_posisi: "Mekanik Teknisi Bengkel Kendaraan Ringan",
+    judul_posisi: "Terapis Pria & Wanita (Massage & Reflexology)",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 15,
-    gaji: "Rp 2.400.000 - Rp 3.100.000",
-    pendidikan: "SMK Teknik Kendaraan Ringan (TKR)",
-    lokasi: "Bengkel Resmi Armada Daihatsu Magelang",
-    kualifikasi: "Paham overhaul mesin mobil, sistem kelistrikan bodi, dan tune-up injeksi modern EFI.",
-    persyaratan: ["Surat Lamaran Kerja & CV", "Transkrip Nilai / Rapor Terakhir", "SIM A atau SIM C Aktif"]
+    kuota: 70,
+    gaji: "Rp 2.500.000 - Rp 4.500.000 + Komisi",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Cabang Magelang, Yogyakarta & Jateng",
+    kualifikasi: "Pria/Wanita usia 18-35 tahun, ramah, beretika baik, bersedia mengikuti training gratis bersertifikat.",
+    persyaratan: ["Fotokopi KTP & Ijazah", "Daftar Riwayat Hidup / CV", "Pas Foto 4x6"]
   },
+  // DEWAVE FAMILY MASSAGE & BEAUTY SALON (Stand A2)
   {
     id: "b0000001-0000-0000-0000-000000000004",
     industry_id: "a0000001-0000-0000-0000-000000000002",
-    judul_posisi: "Service Advisor Apprentice",
+    judul_posisi: "Kasir & Front Office Receptionist",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 8,
-    gaji: "Rp 2.500.000 - Rp 3.400.000",
-    pendidikan: "SMK / Diploma Pariwisata / Komunikasi / Otomotif",
-    lokasi: "Outlet Armada Daihatsu Magelang",
-    kualifikasi: "Komunikatif, berpenampilan rapi, ramah melayani keluhan pelanggan, dan menguasai dasar komputer perkantoran.",
-    persyaratan: ["Surat Lamaran Kerja", "Foto Full Body 4R", "Fotokopi Ijazah SMK/Diploma"]
+    kuota: 15,
+    gaji: "Rp 2.300.000 - Rp 3.200.000",
+    pendidikan: "SMK Perhotelan / Bisnis / Administrasi",
+    lokasi: "Outlet Magelang",
+    kualifikasi: "Wanita, berpenampilan rapi, ramah melayani tamu, menguasai sistem POS kasir dan Microsoft Office.",
+    persyaratan: ["CV & Foto Full Body", "Fotokopi Ijazah / SKL", "Surat Pengalaman Kerja (jika ada)"]
   },
-  // Indomaret (Stand A3)
+  // DEWAVE FAMILY MASSAGE & BEAUTY SALON (Stand A2)
   {
     id: "b0000001-0000-0000-0000-000000000005",
-    industry_id: "a0000001-0000-0000-0000-000000000003",
-    judul_posisi: "Pramuniaga & Kasir Toko Retail",
+    industry_id: "a0000001-0000-0000-0000-000000000002",
+    judul_posisi: "Supervisor Operasional Cabang",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 150,
-    gaji: "Sesuai UMK Penempatan + Insentif",
-    pendidikan: "SMK / SMA Sederajat Semua Jurusan",
-    lokasi: "Gerai Indomaret Area Magelang & Temanggung",
-    kualifikasi: "Usia maksimal 24 tahun, tinggi badan min. 160 cm (Pria) / 155 cm (Wanita), berpenampilan menarik dan jujur.",
-    persyaratan: ["CV Lengkap & Pas Foto", "Fotokopi Kartu Keluarga", "Surat Keterangan Bebas Narkoba"]
+    kuota: 15,
+    gaji: "Rp 3.500.000 - Rp 5.000.000",
+    pendidikan: "D3 / S1 Semua Jurusan",
+    lokasi: "Jawa Tengah & DIY",
+    kualifikasi: "Memiliki jiwa kepemimpinan, mampu mengatur shift kerja terapis, dan berorientasi pada kepuasan pelanggan.",
+    persyaratan: ["CV Lengkap", "Portofolio / Pengalaman Manajerial", "Fotokopi KTP & Ijazah"]
   },
+  // HK GOLD (Stand A3)
   {
     id: "b0000001-0000-0000-0000-000000000006",
     industry_id: "a0000001-0000-0000-0000-000000000003",
+    judul_posisi: "Sales Jewelry Specialist / Frontliner",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 40,
+    gaji: "Rp 2.400.000 - Rp 3.800.000 + Insentif",
+    pendidikan: "SMA / SMK / D3 Semua Jurusan",
+    lokasi: "Gerai HK Gold Magelang",
+    kualifikasi: "Pria/Wanita berpenampilan rapi, jujur, komunikatif, mampu menawarkan perhiasan emas dengan ramah.",
+    persyaratan: ["CV & Foto Diri Rapi", "Fotokopi KTP & Ijazah", "SKCK Aktif Kepolisian"]
+  },
+  // HK GOLD (Stand A3)
+  {
+    id: "b0000001-0000-0000-0000-000000000007",
+    industry_id: "a0000001-0000-0000-0000-000000000003",
+    judul_posisi: "Kasir & Admin Timbangan Emas",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 20,
+    gaji: "Rp 2.300.000 - Rp 3.200.000",
+    pendidikan: "SMK Akuntansi / Bisnis Manajemen",
+    lokasi: "Gerai HK Gold Magelang",
+    kualifikasi: "Teliti tinggi, terbiasa mencatat arus kas, menghitung berat kadar emas, dan disiplin administrasi.",
+    persyaratan: ["Surat Lamaran & CV", "Transkrip Nilai / Rapor", "Fotokopi KTP"]
+  },
+  // LPK ATARA (Stand A4)
+  {
+    id: "b0000001-0000-0000-0000-000000000008",
+    industry_id: "a0000001-0000-0000-0000-000000000004",
+    judul_posisi: "Program Pelatihan & Penempatan Vokasi Industri",
+    tipe_pekerjaan: "Kontrak Pelatihan & Penempatan",
+    kuota: 120,
+    gaji: "Uang Saku + Sertifikasi BNSP + Penempatan Kerja",
+    pendidikan: "SMK Teknik Mesin / Otomotif / Elektro / SMA",
+    lokasi: "Magelang & Mitra Industri Nasional",
+    kualifikasi: "Pria/Wanita lulusan SMK/SMA yang bertekad kuat meningkatkan kompetensi teknis siap kerja industri.",
+    persyaratan: ["Fotokopi Ijazah / SKL", "Kartu Keluarga & KTP", "Pas Foto 3x4"]
+  },
+  // LPK ATARA (Stand A4)
+  {
+    id: "b0000001-0000-0000-0000-000000000009",
+    industry_id: "a0000001-0000-0000-0000-000000000004",
+    judul_posisi: "Program Diklat Administrasi Bisnis & Ritel",
+    tipe_pekerjaan: "Kontrak Pelatihan & Penempatan",
+    kuota: 80,
+    gaji: "Uang Saku + Sertifikasi BNSP + Penempatan Kerja",
+    pendidikan: "SMK Bisnis Manajemen / Pemasaran / Umum",
+    lokasi: "Magelang",
+    kualifikasi: "Memiliki minat di bidang administrasi, operasional ritel, dan layanan pelanggan profesional.",
+    persyaratan: ["Surat Pendaftaran & CV", "Fotokopi KTP", "Pas Foto Berwarna"]
+  },
+  // LPK CAPTAIN'S CLUB YOGYAKARTA (Stand A5)
+  {
+    id: "b0000001-0000-0000-0000-000000000010",
+    industry_id: "a0000001-0000-0000-0000-000000000005",
+    judul_posisi: "Cruise Line Shipboard Crew (F&B, Housekeeping, Bar)",
+    tipe_pekerjaan: "Kontrak Internasional Kapal Pesiar",
+    kuota: 600,
+    gaji: "$800 - $2.500 USD / Bulan (Makan & Akomodasi Ditanggung)",
+    pendidikan: "SMA / SMK / D3 / S1 Semua Jurusan",
+    lokasi: "Kapal Pesiar Karibia, Eropa & Asia Pasifik",
+    kualifikasi: "Pria/Wanita usia 18-35 tahun, bahasa Inggris dasar aktif, sehat jasmani rohani, bebas tato terlihat.",
+    persyaratan: ["CV Bahasa Inggris", "Paspor (jika ada)", "Fotokopi Ijazah Terakhir", "Pas Foto 4x6"]
+  },
+  // LPK CAPTAIN'S CLUB YOGYAKARTA (Stand A5)
+  {
+    id: "b0000001-0000-0000-0000-000000000011",
+    industry_id: "a0000001-0000-0000-0000-000000000005",
+    judul_posisi: "International Hotel Staff (Timur Tengah & Asia Pasifik)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 400,
+    gaji: "Rp 8.000.000 - Rp 15.000.000 / Bulan",
+    pendidikan: "SMK Perhotelan / SMA Sederajat",
+    lokasi: "Uni Emirat Arab, Qatar, Malaysia, Maladewa",
+    kualifikasi: "Pekerja keras, antusias berkarir di hotel bintang 4-5 mancanegara, disiplin perhotelan tinggi.",
+    persyaratan: ["Curriculum Vitae", "Sertifikat PKL / Pelatihan", "Fotokopi KTP & KK"]
+  },
+  // LPK PLATINUM MAGELANG (Stand A6)
+  {
+    id: "b0000001-0000-0000-0000-000000000012",
+    industry_id: "a0000001-0000-0000-0000-000000000006",
+    judul_posisi: "Konseling Karir & Registrasi Program Diklat Perhotelan",
+    tipe_pekerjaan: "Bimbingan & Program Diklat Profesi",
+    kuota: 50,
+    gaji: "Bimbingan Penempatan Kerja Resmi Internasional",
+    pendidikan: "SMA / SMK Semua Jurusan",
+    lokasi: "Kampus LPK Platinum Magelang",
+    kualifikasi: "Pria/Wanita yang berminat mendalami karir di bidang perhotelan nasional dan kapal pesiar mewah.",
+    persyaratan: ["Fotokopi KTP & Kartu Keluarga", "Pas Foto 3x4 (3 lembar)", "Fotokopi Ijazah / SKL"]
+  },
+  // LPK TERATAI GOGAKUIN (Stand B1)
+  {
+    id: "b0000001-0000-0000-0000-000000000013",
+    industry_id: "a0000001-0000-0000-0000-000000000007",
+    judul_posisi: "Program Kerja Tokutei Ginou / SSW Jepang",
+    tipe_pekerjaan: "Kontrak Kerja 3-5 Tahun di Jepang",
+    kuota: 60,
+    gaji: "¥160.000 - ¥220.000 JPY / Bulan (Rp 17 - 24 Juta)",
+    pendidikan: "SMA / SMK / D3 / S1 Segala Jurusan",
+    lokasi: "Tokyo, Osaka, Nagoya & Prefektur Jepang",
+    kualifikasi: "Usia 18-28 tahun, fisik prima, tidak bertato/tindik (pria), bersedia mengikuti pelatihan bahasa Jepang intensif.",
+    persyaratan: ["KTP & Kartu Keluarga", "Surat Izin Orang Tua", "Ijazah Terakhir", "Medical Check Up"]
+  },
+  // LPK TERATAI GOGAKUIN (Stand B1)
+  {
+    id: "b0000001-0000-0000-0000-000000000014",
+    industry_id: "a0000001-0000-0000-0000-000000000007",
+    judul_posisi: "Program Magang Kerja Ginou Jisshuusei (Pabrik & Pertanian)",
+    tipe_pekerjaan: "Kontrak Magang 3 Tahun di Jepang",
+    kuota: 40,
+    gaji: "¥140.000 - ¥180.000 JPY / Bulan + Asuransi Lengkap",
+    pendidikan: "SMK Teknik / SMA Sederajat",
+    lokasi: "Kawasan Industri Jepang",
+    kualifikasi: "Pekerja keras, ulet, patuh pada aturan ketat keselamatan kerja di pabrik dan perkebunan modern Jepang.",
+    persyaratan: ["Fotokopi Dokumen Kependudukan", "CV Lengkap", "Pas Foto 3x4 Background Putih"]
+  },
+  // PT ANUGERAH ABADI MAGELANG (Stand B2)
+  {
+    id: "b0000001-0000-0000-0000-000000000015",
+    industry_id: "a0000001-0000-0000-0000-000000000008",
+    judul_posisi: "Operator Jahit (Sewing Machine Operator)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 140,
+    gaji: "Sesuai UMK Magelang + Premi Jahit & Lembur",
+    pendidikan: "SMK Tata Busana / SMA / SMK Semua Jurusan",
+    lokasi: "Pabrik Mertoyudan, Magelang",
+    kualifikasi: "Pria/Wanita usia 18-35 tahun, mampu mengoperasikan mesin jahit jarum 1/2, sabar dan teliti.",
+    persyaratan: ["Fotokopi KTP & Ijazah", "Pas Foto 3x4 (2 lembar)", "Surat Keterangan Sehat"]
+  },
+  // PT ANUGERAH ABADI MAGELANG (Stand B2)
+  {
+    id: "b0000001-0000-0000-0000-000000000016",
+    industry_id: "a0000001-0000-0000-0000-000000000008",
+    judul_posisi: "Staff Quality Control (QC Garmen & Finishing)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 40,
+    gaji: "Rp 2.400.000 - Rp 3.200.000",
+    pendidikan: "SMK Tata Busana / Semua Jurusan",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Cermat dalam memeriksa cacat jahitan, kesesuaian ukuran pola (spec), dan kerapian pengemasan pakaian ekspor.",
+    persyaratan: ["CV Lengkap", "Fotokopi KTP & Ijazah", "SKCK Aktif"]
+  },
+  // PT ANUGERAH ABADI MAGELANG (Stand B2)
+  {
+    id: "b0000001-0000-0000-0000-000000000017",
+    industry_id: "a0000001-0000-0000-0000-000000000008",
+    judul_posisi: "Petugas Cutting & Packaging Ekspor",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 20,
+    gaji: "UMK Magelang + Insentif Shift",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Fisik kuat, cekatan, teliti menghitung bundle kain dan melipat produk garmen sesuai instruksi kerja.",
+    persyaratan: ["Surat Lamaran Kerja", "Fotokopi KTP", "Kartu Keluarga"]
+  },
+  // PT KSA XL SMART (Stand B3)
+  {
+    id: "b0000001-0000-0000-0000-000000000018",
+    industry_id: "a0000001-0000-0000-0000-000000000009",
+    judul_posisi: "Direct Sales Executive & Canvasser Outlet",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 35,
+    gaji: "UMK + Uang Bensin + Komisi Penjualan Menarik",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Area Magelang, Temanggung & Purworejo",
+    kualifikasi: "Pria/Wanita memiliki sepeda motor & SIM C, komunikatif, menyukai tantangan target penjualan kartu perdana & paket data.",
+    persyaratan: ["CV & Fotokopi SIM C", "Fotokopi KTP & Ijazah", "Pas Foto 4x6"]
+  },
+  // PT KSA XL SMART (Stand B3)
+  {
+    id: "b0000001-0000-0000-0000-000000000019",
+    industry_id: "a0000001-0000-0000-0000-000000000009",
+    judul_posisi: "Promotor Digital & Event Representative",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 15,
+    gaji: "Rp 2.400.000 - Rp 3.400.000",
+    pendidikan: "SMK Pemasaran / SMA / D3",
+    lokasi: "Booth Mall & Pusat Keramaian Magelang",
+    kualifikasi: "Aktif di media sosial, percaya diri berbicara di depan umum, mampu menjelaskan promo paket seluler kepada pelanggan.",
+    persyaratan: ["CV & Foto Diri Menarik", "Fotokopi KTP", "Ijazah Terakhir"]
+  },
+  // PT PERMODALAN NASIONAL MADANI (Stand B4)
+  {
+    id: "b0000001-0000-0000-0000-000000000020",
+    industry_id: "a0000001-0000-0000-0000-000000000010",
+    judul_posisi: "Account Officer (AO) Mekaar",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 80,
+    gaji: "UMK Wilayah + Fasilitas Motor Dinas + Tempat Tinggal / Mess",
+    pendidikan: "SMA / SMK Sederajat (Semua Jurusan)",
+    lokasi: "Cabang Unit Mekaar Magelang & Sekitarnya",
+    kualifikasi: "Khusus Perempuan, usia 18-22 tahun, belum menikah, mampu mengendarai sepeda motor (memiliki SIM C disukai), jujur.",
+    persyaratan: ["Fotokopi KTP, KK & Ijazah/SKL", "Surat Lamaran & CV", "Surat Izin Orang Tua"]
+  },
+  // PT PERMODALAN NASIONAL MADANI (Stand B4)
+  {
+    id: "b0000001-0000-0000-0000-000000000021",
+    industry_id: "a0000001-0000-0000-0000-000000000010",
+    judul_posisi: "Finance Administration Officer (FAO) Mekaar",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 40,
+    gaji: "UMK Wilayah + Tunjangan Kinerja + Asuransi Kesehatan",
+    pendidikan: "SMK Akuntansi / Keuangan / Administrasi Perkantoran",
+    lokasi: "Kantor Unit Mekaar Magelang",
+    kualifikasi: "Perempuan, teliti, menguasai pencatatan kas harian dan Microsoft Excel dengan baik.",
+    persyaratan: ["CV Lengkap", "Fotokopi Ijazah & Transkrip Rapor", "Fotokopi KTP & KK"]
+  },
+  // PT GISARA TANTRA BERKARYA (Stand B5)
+  {
+    id: "b0000001-0000-0000-0000-000000000022",
+    industry_id: "a0000001-0000-0000-0000-000000000011",
+    judul_posisi: "Operator Pelintingan & Kemasan Produk",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 150,
+    gaji: "Sesuai UMK + Premi Hasil Kerja",
+    pendidikan: "SMP / SMA / SMK Sederajat",
+    lokasi: "Pabrik Secang, Magelang",
+    kualifikasi: "Pria/Wanita usia 18-35 tahun, memiliki ketelitian dan ketangkasan tangan, tidak memiliki riwayat alergi aroma tembakau.",
+    persyaratan: ["Fotokopi KTP & KK", "Pas Foto 3x4 (2 lembar)", "Surat Keterangan Sehat"]
+  },
+  // PT GISARA TANTRA BERKARYA (Stand B5)
+  {
+    id: "b0000001-0000-0000-0000-000000000023",
+    industry_id: "a0000001-0000-0000-0000-000000000011",
+    judul_posisi: "Operator Mesin Sortir & Pengeringan Tembakau",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 35,
+    gaji: "Rp 2.400.000 - Rp 3.200.000",
+    pendidikan: "SMK Teknik Mesin / Listrik / Industri",
+    lokasi: "Pabrik Secang",
+    kualifikasi: "Pria usia maksimal 30 tahun, memahami dasar pengoperasian mesin konveyor dan motor listrik.",
+    persyaratan: ["CV & Fotokopi Ijazah", "KTP & SKCK Aktif", "Surat Pengalaman Kerja (jika ada)"]
+  },
+  // PT GISARA TANTRA BERKARYA (Stand B5)
+  {
+    id: "b0000001-0000-0000-0000-000000000024",
+    industry_id: "a0000001-0000-0000-0000-000000000011",
+    judul_posisi: "Quality Control Tembakau",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 15,
+    gaji: "Rp 2.500.000 - Rp 3.400.000",
+    pendidikan: "SMK Kimia / Pertanian / Analis / D3",
+    lokasi: "Pabrik Secang",
+    kualifikasi: "Teliti menguji kadar air, tekstur rajangan daun tembakau, dan standar kemasan steril.",
+    persyaratan: ["Daftar Riwayat Hidup", "Transkrip Nilai / Rapor", "Fotokopi KTP"]
+  },
+  // PT MIDI UTAMA INDONESIA (ALFAMIDI) (Stand B6)
+  {
+    id: "b0000001-0000-0000-0000-000000000025",
+    industry_id: "a0000001-0000-0000-0000-000000000012",
+    judul_posisi: "Store Crew (Pramuniaga & Kasir Gerai)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 130,
+    gaji: "Sesuai UMK Penempatan + BPJS Lengkap",
+    pendidikan: "SMA / SMK Semua Jurusan",
+    lokasi: "Gerai Alfamidi Wilayah Magelang, DIY & Boyolali",
+    kualifikasi: "Usia maksimal 24 tahun, ramah, berpenampilan bersih menarik, siap bekerja dalam sistem shift.",
+    persyaratan: ["CV Lengkap & Pas Foto", "Fotokopi KTP & KK", "Surat Keterangan Belum Menikah"]
+  },
+  // PT MIDI UTAMA INDONESIA (ALFAMIDI) (Stand B6)
+  {
+    id: "b0000001-0000-0000-0000-000000000026",
+    industry_id: "a0000001-0000-0000-0000-000000000012",
+    judul_posisi: "Helper & Checker Warehouse DC",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 70,
+    gaji: "Sesuai UMK + Insentif Lembur & Operasional",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Distribution Center Boyolali",
+    kualifikasi: "Pria, fisik sehat bugar, teliti mendata muatan palet dan siap bekerja dalam shift logistik malam.",
+    persyaratan: ["Surat Lamaran", "Fotokopi KTP", "Surat Keterangan Dokter"]
+  },
+  // PT SHETLER INDONESIA (Stand C1)
+  {
+    id: "b0000001-0000-0000-0000-000000000027",
+    industry_id: "a0000001-0000-0000-0000-000000000013",
+    judul_posisi: "Staff Layanan Fasilitas & Office Support",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 4,
+    gaji: "Rp 2.300.000 - Rp 2.900.000",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Gedung Perkantoran Magelang & Yogyakarta",
+    kualifikasi: "Disiplin tinggi, bertanggung jawab menjaga kebersihan, kerapian, dan kelancaran sarana kantor.",
+    persyaratan: ["Fotokopi KTP & KK", "Ijazah Terakhir SMK/SMA", "SKCK Aktif Kepolisian"]
+  },
+  // PT SHETLER INDONESIA (Stand C1)
+  {
+    id: "b0000001-0000-0000-0000-000000000028",
+    industry_id: "a0000001-0000-0000-0000-000000000013",
+    judul_posisi: "Petugas Pengamanan / Security Guard",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 3,
+    gaji: "Rp 2.450.000 - Rp 3.200.000",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Magelang",
+    kualifikasi: "Tegas, jujur, memiliki sertifikat Gada Pratama dan KTA aktif, postur tegap.",
+    persyaratan: ["Fotokopi Ijazah Gada Pratama", "KTA Security", "Surat Bebas Narkoba"]
+  },
+  // PT CLAY JAYA BERSAMA (BIG) (Stand C2)
+  {
+    id: "b0000001-0000-0000-0000-000000000029",
+    industry_id: "a0000001-0000-0000-0000-000000000014",
+    judul_posisi: "Sales Counter & Customer Service Bangunan",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 3,
+    gaji: "Rp 2.400.000 - Rp 3.200.000 + Insentif",
+    pendidikan: "SMA / SMK / D3 Semua Jurusan",
+    lokasi: "Outlet BIG Muntilan, Magelang",
+    kualifikasi: "Komunikatif, ramah, memahami dasar material bangunan/interior, dan mampu bernegosiasi dengan pembeli.",
+    persyaratan: ["CV & Foto Diri Terkini", "Fotokopi Ijazah", "KTP & KK"]
+  },
+  // PT CLAY JAYA BERSAMA (BIG) (Stand C2)
+  {
+    id: "b0000001-0000-0000-0000-000000000030",
+    industry_id: "a0000001-0000-0000-0000-000000000014",
+    judul_posisi: "Staff Logistik & Inventory Bahan Bangunan",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 2,
+    gaji: "Rp 2.300.000 - Rp 3.000.000",
+    pendidikan: "SMK Administrasi / Teknik / Umum",
+    lokasi: "Gudang BIG Muntilan",
+    kualifikasi: "Pria, fisik kuat, teliti mencocokkan surat jalan dengan fisik keramik, semen, dan barang berat.",
+    persyaratan: ["Surat Lamaran Kerja", "Fotokopi KTP & Ijazah", "SKCK Aktif"]
+  },
+  // PT MEKAR ARMADA JAYA (Stand C3)
+  {
+    id: "b0000001-0000-0000-0000-000000000031",
+    industry_id: "a0000001-0000-0000-0000-000000000015",
+    judul_posisi: "Operator Perakitan Body Bus (Assembler)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 25,
+    gaji: "Rp 2.500.000 - Rp 3.600.000",
+    pendidikan: "SMK Teknik Otomotif / Pemesinan / Alat Berat",
+    lokasi: "Pabrik New Armada Mertoyudan, Magelang",
+    kualifikasi: "Laki-laki usia maks 24 tahun, mampu membaca gambar teknik perakitan bodi kendaraan dan menggunakan perkakas pneumatik.",
+    persyaratan: ["Fotokopi Ijazah / SKL SMK", "CV & Pas Foto 4x6", "Surat Keterangan Bebas Buta Warna"]
+  },
+  // PT MEKAR ARMADA JAYA (Stand C3)
+  {
+    id: "b0000001-0000-0000-0000-000000000032",
+    industry_id: "a0000001-0000-0000-0000-000000000015",
+    judul_posisi: "Teknisi Pengelasan Karoseri (Welder CO2 / MIG)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 10,
+    gaji: "Rp 2.700.000 - Rp 3.800.000",
+    pendidikan: "SMK Teknik Pengelasan",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Mampu mengelas rangka baja chassis dan bodi bus dengan rapi, kuat, dan lolos uji visual pengelasan.",
+    persyaratan: ["Sertifikat Kejuruan Las", "KTP & SKCK Aktif", "Portofolio Las"]
+  },
+  // PT MEKAR ARMADA JAYA (Stand C3)
+  {
+    id: "b0000001-0000-0000-0000-000000000033",
+    industry_id: "a0000001-0000-0000-0000-000000000015",
+    judul_posisi: "Teknisi Cat & Dempul Bodi (Painting Operator)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 9,
+    gaji: "Rp 2.600.000 - Rp 3.500.000",
+    pendidikan: "SMK Body Repair / Otomotif",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Memahami teknik pendempulan halus, masking, dan spray painting oven untuk permukaan bodi otomotif.",
+    persyaratan: ["CV Lengkap", "Ijazah SMK", "Fotokopi KTP"]
+  },
+  // SINDORO HOTEL COLLEGE MAGELANG (Stand C4)
+  {
+    id: "b0000001-0000-0000-0000-000000000034",
+    industry_id: "a0000001-0000-0000-0000-000000000016",
+    judul_posisi: "Asisten Instruktur Perhotelan & Tata Hidang (F&B)",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 3,
+    gaji: "Rp 2.600.000 - Rp 3.600.000",
+    pendidikan: "D3 / S1 Perhotelan / Pariwisata",
+    lokasi: "Kampus Sindoro Magelang",
+    kualifikasi: "Menguasai table setting, mixology dasar, komunikasi santun, dan berpengalaman di hotel minimal bintang 3.",
+    persyaratan: ["CV & Sertifikat Keahlian Pariwisata", "Ijazah Terakhir", "Pas Foto 4x6"]
+  },
+  // SINDORO HOTEL COLLEGE MAGELANG (Stand C4)
+  {
+    id: "b0000001-0000-0000-0000-000000000035",
+    industry_id: "a0000001-0000-0000-0000-000000000016",
+    judul_posisi: "Staff Administrasi Akademik & Hubungan Industri",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 2,
+    gaji: "Rp 2.400.000 - Rp 3.200.000",
+    pendidikan: "SMK / D3 Administrasi Perkantoran / Manajemen",
+    lokasi: "Magelang",
+    kualifikasi: "Cekatan, menguasai korespondensi formal, pengelolaan berkas magang siswa, dan Microsoft Office.",
+    persyaratan: ["Surat Lamaran Kerja & CV", "Transkrip Nilai", "Fotokopi KTP"]
+  },
+  // PT UNILOA ARDIYANTO INVESTAMA (Stand C5)
+  {
+    id: "b0000001-0000-0000-0000-000000000036",
+    industry_id: "a0000001-0000-0000-0000-000000000017",
+    judul_posisi: "Marketing Executive Properti & Perumahan",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 4,
+    gaji: "Gaji Pokok + Komisi Penjualan Unit Puluhan Juta",
+    pendidikan: "SMA / SMK / D3 / S1 Semua Jurusan",
+    lokasi: "Project Magelang & Sekitarnya",
+    kualifikasi: "Percaya diri, menyukai dunia pemasaran properti, memiliki kendaraan sendiri, target-oriented.",
+    persyaratan: ["CV & Portofolio Penjualan (jika ada)", "Fotokopi KTP & SIM C", "Foto Diri Menarik"]
+  },
+  // PT UNILOA ARDIYANTO INVESTAMA (Stand C5)
+  {
+    id: "b0000001-0000-0000-0000-000000000037",
+    industry_id: "a0000001-0000-0000-0000-000000000017",
+    judul_posisi: "Pengawas Lapangan Konstruksi Perumahan",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 2,
+    gaji: "Rp 2.800.000 - Rp 4.000.000",
+    pendidikan: "SMK Bangunan / D3 Teknik Sipil / Arsitektur",
+    lokasi: "Site Proyek Magelang",
+    kualifikasi: "Paham membaca gambar kerja (shop drawing), mengawasi tukang, dan mengontrol mutu cor & struktur bangunan.",
+    persyaratan: ["Daftar Riwayat Hidup", "Fotokopi Ijazah", "KTP & SKCK Aktif"]
+  },
+  // BMC DHARMADITNA YOGYAKARTA (Stand C6)
+  {
+    id: "b0000001-0000-0000-0000-000000000038",
+    industry_id: "a0000001-0000-0000-0000-000000000018",
+    judul_posisi: "Teknisi & Asisten Trainer Mekanik Alat Berat",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 2,
+    gaji: "Rp 2.800.000 - Rp 4.200.000",
+    pendidikan: "SMK Teknik Alat Berat / Mesin / Otomotif",
+    lokasi: "Workshop BMC Sleman, DIY",
+    kualifikasi: "Memahami sistem hidrolik, engine diesel alat berat excavator/bulldozer, dan disiplin K3 workshop.",
+    persyaratan: ["Fotokopi Ijazah / Sertifikat Alat Berat", "CV & Pas Foto", "Fotokopi KTP"]
+  },
+  // PT. INDOMARCO PRISMATAMA (Stand D1)
+  {
+    id: "b0000001-0000-0000-0000-000000000039",
+    industry_id: "a0000001-0000-0000-0000-000000000019",
+    judul_posisi: "Pramuniaga & Kasir Toko Retail",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 140,
+    gaji: "Sesuai UMK Penempatan + Insentif Toko",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Gerai Indomaret Wilayah Magelang Raya",
+    kualifikasi: "Usia maksimal 24 tahun, tinggi min 160 cm (Pria) / 155 cm (Wanita), jujur, tidak bertato, ramah.",
+    persyaratan: ["CV Lengkap & Pas Foto", "Fotokopi KTP & KK", "Surat Bebas Narkoba"]
+  },
+  // PT. INDOMARCO PRISMATAMA (Stand D1)
+  {
+    id: "b0000001-0000-0000-0000-000000000040",
+    industry_id: "a0000001-0000-0000-0000-000000000019",
     judul_posisi: "Staff Gudang Logistik (Helper DC)",
     tipe_pekerjaan: "Penuh Waktu",
     kuota: 60,
     gaji: "Sesuai UMK + Uang Makan & Lembur",
-    pendidikan: "SMK Semua Jurusan",
-    lokasi: "Distribution Center Indomaret Candi Semarang",
-    kualifikasi: "Fisik sehat bugar, siap bekerja dalam sistem shift, teliti menghitung stok fisik barang pergudangan.",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Distribution Center Semarang",
+    kualifikasi: "Pria, fisik sehat bugar, teliti menyusun barang palet gudang dan siap bekerja shift.",
     persyaratan: ["Surat Lamaran", "Fotokopi KTP", "Surat Keterangan Dokter"]
   },
-  // Shelter (Stand A4)
+  // LIDAH BUAYA GROUP (Stand D2)
   {
-    id: "b0000001-0000-0000-0000-000000000007",
-    industry_id: "a0000001-0000-0000-0000-000000000004",
-    judul_posisi: "Staff Layanan Fasilitas & Office Support",
+    id: "b0000001-0000-0000-0000-000000000041",
+    industry_id: "a0000001-0000-0000-0000-000000000020",
+    judul_posisi: "Operator Produksi & Pengemasan Sabun",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 45,
-    gaji: "Rp 2.300.000 - Rp 2.900.000",
-    pendidikan: "SMK / SMA Sederajat",
-    lokasi: "Penempatan Wilayah DIY & Jawa Tengah",
-    kualifikasi: "Disiplin tinggi, bertanggung jawab menjaga kebersihan, kerapian, dan kenyamanan fasilitas gedung perkantoran mitra.",
-    persyaratan: ["Fotokopi KTP & KK", "Ijazah Terakhir SMK/SMA", "SKCK Aktif Kepolisian"]
+    kuota: 110,
+    gaji: "Sesuai UMK Magelang + BPJS Ketenagakerjaan",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Pabrik Tidar Selatan, Magelang",
+    kualifikasi: "Pria/Wanita usia maks 28 tahun, fisik prima, rajin, siap bekerja dalam target tim lini produksi pabrik.",
+    persyaratan: ["Fotokopi KTP & KK", "Ijazah Terakhir", "Pas Foto 3x4 (2 lembar)"]
   },
-  // Alfamart (Stand A5)
+  // LIDAH BUAYA GROUP (Stand D2)
   {
-    id: "b0000001-0000-0000-0000-000000000008",
-    industry_id: "a0000001-0000-0000-0000-000000000005",
-    judul_posisi: "Crew Store (Kasir / Pramuniaga Gerai)",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 120,
-    gaji: "Sesuai UMK + Fasilitas BPJS",
-    pendidikan: "SMK / SMA Semua Jurusan",
-    lokasi: "Jaringan Gerai Alfamart Magelang Raya",
-    kualifikasi: "Siap bekerja dalam sistem pergantian shift, mampu melayani transaksi pembeli dengan senyum dan ramah.",
-    persyaratan: ["Daftar Riwayat Hidup", "Fotokopi Ijazah / SKL", "Surat Keterangan Belum Menikah"]
-  },
-  // Grand Artos (Stand B1)
-  {
-    id: "b0000001-0000-0000-0000-000000000009",
-    industry_id: "a0000001-0000-0000-0000-000000000006",
-    judul_posisi: "Front Desk Agent / Resepsionis Hotel",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 6,
-    gaji: "Rp 2.600.000 - Rp 3.600.000 + Service Charge",
-    pendidikan: "SMK Perhotelan / Pariwisata / Bahasa",
-    lokasi: "Grand Artos Hotel & Convention Magelang",
-    kualifikasi: "Ramah, kemampuan bahasa Inggris aktif, memahami sistem reservasi hotel, dan berpenampilan bersih menarik.",
-    persyaratan: ["CV Berbahasa Indonesia/Inggris", "Foto Formal 4x6 & Foto Full Body", "Sertifikat Praktik Kerja Lapangan Hotel"]
-  },
-  {
-    id: "b0000001-0000-0000-0000-000000000010",
-    industry_id: "a0000001-0000-0000-0000-000000000006",
-    judul_posisi: "Cook Helper & Pastry Commis Kitchen",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 10,
-    gaji: "Rp 2.400.000 - Rp 3.200.000 + Service Charge",
-    pendidikan: "SMK Tata Boga / Kuliner",
-    lokasi: "Main Kitchen Grand Artos Hotel Magelang",
-    kualifikasi: "Menguasai dasar kebersihan dapur (kitchen hygiene), food prep, dan siap bekerja dalam tim dapur hotel berbintang.",
-    persyaratan: ["CV Lengkap", "Sertifikat Keahlian Tata Boga/Kuliner", "Surat Keterangan Sehat"]
-  },
-  // Bintang Toedjoe (Stand B2)
-  {
-    id: "b0000001-0000-0000-0000-000000000011",
-    industry_id: "a0000001-0000-0000-0000-000000000007",
-    judul_posisi: "Operator Produksi Industri Farmasi",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 30,
-    gaji: "Rp 3.100.000 - Rp 4.200.000",
-    pendidikan: "SMK Farmasi / Kimia Industri",
-    lokasi: "Fasilitas Manufaktur Kalbe Cikarang & Jakarta",
-    kualifikasi: "Paham prinsip CPOB (Cara Pembuatan Obat yang Baik), teliti, tidak berkacamata tebal, dan bebas buta warna.",
-    persyaratan: ["Ijazah & Transkrip SMK Farmasi/Kimia", "Surat Bebas Buta Warna", "SKCK Aktif"]
-  },
-  // BCA (Stand B3)
-  {
-    id: "b0000001-0000-0000-0000-000000000012",
-    industry_id: "a0000001-0000-0000-0000-000000000008",
-    judul_posisi: "Program Magang Bakti Customer Service & Teller",
-    tipe_pekerjaan: "Kontrak Pelatihan 1 Tahun",
-    kuota: 25,
-    gaji: "Uang Saku Bulanan + Tunjangan Akhir & Sertifikasi",
-    pendidikan: "SMK / SMA / D3 Nilai Rata-rata Min 7.5",
-    lokasi: "Kantor Cabang Utama Magelang & Sekitarnya",
-    kualifikasi: "Usia 18-24 tahun, penampilan profesional, integritas teruji, belum menikah, dan nilai rata-rata min 7.5.",
-    persyaratan: ["KTP & Kartu Keluarga", "Ijazah & Transkrip Nilai", "Foto Berwarna 4x6"]
-  },
-  // Pharos (Stand B4)
-  {
-    id: "b0000001-0000-0000-0000-000000000013",
-    industry_id: "a0000001-0000-0000-0000-000000000009",
-    judul_posisi: "Petugas Farmasi & Asisten Apoteker",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 40,
-    gaji: "Rp 2.800.000 - Rp 3.700.000",
-    pendidikan: "SMK Farmasi / D3 Farmasi",
-    lokasi: "Jaringan Apotek Mitra Wilayah Jawa Tengah",
-    kualifikasi: "Mengenal golongan obat resep & OTC, teliti membaca resep dokter, dan siap bekerja dalam shift apotek.",
-    persyaratan: ["Surat Keterangan Lulus SMK/D3 Farmasi", "CV & Pas Foto", "STRTTK (jika ada)"]
-  },
-  // Sukses Mandiri Utama (Stand B5)
-  {
-    id: "b0000001-0000-0000-0000-000000000014",
-    industry_id: "a0000001-0000-0000-0000-000000000010",
-    judul_posisi: "Operator Mesin CNC Milling & Bubut Logam",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 25,
-    gaji: "Rp 2.700.000 - Rp 3.600.000",
-    pendidikan: "SMK Teknik Mesin / Perkakas",
-    lokasi: "Kawasan Industri Kendal & Semarang",
-    kualifikasi: "Mampu membaca instruksi kerja gambar teknik dan mengoperasikan mesin perkakas presisi.",
-    persyaratan: ["CV & Surat Lamaran", "Sertifikat Praktik Mesin", "Fotokopi KTP"]
-  },
-  // Alfamidi (Stand C1)
-  {
-    id: "b0000001-0000-0000-0000-000000000015",
-    industry_id: "a0000001-0000-0000-0000-000000000011",
-    judul_posisi: "Store Crew Fresh Produce (Buah & Sayur)",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 35,
-    gaji: "Sesuai UMK + Tunjangan Fresh Market",
-    pendidikan: "SMK Agribisnis / Pemasaran / Umum",
-    lokasi: "Gerai Alfamidi Jawa Tengah",
-    kualifikasi: "Cermat memeriksa kualitas kesegaran sayur dan buah, mampu menata display etalase produk dengan rapi.",
-    persyaratan: ["CV Lengkap", "KTP & Kartu Keluarga", "Pas Foto 3x4"]
-  },
-  // Hotel Atria (Stand C2)
-  {
-    id: "b0000001-0000-0000-0000-000000000016",
-    industry_id: "a0000001-0000-0000-0000-000000000012",
-    judul_posisi: "Food & Beverage Banquet Service Attendant",
-    tipe_pekerjaan: "Penuh Waktu / Kasual Expo",
-    kuota: 18,
-    gaji: "Rp 2.350.000 - Rp 3.000.000 + Insentif Event",
-    pendidikan: "SMK Perhotelan / Tata Boga",
-    lokasi: "Hotel Atria Magelang",
-    kualifikasi: "Disiplin tinggi, standar grooming rapi, ramah, mampu membawa baki hidangan jamuan banquet elegan.",
-    persyaratan: ["CV & Foto Diri Rapi", "Surat Keterangan Magang Perhotelan", "Fotokopi KTP"]
-  },
-  {
-    id: "b0000001-0000-0000-0000-000000000017",
-    industry_id: "a0000001-0000-0000-0000-000000000012",
-    judul_posisi: "Housekeeping & Public Area Attendant",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 12,
-    gaji: "Rp 2.300.000 - Rp 2.900.000",
-    pendidikan: "SMK Perhotelan / Pariwisata",
-    lokasi: "Hotel Atria Magelang",
-    kualifikasi: "Teliti membersihkan kamar tamu dan area fasilitas publik sesuai standar kebersihan bintang 4.",
-    persyaratan: ["CV Lengkap", "SKCK Aktif", "Fotokopi KTP"]
-  },
-  // Mataram Sakti (Stand C3)
-  {
-    id: "b0000001-0000-0000-0000-000000000018",
-    industry_id: "a0000001-0000-0000-0000-000000000013",
-    judul_posisi: "Teknisi Sepeda Motor Yamaha (TBSM)",
+    id: "b0000001-0000-0000-0000-000000000042",
+    industry_id: "a0000001-0000-0000-0000-000000000020",
+    judul_posisi: "Teknisi Pemeliharaan Mesin Pabrik (Maintenance)",
     tipe_pekerjaan: "Penuh Waktu",
     kuota: 20,
-    gaji: "Rp 2.400.000 - Rp 3.300.000 + Insentif Unit",
-    pendidikan: "SMK Teknik Sepeda Motor (TBSM)",
-    lokasi: "Bengkel Resmi Yamaha Mataram Sakti Magelang",
-    kualifikasi: "Menguasai diagnostic tools Yamaha (YDT), sistem injeksi bahan bakar, dan pemeliharaan kelistrikan motor.",
-    persyaratan: ["Surat Lamaran & CV", "Fotokopi Ijazah SMK TBSM", "SIM C Aktif"]
+    gaji: "Rp 2.600.000 - Rp 3.500.000",
+    pendidikan: "SMK Teknik Mesin / Listrik / Mekatronika",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Pria usia maks 30 tahun, mampu melakukan perbaikan motor pompa cairan, kompresor, dan mesin filling sachet/botol.",
+    persyaratan: ["CV & Fotokopi Ijazah", "KTP & SKCK Aktif", "Sertifikat Keahlian"]
   },
-  // Nasmoco (Stand C4)
+  // LIDAH BUAYA GROUP (Stand D2)
   {
-    id: "b0000001-0000-0000-0000-000000000019",
-    industry_id: "a0000001-0000-0000-0000-000000000014",
-    judul_posisi: "Mekanik Servis Mobil Toyota & Body Repair",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 16,
-    gaji: "Rp 2.600.000 - Rp 3.700.000 + Bonus Produktivitas",
-    pendidikan: "SMK Teknik Kendaraan Ringan / Ototronik",
-    lokasi: "Nasmoco Magelang",
-    kualifikasi: "Memahami servis berkala mesin Toyota, sistem rem ABS, dan pemindaian alat scanner diagnostik OBD.",
-    persyaratan: ["CV Lengkap", "Fotokopi KTP & Ijazah SMK TKR", "Sertifikat Praktik Otomotif"]
-  },
-  // Ungaran Sari Garment (Stand C5)
-  {
-    id: "b0000001-0000-0000-0000-000000000020",
-    industry_id: "a0000001-0000-0000-0000-000000000015",
-    judul_posisi: "Operator Jahit Garmen (Sewing Machine)",
-    tipe_pekerjaan: "Penuh Waktu",
-    kuota: 100,
-    gaji: "Sesuai UMK Ungaran + Uang Premi Jahit & Lembur",
-    pendidikan: "SMK Tata Busana / Desain Busana",
-    lokasi: "Pabrik Garmen Ungaran & Pringapus",
-    kualifikasi: "Mampu mengoperasikan mesin jahit jarum 1 atau jarum 2, sabar, teliti dengan kerapian jahitan ekspor.",
-    persyaratan: ["KTP & Kartu Keluarga", "Pas Foto 3x4 (2 lembar)", "Fotokopi Ijazah SMK Tata Busana/Semua Jurusan"]
-  },
-  // Borobudur (Stand D1)
-  {
-    id: "b0000001-0000-0000-0000-000000000021",
-    industry_id: "a0000001-0000-0000-0000-000000000016",
-    judul_posisi: "Pemandu Wisata Edukasi & Visitor Support",
+    id: "b0000001-0000-0000-0000-000000000043",
+    industry_id: "a0000001-0000-0000-0000-000000000020",
+    judul_posisi: "Staff Gudang Logistik Bahan Kimia & Sabun",
     tipe_pekerjaan: "Penuh Waktu",
     kuota: 15,
-    gaji: "Rp 2.600.000 - Rp 3.800.000",
-    pendidikan: "SMK Usaha Perjalanan Wisata / Pariwisata",
-    lokasi: "Kawasan Taman Wisata Candi Borobudur",
-    kualifikasi: "Wawasan sejarah cagar budaya baik, mampu berbahasa Indonesia santun dan bahasa Inggris dasar.",
-    persyaratan: ["Curriculum Vitae", "Sertifikat Pemandu / Bahasa (jika ada)", "Surat Bebas Narkoba"]
+    gaji: "Rp 2.400.000 - Rp 3.100.000",
+    pendidikan: "SMA / SMK Sederajat",
+    lokasi: "Pabrik Magelang",
+    kualifikasi: "Teliti menghitung stok barang jadi, mampu mengoperasikan hand pallet, dan mematuhi SOP keselamatan K3.",
+    persyaratan: ["Surat Lamaran Kerja", "Fotokopi KTP", "Surat Bebas Narkoba"]
   },
-  // BFI Finance (Stand D2)
+  // PUTRA TEKNIK AC (Stand D3)
   {
-    id: "b0000001-0000-0000-0000-000000000022",
-    industry_id: "a0000001-0000-0000-0000-000000000017",
-    judul_posisi: "Marketing Officer & Surveyor Pembiayaan",
+    id: "b0000001-0000-0000-0000-000000000044",
+    industry_id: "a0000001-0000-0000-0000-000000000021",
+    judul_posisi: "Teknisi Pendingin Ruangan (AC Split & Komersial)",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 14,
-    gaji: "Gaji Pokok UMK + Insentif Closing Tidak Terbatas",
-    pendidikan: "SMK Bisnis / Pemasaran / Akuntansi / Umum",
-    lokasi: "Kantor Cabang BFI Magelang & Temanggung",
-    kualifikasi: "Memiliki motor pribadi dan SIM C, menyukai komunikasi lapangan, dan memiliki kemampuan negosiasi prima.",
-    persyaratan: ["CV & Surat Lamaran", "Fotokopi SIM C & STNK Motor", "KTP & KK"]
+    kuota: 1,
+    gaji: "Rp 2.500.000 - Rp 3.500.000 + Uang Transport",
+    pendidikan: "SMK Teknik Pendingin & Tata Udara / Listrik / Mesin",
+    lokasi: "Kota & Kabupaten Magelang",
+    kualifikasi: "Pria, memiliki SIM C, menguasai instalasi pipa tembaga AC, pengisian freon R32/R410A, dan cuci AC steam presisi.",
+    persyaratan: ["CV & Fotokopi SIM C", "Fotokopi Ijazah SMK", "Pas Foto 4x6"]
   },
-  // Plataran Borobudur (Stand D3)
+  // STAFFINC (Stand D4)
   {
-    id: "b0000001-0000-0000-0000-000000000023",
-    industry_id: "a0000001-0000-0000-0000-000000000018",
-    judul_posisi: "Resort Guest Relations & Hospitality Attendant",
+    id: "b0000001-0000-0000-0000-000000000045",
+    industry_id: "a0000001-0000-0000-0000-000000000022",
+    judul_posisi: "Talent Acquisition Consultant",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 8,
-    gaji: "Rp 2.900.000 - Rp 4.100.000 + Service Charge",
-    pendidikan: "SMK / Diploma Perhotelan / Pariwisata",
-    lokasi: "Plataran Borobudur Resort & Spa",
-    kualifikasi: "Memahami standar hospitality bintang 5, berpenampilan rapi elegan, dan berkomunikasi bahasa Inggris aktif.",
-    persyaratan: ["CV Lengkap", "Foto Berwarna 4R", "Sertifikat Pengalaman Hospitality/Pariwisata"]
+    kuota: 2,
+    gaji: "Rp 3.500.000 - Rp 5.000.000",
+    pendidikan: "D3 / S1 Psikologi / Manajemen / Semua Jurusan",
+    lokasi: "Regional Jateng & DIY",
+    kualifikasi: "Memahami tahapan rekrutmen tenaga kerja massal (mass hiring), screening kandidat, dan komunikasi profesional.",
+    persyaratan: ["Curriculum Vitae", "Portofolio / Pengalaman Rekrutmen", "Fotokopi Ijazah & KTP"]
   },
-  // Triputra Agro (Stand D4)
+  // STAFFINC (Stand D4)
   {
-    id: "b0000001-0000-0000-0000-000000000024",
-    industry_id: "a0000001-0000-0000-0000-000000000019",
-    judul_posisi: "Agronomy Assistant Trainee Perkebunan",
+    id: "b0000001-0000-0000-0000-000000000046",
+    industry_id: "a0000001-0000-0000-0000-000000000022",
+    judul_posisi: "Field Operations Officer (On-Demand Workforce)",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 20,
-    gaji: "Rp 3.500.000 - Rp 4.800.000 + Akomodasi",
-    pendidikan: "SMK Pertanian / Agribisnis / Kehutanan",
-    lokasi: "Operasional Perkebunan Nasional",
-    kualifikasi: "Fisik prima, menyukai pekerjaan lapangan pertanian/perkebunan, dan berjiwa kepemimpinan.",
-    persyaratan: ["Ijazah & Transkrip SMK Pertanian/Agribisnis", "SKCK Aktif", "Surat Izin Orang Tua"]
+    kuota: 1,
+    gaji: "Rp 3.000.000 - Rp 4.200.000",
+    pendidikan: "SMK / D3 Semua Jurusan",
+    lokasi: "Magelang & Sekitarnya",
+    kualifikasi: "Cekatan, mampu memantau kehadiran tenaga kerja lapangan di klien mitra via aplikasi Staffinc.",
+    persyaratan: ["CV Lengkap", "Fotokopi SIM C & KTP", "SKCK Aktif"]
   },
-  // Prima Multi Sarana (Stand D5)
+  // PT. CANDI BANGUN PERSADA (Stand D5)
   {
-    id: "b0000001-0000-0000-0000-000000000025",
-    industry_id: "a0000001-0000-0000-0000-000000000020",
-    judul_posisi: "Drafter Desain Teknik CAD & Manufaktur",
+    id: "b0000001-0000-0000-0000-000000000047",
+    industry_id: "a0000001-0000-0000-0000-000000000023",
+    judul_posisi: "Teknisi Senior Instalasi HVAC & VRF System",
     tipe_pekerjaan: "Penuh Waktu",
-    kuota: 6,
-    gaji: "Rp 2.700.000 - Rp 3.700.000",
-    pendidikan: "SMK Desain Pemodelan & Informasi Bangunan / Mesin",
-    lokasi: "Kantor Engineering Semarang",
-    kualifikasi: "Terampil mengoperasikan software AutoCAD atau SolidWorks serta membaca gambar kerja fabrikasi baja.",
-    persyaratan: ["CV & Portofolio Gambar Kerja CAD", "Fotokopi Ijazah SMK DPIB/Mesin", "KTP"]
+    kuota: 2,
+    gaji: "Rp 3.000.000 - Rp 4.500.000",
+    pendidikan: "SMK / D3 Teknik Pendingin / Listrik / Mesin",
+    lokasi: "Proyek Komersial Jawa Tengah",
+    kualifikasi: "Pria, berpengalaman memasang ducting, perpipaan refnet VRV/VRF, kabel kontrol, dan brazing pipa tembaga.",
+    persyaratan: ["Fotokopi Ijazah & Sertifikat Keahlian", "CV Lengkap", "Fotokopi KTP & SIM C"]
+  },
+  // PT. CANDI BANGUN PERSADA (Stand D5)
+  {
+    id: "b0000001-0000-0000-0000-000000000048",
+    industry_id: "a0000001-0000-0000-0000-000000000023",
+    judul_posisi: "Maintenance & Troubleshooter AC Komersial",
+    tipe_pekerjaan: "Penuh Waktu",
+    kuota: 2,
+    gaji: "Rp 2.700.000 - Rp 3.800.000",
+    pendidikan: "SMK Tata Udara / Listrik Industri",
+    lokasi: "Magelang & Sekitarnya",
+    kualifikasi: "Menguasai pelacakan error kode AC inverter, pembersihan kondensor skala industri, dan kelistrikan 3 phase.",
+    persyaratan: ["Surat Lamaran Kerja & CV", "Fotokopi KTP & KK", "Pas Foto 3x4"]
   }
 ];
-
-export const DEMO_USERS = [];

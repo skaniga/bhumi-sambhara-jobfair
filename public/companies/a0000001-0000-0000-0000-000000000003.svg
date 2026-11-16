@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(18, 28)">
-      <rect x="0" y="0" width="24" height="64" rx="4" fill="#00529C"/>
-      <rect x="28" y="0" width="24" height="64" rx="4" fill="#ED1C24"/>
-      <rect x="56" y="0" width="24" height="64" rx="4" fill="#FFD200"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#D97706"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">A3</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="52" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="24" font-weight="900" fill="#00529C" letter-spacing="0.02em">Indomaret</text>
-    <text x="110" y="72" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#ED1C24">PT INDOMARCO PRISMATAMA</text>
-    <text x="110" y="88" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Distribution Center & Retail Store</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#D97706" letter-spacing="0.03em">HK GOLD</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">JEWELLERY & PRECIOUS METALS</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Toko Mas HK Magelang</text>
   </svg>

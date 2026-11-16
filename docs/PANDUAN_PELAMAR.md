@@ -8,7 +8,7 @@
 Sebagai pelamar (siswa, alumni SMK/SMA/Universitas, atau masyarakat umum), Anda dapat:
 1. Mendaftar akun dan melengkapi profil portofolio/CV digital.
 2. Memperoleh **Kartu Digital Jobfair dengan QR Code unik**.
-3. Menjelajahi lowongan di **20 Stand Industri Partner**.
+3. Menjelajahi lowongan di **23 Stand Industri Partner**.
 4. Mengirimkan lamaran kerja secara online sebelum atau saat acara berlangsung.
 5. Menunjukkan kartu QR ke meja stand industri untuk **presensi fisik dan verifikasi langsung di tempat**.
 6. Memantau status seleksi secara real-time (*Menunggu*, *Hadir & Terverifikasi*, *Panggilan Wawancara*, *Diterima*).
@@ -56,35 +56,22 @@ Sebagai pelamar (siswa, alumni SMK/SMA/Universitas, atau masyarakat umum), Anda 
 
 ---
 
-### 4. Menjelajahi 20 Stand & Mengajukan Lamaran
-1. Buka menu **Portal Expo** atau **20 Industri Partner**.
-2. Anda dapat memfilter lowongan berdasarkan sektor:
-   - *Manufaktur & Mesin* (Quick Traktor, Prima MS)
-   - *Otomotif* (Daihatsu, Toyota Nasmoco, Yamaha Mataram Sakti)
-   - *Ritel Modern* (Indomaret, Alfamart, Alfamidi)
-   - *Hospitality & Pariwisata* (Grand Artos, Hotel Atria, Plataran, Borobudur Park)
-   - *Farmasi & Kesehatan* (Bintang Toedjoe, Pharos)
-   - *Perbankan & Keuangan* (Bank BCA, BFI Finance)
-3. Ketik kata kunci pada kolom pencarian jika mencari posisi spesifik (contoh: *Mekanik*, *Kasir*, *Resepsionis*).
-4. Klik pada posisi lowongan yang diminati untuk membaca kualifikasi, kuota penerimaan, estimasi gaji, dan syarat berkas.
-5. Tulis catatan pengantar singkat untuk HRD, lalu klik **Kirim Lamaran Sekarang**.
+### 4. Menjelajahi 23 Stand & Mengajukan Lamaran
+1. Buka menu **Portal Expo** atau **23 Mitra Industri**.
+2. Gunakan kolom pencarian atau filter kategori bidang industri (Manufaktur, Retail, Pendidikan, Perhotelan, Otomotif, HVAC, dll.).
+3. Anda juga dapat membuka tab **Denah Stand** untuk melihat penempatan posisi booth di Graha Krida Wiyata dan mengklik salah satu stand.
+4. Klik pada salah satu lowongan yang Anda minati untuk melihat kualifikasi, kuota penerimaan, persyaratan dokumen, dan estimasi gaji.
+5. Klik **Kirim Lamaran Sekarang**:
+   - Tulis catatan motivasi singkat untuk perusahaan.
+   - Konfirmasi pengiriman.
+6. Status lamaran Anda akan tercatat sebagai **Menunggu Review**.
 
 ---
 
-### 5. Verifikasi Kehadiran Fisik di Lokasi Acara (Indoor Graha Krida Wiyata)
-1. Datangi stand booth perusahaan tempat Anda melamar (contoh: *Stand A1 - Quick Traktor*).
-2. Tunjukkan **Kartu QR Pelamar** Anda ke meja registrasi booth.
-3. Begitu dipindai oleh HRD:
-   - Presensi kehadiran Anda otomatis tercatat.
-   - Status lamaran Anda di sistem langsung ter-upgrade menjadi **`Hadir & Terverifikasi`**.
-   - Jika Anda kandidat walk-in (belum melamar online), sistem otomatis mendaftarkan Anda ke stand tersebut.
-4. Jika HRD memanggil Anda untuk tes wawancara langsung, status akan berubah menjadi **`Panggilan Wawancara`**.
-5. Jika dinyatakan lolos, status Anda akan berubah menjadi **`Lolos Diterima`**.
-
----
-
-### 6. Memantau Status Lamaran & Presensi Stand
-* Pada halaman **Profil & Lamaran**, lihat bagian **Lamaran & Presensi Stand**:
-  * Kotak hijau **Presensi Stand Terverifikasi**: Menampilkan daftar seluruh stand booth yang sudah Anda datangi dan berhasil di-scan.
-  * Kartu riwayat lamaran: Menampilkan status terkini dan catatan seleksi dari masing-masing HRD.
-* Klik tombol **Sinkron Data** sewaktu-waktu untuk menyegarkan status terbaru dari server tanpa perlu reload browser.
+### 5. Datang ke Stand & Verifikasi Fisik (Scan Barcode)
+1. Kunjungi lokasi acara di **Gedung Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang**.
+2. Datangi meja booth stand perusahaan yang Anda lamar.
+3. Tunjukkan **Kartu QR Peserta** Anda.
+4. Petugas HRD akan memindai QR Code Anda menggunakan kamera laptop/hp mereka.
+5. Status lamaran Anda di web akan otomatis berubah secara instan menjadi **Terverifikasi di Stand**.
+6. Ikuti sesi wawancara langsung atau pengarahan teknis berikutnya dari tim rekruter di booth.

@@ -1,12 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
     <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(18, 24)">
-      <rect x="0" y="0" width="80" height="72" rx="10" fill="#00529C"/>
-      <path d="M20 22 C32 10, 48 10, 60 22 C48 34, 32 34, 20 22 Z" fill="#00A4E4"/>
-      <path d="M20 50 C32 62, 48 62, 60 50 C48 38, 32 38, 20 50 Z" fill="#00A4E4"/>
-      <circle cx="40" cy="36" r="8" fill="#FFFFFF"/>
+    <g transform="translate(18, 20)">
+      <rect x="0" y="0" width="80" height="80" rx="8" fill="#7C3AED"/>
+      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">B2</text>
+      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
     </g>
-    <text x="110" y="54" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="28" font-weight="900" fill="#00529C" letter-spacing="0.05em">BCA</text>
-    <text x="110" y="74" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#0F172A">BANK CENTRAL ASIA</text>
-    <text x="110" y="90" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">Senantiasa di Sisi Anda • KCU Magelang</text>
+    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#7C3AED" letter-spacing="0.03em">ANUGERAH ABADI</text>
+    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">GARMENT MANUFACTURE EXPORT</text>
+    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Anugerah Abadi Magelang</text>
   </svg>

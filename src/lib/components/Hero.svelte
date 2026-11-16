@@ -58,7 +58,7 @@
         </p>
 
         <p class="hero-desc">
-          Platform terpadu seleksi karir, pendaftaran lamaran digital, dan verifikasi kehadiran stand berbasis scan barcode untuk 20 industri terkemuka.
+          Platform terpadu seleksi karir, pendaftaran lamaran digital, dan verifikasi kehadiran stand berbasis scan barcode untuk 23 mitra industri terkemuka.
         </p>
 
         <div class="meta-row">
@@ -91,11 +91,11 @@
         <div class="hero-quick-nav">
           <button class="btn-hero-chip" on:click={() => onSelectTab('lowongan')}>
             <Grid size={15} />
-            <span>Katalog 20 Industri</span>
+            <span>Katalog 23 Industri</span>
           </button>
           <button class="btn-hero-chip highlight-amber" on:click={() => onSelectTab('denah')}>
             <Compass size={15} />
-            <span>🗺️ Buka Peta Denah 20 Stand</span>
+            <span>🗺️ Buka Peta Denah 23 Stand</span>
           </button>
           <button class="btn-hero-chip" on:click={() => isPamfletModalOpen = true}>
             <Eye size={15} />
@@ -129,11 +129,11 @@
 
           <div class="stats-mini-grid">
             <div class="mini-stat">
-              <span class="mini-num tabular-nums">20</span>
-              <span class="mini-lbl">Stand Industri</span>
+              <span class="mini-num tabular-nums">23</span>
+              <span class="mini-lbl">Mitra Industri</span>
             </div>
             <div class="mini-stat">
-              <span class="mini-num tabular-nums">2.000+</span>
+              <span class="mini-num tabular-nums">2.600+</span>
               <span class="mini-lbl">Lowongan Kerja</span>
             </div>
             <div class="mini-stat">
