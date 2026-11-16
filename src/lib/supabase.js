@@ -192,8 +192,13 @@ export async function loginUser(email, password) {
 }
 
 export async function registerUser(nama, email, password, role = 'pelamar', companyId = null) {
-  const cleanEmail = email.trim().toLowerCase();
-  const cleanNama = nama.trim();
+  const cleanEmail = (email || '').trim().toLowerCase();
+  const cleanNama = (nama || '').trim();
+
+  if (!cleanEmail || !password) {
+    return { success: false, error: 'Alamat email dan kata sandi wajib diisi.' };
+  }
+
   const usersList = get(allUsers);
 
   const exists = usersList.find(u => u.email.toLowerCase() === cleanEmail);
