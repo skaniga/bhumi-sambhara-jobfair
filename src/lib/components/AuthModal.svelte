@@ -98,12 +98,12 @@
       {/if}
 
       <div class="input-group">
-        <label class="input-label" for="authEmailInput">Alamat Email</label>
+        <label class="input-label" for="authEmailInput">{isRegisterMode ? 'Alamat Email' : 'Email atau Username Stand'}</label>
         <input 
           id="authEmailInput"
-          type="email" 
+          type="text" 
           class="input-field" 
-          placeholder="nama@email.com" 
+          placeholder={isRegisterMode ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
           bind:value={email} 
         />
       </div>

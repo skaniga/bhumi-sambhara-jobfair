@@ -149,14 +149,92 @@ export async function syncFromSupabase() {
   }
 }
 
-// ── Authentication Actions (Supabase + Local Sync) ──
-export async function loginUser(email, password) {
-  const cleanEmail = email.trim().toLowerCase();
+// ── Official Stand & Admin Credentials Directory ──
+export const OFFICIAL_STAND_CREDENTIALS = [
+  { stand: 'Stand A1', aliases: ['quickstanda1', 'stand a1', 'standa1', 'a1', 'quick'], email: 'hrd@quick.co.id', password: 'QuickStandA1!', company_id: 'a0000001-0000-0000-0000-000000000001', name: 'HRD CV Karya Hidup Sentosa (Quick)', wa: '0811 2701 3215' },
+  { stand: 'Stand A2', aliases: ['dewavestanda2', 'stand a2', 'standa2', 'a2', 'dewave'], email: 'karir@dewavespa.com', password: 'DewaveStandA2!', company_id: 'a0000001-0000-0000-0000-000000000002', name: 'HRD DEWAVE FAMILY MASSAGE & BEAUTY SALON', wa: '0821 3502 4190' },
+  { stand: 'Stand A3', aliases: ['hkgoldstanda3', 'stand a3', 'standa3', 'a3', 'hkgold'], email: 'hrd@hkgold.co.id', password: 'HkGoldStandA3!', company_id: 'a0000001-0000-0000-0000-000000000003', name: 'HRD HK GOLD', wa: '0813 4287 8303' },
+  { stand: 'Stand A4', aliases: ['atarastanda4', 'stand a4', 'standa4', 'a4', 'atara'], email: 'info@lpkatara.com', password: 'AtaraStandA4!', company_id: 'a0000001-0000-0000-0000-000000000004', name: 'HRD LPK ATARA', wa: '0821 3054 9549' },
+  { stand: 'Stand A5', aliases: ['captainsclubstanda5', 'stand a5', 'standa5', 'a5', 'captainsclub'], email: 'career@captainsclubjogja.com', password: 'CaptainsClubStandA5!', company_id: 'a0000001-0000-0000-0000-000000000005', name: 'HRD LPK CAPTAIN\'S CLUB YOGYAKARTA', wa: '0813 2557 8171' },
+  { stand: 'Stand A6', aliases: ['platinumstanda6', 'stand a6', 'standa6', 'a6', 'platinum'], email: 'info@lpkplatinum.com', password: 'PlatinumStandA6!', company_id: 'a0000001-0000-0000-0000-000000000006', name: 'HRD LPK PLATINUM MAGELANG', wa: '0819 1767 1025' },
+  { stand: 'Stand B1', aliases: ['terataistandb1', 'stand b1', 'standb1', 'b1', 'teratai'], email: 'info@terataigogakuin.com', password: 'TerataiStandB1!', company_id: 'a0000001-0000-0000-0000-000000000007', name: 'HRD LPK TERATAI GOGAKUIN', wa: '0823 2361 0036' },
+  { stand: 'Stand B2', aliases: ['anugerahabadistandb2', 'stand b2', 'standb2', 'b2', 'anugerahabadi'], email: 'hrd@anugerahabadi.co.id', password: 'AnugerahAbadiStandB2!', company_id: 'a0000001-0000-0000-0000-000000000008', name: 'HRD PT ANUGERAH ABADI MAGELANG', wa: '0857 1625 7630' },
+  { stand: 'Stand B3', aliases: ['xlsmartstandb3', 'stand b3', 'standb3', 'b3', 'xlsmart'], email: 'karir@ksaxlsmart.com', password: 'XlSmartStandB3!', company_id: 'a0000001-0000-0000-0000-000000000009', name: 'HRD PT KSA XL SMART', wa: '0858 0137 8742' },
+  { stand: 'Stand B4', aliases: ['pnmstandb4', 'stand b4', 'standb4', 'b4', 'pnm'], email: 'rekrutmen@pnm.co.id', password: 'PnmStandB4!', company_id: 'a0000001-0000-0000-0000-000000000010', name: 'HRD PT PERMODALAN NASIONAL MADANI (PNM)', wa: '0811 8111 2362' },
+  { stand: 'Stand B5', aliases: ['gisarastandb5', 'stand b5', 'standb5', 'b5', 'gisara'], email: 'hrd@gisaratantra.co.id', password: 'GisaraStandB5!', company_id: 'a0000001-0000-0000-0000-000000000011', name: 'HRD PT GISARA TANTRA BERKARYA', wa: '0852 6153 9626' },
+  { stand: 'Stand B6', aliases: ['alfamidistandb6', 'stand b6', 'standb6', 'b6', 'alfamidi'], email: 'karir@alfamidiku.com', password: 'AlfamidiStandB6!', company_id: 'a0000001-0000-0000-0000-000000000012', name: 'HRD PT MIDI UTAMA INDONESIA (ALFAMIDI)', wa: '0853 3407 0511' },
+  { stand: 'Stand C1', aliases: ['shelterstandc1', 'stand c1', 'standc1', 'c1', 'shelter'], email: 'recruitment@shelter.co.id', password: 'ShelterStandC1!', company_id: 'a0000001-0000-0000-0000-000000000013', name: 'HRD PT SHETLER INDONESIA', wa: '0877 6780 1991' },
+  { stand: 'Stand C2', aliases: ['clayjayastandc2', 'stand c2', 'standc2', 'c2', 'clayjaya'], email: 'karir@clayjayabersama.com', password: 'ClayJayaStandC2!', company_id: 'a0000001-0000-0000-0000-000000000014', name: 'HRD PT CLAY JAYA BERSAMA (BIG)', wa: '0896 8800 9591' },
+  { stand: 'Stand C3', aliases: ['armadajayastandc3', 'stand c3', 'standc3', 'c3', 'armadajaya', 'newarmada'], email: 'hrd@mekararmadajaya.com', password: 'ArmadaJayaStandC3!', company_id: 'a0000001-0000-0000-0000-000000000015', name: 'HRD PT MEKAR ARMADA JAYA', wa: '0853 8562 5000' },
+  { stand: 'Stand C4', aliases: ['sindorostandc4', 'stand c4', 'standc4', 'c4', 'sindoro', 'shc'], email: 'info@sindorohotelcollege.com', password: 'SindoroStandC4!', company_id: 'a0000001-0000-0000-0000-000000000016', name: 'HRD SINDORO HOTEL COLLEGE MAGELANG', wa: '0895 4058 27080' },
+  { stand: 'Stand C5', aliases: ['uniloastandc5', 'stand c5', 'standc5', 'c5', 'uniloa'], email: 'hrd@uniloa.com', password: 'UniloaStandC5!', company_id: 'a0000001-0000-0000-0000-000000000017', name: 'HRD PT UNILOA ARDIYANTO INVESTAMA', wa: '0813 3756 3335' },
+  { stand: 'Stand C6', aliases: ['bmcstandc6', 'stand c6', 'standc6', 'c6', 'bmc'], email: 'info@bmcdharmaditna.com', password: 'BmcStandC6!', company_id: 'a0000001-0000-0000-0000-000000000018', name: 'HRD BMC DHARMADITNA YOGYAKARTA', wa: '0821 4616 0214' },
+  { stand: 'Stand D1', aliases: ['indomaretstandd1', 'stand d1', 'standd1', 'd1', 'indomaret'], email: 'karir@indomaret.co.id', password: 'IndomaretStandD1!', company_id: 'a0000001-0000-0000-0000-000000000019', name: 'HRD PT. INDOMARCO PRISMATAMA (INDOMARET)', wa: '0899 9172 359' },
+  { stand: 'Stand D2', aliases: ['lidahbuayastandd2', 'stand d2', 'standd2', 'd2', 'lidahbuaya'], email: 'hrd@lidahbuayagroup.com', password: 'LidahBuayaStandD2!', company_id: 'a0000001-0000-0000-0000-000000000020', name: 'HRD LIDAH BUAYA GROUP', wa: '0811 2510 1138' },
+  { stand: 'Stand D3', aliases: ['putrateknikstandd3', 'stand d3', 'standd3', 'd3', 'putrateknik'], email: 'karir@putrateknikac.com', password: 'PutraTeknikStandD3!', company_id: 'a0000001-0000-0000-0000-000000000021', name: 'HRD PUTRA TEKNIK AC', wa: '0852 9112 35232' },
+  { stand: 'Stand D4', aliases: ['staffincstandd4', 'stand d4', 'standd4', 'd4', 'staffinc'], email: 'careers@staffinc.co', password: 'StaffincStandD4!', company_id: 'a0000001-0000-0000-0000-000000000022', name: 'HRD STAFFINC', wa: '0857 1580 1723' },
+  { stand: 'Stand D5', aliases: ['candibangunstandd5', 'stand d5', 'standd5', 'd5', 'candibangun'], email: 'hrd@candibangunpersada.com', password: 'CandiBangunStandD5!', company_id: 'a0000001-0000-0000-0000-000000000023', name: 'HRD PT. CANDI BANGUN PERSADA', wa: '0857 0002 5566' }
+];
 
-  if (supabase) {
+// ── Authentication Actions (Supabase + Local Sync) ──
+export async function loginUser(emailOrUsername, password) {
+  const cleanInput = (emailOrUsername || '').trim();
+  const cleanLower = cleanInput.toLowerCase();
+
+  // 1. Check Official Stand Credentials (supports username, stand code, or email)
+  const standCred = OFFICIAL_STAND_CREDENTIALS.find(sc => 
+    sc.email.toLowerCase() === cleanLower ||
+    sc.stand.toLowerCase() === cleanLower ||
+    sc.aliases.includes(cleanLower)
+  );
+
+  if (standCred) {
+    if (standCred.password !== password.trim()) {
+      return { success: false, error: 'Kata sandi stand tidak cocok.' };
+    }
+
+    // Try finding existing profile or build designated stand profile
+    const usersList = get(allUsers);
+    const existing = usersList.find(u => u.email.toLowerCase() === standCred.email.toLowerCase() || u.company_id === standCred.company_id);
+    
+    const standUser = existing || {
+      id: generateUUID(),
+      email: standCred.email,
+      nama_lengkap: standCred.name,
+      role: 'pemberi_kerja',
+      company_id: standCred.company_id,
+      qr_code_token: 'BSJ2026-IND-' + standCred.stand.replace(/\s+/g, ''),
+      nomor_wa: standCred.wa,
+      created_at: new Date().toISOString()
+    };
+
+    currentUser.set(standUser);
+    return { success: true, user: standUser };
+  }
+
+  // 2. Check Admin Official Account
+  if (cleanLower === 'admin' || cleanLower === 'bkk@skanisa.sch.id' || cleanLower === 'admin@smkn1magelang.sch.id') {
+    if (password === 'SuperAdminBkk2026!' || password === 'AdminPass2026!') {
+      const adminUser = {
+        id: generateUUID(),
+        email: 'bkk@skanisa.sch.id',
+        nama_lengkap: 'Panitia Pelaksana BKK & UNTIDAR',
+        role: 'admin',
+        qr_code_token: 'BSJ2026-ADM-PANITIA',
+        nomor_wa: '0812 3456 7890'
+      };
+      currentUser.set(adminUser);
+      return { success: true, user: adminUser };
+    } else {
+      return { success: false, error: 'Kata sandi akun Admin tidak cocok.' };
+    }
+  }
+
+  // 3. Authenticate Registered Applicants via Supabase Auth
+  if (supabase && cleanLower.includes('@')) {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: cleanEmail,
+        email: cleanLower,
         password: password
       });
 
@@ -164,7 +242,7 @@ export async function loginUser(email, password) {
         const { data: prof } = await supabase
           .from('profiles')
           .select('*')
-          .eq('email', cleanEmail)
+          .eq('email', cleanLower)
           .single();
 
         if (prof) {
@@ -182,9 +260,9 @@ export async function loginUser(email, password) {
     }
   }
 
-  // Check local users list
+  // 4. Check local users list (for applicants registered locally)
   const usersList = get(allUsers);
-  const found = usersList.find(u => u.email.toLowerCase() === cleanEmail);
+  const found = usersList.find(u => u.email.toLowerCase() === cleanLower);
   if (found) {
     currentUser.set(found);
     return { success: true, user: found };
@@ -192,7 +270,7 @@ export async function loginUser(email, password) {
 
   return { 
     success: false, 
-    error: 'Akun dengan email ini belum terdaftar. Silakan lakukan pendaftaran baru terlebih dahulu.' 
+    error: 'Akun tidak ditemukan. Masukkan email terdaftar atau kode stand resmi (contoh: HkGoldStandA3).' 
   };
 }
 
