@@ -1,24 +1,55 @@
 <script>
-  import { loginUser, registerUser, resetUserPassword, industries } from '../supabase.js';
+  import { loginUser, registerUser, resetUserPassword, updateUserPassword, industries } from '../supabase.js';
   import { X, Lock, Mail, User, Building2, AlertCircle, Eye, EyeOff, CheckCircle2, ArrowLeft, KeyRound } from '@lucide/svelte';
 
   export let onClose = () => {};
   export let onSuccess = () => {};
+  export let initialMode = 'login'; // 'login' | 'register' | 'forgot' | 'new_password'
 
-  let authMode = 'login'; // 'login' | 'register' | 'forgot'
+  let authMode = initialMode;
   let nama = '';
   let email = '';
   let password = '';
+  let newPassword = '';
+  let confirmPassword = '';
   let showPassword = false;
+  let showNewPassword = false;
   let role = 'pelamar';
   let companyId = 'a0000001-0000-0000-0000-000000000001';
   let errorMessage = '';
   let successMessage = '';
   let loading = false;
 
+  $: if (initialMode && authMode !== initialMode && !email && !password) {
+    authMode = initialMode;
+  }
+
   async function handleSubmit() {
     errorMessage = '';
     successMessage = '';
+
+    if (authMode === 'new_password') {
+      if (!newPassword || newPassword.length < 6) {
+        errorMessage = 'Kata sandi baru minimal 6 karakter.';
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        errorMessage = 'Konfirmasi kata sandi tidak cocok.';
+        return;
+      }
+      loading = true;
+      const res = await updateUserPassword(newPassword);
+      loading = false;
+      if (res.success) {
+        successMessage = 'Kata sandi berhasil diperbarui! Mengalihkan ke halaman masuk...';
+        setTimeout(() => {
+          setMode('login');
+        }, 1500);
+      } else {
+        errorMessage = res.error || 'Gagal memperbarui kata sandi.';
+      }
+      return;
+    }
 
     if (authMode === 'forgot') {
       if (!email) {
@@ -85,6 +116,8 @@
             Daftar Akun Jobfair 2026
           {:else if authMode === 'forgot'}
             Lupa Kata Sandi Akun
+          {:else if authMode === 'new_password'}
+            Atur Ulang Kata Sandi Baru
           {:else}
             Masuk ke Portal Jobfair
           {/if}
@@ -97,6 +130,50 @@
     </div>
 
     <div class="modal-body auth-body">
+      {#if authMode === 'new_password'}
+        <div class="forgot-notice">
+          <div class="forgot-icon-wrap">
+            <KeyRound size={24} class="text-amber" />
+          </div>
+          <p class="text-xs text-muted">
+            Tautan pemulihan terverifikasi. Silakan masukkan kata sandi baru untuk akun Anda.
+          </p>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="newPassInput">Kata Sandi Baru (Min. 6 Karakter)</label>
+          <div class="password-wrapper">
+            <input 
+              id="newPassInput"
+              type={showNewPassword ? "text" : "password"} 
+              class="input-field password-input" 
+              placeholder="Minimal 6 karakter" 
+              bind:value={newPassword}
+            />
+            <button 
+              type="button" 
+              class="password-toggle-btn"
+              on:click={() => showNewPassword = !showNewPassword}
+              title={showNewPassword ? 'Sembunyikan' : 'Tampilkan'}
+            >
+              {#if showNewPassword}<EyeOff size={18} />{:else}<Eye size={18} />{/if}
+            </button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="confirmPassInput">Ulangi Kata Sandi Baru</label>
+          <input 
+            id="confirmPassInput"
+            type="password" 
+            class="input-field" 
+            placeholder="Ketik ulang kata sandi baru" 
+            bind:value={confirmPassword}
+            on:keydown={(e) => e.key === 'Enter' && handleSubmit()}
+          />
+        </div>
+      {/if}
+
       {#if authMode === 'register'}
         <div class="input-group">
           <label class="input-label" for="regNamaInput">Nama Lengkap</label>
@@ -141,21 +218,23 @@
         </div>
       {/if}
 
-      <div class="input-group">
-        <label class="input-label" for="authEmailInput">
-          {authMode === 'register' ? 'Alamat Email' : authMode === 'forgot' ? 'Email atau Username Stand' : 'Email atau Username Stand'}
-        </label>
-        <input 
-          id="authEmailInput"
-          type="text" 
-          class="input-field" 
-          placeholder={authMode === 'register' ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
-          bind:value={email}
-          on:keydown={(e) => e.key === 'Enter' && (authMode === 'forgot' ? handleSubmit() : null)}
-        />
-      </div>
+      {#if authMode !== 'new_password'}
+        <div class="input-group">
+          <label class="input-label" for="authEmailInput">
+            {authMode === 'register' ? 'Alamat Email' : authMode === 'forgot' ? 'Email atau Username Stand' : 'Email atau Username Stand'}
+          </label>
+          <input 
+            id="authEmailInput"
+            type="text" 
+            class="input-field" 
+            placeholder={authMode === 'register' ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
+            bind:value={email}
+            on:keydown={(e) => e.key === 'Enter' && (authMode === 'forgot' ? handleSubmit() : null)}
+          />
+        </div>
+      {/if}
 
-      {#if authMode !== 'forgot'}
+      {#if authMode !== 'forgot' && authMode !== 'new_password'}
         <div class="input-group">
           <div class="password-label-row">
             <label class="input-label mb-0" for="authPasswordInput">Kata Sandi</label>
@@ -206,7 +285,7 @@
       {/if}
 
       <div class="toggle-mode-row">
-        {#if authMode === 'forgot'}
+        {#if authMode === 'forgot' || authMode === 'new_password'}
           <button type="button" class="btn-back-link" on:click={() => setMode('login')}>
             <ArrowLeft size={14} />
             <span>Kembali ke Halaman Masuk</span>
@@ -227,7 +306,7 @@
         Batal
       </button>
       <button class="btn btn-primary" on:click={handleSubmit} disabled={loading}>
-        {loading ? 'Memproses...' : authMode === 'register' ? 'Selesaikan Pendaftaran' : authMode === 'forgot' ? 'Kirim Pemulihan' : 'Masuk Portal'}
+        {loading ? 'Memproses...' : authMode === 'register' ? 'Selesaikan Pendaftaran' : authMode === 'forgot' ? 'Kirim Pemulihan' : authMode === 'new_password' ? 'Simpan Kata Sandi Baru' : 'Masuk Portal'}
       </button>
     </div>
   </div>

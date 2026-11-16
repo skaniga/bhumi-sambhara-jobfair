@@ -437,8 +437,12 @@ export async function resetUserPassword(emailOrUsername) {
   // 3. For registered jobseeker email, invoke Supabase Auth reset
   if (supabase && cleanLower.includes('@')) {
     try {
+      const redirectTarget = typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost')
+        ? window.location.origin
+        : 'https://bme.smknegeri1magelang.sch.id';
+
       const { data, error } = await supabase.auth.resetPasswordForEmail(cleanLower, {
-        redirectTo: typeof window !== 'undefined' ? window.location.origin : 'https://bme.smknegeri1magelang.sch.id'
+        redirectTo: redirectTarget
       });
       if (error) {
         return { success: false, error: error.message };
@@ -456,6 +460,26 @@ export async function resetUserPassword(emailOrUsername) {
     success: true,
     message: 'Permintaan pemulihan telah dicatat. Silakan cek email Anda atau lakukan pendaftaran baru jika belum memiliki akun terverifikasi.'
   };
+}
+
+export async function updateUserPassword(newPassword) {
+  if (!newPassword || newPassword.length < 6) {
+    return { success: false, error: 'Kata sandi baru minimal 6 karakter.' };
+  }
+  if (!supabase) {
+    return { success: true };
+  }
+  try {
+    const { data, error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+    if (error) {
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.message || 'Gagal memperbarui kata sandi.' };
+  }
 }
 
 // ── Profile Updates ──

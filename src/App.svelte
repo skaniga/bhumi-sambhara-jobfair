@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { currentUser, industries, vacancies, syncFromSupabase } from './lib/supabase.js';
+  import { currentUser, industries, vacancies, syncFromSupabase, supabase } from './lib/supabase.js';
   import Navbar from './lib/components/Navbar.svelte';
   import Hero from './lib/components/Hero.svelte';
   import IndustryDirectory from './lib/components/IndustryDirectory.svelte';
@@ -18,6 +18,7 @@
   let searchQuery = '';
 
   let isAuthOpen = false;
+  let authInitialMode = 'login';
   let isScannerOpen = false;
   let isQrCardOpen = false;
 
@@ -26,6 +27,25 @@
 
   onMount(() => {
     syncFromSupabase();
+
+    // Deteksi jika pengguna membuka tautan pemulihan kata sandi dari email
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash || '';
+      const search = window.location.search || '';
+      if (hash.includes('type=recovery') || search.includes('type=recovery')) {
+        authInitialMode = 'new_password';
+        isAuthOpen = true;
+      }
+    }
+
+    if (supabase) {
+      supabase.auth.onAuthStateChange((event) => {
+        if (event === 'PASSWORD_RECOVERY') {
+          authInitialMode = 'new_password';
+          isAuthOpen = true;
+        }
+      });
+    }
   });
 
   // Jika user logout ($currentUser menjadi null), otomatis arahkan kembali ke halaman awal web (portal)
@@ -131,8 +151,10 @@
 
   {#if isAuthOpen}
     <AuthModal 
-      onClose={() => isAuthOpen = false}
+      initialMode={authInitialMode}
+      onClose={() => { isAuthOpen = false; authInitialMode = 'login'; }}
       onSuccess={(user) => {
+        authInitialMode = 'login';
         if (user.role === 'pemberi_kerja') activeTab = 'dashboard_perusahaan';
         else if (user.role === 'admin') activeTab = 'admin';
         else activeTab = 'profil_pelamar';
