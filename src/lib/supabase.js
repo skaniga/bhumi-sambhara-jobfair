@@ -180,12 +180,14 @@ export const OFFICIAL_STAND_CREDENTIALS = [
 export async function loginUser(emailOrUsername, password) {
   const cleanInput = (emailOrUsername || '').trim();
   const cleanLower = cleanInput.toLowerCase();
+  const cleanAlphaNum = cleanLower.replace(/[^a-z0-9]/g, '');
 
-  // 1. Check Official Stand Credentials (supports username, stand code, or email)
+  // 1. Check Official Stand Credentials (supports username, stand code, email, with/without spaces/dashes)
   const standCred = OFFICIAL_STAND_CREDENTIALS.find(sc => 
     sc.email.toLowerCase() === cleanLower ||
     sc.stand.toLowerCase() === cleanLower ||
-    sc.aliases.includes(cleanLower)
+    sc.stand.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanAlphaNum ||
+    sc.aliases.some(a => a.toLowerCase() === cleanLower || a.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanAlphaNum)
   );
 
   if (standCred) {
