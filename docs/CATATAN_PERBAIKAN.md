@@ -152,4 +152,14 @@
 
 ---
 
+## 11. Temuan Audit Menyeluruh Tambahan (Final Polish)
+
+| Temuan Audit | Dampak yang Ditemukan | Perbaikan yang Diterapkan | Status |
+| :--- | :--- | :--- | :--- |
+| **Snapshot Kartu QR Offline** | Variabel `qrTokenValue` pada `ApplicantQrCard.svelte` sempat belum terdefinisi, menyebabkan penyimpanan kartu pass offline di `localStorage` terhenti secara senyap di blok `catch`. | Memperbaiki referensi ke `$currentUser.qr_code_token`, `$currentUser.asal_sekolah_kampus`, dan `$currentUser.nomor_wa`. Kartu QR kini tersimpan offline 100% tanpa internet. | **SELESAI** |
+| **Domain Share WhatsApp** | Template teks bagikan lowongan di `JobDetailModal.svelte` masih menggunakan fallback domain lama `jobfair.skanisa.sch.id`. | Mengubahnya secara absolut ke domain resmi live `https://bme.smknegeri1magelang.sch.id`. | **SELESAI** |
+| **Pratinjau Media Sosial (OpenGraph)** | Ketika tautan portal dibagikan ke WhatsApp, Telegram, atau Facebook, pratinjau banner kartu masih kosong/tanpa gambar pamflet. | Menambahkan meta tag lengkap `og:image`, `og:title`, `og:description`, `twitter:card`, dan `theme-color` pada `index.html` mengarah ke pamflet resmi acara. | **SELESAI** |
+
+---
+
 *Disusun dan diperbarui secara otomatis untuk Panitia Penyelenggara Bhumi Sambhara Expo & Jobfair 2026 (K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang).*
