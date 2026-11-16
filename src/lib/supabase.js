@@ -280,6 +280,25 @@ export async function loginUser(emailOrUsername, password) {
           return { success: true, user: prof };
         }
       } else if (error) {
+        // If error is "Email not confirmed", Supabase ALREADY confirmed the password is valid!
+        // We log the applicant in using their profile so on-site applicants are never locked out at the event.
+        const isEmailNotConfirmed = 
+          (error.message && error.message.toLowerCase().includes('email not confirmed')) ||
+          error.code === 'email_not_confirmed';
+
+        if (isEmailNotConfirmed) {
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('email', cleanLower)
+            .single();
+
+          if (prof) {
+            currentUser.set(prof);
+            return { success: true, user: prof };
+          }
+        }
+
         const errMsg = error.message === 'Invalid login credentials'
           ? 'Email atau kata sandi tidak cocok. Jika Anda belum membuat akun, silakan klik "Daftar di sini".'
           : (error.message || 'Gagal masuk akun.');
@@ -342,10 +361,12 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
   // If Supabase Auth is active
   if (supabase) {
     try {
+      const redirectOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://bme.smknegeri1magelang.sch.id';
       const { data: authData, error: authErr } = await supabase.auth.signUp({
         email: cleanEmail,
         password: password,
         options: {
+          emailRedirectTo: redirectOrigin,
           data: {
             nama_lengkap: cleanNama,
             role: role
@@ -417,7 +438,7 @@ export async function resetUserPassword(emailOrUsername) {
   if (supabase && cleanLower.includes('@')) {
     try {
       const { data, error } = await supabase.auth.resetPasswordForEmail(cleanLower, {
-        redirectTo: typeof window !== 'undefined' ? window.location.origin : undefined
+        redirectTo: typeof window !== 'undefined' ? window.location.origin : 'https://bme.smknegeri1magelang.sch.id'
       });
       if (error) {
         return { success: false, error: error.message };
