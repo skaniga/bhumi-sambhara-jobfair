@@ -171,6 +171,11 @@ export async function loginUser(email, password) {
           currentUser.set(prof);
           return { success: true, user: prof };
         }
+      } else if (error) {
+        const errMsg = error.message === 'Invalid login credentials'
+          ? 'Email atau kata sandi tidak cocok. Jika Anda belum membuat akun, silakan klik "Daftar di sini".'
+          : (error.message || 'Gagal masuk akun.');
+        return { success: false, error: errMsg };
       }
     } catch (err) {
       console.warn('Supabase direct login notice:', err);

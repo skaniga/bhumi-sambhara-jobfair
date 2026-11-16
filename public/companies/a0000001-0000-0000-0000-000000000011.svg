@@ -1,11 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
-    <rect width="320" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-    <g transform="translate(18, 20)">
-      <rect x="0" y="0" width="80" height="80" rx="8" fill="#B45309"/>
-      <text x="40" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">B5</text>
-      <circle cx="40" cy="62" r="4" fill="#FFFFFF"/>
+  <rect width="320" height="120" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <g transform="translate(16, 20)">
+    <rect x="0" y="0" width="76" height="80" rx="8" fill="#0284C7"/>
+    <text x="38" y="44" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="17" font-weight="900" fill="#FFFFFF" text-anchor="middle">B5</text>
+    <circle cx="38" cy="58" r="3.5" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+  
+    <g transform="translate(108, 25)">
+      <text x="0" y="32" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="18" font-weight="900" fill="#0284C7" letter-spacing="0.04em">GISARA TANTRA</text>
+      <text x="0" y="52" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.05em">HR &amp; FACILITY SERVICES</text>
+      <line x1="0" y1="62" x2="190" y2="62" stroke="#E2E8F0" stroke-width="1.5"/>
+      <text x="0" y="74" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="8.5" font-weight="600" fill="#64748B">PARTNER INDUSTRI RESMI</text>
     </g>
-    <text x="112" y="48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#B45309" letter-spacing="0.03em">GISARA</text>
-    <text x="112" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" fill="#0F172A" letter-spacing="0.02em">TOBACCO INDUSTRY MANUFACTURE</text>
-    <text x="112" y="86" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">PT Gisara Tantra Berkarya</text>
-  </svg>
+</svg>
