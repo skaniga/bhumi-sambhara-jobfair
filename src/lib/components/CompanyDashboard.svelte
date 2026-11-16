@@ -142,11 +142,11 @@
         </div>
       </div>
       <div class="pipeline-connector {totalWawancara > 0 ? 'active' : ''}"></div>
-      <div class="pipeline-step {companyApplications.filter(a => a.status === 'diterima').length > 0 ? 'active' : ''}">
+      <div class="pipeline-step {totalDiterima > 0 ? 'active' : ''}">
         <div class="step-num-circle">3</div>
         <div class="step-label-group">
           <span class="step-title">Lolos Seleksi</span>
-          <span class="step-sub">{companyApplications.filter(a => a.status === 'diterima').length} Kandidat</span>
+          <span class="step-sub">{totalDiterima} Kandidat</span>
         </div>
       </div>
     </div>
