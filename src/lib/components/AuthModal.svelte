@@ -1,6 +1,6 @@
 <script>
   import { loginUser, registerUser, industries } from '../supabase.js';
-  import { X, Lock, Mail, User, Building2, AlertCircle } from '@lucide/svelte';
+  import { X, Lock, Mail, User, Building2, AlertCircle, Eye, EyeOff } from '@lucide/svelte';
 
   export let onClose = () => {};
   export let onSuccess = () => {};
@@ -9,6 +9,7 @@
   let nama = '';
   let email = '';
   let password = '';
+  let showPassword = false;
   let role = 'pelamar';
   let companyId = 'a0000001-0000-0000-0000-000000000001';
   let errorMessage = '';
@@ -109,14 +110,29 @@
 
       <div class="input-group">
         <label class="input-label" for="authPasswordInput">Kata Sandi</label>
-        <input 
-          id="authPasswordInput"
-          type="password" 
-          class="input-field" 
-          placeholder="••••••••" 
-          bind:value={password}
-          on:keydown={(e) => e.key === 'Enter' && handleSubmit()}
-        />
+        <div class="password-wrapper">
+          <input 
+            id="authPasswordInput"
+            type={showPassword ? "text" : "password"} 
+            class="input-field password-input" 
+            placeholder="••••••••" 
+            bind:value={password}
+            on:keydown={(e) => e.key === 'Enter' && handleSubmit()}
+          />
+          <button 
+            type="button" 
+            class="password-toggle-btn"
+            on:click={() => showPassword = !showPassword}
+            title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+            aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+          >
+            {#if showPassword}
+              <EyeOff size={18} />
+            {:else}
+              <Eye size={18} />
+            {/if}
+          </button>
+        </div>
       </div>
 
       {#if errorMessage}
@@ -195,5 +211,39 @@
     background-color: var(--color-danger-bg);
     border: 1px solid #FECDD3;
     color: #9F1239;
+  }
+
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .password-input {
+    width: 100%;
+    padding-right: 42px;
+  }
+
+  .password-toggle-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .password-toggle-btn:hover {
+    color: var(--color-primary);
+    background-color: var(--color-bg-secondary);
   }
 </style>
