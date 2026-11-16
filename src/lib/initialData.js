@@ -20,7 +20,7 @@ export const INITIAL_INDUSTRIES = [
     deskripsi: "Pabrikan alat dan mesin pertanian modern merk Quick Traktor dengan jangkauan distribusi nasional dan ekspor.",
     alamat: "Jl. Magelang No. 144, Yogyakarta",
     kontak_pic: "0811 2701 3215",
-    email: "rekrutmen@quick.co.id",
+    email: "hrd@quick.co.id",
     website: "https://quick.co.id"
   },
   {

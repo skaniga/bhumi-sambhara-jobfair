@@ -9,7 +9,7 @@
 -- 1. SEED 23 STAND INDUSTRI RESMI
 INSERT INTO public.industries (id, nama_perusahaan, bidang_industri, nomor_stand, deskripsi, alamat_kantor, kontak_pic, email_resmi, website)
 VALUES
-  ('a0000001-0000-0000-0000-000000000001', 'CV Karya Hidup Sentosa (Quick)', 'Industri Manufaktur dan Perdagangan', 'Stand A1', 'Pabrikan alat dan mesin pertanian modern merk Quick Traktor dengan jangkauan distribusi nasional dan ekspor.', 'Jl. Magelang No. 144, Yogyakarta', '0811 2701 3215', 'rekrutmen@quick.co.id', 'https://quick.co.id'),
+  ('a0000001-0000-0000-0000-000000000001', 'CV Karya Hidup Sentosa (Quick)', 'Industri Manufaktur dan Perdagangan', 'Stand A1', 'Pabrikan alat dan mesin pertanian modern merk Quick Traktor dengan jangkauan distribusi nasional dan ekspor.', 'Jl. Magelang No. 144, Yogyakarta', '0811 2701 3215', 'hrd@quick.co.id', 'https://quick.co.id'),
   ('a0000001-0000-0000-0000-000000000002', 'DEWAVE FAMILY MASSAGE & BEAUTY SALON', 'Jasa Relaksasi & Salon Kecantikan', 'Stand A2', 'Jaringan luxury family massage, reflexology, dan salon kecantikan modern dengan puluhan cabang di kota-kota besar Indonesia.', 'Jl. Mayjen Bambang Soegeng No. 8, Magelang', '0821 3502 4190', 'karir@dewavespa.com', 'https://dewavespa.com'),
   ('a0000001-0000-0000-0000-000000000003', 'HK GOLD', 'Toko Emas & Perhiasan Mulia', 'Stand A3', 'Ritel perhiasan emas dan logam mulia terkemuka dengan standar kemurnian tinggi dan jaringan toko perhiasan prestisius.', 'Jl. Pemuda No. 78, Kota Magelang', '0813 4287 8303', 'hrd@hkgold.co.id', 'https://hkgold.co.id'),
   ('a0000001-0000-0000-0000-000000000004', 'LPK ATARA', 'Pendidikan dan Pelatihan Kerja', 'Stand A4', 'Lembaga Pelatihan Kerja penyedia program sertifikasi kompetensi, vokasi praktis, dan penyaluran kerja industri nasional dan global.', 'Jl. Pahlawan No. 42, Magelang', '0821 3054 9549 / 0896 8895 5550', 'info@lpkatara.com', 'https://lpkatara.com'),
@@ -108,7 +108,7 @@ INSERT INTO public.profiles (email, nama_lengkap, role, company_id, qr_code_toke
 VALUES
   ('bkk@skanisa.sch.id', 'BKK SMK Negeri 1 Magelang', 'admin', NULL, 'BSJ2026-ADM-BKK01', '081229988770'),
   ('untidar@jobfair.id', 'K1 Pariwisata 2024 UNTIDAR', 'admin', NULL, 'BSJ2026-ADM-UNTIDAR01', '081229988771'),
-  ('rekrutmen@quick.co.id', 'HRD CV Karya Hidup Sentosa (Quick)', 'pemberi_kerja', 'a0000001-0000-0000-0000-000000000001', 'BSJ2026-IND-StandA1', '0811 2701 3215'),
+  ('hrd@quick.co.id', 'HRD CV Karya Hidup Sentosa (Quick)', 'pemberi_kerja', 'a0000001-0000-0000-0000-000000000001', 'BSJ2026-IND-StandA1', '0811 2701 3215'),
   ('karir@dewavespa.com', 'HRD DEWAVE FAMILY MASSAGE & BEAUTY SALON', 'pemberi_kerja', 'a0000001-0000-0000-0000-000000000002', 'BSJ2026-IND-StandA2', '0821 3502 4190'),
   ('hrd@hkgold.co.id', 'HRD HK GOLD', 'pemberi_kerja', 'a0000001-0000-0000-0000-000000000003', 'BSJ2026-IND-StandA3', '0813 4287 8303'),
   ('info@lpkatara.com', 'HRD LPK ATARA', 'pemberi_kerja', 'a0000001-0000-0000-0000-000000000004', 'BSJ2026-IND-StandA4', '0821 3054 9549'),
