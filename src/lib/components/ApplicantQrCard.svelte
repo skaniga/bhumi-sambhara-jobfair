@@ -41,11 +41,11 @@
         localStorage.setItem('bhumi_offline_qr_card', JSON.stringify({
           id: $currentUser.id,
           nama_lengkap: $currentUser.nama_lengkap,
-          token_qr: qrTokenValue,
+          token_qr: $currentUser.qr_code_token,
           nik_nisn: $currentUser.nik_nisn,
-          asal_sekolah: $currentUser.asal_sekolah,
+          asal_sekolah: $currentUser.asal_sekolah_kampus,
           jurusan: $currentUser.jurusan,
-          nomor_telepon: $currentUser.nomor_telepon,
+          nomor_telepon: $currentUser.nomor_wa,
           saved_at: new Date().toISOString()
         }));
       } catch (e) {}

@@ -17,7 +17,7 @@
 
   function handleShareWhatsApp() {
     if (!vacancy || !industry) return;
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://jobfair.skanisa.sch.id';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://bme.smknegeri1magelang.sch.id';
     const text = `Lowongan *${vacancy.judul_posisi}* di ${industry.nama_perusahaan} (${industry.nomor_stand}) - Bhumi Sambhara Expo 2026. Lamar online: ${origin}`;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     if (typeof window !== 'undefined') {
