@@ -5,20 +5,28 @@
   export let searchQuery = '';
   export let onSelectVacancy = (vac, ind) => {};
 
-  let selectedSector = 'Semua';
+  let selectedSector = 'Semua Bidang';
 
-  const SECTORS = [
-    'Semua',
-    'Manufaktur',
-    'Retail',
-    'Pendidikan',
-    'Perhotelan',
-    'Otomotif',
-    'HVAC',
-    'Keuangan',
-    'Telekomunikasi',
-    'Jasa'
+  const CATEGORIES = [
+    { label: 'Semua Bidang', keywords: [] },
+    { label: 'Manufaktur & Garmen', keywords: ['manufaktur', 'garmen', 'tekstil', 'toiletries', 'tembakau'] },
+    { label: 'Retail & Perhiasan', keywords: ['retail', 'ritel', 'emas', 'perhiasan', 'supermarket', 'logistik', 'bangunan'] },
+    { label: 'Pendidikan & Vokasi', keywords: ['pendidikan', 'pelatihan', 'diklat', 'lpk', 'sending organization'] },
+    { label: 'Perhotelan & Pariwisata', keywords: ['perhotelan', 'kapal pesiar', 'pariwisata'] },
+    { label: 'Otomotif & Alat Berat', keywords: ['otomotif', 'karoseri', 'mekanik alat berat'] },
+    { label: 'Tata Udara / HVAC', keywords: ['hvac', 'tata udara', 'pendingin'] },
+    { label: 'Keuangan & BUMN', keywords: ['keuangan', 'mikro', 'bumn'] },
+    { label: 'Telekomunikasi & SDM', keywords: ['telekomunikasi', 'jaringan', 'sdm', 'facility', 'alih daya', 'bpo', 'properti', 'property'] },
+    { label: 'Jasa & Relaksasi', keywords: ['jasa', 'relaksasi', 'salon', 'dealer'] }
   ];
+
+  function matchesCategory(ind, catLabel) {
+    if (catLabel === 'Semua Bidang') return true;
+    const cat = CATEGORIES.find(c => c.label === catLabel);
+    if (!cat) return true;
+    const b = (ind.bidang_industri || '').toLowerCase();
+    return cat.keywords.some(k => b.includes(k));
+  }
 
   $: filteredIndustries = $industries.filter(ind => {
     const matchesSearch = 
@@ -28,9 +36,7 @@
       ind.bidang_industri.toLowerCase().includes(searchQuery.toLowerCase()) ||
       $vacancies.some(v => v.industry_id === ind.id && v.judul_posisi.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    const matchesSector = 
-      selectedSector === 'Semua' || 
-      ind.bidang_industri.toLowerCase().includes(selectedSector.toLowerCase());
+    const matchesSector = matchesCategory(ind, selectedSector);
 
     return matchesSearch && matchesSector;
   });
@@ -39,30 +45,30 @@
     return $vacancies.filter(v => v.industry_id === indId);
   }
 
-  function getSectorCount(sec) {
-    if (sec === 'Semua') return $industries.length;
-    return $industries.filter(i => i.bidang_industri.toLowerCase().includes(sec.toLowerCase())).length;
+  function getCategoryCount(catLabel) {
+    if (catLabel === 'Semua Bidang') return $industries.length;
+    return $industries.filter(i => matchesCategory(i, catLabel)).length;
   }
 </script>
 
 <div class="directory-wrap">
   <div class="directory-header">
     <div class="header-left">
-      <h2 class="heading-lg">{$industries.length || 23} Mitra Industri & LPK Resmi</h2>
+      <h2 class="heading-lg">{$industries.length} Mitra Industri & LPK Resmi</h2>
       <p class="text-sm text-muted">
         Daftar seluruh stand perusahaan yang membuka rekrutmen kerja pada Bhumi Sambhara Expo 2026.
       </p>
     </div>
 
     <div class="filter-pills">
-      {#each SECTORS as sec}
-        {@const cnt = getSectorCount(sec)}
-        {#if cnt > 0 || sec === 'Semua'}
+      {#each CATEGORIES as cat}
+        {@const cnt = getCategoryCount(cat.label)}
+        {#if cnt > 0 || cat.label === 'Semua Bidang'}
           <button 
-            class="filter-pill {selectedSector === sec ? 'active' : ''}"
-            on:click={() => selectedSector = sec}
+            class="filter-pill {selectedSector === cat.label ? 'active' : ''}"
+            on:click={() => selectedSector = cat.label}
           >
-            {sec} <span class="pill-count tabular-nums">({cnt})</span>
+            {cat.label} <span class="pill-count tabular-nums">({cnt})</span>
           </button>
         {/if}
       {/each}

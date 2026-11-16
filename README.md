@@ -17,8 +17,8 @@ Portal seleksi kerja dan bursa karir resmi acara **Bhumi Sambhara Expo & Jobfair
 ## 📚 Dokumentasi Panduan Pengguna per Peran
 
 Panduan terperinci untuk masing-masing peran pengguna telah disediakan pada folder `docs/`:
-- 📘 **[Panduan Pengguna: Role Pelamar](docs/PANDUAN_PELAMAR.md)** — Registrasi akun mandiri, pengisian CV digital, pembuatan Kartu QR Peserta, pelamaran kerja, dan verifikasi fisik di booth.
-- 🏢 **[Panduan Pengguna: Role Pemberi Kerja (Stand Industri)](docs/PANDUAN_PEMBERI_KERJA.md)** — Akses multi-format login 23 stand booth, scan barcode pelamar di booth, dan seleksi kandidat on-the-spot.
+- 📘 **[Panduan Pengguna: Role Pelamar](docs/PANDUAN_PELAMAR.md)** — Registrasi akun mandiri, pengisian CV digital, pembuatan Kartu QR Peserta, pelamaran kerja, pemulihan lupa kata sandi, dan verifikasi fisik di booth.
+- 🏢 **[Panduan Pengguna: Role Pemberi Kerja (Stand Industri)](docs/PANDUAN_PEMBERI_KERJA.md)** — Akses multi-format login 23 stand booth, manajemen & edit lowongan aktif on-the-spot, scan barcode pelamar di booth, dan seleksi kandidat langsung.
 - 🛡️ **[Panduan Pengguna: Role Admin Panitia (BKK & UNTIDAR)](docs/PANDUAN_ADMIN_PANITIA.md)** — Monitoring telemetri live, pemantauan denah 4 zona hall, scanner master pintu masuk, dan ekspor laporan CSV/Excel.
 
 ---

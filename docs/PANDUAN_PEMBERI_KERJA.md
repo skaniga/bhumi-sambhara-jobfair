@@ -87,3 +87,14 @@ Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukk
    - Klik **Terima Pelamar** jika dinyatakan lolos ke tahap berikutnya.
    - Klik **Tolak** jika belum sesuai kualifikasi.
    - Berikan catatan industri pada kolom yang tersedia sebagai rekam jejak.
+
+### 5. Mengelola & Mengedit Lowongan Kerja Aktif
+1. Pada Dashboard Stand, klik tab **Kelola Lowongan Aktif** (terletak di sebelah tab *Daftar Pelamar Stand*).
+2. Anda dapat memantau seluruh lowongan aktif perusahaan Anda beserta rincian kuota, gaji, kualifikasi, dan jumlah pelamar yang masuk.
+3. **Mengubah / Edit Lowongan**: Klik tombol **Edit Lowongan** pada posisi yang ingin diubah. Anda dapat menyesuaikan kuota pelamar, rentang gaji, kualifikasi, maupun berkas persyaratan.
+4. **Membuka Lowongan Baru**: Klik tombol **+ Tambah Lowongan Baru** di kanan atas untuk mempublikasikan posisi lowongan tambahan secara langsung.
+5. **Menutup / Menghapus Lowongan**: Klik tombol **Hapus / Tutup** pada kartu lowongan jika kuota telah terpenuhi atau posisi sudah ditutup.
+
+### 6. Lupa Kata Sandi Akun Stand
+* Jika perwakilan stand lupa kata sandi, klik tautan **Lupa kata sandi?** pada modal login.
+* Masukkan username stand (contoh: `HkGoldStandA3` atau `A3`). Sistem akan mengonfirmasi identitas stand dan mengarahkan kembali ke kata sandi resmi pada Buku Panduan ini atau meja sekretariat Panitia BKK / UNTIDAR di Graha Krida Wiyata.

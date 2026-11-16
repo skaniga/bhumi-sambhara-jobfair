@@ -22,14 +22,42 @@ export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
-// ── Local Storage Cache (Zero Dummy Data) ──
-const STORAGE_PREFIX = 'bhumi_sambhara_jobfair_';
+// ── Local Storage Cache (Versioned to bust stale data) ──
+const STORAGE_VERSION = 'v3';
+const STORAGE_PREFIX = `bhumi_sambhara_jobfair_${STORAGE_VERSION}_`;
+
+// Auto-clean obsolete pre-v3 cache keys
+if (typeof window !== 'undefined') {
+  try {
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('bhumi_sambhara_jobfair_') && !k.startsWith(STORAGE_PREFIX)) {
+        keysToRemove.push(k);
+      }
+    }
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+  } catch (e) {
+    // Ignore storage cleanup issues
+  }
+}
 
 function loadStorage(key, fallback) {
   if (typeof window === 'undefined') return fallback;
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + key);
-    return raw ? JSON.parse(raw) : fallback;
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw);
+
+    // If stored array is smaller than the official initial catalog, prefer the official full catalog!
+    if (key === 'industries' && Array.isArray(parsed) && parsed.length < INITIAL_INDUSTRIES.length) {
+      return fallback;
+    }
+    if (key === 'vacancies' && Array.isArray(parsed) && parsed.length < INITIAL_VACANCIES.length) {
+      return fallback;
+    }
+
+    return parsed;
   } catch (e) {
     console.warn('Storage read error:', e);
     return fallback;
@@ -353,6 +381,62 @@ export function logoutUser() {
   }
 }
 
+export async function resetUserPassword(emailOrUsername) {
+  const cleanInput = (emailOrUsername || '').trim();
+  const cleanLower = cleanInput.toLowerCase();
+  const cleanAlphaNum = cleanLower.replace(/[^a-z0-9]/g, '');
+
+  if (!cleanInput) {
+    return { success: false, error: 'Mohon masukkan email atau username akun Anda.' };
+  }
+
+  // 1. Check if it's an official Stand Account
+  const isStand = OFFICIAL_STAND_CREDENTIALS.some(sc => 
+    sc.email.toLowerCase() === cleanLower ||
+    sc.stand.toLowerCase() === cleanLower ||
+    sc.stand.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanAlphaNum ||
+    sc.aliases.some(a => a.toLowerCase() === cleanLower || a.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanAlphaNum)
+  );
+
+  if (isStand) {
+    return {
+      success: true,
+      message: 'Akun Stand Booth resmi terhubung ke sistem panitia. Kata sandi stand tercantum pada Buku Panduan Pemberi Kerja. Anda juga dapat menghubungi Panitia BKK / UNTIDAR di meja sekretariat.'
+    };
+  }
+
+  // 2. Check if it's admin
+  if (cleanLower === 'admin' || cleanLower.includes('bkk@skanisa')) {
+    return {
+      success: true,
+      message: 'Akun Administrator Panitia. Silakan hubungi tim koordinator BKK Skanisa / UNTIDAR untuk pemulihan akses pengawas.'
+    };
+  }
+
+  // 3. For registered jobseeker email, invoke Supabase Auth reset
+  if (supabase && cleanLower.includes('@')) {
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(cleanLower, {
+        redirectTo: typeof window !== 'undefined' ? window.location.origin : undefined
+      });
+      if (error) {
+        return { success: false, error: error.message };
+      }
+      return { 
+        success: true, 
+        message: 'Tautan pemulihan kata sandi telah dikirim ke email Anda. Silakan periksa kotak masuk atau folder spam.' 
+      };
+    } catch (e) {
+      console.warn('Supabase resetPassword error:', e);
+    }
+  }
+
+  return {
+    success: true,
+    message: 'Permintaan pemulihan telah dicatat. Silakan cek email Anda atau lakukan pendaftaran baru jika belum memiliki akun terverifikasi.'
+  };
+}
+
 // ── Profile Updates ──
 export async function updateProfile(updatedData) {
   const user = get(currentUser);
@@ -380,6 +464,58 @@ export async function updateCompany(companyId, companyData) {
       await supabase.from('industries').update(companyData).eq('id', companyId);
     } catch (e) {
       console.warn('Supabase updateCompany notice:', e);
+    }
+  }
+  return { success: true };
+}
+
+// ── Active Job Vacancies Management ──
+export async function updateVacancy(vacancyId, vacancyData) {
+  vacancies.update(list => list.map(v => v.id === vacancyId ? { ...v, ...vacancyData } : v));
+  if (supabase) {
+    try {
+      await supabase.from('job_vacancies').update(vacancyData).eq('id', vacancyId);
+    } catch (e) {
+      console.warn('Supabase updateVacancy notice:', e);
+    }
+  }
+  return { success: true };
+}
+
+export async function createVacancy(companyId, vacancyData) {
+  const newVac = {
+    id: generateUUID(),
+    industry_id: companyId,
+    judul_posisi: vacancyData.judul_posisi || 'Posisi Baru',
+    tipe_pekerjaan: vacancyData.tipe_pekerjaan || 'Penuh Waktu',
+    kuota: Number(vacancyData.kuota) || 1,
+    gaji: vacancyData.gaji || 'Sesuai UMK / Kompetitif',
+    pendidikan: vacancyData.pendidikan || 'SMK / SMA Sederajat',
+    lokasi: vacancyData.lokasi || 'Magelang / Jawa Tengah',
+    kualifikasi: vacancyData.kualifikasi || 'Terbuka bagi pencari kerja berdedikasi tinggi.',
+    persyaratan: Array.isArray(vacancyData.persyaratan) 
+      ? vacancyData.persyaratan 
+      : (vacancyData.persyaratan ? vacancyData.persyaratan.split('\n').map(s => s.trim()).filter(Boolean) : ['CV & Portofolio', 'Fotokopi Ijazah / SKL'])
+  };
+
+  vacancies.update(list => [newVac, ...list]);
+  if (supabase) {
+    try {
+      await supabase.from('job_vacancies').insert([newVac]);
+    } catch (e) {
+      console.warn('Supabase createVacancy notice:', e);
+    }
+  }
+  return { success: true, vacancy: newVac };
+}
+
+export async function deleteVacancy(vacancyId) {
+  vacancies.update(list => list.filter(v => v.id !== vacancyId));
+  if (supabase) {
+    try {
+      await supabase.from('job_vacancies').delete().eq('id', vacancyId);
+    } catch (e) {
+      console.warn('Supabase deleteVacancy notice:', e);
     }
   }
   return { success: true };

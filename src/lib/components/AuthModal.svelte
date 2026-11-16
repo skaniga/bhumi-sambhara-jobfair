@@ -1,11 +1,11 @@
 <script>
-  import { loginUser, registerUser, industries } from '../supabase.js';
-  import { X, Lock, Mail, User, Building2, AlertCircle, Eye, EyeOff } from '@lucide/svelte';
+  import { loginUser, registerUser, resetUserPassword, industries } from '../supabase.js';
+  import { X, Lock, Mail, User, Building2, AlertCircle, Eye, EyeOff, CheckCircle2, ArrowLeft, KeyRound } from '@lucide/svelte';
 
   export let onClose = () => {};
   export let onSuccess = () => {};
 
-  let isRegisterMode = false;
+  let authMode = 'login'; // 'login' | 'register' | 'forgot'
   let nama = '';
   let email = '';
   let password = '';
@@ -13,10 +13,29 @@
   let role = 'pelamar';
   let companyId = 'a0000001-0000-0000-0000-000000000001';
   let errorMessage = '';
+  let successMessage = '';
   let loading = false;
 
   async function handleSubmit() {
     errorMessage = '';
+    successMessage = '';
+
+    if (authMode === 'forgot') {
+      if (!email) {
+        errorMessage = 'Mohon masukkan email atau username akun Anda.';
+        return;
+      }
+      loading = true;
+      const res = await resetUserPassword(email);
+      loading = false;
+      if (res.success) {
+        successMessage = res.message;
+      } else {
+        errorMessage = res.error || 'Gagal memproses pemulihan kata sandi.';
+      }
+      return;
+    }
+
     if (!email || !password) {
       errorMessage = 'Mohon masukkan email dan kata sandi Anda.';
       return;
@@ -24,7 +43,7 @@
 
     loading = true;
 
-    if (isRegisterMode) {
+    if (authMode === 'register') {
       if (!nama) {
         errorMessage = 'Mohon cantumkan nama lengkap Anda.';
         loading = false;
@@ -49,22 +68,36 @@
       }
     }
   }
+
+  function setMode(mode) {
+    authMode = mode;
+    errorMessage = '';
+    successMessage = '';
+  }
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
   <div class="modal-content auth-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
       <div>
-        <h3 class="heading-md auth-title">{isRegisterMode ? 'Daftar Akun Jobfair 2026' : 'Masuk ke Portal Jobfair'}</h3>
-        <p class="text-xs text-muted">Portal Resmi Bhumi Sambhara Expo (UNTIDAR x SMKN 1 Magelang)</p>
+        <h3 class="heading-md auth-title">
+          {#if authMode === 'register'}
+            Daftar Akun Jobfair 2026
+          {:else if authMode === 'forgot'}
+            Lupa Kata Sandi Akun
+          {:else}
+            Masuk ke Portal Jobfair
+          {/if}
+        </h3>
+        <p class="text-xs text-muted">Portal Resmi Bhumi Sambhara Expo (UNTIDAR × SMKN 1 Magelang)</p>
       </div>
-      <button class="btn-close" on:click={onClose}>
+      <button class="btn-close" on:click={onClose} aria-label="Tutup">
         <X size={20} />
       </button>
     </div>
 
     <div class="modal-body auth-body">
-      {#if isRegisterMode}
+      {#if authMode === 'register'}
         <div class="input-group">
           <label class="input-label" for="regNamaInput">Nama Lengkap</label>
           <input 
@@ -97,43 +130,73 @@
         {/if}
       {/if}
 
+      {#if authMode === 'forgot'}
+        <div class="forgot-notice">
+          <div class="forgot-icon-wrap">
+            <KeyRound size={24} class="text-amber" />
+          </div>
+          <p class="text-xs text-muted">
+            Masukkan alamat email akun pelamar Anda untuk menerima tautan reset kata sandi, atau masukkan Username Stand Industri (contoh: <code>HkGoldStandA3</code>).
+          </p>
+        </div>
+      {/if}
+
       <div class="input-group">
-        <label class="input-label" for="authEmailInput">{isRegisterMode ? 'Alamat Email' : 'Email atau Username Stand'}</label>
+        <label class="input-label" for="authEmailInput">
+          {authMode === 'register' ? 'Alamat Email' : authMode === 'forgot' ? 'Email atau Username Stand' : 'Email atau Username Stand'}
+        </label>
         <input 
           id="authEmailInput"
           type="text" 
           class="input-field" 
-          placeholder={isRegisterMode ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
-          bind:value={email} 
+          placeholder={authMode === 'register' ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
+          bind:value={email}
+          on:keydown={(e) => e.key === 'Enter' && (authMode === 'forgot' ? handleSubmit() : null)}
         />
       </div>
 
-      <div class="input-group">
-        <label class="input-label" for="authPasswordInput">Kata Sandi</label>
-        <div class="password-wrapper">
-          <input 
-            id="authPasswordInput"
-            type={showPassword ? "text" : "password"} 
-            class="input-field password-input" 
-            placeholder="••••••••" 
-            bind:value={password}
-            on:keydown={(e) => e.key === 'Enter' && handleSubmit()}
-          />
-          <button 
-            type="button" 
-            class="password-toggle-btn"
-            on:click={() => showPassword = !showPassword}
-            title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
-            aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
-          >
-            {#if showPassword}
-              <EyeOff size={18} />
-            {:else}
-              <Eye size={18} />
+      {#if authMode !== 'forgot'}
+        <div class="input-group">
+          <div class="password-label-row">
+            <label class="input-label mb-0" for="authPasswordInput">Kata Sandi</label>
+            {#if authMode === 'login'}
+              <button type="button" class="forgot-link-inline" on:click={() => setMode('forgot')}>
+                Lupa kata sandi?
+              </button>
             {/if}
-          </button>
+          </div>
+          <div class="password-wrapper">
+            <input 
+              id="authPasswordInput"
+              type={showPassword ? "text" : "password"} 
+              class="input-field password-input" 
+              placeholder="••••••••" 
+              bind:value={password}
+              on:keydown={(e) => e.key === 'Enter' && handleSubmit()}
+            />
+            <button 
+              type="button" 
+              class="password-toggle-btn"
+              on:click={() => showPassword = !showPassword}
+              title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+            >
+              {#if showPassword}
+                <EyeOff size={18} />
+              {:else}
+                <Eye size={18} />
+              {/if}
+            </button>
+          </div>
         </div>
-      </div>
+      {/if}
+
+      {#if successMessage}
+        <div class="alert-box alert-success">
+          <CheckCircle2 size={16} />
+          <span class="text-xs">{successMessage}</span>
+        </div>
+      {/if}
 
       {#if errorMessage}
         <div class="alert-box alert-danger">
@@ -143,12 +206,19 @@
       {/if}
 
       <div class="toggle-mode-row">
-        <span class="text-xs text-muted">
-          {isRegisterMode ? 'Sudah memiliki akun terdaftar?' : 'Belum memiliki akun pendaftaran?'}
-        </span>
-        <button class="toggle-link" on:click={() => { isRegisterMode = !isRegisterMode; errorMessage = ''; }}>
-          {isRegisterMode ? 'Masuk sekarang' : 'Daftar di sini'}
-        </button>
+        {#if authMode === 'forgot'}
+          <button type="button" class="btn-back-link" on:click={() => setMode('login')}>
+            <ArrowLeft size={14} />
+            <span>Kembali ke Halaman Masuk</span>
+          </button>
+        {:else}
+          <span class="text-xs text-muted">
+            {authMode === 'register' ? 'Sudah memiliki akun terdaftar?' : 'Belum memiliki akun pendaftaran?'}
+          </span>
+          <button type="button" class="toggle-link" on:click={() => setMode(authMode === 'register' ? 'login' : 'register')}>
+            {authMode === 'register' ? 'Masuk sekarang' : 'Daftar di sini'}
+          </button>
+        {/if}
       </div>
     </div>
 
@@ -157,7 +227,7 @@
         Batal
       </button>
       <button class="btn btn-primary" on:click={handleSubmit} disabled={loading}>
-        {loading ? 'Memproses...' : isRegisterMode ? 'Selesaikan Pendaftaran' : 'Masuk Portal'}
+        {loading ? 'Memproses...' : authMode === 'register' ? 'Selesaikan Pendaftaran' : authMode === 'forgot' ? 'Kirim Pemulihan' : 'Masuk Portal'}
       </button>
     </div>
   </div>
@@ -179,6 +249,63 @@
     color: var(--color-text-muted);
   }
 
+  .password-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .forgot-link-inline {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-amber-accent);
+    cursor: pointer;
+  }
+
+  .forgot-link-inline:hover {
+    text-decoration: underline;
+  }
+
+  .forgot-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+  }
+
+  .forgot-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-amber-accent);
+    flex-shrink: 0;
+  }
+
+  .btn-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .btn-back-link:hover {
+    text-decoration: underline;
+  }
+
   .toggle-mode-row {
     display: flex;
     justify-content: space-between;
@@ -192,6 +319,10 @@
     font-size: 0.8125rem;
     font-weight: 700;
     color: var(--color-amber-accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
   }
 
   .toggle-link:hover {
@@ -205,12 +336,19 @@
     padding: 10px 14px;
     border-radius: var(--radius-md);
     margin-bottom: 12px;
+    line-height: 1.4;
   }
 
   .alert-danger {
     background-color: var(--color-danger-bg);
     border: 1px solid #FECDD3;
     color: #9F1239;
+  }
+
+  .alert-success {
+    background-color: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #065F46;
   }
 
   .password-wrapper {
