@@ -2,6 +2,8 @@
 **Portal Bursa Kerja Bhumi Sambhara Expo & Jobfair 2026**  
 *Kolaborasi Resmi: K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang*
 
+🌐 **Akses Portal Resmi**: [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id)
+
 ---
 
 ## 🎯 Ringkasan Alur Pemberi Kerja (Stand Booth)
@@ -10,10 +12,10 @@ Sebagai perwakilan HRD / Rekruter industri di booth expo, Anda dapat:
 2. Mengelola profil perusahaan, nomor booth stand, dan kontak PIC WhatsApp.
 3. Membuka **Kamera Barcode Scanner Stand** untuk scan QR Code di ponsel pelamar saat mendatangi booth Anda.
 4. Melakukan verifikasi kehadiran fisik dan seleksi berkas secara langsung di tempat (*Walk-in Verification*).
-5. Mengubah status pelamar:
-   - **Hadir & Terverifikasi**
-   - **Panggilan Wawancara** (di meja booth)
-   - **Lolos Diterima**
+5. Mengubah status pelamar secara berjenjang:
+   - **Check-in Stand** (*Terverifikasi Hadir*)
+   - **Wawancara Booth** (di meja booth)
+   - **Lolos Seleksi** (*Diterima Kerja*)
    - **Ditolak**
 6. Menulis catatan hasil wawancara atau pengarahan berkas bagi pelamar.
 
@@ -21,48 +23,52 @@ Sebagai perwakilan HRD / Rekruter industri di booth expo, Anda dapat:
 
 ## 🔑 Kredensial Login 23 Stand Industri Resmi
 
-Berdasarkan data resmi `Draft Industri Jobfair Fix.xlsx`:
+Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukkan **Username Stand** (contoh: `HkGoldStandA3`), **Nomor Stand** (`Stand A3` atau `A3`), maupun **Alamat Email**. Tersedia pula **tombol mata (*Eye icon*)** pada kolom kata sandi.
 
-| Stand Booth | Nama Industri / Perusahaan | Kategori / Bidang Usaha | Kontak WhatsApp | Alamat Email | Kata Sandi |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Stand A1** | CV Karya Hidup Sentosa (Quick) | Industri Manufaktur & Perdagangan | 0811 2701 3215 | `hrd@quick.co.id` | `QuickStandA1!` |
-| **Stand A2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | Jasa Relaksasi & Salon Kecantikan | 0821 3502 4190 | `karir@dewavespa.com` | `DewaveStandA2!` |
-| **Stand A3** | HK GOLD | Toko Emas & Perhiasan | 0813 4287 8303 | `hrd@hkgold.co.id` | `HkGoldStandA3!` |
-| **Stand A4** | LPK ATARA | Pendidikan dan Pelatihan Kerja | 0821 3054 9549 | `info@lpkatara.com` | `AtaraStandA4!` |
-| **Stand A5** | LPK CAPTAIN'S CLUB YOGYAKARTA | Diklat Perhotelan & Kapal Pesiar | 0813 2557 8171 | `career@captainsclubjogja.com` | `CaptainsClubStandA5!` |
-| **Stand A6** | LPK PLATINUM MAGELANG | Pendidikan Perhotelan & Kapal Pesiar | 0819 1767 1025 | `info@lpkplatinum.com` | `PlatinumStandA6!` |
-| **Stand B1** | LPK TERATAI GOGAKUIN | Penyalur Tenaga Kerja ke Jepang | 0823 2361 0036 | `info@terataigogakuin.com` | `TerataiStandB1!` |
-| **Stand B2** | PT ANUGERAH ABADI MAGELANG | Garmen & Tekstil Ekspor | 0857 1625 7630 | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStandB2!` |
-| **Stand B3** | PT KSA XL SMART | Telekomunikasi & Jaringan | 0858 0137 8742 | `karir@ksaxlsmart.com` | `XlSmartStandB3!` |
-| **Stand B4** | PT PERMODALAN NASIONAL MADANI (PNM) | Keuangan & BUMN Pemberdayaan Mikro | 0811 8111 2362 | `rekrutmen@pnm.co.id` | `PnmStandB4!` |
-| **Stand B5** | PT GISARA TANTRA BERKARYA | Manufaktur Pengolahan Tembakau | 0852 6153 9626 | `hrd@gisaratantra.co.id` | `GisaraStandB5!` |
-| **Stand B6** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | Retail Modern & Supermarket | 0853 3407 0511 | `karir@alfamidiku.com` | `AlfamidiStandB6!` |
-| **Stand C1** | PT SHETLER INDONESIA | Alih Daya / Facility Services (BPO) | 0877 6780 1991 | `recruitment@shelter.co.id` | `ShelterStandC1!` |
-| **Stand C2** | PT CLAY JAYA BERSAMA (BIG) | Retail Bahan Bangunan Modern | 0896 8800 9591 | `karir@clayjayabersama.com` | `ClayJayaStandC2!` |
-| **Stand C3** | PT MEKAR ARMADA JAYA | Manufaktur Karoseri Otomotif | 0853 8562 5000 | `hrd@mekararmadajaya.com` | `ArmadaJayaStandC3!` |
-| **Stand C4** | SINDORO HOTEL COLLEGE MAGELANG | Perhotelan dan Kapal Pesiar | 0895 4058 27080 | `info@sindorohotelcollege.com` | `SindoroStandC4!` |
-| **Stand C5** | PT UNILOA ARDIYANTO INVESTAMA | Developer Property & Real Estate | 0813 3756 3335 | `hrd@uniloa.com` | `UniloaStandC5!` |
-| **Stand C6** | BMC DHARMADITNA YOGYAKARTA | Pelatihan Mekanik Alat Berat | 0821 4616 0214 | `info@bmcdharmaditna.com` | `BmcStandC6!` |
-| **Stand D1** | PT. INDOMARCO PRISMATAMA (INDOMARET) | Retail Modern & Distribusi Logistik | 0899 9172 359 | `karir@indomaret.co.id` | `IndomaretStandD1!` |
-| **Stand D2** | LIDAH BUAYA GROUP | Manufaktur Toiletries & Kosmetik | 0811 2510 1138 | `hrd@lidahbuayagroup.com` | `LidahBuayaStandD2!` |
-| **Stand D3** | PUTRA TEKNIK AC | Layanan Tata Udara & Pendingin (HVACR) | 0852 9112 35232 | `karir@putrateknikac.com` | `PutraTeknikStandD3!` |
-| **Stand D4** | STAFFINC | Penyedia Solusi SDM & Teknologi | 0857 1580 1723 | `careers@staffinc.co` | `StaffincStandD4!` |
-| **Stand D5** | PT. CANDI BANGUN PERSADA | Dealer Resmi & Pemasangan HVAC | 0857 0002 5566 | `hrd@candibangunpersada.com` | `CandiBangunStandD5!` |
+| Stand Booth | Nama Industri / Perusahaan | Kategori / Bidang Usaha | Username Stand | Alamat Email | Kata Sandi | Kontak WhatsApp |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Stand A1** | CV Karya Hidup Sentosa (Quick) | Industri Manufaktur & Perdagangan | `QuickStandA1` | `hrd@quick.co.id` | `QuickStandA1!` | 0811 2701 3215 |
+| **Stand A2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | Jasa Relaksasi & Salon Kecantikan | `DewaveStandA2` | `karir@dewavespa.com` | `DewaveStandA2!` | 0821 3502 4190 |
+| **Stand A3** | HK GOLD | Toko Emas & Perhiasan | `HkGoldStandA3` | `hrd@hkgold.co.id` | `HkGoldStandA3!` | 0813 4287 8303 |
+| **Stand A4** | LPK ATARA | Pendidikan dan Pelatihan Kerja | `AtaraStandA4` | `info@lpkatara.com` | `AtaraStandA4!` | 0821 3054 9549 |
+| **Stand A5** | LPK CAPTAIN'S CLUB YOGYAKARTA | Diklat Perhotelan & Kapal Pesiar | `CaptainsClubStandA5` | `career@captainsclubjogja.com` | `CaptainsClubStandA5!` | 0813 2557 8171 |
+| **Stand A6** | LPK PLATINUM MAGELANG | Pendidikan Perhotelan & Kapal Pesiar | `PlatinumStandA6` | `info@lpkplatinum.com` | `PlatinumStandA6!` | 0819 1767 1025 |
+| **Stand B1** | LPK TERATAI GOGAKUIN | Penyalur Tenaga Kerja ke Jepang | `TerataiStandB1` | `info@terataigogakuin.com` | `TerataiStandB1!` | 0823 2361 0036 |
+| **Stand B2** | PT ANUGERAH ABADI MAGELANG | Garmen & Tekstil Ekspor | `AnugerahAbadiStandB2` | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStandB2!` | 0857 1625 7630 |
+| **Stand B3** | PT KSA XL SMART | Telekomunikasi & Jaringan | `XlSmartStandB3` | `karir@ksaxlsmart.com` | `XlSmartStandB3!` | 0858 0137 8742 |
+| **Stand B4** | PT PERMODALAN NASIONAL MADANI (PNM) | Keuangan & BUMN Pemberdayaan Mikro | `PnmStandB4` | `rekrutmen@pnm.co.id` | `PnmStandB4!` | 0811 8111 2362 |
+| **Stand B5** | PT GISARA TANTRA BERKARYA | Manufaktur Pengolahan Tembakau | `GisaraStandB5` | `hrd@gisaratantra.co.id` | `GisaraStandB5!` | 0852 6153 9626 |
+| **Stand B6** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | Retail Modern & Supermarket | `AlfamidiStandB6` | `karir@alfamidiku.com` | `AlfamidiStandB6!` | 0853 3407 0511 |
+| **Stand C1** | PT SHETLER INDONESIA | Alih Daya / Facility Services (BPO) | `ShelterStandC1` | `recruitment@shelter.co.id` | `ShelterStandC1!` | 0877 6780 1991 |
+| **Stand C2** | PT CLAY JAYA BERSAMA (BIG) | Retail Bahan Bangunan Modern | `ClayJayaStandC2` | `karir@clayjayabersama.com` | `ClayJayaStandC2!` | 0896 8800 9591 |
+| **Stand C3** | PT MEKAR ARMADA JAYA | Manufaktur Karoseri Otomotif | `ArmadaJayaStandC3` | `hrd@mekararmadajaya.com` | `ArmadaJayaStandC3!` | 0853 8562 5000 |
+| **Stand C4** | SINDORO HOTEL COLLEGE MAGELANG | Perhotelan dan Kapal Pesiar | `SindoroStandC4` | `info@sindorohotelcollege.com` | `SindoroStandC4!` | 0895 4058 27080 |
+| **Stand C5** | PT UNILOA ARDIYANTO INVESTAMA | Developer Property & Real Estate | `UniloaStandC5` | `hrd@uniloa.com` | `UniloaStandC5!` | 0813 3756 3335 |
+| **Stand C6** | BMC DHARMADITNA YOGYAKARTA | Pelatihan Mekanik Alat Berat | `BmcStandC6` | `info@bmcdharmaditna.com` | `BmcStandC6!` | 0821 4616 0214 |
+| **Stand D1** | PT. INDOMARCO PRISMATAMA (INDOMARET) | Retail Modern & Distribusi Logistik | `IndomaretStandD1` | `karir@indomaret.co.id` | `IndomaretStandD1!` | 0899 9172 359 |
+| **Stand D2** | LIDAH BUAYA GROUP | Manufaktur Toiletries & Kosmetik | `LidahBuayaStandD2` | `hrd@lidahbuayagroup.com` | `LidahBuayaStandD2!` | 0811 2510 1138 |
+| **Stand D3** | PUTRA TEKNIK AC | Layanan Tata Udara & Pendingin (HVACR) | `PutraTeknikStandD3` | `karir@putrateknikac.com` | `PutraTeknikStandD3!` | 0852 9112 35232 |
+| **Stand D4** | STAFFINC | Penyedia Solusi SDM & Teknologi | `StaffincStandD4` | `careers@staffinc.co` | `StaffincStandD4!` | 0857 1580 1723 |
+| **Stand D5** | PT. CANDI BANGUN PERSADA | Dealer Resmi & Pemasangan HVAC | `CandiBangunStandD5` | `hrd@candibangunpersada.com` | `CandiBangunStandD5!` | 0857 0002 5566 |
 
 ---
 
 ## 🚀 Panduan Operasional di Meja Booth
 
 ### 1. Masuk ke Dashboard Stand
-1. Buka website portal, klik **Masuk / Daftar** di kanan atas.
-2. Masukkan email dan kata sandi stand industri Anda dari tabel di atas.
-3. Anda akan langsung diarahkan ke halaman **Stand & Verifikasi**.
+1. Buka [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id), klik **Masuk / Daftar** di kanan atas.
+2. Masukkan Username Stand (contoh: `HkGoldStandA3` atau `A3`) atau alamat email resmi.
+3. Masukkan kata sandi booth Anda dari tabel di atas (klik ikon mata jika ingin melihat kata sandi).
+4. Klik **Masuk Portal**. Anda akan langsung diarahkan ke halaman **Stand & Verifikasi**.
 
-### 2. Memeriksa Informasi Booth
+### 2. Memeriksa Informasi Booth & Pipeline
 * Pada bagian atas dashboard, periksa:
-  - Nomor Stand (contoh: *Stand A1*)
+  - Nomor Stand (contoh: *Stand A3*)
   - Nama Perusahaan & Kontak PIC WhatsApp
-  - Total Lamaran Masuk, Terverifikasi, dan Wawancara.
+  - Visual Pipeline Seleksi:
+    1. **Check-in Stand**: Jumlah peserta yang hadir fisik di booth Anda.
+    2. **Wawancara Booth**: Jumlah pelamar yang dipanggil interview di meja stand.
+    3. **Lolos Seleksi**: Jumlah kandidat yang berhasil dinyatakan diterima kerja.
 
 ### 3. Pemindaian QR Code Pelamar di Meja Booth
 1. Ketika pelamar datang dan menunjukkan **Kartu Peserta Digital** di ponselnya, klik tombol **Buka Scanner Barcode Stand**.
@@ -72,6 +78,7 @@ Berdasarkan data resmi `Draft Industri Jobfair Fix.xlsx`:
    - Mencatat presensi fisik kunjungan stand ke database.
    - Mengubah status lamaran menjadi **Terverifikasi di Stand**.
    - Menampilkan biodata lengkap, asal sekolah/kampus, jurusan, dan tautan CV/portofolio pelamar.
+   - *Catatan*: Jika perangkat tidak memiliki kamera atau QR rusak, gunakan kolom input manual NIK / Token di bawah jendela scanner.
 
 ### 4. Melakukan Wawancara On-The-Spot
 1. Jika pelamar memenuhi kualifikasi awal, klik tombol **Panggil Wawancara**.

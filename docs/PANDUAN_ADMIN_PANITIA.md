@@ -2,12 +2,14 @@
 **Portal Bursa Kerja Bhumi Sambhara Expo & Jobfair 2026**  
 *Kolaborasi Resmi: K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang*
 
+🌐 **Akses Portal Resmi**: [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id)
+
 ---
 
 ## 🎯 Ringkasan Alur Panitia Penyelenggara
 Sebagai panitia admin (BKK SMKN 1 Magelang dan K1 Pariwisata UNTIDAR), Anda memegang kendali penuh monitoring acara:
 1. Memantau telemetri live pendaftar (*Jobseekers*), total berkas lamaran, dan tingkat okupansi bursa kerja.
-2. Memantau rekapitulasi real-time dari seluruh **23 Stand Industri Partner (Stand A1 s/d Stand D5)**.
+2. Memantau rekapitulasi real-time dari seluruh **23 Stand Industri Partner (Stand A1 s/d Stand D5)** dengan total **2.667 lowongan kerja**.
 3. Memeriksa tata letak fisik melalui **Denah 4 Zona Hall Graha Krida Wiyata**.
 4. Mengoperasikan **Scanner Master Panitia** di pintu masuk (*gate*) aula expo untuk validasi tiket/kartu peserta.
 5. Mengunduh data rekapitulasi lengkap acara dalam format **CSV / Excel** untuk arsip laporan pertanggungjawaban kegiatan.
@@ -16,9 +18,9 @@ Sebagai panitia admin (BKK SMKN 1 Magelang dan K1 Pariwisata UNTIDAR), Anda meme
 
 ## 🔑 Kredensial Login Panitia Resmi
 
-| Lembaga Penyelenggara | Alamat Email | Kata Sandi | Peran | Token Master |
+| Lembaga Penyelenggara | Username / Email | Kata Sandi | Peran | Token Master |
 | :--- | :--- | :--- | :--- | :--- |
-| **BKK SMK Negeri 1 Magelang** | `bkk@skanisa.sch.id` | `BkkSkanisa2026!` | `admin` | `BSJ2026-ADM-BKK01` |
+| **BKK SMK Negeri 1 Magelang** | `admin` atau `bkk@skanisa.sch.id` | `AdminPass2026!` / `SuperAdminBkk2026!` | `admin` | `BSJ2026-ADM-BKK01` |
 | **K1 Pariwisata 2024 UNTIDAR** | `untidar@jobfair.id` | `UntidarExpo2026!` | `admin` | `BSJ2026-ADM-UNTIDAR01` |
 
 ---
@@ -26,9 +28,10 @@ Sebagai panitia admin (BKK SMKN 1 Magelang dan K1 Pariwisata UNTIDAR), Anda meme
 ## 🚀 Panduan Pengoperasian Panel Kendali
 
 ### 1. Masuk ke Panel Monitoring
-1. Buka website portal, klik **Masuk / Daftar** di pojok kanan atas.
-2. Masukkan email panitia (`bkk@skanisa.sch.id` atau `untidar@jobfair.id`) dan kata sandi di atas.
-3. Begitu masuk, Anda akan langsung diarahkan ke tab **Panel Monitoring**.
+1. Buka [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id), klik **Masuk / Daftar** di pojok kanan atas.
+2. Masukkan username `admin` atau email panitia (`bkk@skanisa.sch.id` / `untidar@jobfair.id`).
+3. Masukkan kata sandi panitia di atas (klik ikon mata untuk menampilkan kata sandi).
+4. Klik **Masuk Portal**. Anda akan langsung diarahkan ke tab **Panel Monitoring**.
 
 ### 2. Membaca Kartu Indikator Utama (KPI Telemetri)
 Pada baris atas dashboard terdapat 4 metrik penting yang ter-update live:

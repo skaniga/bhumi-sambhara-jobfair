@@ -1,33 +1,37 @@
 # Bhumi Sambhara Career Portal & Jobfair 2026
 
-Portal seleksi kerja dan bursa karir resmi acara **Bhumi Sambhara Expo & Jobfair 2026**, hasil kolaborasi antara **K1 Pariwisata 2024 Universitas Tidar (UNTIDAR)** x **SMK Negeri 1 Magelang (SKANISA)**.
+Portal seleksi kerja dan bursa karir resmi acara **Bhumi Sambhara Expo & Jobfair 2026**, hasil kolaborasi antara **K1 Pariwisata 2024 Universitas Tidar (UNTIDAR)** × **SMK Negeri 1 Magelang (SKANISA)**.
 
-Pelaksanaan Acara:
+🌐 **Portal Resmi Live**: [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id)  
+⚡ **Deployment**: Vercel Serverless & Global Edge CDN (Otomatis ter-deploy dari GitHub `origin/main`)  
+🗄️ **Database Online**: Supabase PostgreSQL & GoTrue Auth (`rnlonstoexvlxjjhmtsy.supabase.co`)
+
+### Pelaksanaan Acara:
 - **Tanggal**: Kamis, 19 November 2026
 - **Waktu**: 09.00 - 15.10 WIB
 - **Lokasi**: Gedung Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang
-- **Skala**: 23 Mitra Industri & LPK Terkemuka & 2.600+ Lapangan Pekerjaan
+- **Skala**: 23 Mitra Industri Resmi & 2.667 Total Kuota Lowongan Kerja
 
 ---
 
-## Dokumentasi Panduan Pengguna per Peran
+## 📚 Dokumentasi Panduan Pengguna per Peran
 
 Panduan terperinci untuk masing-masing peran pengguna telah disediakan pada folder `docs/`:
-- 📘 **[Panduan Pengguna: Role Pelamar](docs/PANDUAN_PELAMAR.md)** — Langkah registrasi akun, pembuatan Kartu QR, pelamaran kerja, dan presensi stand.
-- 🏢 **[Panduan Pengguna: Role Pemberi Kerja (Stand Industri)](docs/PANDUAN_PEMBERI_KERJA.md)** — Cara masuk 23 stand industri, scan barcode pelamar di booth, dan verifikasi berkas di tempat.
-- 🛡️ **[Panduan Pengguna: Role Admin Panitia (BKK & UNTIDAR)](docs/PANDUAN_ADMIN_PANITIA.md)** — Monitoring telemetri live, denah 4 zona hall, scanner master pintu masuk, dan ekspor laporan CSV/Excel.
+- 📘 **[Panduan Pengguna: Role Pelamar](docs/PANDUAN_PELAMAR.md)** — Registrasi akun mandiri, pengisian CV digital, pembuatan Kartu QR Peserta, pelamaran kerja, dan verifikasi fisik di booth.
+- 🏢 **[Panduan Pengguna: Role Pemberi Kerja (Stand Industri)](docs/PANDUAN_PEMBERI_KERJA.md)** — Akses multi-format login 23 stand booth, scan barcode pelamar di booth, dan seleksi kandidat on-the-spot.
+- 🛡️ **[Panduan Pengguna: Role Admin Panitia (BKK & UNTIDAR)](docs/PANDUAN_ADMIN_PANITIA.md)** — Monitoring telemetri live, pemantauan denah 4 zona hall, scanner master pintu masuk, dan ekspor laporan CSV/Excel.
 
 ---
 
-## Akun Demo & Akses Resmi (Seed Credentials)
+## 🔑 Kredensial Login & Akses Resmi (Seed Credentials)
 
-Berikut daftar akun resmi yang telah di-seed langsung ke sistem database Supabase Auth & PostgreSQL:
+Sistem login mendukung fleksibilitas **Multi-Format Input**: Pengguna stand dapat masuk menggunakan **Username Stand** (contoh: `HkGoldStandA3`), **Kode Stand** (`Stand A3` atau `A3`), maupun **Alamat Email**. Tersedia pula **tombol mata (*Eye icon*)** pada kolom kata sandi untuk kenyamanan pengetikan.
 
 ### 1. Akun Panitia Penyelenggara (Role: Admin)
 
-| Afiliasi / Lembaga | Alamat Email | Kata Sandi | Peran | Token QR Master |
+| Afiliasi / Lembaga | Username / Email | Kata Sandi | Peran | Token QR Master |
 | :--- | :--- | :--- | :--- | :--- |
-| **BKK SMK Negeri 1 Magelang** | `bkk@skanisa.sch.id` | `BkkSkanisa2026!` | `admin` | `BSJ2026-ADM-BKK01` |
+| **BKK SMK Negeri 1 Magelang** | `admin` atau `bkk@skanisa.sch.id` | `AdminPass2026!` / `SuperAdminBkk2026!` | `admin` | `BSJ2026-ADM-BKK01` |
 | **K1 Pariwisata 2024 UNTIDAR** | `untidar@jobfair.id` | `UntidarExpo2026!` | `admin` | `BSJ2026-ADM-UNTIDAR01` |
 
 *Hak Akses Admin*:
@@ -43,37 +47,37 @@ Berikut daftar akun resmi yang telah di-seed langsung ke sistem database Supabas
 
 Berdasarkan data resmi `Draft Industri Jobfair Fix.xlsx`:
 
-| Stand Booth | Nama Industri / Perusahaan | Kategori / Bidang Usaha | Kontak WhatsApp | Alamat Email | Kata Sandi |
+| Stand Booth | Nama Industri / Perusahaan | Username Stand | Alamat Email | Kata Sandi | Kontak WhatsApp |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Stand A1** | CV Karya Hidup Sentosa (Quick) | Industri Manufaktur & Perdagangan | 0811 2701 3215 | `hrd@quick.co.id` | `QuickStandA1!` |
-| **Stand A2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | Jasa Relaksasi & Salon Kecantikan | 0821 3502 4190 | `karir@dewavespa.com` | `DewaveStandA2!` |
-| **Stand A3** | HK GOLD | Toko Emas & Perhiasan | 0813 4287 8303 | `hrd@hkgold.co.id` | `HkGoldStandA3!` |
-| **Stand A4** | LPK ATARA | Pendidikan dan Pelatihan Kerja | 0821 3054 9549 | `info@lpkatara.com` | `AtaraStandA4!` |
-| **Stand A5** | LPK CAPTAIN'S CLUB YOGYAKARTA | Diklat Perhotelan & Kapal Pesiar | 0813 2557 8171 | `career@captainsclubjogja.com` | `CaptainsClubStandA5!` |
-| **Stand A6** | LPK PLATINUM MAGELANG | Pendidikan Perhotelan & Kapal Pesiar | 0819 1767 1025 | `info@lpkplatinum.com` | `PlatinumStandA6!` |
-| **Stand B1** | LPK TERATAI GOGAKUIN | Penyalur Tenaga Kerja ke Jepang | 0823 2361 0036 | `info@terataigogakuin.com` | `TerataiStandB1!` |
-| **Stand B2** | PT ANUGERAH ABADI MAGELANG | Garmen & Tekstil Ekspor | 0857 1625 7630 | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStandB2!` |
-| **Stand B3** | PT KSA XL SMART | Telekomunikasi & Jaringan | 0858 0137 8742 | `karir@ksaxlsmart.com` | `XlSmartStandB3!` |
-| **Stand B4** | PT PERMODALAN NASIONAL MADANI (PNM) | Keuangan & BUMN Pemberdayaan Mikro | 0811 8111 2362 | `rekrutmen@pnm.co.id` | `PnmStandB4!` |
-| **Stand B5** | PT GISARA TANTRA BERKARYA | Manufaktur Pengolahan Tembakau | 0852 6153 9626 | `hrd@gisaratantra.co.id` | `GisaraStandB5!` |
-| **Stand B6** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | Retail Modern & Supermarket | 0853 3407 0511 | `karir@alfamidiku.com` | `AlfamidiStandB6!` |
-| **Stand C1** | PT SHETLER INDONESIA | Alih Daya / Facility Services (BPO) | 0877 6780 1991 | `recruitment@shelter.co.id` | `ShelterStandC1!` |
-| **Stand C2** | PT CLAY JAYA BERSAMA (BIG) | Retail Bahan Bangunan Modern | 0896 8800 9591 | `karir@clayjayabersama.com` | `ClayJayaStandC2!` |
-| **Stand C3** | PT MEKAR ARMADA JAYA | Manufaktur Karoseri Otomotif | 0853 8562 5000 | `hrd@mekararmadajaya.com` | `ArmadaJayaStandC3!` |
-| **Stand C4** | SINDORO HOTEL COLLEGE MAGELANG | Perhotelan dan Kapal Pesiar | 0895 4058 27080 | `info@sindorohotelcollege.com` | `SindoroStandC4!` |
-| **Stand C5** | PT UNILOA ARDIYANTO INVESTAMA | Developer Property & Real Estate | 0813 3756 3335 | `hrd@uniloa.com` | `UniloaStandC5!` |
-| **Stand C6** | BMC DHARMADITNA YOGYAKARTA | Pelatihan Mekanik Alat Berat | 0821 4616 0214 | `info@bmcdharmaditna.com` | `BmcStandC6!` |
-| **Stand D1** | PT. INDOMARCO PRISMATAMA (INDOMARET) | Retail Modern & Distribusi Logistik | 0899 9172 359 | `karir@indomaret.co.id` | `IndomaretStandD1!` |
-| **Stand D2** | LIDAH BUAYA GROUP | Manufaktur Toiletries & Kosmetik | 0811 2510 1138 | `hrd@lidahbuayagroup.com` | `LidahBuayaStandD2!` |
-| **Stand D3** | PUTRA TEKNIK AC | Layanan Tata Udara & Pendingin (HVACR) | 0852 9112 35232 | `karir@putrateknikac.com` | `PutraTeknikStandD3!` |
-| **Stand D4** | STAFFINC | Penyedia Solusi SDM & Teknologi | 0857 1580 1723 | `careers@staffinc.co` | `StaffincStandD4!` |
-| **Stand D5** | PT. CANDI BANGUN PERSADA | Dealer Resmi & Pemasangan HVAC | 0857 0002 5566 | `hrd@candibangunpersada.com` | `CandiBangunStandD5!` |
+| **Stand A1** | CV Karya Hidup Sentosa (Quick) | `QuickStandA1` | `hrd@quick.co.id` | `QuickStandA1!` | 0811 2701 3215 |
+| **Stand A2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | `DewaveStandA2` | `karir@dewavespa.com` | `DewaveStandA2!` | 0821 3502 4190 |
+| **Stand A3** | HK GOLD | `HkGoldStandA3` | `hrd@hkgold.co.id` | `HkGoldStandA3!` | 0813 4287 8303 |
+| **Stand A4** | LPK ATARA | `AtaraStandA4` | `info@lpkatara.com` | `AtaraStandA4!` | 0821 3054 9549 |
+| **Stand A5** | LPK CAPTAIN'S CLUB YOGYAKARTA | `CaptainsClubStandA5` | `career@captainsclubjogja.com` | `CaptainsClubStandA5!` | 0813 2557 8171 |
+| **Stand A6** | LPK PLATINUM MAGELANG | `PlatinumStandA6` | `info@lpkplatinum.com` | `PlatinumStandA6!` | 0819 1767 1025 |
+| **Stand B1** | LPK TERATAI GOGAKUIN | `TerataiStandB1` | `info@terataigogakuin.com` | `TerataiStandB1!` | 0823 2361 0036 |
+| **Stand B2** | PT ANUGERAH ABADI MAGELANG | `AnugerahAbadiStandB2` | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStandB2!` | 0857 1625 7630 |
+| **Stand B3** | PT KSA XL SMART | `XlSmartStandB3` | `karir@ksaxlsmart.com` | `XlSmartStandB3!` | 0858 0137 8742 |
+| **Stand B4** | PT PERMODALAN NASIONAL MADANI (PNM) | `PnmStandB4` | `rekrutmen@pnm.co.id` | `PnmStandB4!` | 0811 8111 2362 |
+| **Stand B5** | PT GISARA TANTRA BERKARYA | `GisaraStandB5` | `hrd@gisaratantra.co.id` | `GisaraStandB5!` | 0852 6153 9626 |
+| **Stand B6** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | `AlfamidiStandB6` | `karir@alfamidiku.com` | `AlfamidiStandB6!` | 0853 3407 0511 |
+| **Stand C1** | PT SHETLER INDONESIA | `ShelterStandC1` | `recruitment@shelter.co.id` | `ShelterStandC1!` | 0877 6780 1991 |
+| **Stand C2** | PT CLAY JAYA BERSAMA (BIG) | `ClayJayaStandC2` | `karir@clayjayabersama.com` | `ClayJayaStandC2!` | 0896 8800 9591 |
+| **Stand C3** | PT MEKAR ARMADA JAYA | `ArmadaJayaStandC3` | `hrd@mekararmadajaya.com` | `ArmadaJayaStandC3!` | 0853 8562 5000 |
+| **Stand C4** | SINDORO HOTEL COLLEGE MAGELANG | `SindoroStandC4` | `info@sindorohotelcollege.com` | `SindoroStandC4!` | 0895 4058 27080 |
+| **Stand C5** | PT UNILOA ARDIYANTO INVESTAMA | `UniloaStandC5` | `hrd@uniloa.com` | `UniloaStandC5!` | 0813 3756 3335 |
+| **Stand C6** | BMC DHARMADITNA YOGYAKARTA | `BmcStandC6` | `info@bmcdharmaditna.com` | `BmcStandC6!` | 0821 4616 0214 |
+| **Stand D1** | PT. INDOMARCO PRISMATAMA (INDOMARET) | `IndomaretStandD1` | `karir@indomaret.co.id` | `IndomaretStandD1!` | 0899 9172 359 |
+| **Stand D2** | LIDAH BUAYA GROUP | `LidahBuayaStandD2` | `hrd@lidahbuayagroup.com` | `LidahBuayaStandD2!` | 0811 2510 1138 |
+| **Stand D3** | PUTRA TEKNIK AC | `PutraTeknikStandD3` | `karir@putrateknikac.com` | `PutraTeknikStandD3!` | 0852 9112 35232 |
+| **Stand D4** | STAFFINC | `StaffincStandD4` | `careers@staffinc.co` | `StaffincStandD4!` | 0857 1580 1723 |
+| **Stand D5** | PT. CANDI BANGUN PERSADA | `CandiBangunStandD5` | `hrd@candibangunpersada.com` | `CandiBangunStandD5!` | 0857 0002 5566 |
 
 *Hak Akses Pemberi Kerja*:
 - Mengelola profil stand, nomor booth, kontak PIC, dan deskripsi perusahaan.
-- Melihat daftar pelamar yang melamar khusus ke lowongan perusahaannya.
+- Melihat daftar pelamar yang melamar khusus ke lowongan perusahaannya (isolasi data antar stand).
 - Membuka **Kamera Barcode Scanner Stand** untuk scan QR ID pelamar yang datang ke booth.
-- Melakukan verifikasi on-the-spot: *Verifikasi Hadir di Stand*, *Panggilan Wawancara*, *Terima Lamaran*, atau *Tolak*.
+- Melakukan seleksi kandidat on-the-spot: *Verifikasi Hadir di Stand*, *Panggilan Wawancara*, *Terima Lamaran*, atau *Tolak*.
 
 ---
 
@@ -84,17 +88,16 @@ Pencari kerja (siswa, alumni, atau umum) dapat mendaftar mandiri secara instan m
 
 ---
 
-## Fitur Utama Sistem
+## 🚀 Fitur Utama Sistem
 
 1. **Scan Barcode & Kamera QR Scanner Terpadu**
    - Menggunakan pemindai HTML5 QR Code kamera berkecepatan tinggi yang mendukung kamera belakang smartphone maupun webcam laptop.
    - Dilengkapi fallback input manual token/NIK bila perangkat tidak memiliki akses kamera.
    - Status presensi dan verifikasi berkas ter-update otomatis secara real-time.
 
-2. **Logo Vektor Tematik Resmi & Visual 23 Industri**
-   - Logo vektor tematik **Bhumi Sambhara Stupa & Golden Career Spire** (`/logo-bhumi-sambhara.svg`).
-   - Setiap dari 23 perusahaan dilengkapi banner visual merek SVG di katalog dan dashboard.
-   - Dilengkapi **Galeri Pamflet Resmi Acara** interaktif dengan fitur perbesar dan unduh gambar flyer.
+2. **Logo Asli Perusahaan (Authentic Brand Identity)**
+   - Setiap dari 23 perusahaan dilengkapi logo asli dari portal dan web resmi masing-masing perusahaan (Quick Traktor, DeWave, HK Gold, Captain's Club, Teratai Gogakuin, XL Axiata, PNM, Alfamidi, Shelter Indonesia, New Armada, Indomaret, Lidah Buaya Group, Staffinc, dsb.).
+   - Logo dienkapsulasi ke dalam SVG mandiri sehingga bebas kendala CORS, memuat instan, dan tajam di layar beresolusi tinggi.
 
 3. **Denah 4 Zona Hall Expo (Graha Krida Wiyata)**
    - **Zona A**: Manufaktur, Jasa & Pelatihan Vokasi (Stand A1 s/d A6).
@@ -105,4 +108,15 @@ Pencari kerja (siswa, alumni, atau umum) dapat mendaftar mandiri secara instan m
 4. **Navigasi Mobile Ergonomis (Bottom Bar)**
    - Akses navigasi jempol bawah untuk pengunjung expo di smartphone dengan tombol tengah mengambang (*Center Floating Action Button*).
 
+5. **Uji Mutu Senior QA (Automated Test Suite)**
+   - 27 skenario pengujian komprehensif lolos **100% PASS** mencakup integritas kuota, validitas parser SVG, keamanan multi-role, isolasi data stand, dan pipeline seleksi kandidat.
+
 ---
+
+## 🛠️ Stack Teknologi
+
+- **Frontend**: Svelte 5 + Vite 8
+- **Icons**: Lucide Svelte (termasuk Eye & EyeOff toggle kata sandi)
+- **Database & Auth**: Supabase PostgreSQL & GoTrue
+- **QR Code Engine**: HTML5-QRCode & QRCode.js
+- **Hosting & CI/CD**: Vercel (Auto-deploy dari commit GitHub)

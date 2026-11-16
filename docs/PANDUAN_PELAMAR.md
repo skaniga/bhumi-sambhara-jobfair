@@ -2,36 +2,38 @@
 **Portal Bursa Kerja Bhumi Sambhara Expo & Jobfair 2026**  
 *Kolaborasi Resmi: K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang*
 
+🌐 **Akses Portal Resmi**: [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id)
+
 ---
 
 ## 🎯 Ringkasan Alur Pelamar
 Sebagai pelamar (siswa, alumni SMK/SMA/Universitas, atau masyarakat umum), Anda dapat:
-1. Mendaftar akun dan melengkapi profil portofolio/CV digital.
+1. Mendaftar akun mandiri dan melengkapi profil portofolio/CV digital.
 2. Memperoleh **Kartu Digital Jobfair dengan QR Code unik**.
-3. Menjelajahi lowongan di **23 Stand Industri Partner**.
+3. Menjelajahi lowongan di **23 Stand Industri Partner** dengan total **2.667 lowongan kerja**.
 4. Mengirimkan lamaran kerja secara online sebelum atau saat acara berlangsung.
 5. Menunjukkan kartu QR ke meja stand industri untuk **presensi fisik dan verifikasi langsung di tempat**.
-6. Memantau status seleksi secara real-time (*Menunggu*, *Hadir & Terverifikasi*, *Panggilan Wawancara*, *Diterima*).
+6. Memantau status seleksi secara real-time (*Menunggu*, *Check-in Stand / Terverifikasi*, *Wawancara Booth*, *Lolos Seleksi Diterima*).
 
 ---
 
 ## 🚀 Langkah Demi Langkah Penggunaan
 
 ### 1. Pendaftaran & Masuk Akun
-1. Buka portal website di smartphone atau laptop.
+1. Buka [https://bme.smknegeri1magelang.sch.id](https://bme.smknegeri1magelang.sch.id) di smartphone atau laptop.
 2. Klik tombol **Masuk / Daftar** di pojok kanan atas (atau tombol tengah **Masuk** pada bilah navigasi bawah smartphone).
-3. Pilih tab/opsi **Daftar Akun Baru**.
+3. Jika belum memiliki akun, klik tautan di bawah: **"Belum memiliki akun pendaftaran? Daftar di sini"**.
 4. Isi form:
    - **Nama Lengkap**: Sesuai KTP/Ijazah (contoh: *Dimas Arya Pratama*).
    - **Peran**: Pilih **Pelamar (Siswa / Alumni / Umum)**.
-   - **Alamat Email**: Gunakan email aktif.
-   - **Kata Sandi**: Minimal 6 karakter.
+   - **Alamat Email**: Gunakan email aktif Anda (contoh: *dimas@gmail.com*).
+   - **Kata Sandi**: Masukkan kata sandi aman (klik ikon mata untuk melihat kata sandi).
 5. Klik **Selesaikan Pendaftaran**. Anda akan otomatis masuk ke portal.
 
 ---
 
 ### 2. Mengisi Profil Diri & Tautan Portofolio/CV
-1. Buka menu **Profil & Lamaran** (atau tab **Profil** di bilah bawah).
+1. Buka menu **Profil & Lamaran** (atau tab **Profil** di bilah navigasi bawah).
 2. Lengkapi data penting berikut agar ditinjau oleh HRD:
    - **NIK / NISN**: 16 digit nomor kependudukan/nomor induk siswa.
    - **Nomor WhatsApp**: Pastikan aktif untuk menerima panggilan/jadwal seleksi.
