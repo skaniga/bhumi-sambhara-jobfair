@@ -165,30 +165,46 @@ export async function syncFromSupabase() {
       vacancies.set(INITIAL_VACANCIES);
     }
 
-    // 3. Fetch applications
-    const { data: appData, error: appErr } = await supabase
-      .from('job_applications')
-      .select('*')
-      .order('waktu_melamar', { ascending: false });
-    if (!appErr && appData) {
-      applications.set(appData);
-    }
+    // 3. Fetch applications (Scoped by role for high-concurrency efficiency & privacy)
+    const curUser = get(currentUser);
+    if (curUser) {
+      let appQuery = supabase.from('job_applications').select('*');
+      if (curUser.role === 'pelamar') {
+        appQuery = appQuery.eq('applicant_id', curUser.id);
+      }
+      const { data: appData, error: appErr } = await appQuery.order('waktu_melamar', { ascending: false });
+      if (!appErr && appData) {
+        if (curUser.role === 'pelamar') {
+          applications.update(list => {
+            const others = list.filter(a => a.applicant_id !== curUser.id);
+            return [...appData, ...others];
+          });
+        } else {
+          applications.set(appData);
+        }
+      }
 
-    // 4. Fetch stand attendances
-    const { data: attData, error: attErr } = await supabase
-      .from('stand_attendances')
-      .select('*')
-      .order('scanned_at', { ascending: false });
-    if (!attErr && attData) {
-      standAttendances.set(attData);
-    }
+      // 4. Fetch stand attendances
+      let attQuery = supabase.from('stand_attendances').select('*');
+      if (curUser.role === 'pelamar') {
+        attQuery = attQuery.eq('applicant_id', curUser.id);
+      } else if (curUser.role === 'pemberi_kerja' && curUser.company_id) {
+        attQuery = attQuery.eq('industry_id', curUser.company_id);
+      }
+      const { data: attData, error: attErr } = await attQuery.order('scanned_at', { ascending: false });
+      if (!attErr && attData) {
+        standAttendances.set(attData);
+      }
 
-    // 5. Fetch profiles
-    const { data: profData, error: profErr } = await supabase
-      .from('profiles')
-      .select('*');
-    if (!profErr && profData) {
-      allUsers.set(profData);
+      // 5. Fetch profiles (Only admin & stand operators need the full profile directory)
+      if (curUser.role === 'admin' || curUser.role === 'pemberi_kerja') {
+        const { data: profData, error: profErr } = await supabase
+          .from('profiles')
+          .select('*');
+        if (!profErr && profData) {
+          allUsers.set(profData);
+        }
+      }
     }
   } catch (err) {
     console.warn('Supabase fetch sync notice:', err);

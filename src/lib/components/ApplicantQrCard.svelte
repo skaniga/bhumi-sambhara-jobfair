@@ -54,6 +54,16 @@
   function handlePrint() {
     window.print();
   }
+
+  function handleDownloadQr() {
+    if (!qrDataUrl) return;
+    const a = document.createElement('a');
+    a.href = qrDataUrl;
+    a.download = `QR_${$currentUser?.qr_code_token || 'Jobfair_2026'}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
@@ -134,6 +144,12 @@
           <p class="text-xs text-muted">
             Tunjukkan kode QR ini ke meja HRD di masing-masing stand industri untuk pencatatan presensi dan verifikasi berkas lamaran.
           </p>
+          <div class="pass-offline-tip">
+            <span class="tip-badge">💡 TIPS OFFLINE</span>
+            <span class="text-xs text-secondary">
+              <strong>Simpan/Screenshot Kartu Ini:</strong> Unduh gambar QR atau ambil tangkapan layar (screenshot) sekarang agar tetap bisa discan di stand booth meskipun sinyal HP sedang padat di dalam ruangan.
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -141,6 +157,10 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" on:click={onClose}>
         Tutup
+      </button>
+      <button class="btn btn-secondary" on:click={handleDownloadQr} title="Simpan gambar QR Code ke galeri foto HP">
+        <Download size={16} />
+        <span>Unduh Gambar QR</span>
       </button>
       <button class="btn btn-primary" on:click={handlePrint}>
         <Printer size={16} />
@@ -305,6 +325,24 @@
     background-color: var(--color-surface-subtle);
     padding: 12px 20px;
     border-top: 1px solid var(--color-border);
+  }
+
+  .pass-offline-tip {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #FEF3C7;
+    border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tip-badge {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: #92400E;
+    letter-spacing: 0.05em;
   }
 
   .btn-close {
