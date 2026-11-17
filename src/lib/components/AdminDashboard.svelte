@@ -1,6 +1,7 @@
 <script>
   import { industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase } from '../supabase.js';
   import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search, RefreshCw } from '@lucide/svelte';
+  import * as XLSX from 'xlsx';
 
   export let onOpenScanner = () => {};
 
@@ -47,26 +48,117 @@
            item.bidang.toLowerCase().includes(filterSearch.toLowerCase());
   });
 
-  function exportCsv() {
-    const headers = ["Nomor Stand", "Nama Perusahaan", "Bidang Industri", "PIC Kontak", "Jumlah Lowongan", "Total Pelamar", "Terverifikasi Stand"];
-    const rows = industryMatrix.map(m => [
-      `"${m.stand}"`,
-      `"${m.perusahaan}"`,
-      `"${m.bidang}"`,
-      `"${m.pic}"`,
-      m.totalVacs,
-      m.totalPendaftar,
-      m.totalTerverifikasi
-    ]);
+  function exportExcel() {
+    // 1. Rekap Stand
+    const standData = $industries.map(ind => {
+      const vacs = $vacancies.filter(v => v.industry_id === ind.id);
+      const vacIds = vacs.map(v => v.id);
+      const indApps = $applications.filter(a => vacIds.includes(a.vacancy_id));
+      const verifiedApps = indApps.filter(a => a.status === 'terverifikasi_stand' || a.status === 'wawancara' || a.status === 'diterima');
+      const interviewApps = indApps.filter(a => a.status === 'wawancara');
+      const acceptedApps = indApps.filter(a => a.status === 'diterima');
+      const boothScans = $standAttendances.filter(s => s.industry_id === ind.id);
 
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `Rekapitulasi_Bhumi_Sambhara_Jobfair_2026_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      return {
+        "Nomor Stand": ind.nomor_stand,
+        "Nama Perusahaan": ind.nama_perusahaan,
+        "Bidang Industri": ind.bidang_industri,
+        "PIC Kontak": ind.kontak_pic,
+        "Jumlah Posisi": vacs.length,
+        "Total Kuota Formasi": vacs.reduce((acc, v) => acc + (Number(v.kuota) || 0), 0),
+        "Total Pelamar": indApps.length,
+        "Terverifikasi Booth": verifiedApps.length,
+        "Tahap Wawancara": interviewApps.length,
+        "Diterima Kerja": acceptedApps.length,
+        "Kunjungan Barcode Stand": boothScans.length
+      };
+    });
+
+    // 2. Data Pelamar (Jobseekers Terdaftar)
+    const applicants = $allUsers.filter(u => u.role === 'pelamar');
+    const applicantsData = applicants.map((u, idx) => ({
+      "No": idx + 1,
+      "Nomor Registrasi (QR)": u.qr_code_token || '-',
+      "Nama Lengkap": u.nama_lengkap || '-',
+      "Email": u.email || '-',
+      "No HP / WhatsApp": u.no_hp || '-',
+      "NIK": u.nik || '-',
+      "Asal Sekolah / Kampus": u.asal_sekolah_kampus || '-',
+      "Jurusan": u.jurusan || '-',
+      "Tahun Lulus": u.tahun_lulus || '-',
+      "Total Lamaran Dikirim": $applications.filter(a => a.user_id === u.id).length
+    }));
+
+    // 3. Data Detail Seluruh Lamaran
+    const applicationsData = $applications.map((app, idx) => {
+      const applicant = $allUsers.find(u => u.id === app.user_id);
+      const vac = $vacancies.find(v => v.id === app.vacancy_id);
+      const ind = vac ? $industries.find(i => i.id === vac.industry_id) : null;
+
+      return {
+        "No": idx + 1,
+        "ID Lamaran": app.id,
+        "Nomor Stand": ind?.nomor_stand || '-',
+        "Perusahaan": ind?.nama_perusahaan || '-',
+        "Posisi Dilamar": vac?.judul_posisi || '-',
+        "Nama Pelamar": applicant?.nama_lengkap || '-',
+        "Nomor HP": applicant?.no_hp || '-',
+        "Email": applicant?.email || '-',
+        "Asal Sekolah/Kampus": applicant?.asal_sekolah_kampus || '-',
+        "Status Lamaran": app.status || 'terdaftar',
+        "Tanggal Melamar": app.created_at ? new Date(app.created_at).toLocaleString('id-ID') : '-'
+      };
+    });
+
+    // 4. Presensi Kunjungan Stand
+    const attendancesData = $standAttendances.map((att, idx) => {
+      const applicant = $allUsers.find(u => u.id === att.user_id);
+      const ind = $industries.find(i => i.id === att.industry_id);
+
+      return {
+        "No": idx + 1,
+        "Waktu Scan": att.scanned_at ? new Date(att.scanned_at).toLocaleString('id-ID') : '-',
+        "Stand": ind?.nomor_stand || '-',
+        "Nama Perusahaan": ind?.nama_perusahaan || '-',
+        "Nama Pelamar": applicant?.nama_lengkap || '-',
+        "Nomor QR": applicant?.qr_code_token || '-',
+        "Asal Sekolah/Kampus": applicant?.asal_sekolah_kampus || '-'
+      };
+    });
+
+    // Build Workbook with multiple sheets
+    const wb = XLSX.utils.book_new();
+
+    const wsStand = XLSX.utils.json_to_sheet(standData);
+    const wsApps = XLSX.utils.json_to_sheet(applicationsData);
+    const wsApplicants = XLSX.utils.json_to_sheet(applicantsData);
+    const wsAttendance = XLSX.utils.json_to_sheet(attendancesData);
+
+    // Auto-fit column widths
+    [wsStand, wsApps, wsApplicants, wsAttendance].forEach(ws => {
+      const colWidths = [];
+      const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        let maxLen = 12;
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+          const cell = ws[XLSX.utils.encode_cell({ r: R, c: C })];
+          if (cell && cell.v) {
+            const str = String(cell.v);
+            if (str.length > maxLen) maxLen = Math.min(str.length, 40);
+          }
+        }
+        colWidths.push({ wch: maxLen + 2 });
+      }
+      ws['!cols'] = colWidths;
+    });
+
+    XLSX.utils.book_append_sheet(wb, wsStand, "Rekap 23 Stand");
+    XLSX.utils.book_append_sheet(wb, wsApps, "Data Lamaran");
+    XLSX.utils.book_append_sheet(wb, wsApplicants, "Jobseekers Terdaftar");
+    XLSX.utils.book_append_sheet(wb, wsAttendance, "Presensi Barcode Stand");
+
+    const dateStr = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `Rekapitulasi_Bhumi_Sambhara_Jobfair_2026_${dateStr}.xlsx`);
   }
 </script>
 
@@ -81,7 +173,7 @@
       <div class="admin-titles">
         <div class="tag-row">
           <span class="badge badge-terverifikasi">Panitia Penyelenggara Resmi</span>
-          <span class="text-xs text-muted">K1 Pariwisata 2024 UNTIDAR x SMK Negeri 1 Magelang</span>
+          <span class="text-xs text-muted">K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang</span>
         </div>
         <h2 class="heading-lg admin-headline">Panel Kendali & Monitoring Expo</h2>
         <p class="text-xs text-muted">
@@ -100,9 +192,9 @@
           <span>Scanner Master Panitia</span>
         </button>
 
-        <button class="btn btn-secondary" on:click={exportCsv}>
-          <Download size={16} />
-          <span>Ekspor Data (CSV)</span>
+        <button class="btn btn-secondary" on:click={exportExcel}>
+          <FileSpreadsheet size={16} />
+          <span>Ekspor Data (.XLSX)</span>
         </button>
       </div>
     </div>

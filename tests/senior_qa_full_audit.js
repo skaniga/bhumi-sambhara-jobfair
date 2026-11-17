@@ -224,8 +224,8 @@ await testCaseAsync('PELAMAR', 'Pelamar melengkapi profil biodata, NIK/NISN, nom
   assert.equal(cur.jurusan, 'Rekayasa Perangkat Lunak');
 });
 
-const posDeWave = 'b0000001-0000-0000-0000-000000000003'; // Terapis Massage di DeWave
-const posQuick = 'b0000001-0000-0000-0000-000000000001'; // Operator Mesin di Quick
+const posDeWave = 'b0000001-0000-0000-0000-000000000002'; // DeWave Stand 2
+const posQuick = 'b0000001-0000-0000-0000-000000000001'; // Lidah Buaya Stand 1
 
 await testCaseAsync('PELAMAR', 'Pelamar mengirim lamaran kerja ke Stand A2 (DeWave)', async () => {
   const res = await applyJob(posDeWave, testPelamarUser.id, 'Tertarik dengan pelatihan terapis profesional.');

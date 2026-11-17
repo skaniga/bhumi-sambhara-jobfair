@@ -23,7 +23,7 @@ export const supabase = isSupabaseConfigured
   : null;
 
 // ── Local Storage Cache (Versioned to bust stale data) ──
-const STORAGE_VERSION = 'v4';
+const STORAGE_VERSION = 'v5';
 const STORAGE_PREFIX = `bhumi_sambhara_jobfair_${STORAGE_VERSION}_`;
 
 // Auto-clean obsolete pre-v4 cache keys
@@ -148,13 +148,13 @@ export async function syncFromSupabase() {
             gaji: v.gaji || v.gaji_estimasi || mergedVacs[idx].gaji,
             kuota: v.kuota || v.kuota_penerimaan || mergedVacs[idx].kuota,
             lokasi: v.lokasi || v.lokasi_penempatan || mergedVacs[idx].lokasi,
-            pendidikan: v.pendidikan || mergedVacs[idx].pendidikan || 'Umum (Semua Jurusan)'
+            pendidikan: v.pendidikan || mergedVacs[idx].pendidikan || 'Umum'
           };
         } else {
           mergedVacs.push({
             ...v,
             gaji: v.gaji || v.gaji_estimasi || 'Ditanyakan pada saat wawancara',
-            pendidikan: v.pendidikan || 'Umum (Semua Jurusan)',
+            pendidikan: v.pendidikan || 'Umum',
             kuota: v.kuota || v.kuota_penerimaan || 1,
             lokasi: v.lokasi || v.lokasi_penempatan || 'Magelang'
           });
@@ -569,9 +569,9 @@ export async function createVacancy(companyId, vacancyData) {
     tipe_pekerjaan: vacancyData.tipe_pekerjaan || 'Penuh Waktu',
     kuota: Number(vacancyData.kuota) || 1,
     gaji: vacancyData.gaji || 'Ditanyakan pada saat wawancara',
-    pendidikan: vacancyData.pendidikan || 'Umum (Semua Jurusan)',
+    pendidikan: vacancyData.pendidikan || 'Umum',
     lokasi: vacancyData.lokasi || 'Magelang / Jawa Tengah',
-    kualifikasi: vacancyData.kualifikasi || 'Terbuka untuk umum semua jurusan.',
+    kualifikasi: vacancyData.kualifikasi || 'Terbuka untuk umum seluruh jurusan.',
     persyaratan: Array.isArray(vacancyData.persyaratan) 
       ? vacancyData.persyaratan 
       : (vacancyData.persyaratan ? vacancyData.persyaratan.split('\n').map(s => s.trim()).filter(Boolean) : ['CV & Portofolio', 'Fotokopi Ijazah / SKL'])

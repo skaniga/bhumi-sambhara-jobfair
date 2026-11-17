@@ -76,7 +76,7 @@
         <div class="meta-pills">
           <div class="pill">
             <span class="pill-label">Formasi / Pendidikan</span>
-            <span class="pill-value">{vacancy.pendidikan || 'Umum (Semua Jurusan)'}</span>
+            <span class="pill-value">{vacancy.pendidikan || 'Umum'}</span>
           </div>
           <div class="pill">
             <span class="pill-label">Tipe Kerja</span>

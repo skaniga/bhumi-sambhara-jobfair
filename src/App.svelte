@@ -170,7 +170,7 @@
           <span class="footer-brand-title">BHUMI SAMBHARA EXPO & JOBFAIR 2026</span>
         </div>
         <p class="text-xs text-muted footer-sub">
-          Kolaborasi Resmi: K1 Pariwisata 2024 UNTIDAR $\times$ SMK Negeri 1 Magelang
+          Kolaborasi Resmi: K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang
         </p>
         <p class="text-xs text-muted">
           Pelaksanaan: Kamis, 19 November 2026 • 09.00 - 15.10 WIB @ Indoor Graha Krida Wiyata, SMKN 1 Magelang

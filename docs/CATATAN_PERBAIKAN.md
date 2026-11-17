@@ -192,8 +192,21 @@
 | **Pintu Keluar** | Jalur keluar umum | **PINTU KELUAR RESMI** (panah keluar ⬇️) di pojok tenggara sebelah Stand 16 + Tempat Sampah |
 | **Panggung Utama & Kursi VIP** | Header teks sederhana | Panggung Utama megah dilengkapi backdrop screen resmi expo, kipas angin kiri-kanan, dan 2 blok **Kursi VIP** |
 | **Area Tengah Hall** | Lorong polos | 2 blok besar **Area Peserta (Tempat Duduk & Antrean)** dengan lorong sentral kunjungan booth |
-| **Pratinjau Gambar Asli (Lightbox Modal)** | Belum ada | Menambahkan tombol **"Lihat Gambar Denah Asli"** yang memunculkan modal resolusi tinggi dari file `/denah-resmi.jpg` serta tautan buka di tab baru. |
+| **Pratinjau Gambar Asli (Lightbox Modal)** | Belum ada | Menambahkan tombol **"Lihat Gambar Denah Asli"** yang memunculkan modal resolusi tinggi dari file `/denah-resmi.jpg` serta tautan buka di tab baru (Khusus Role Admin). |
 | **Backward-Compatibility Kredensial Stand** | - | Akun stand booth dapat login menggunakan nomor baru (`Stand 1`), nomor lama (`Stand D2`), username alias, maupun email resmi tanpa kendala. |
+
+---
+
+## 15. Standardisasi Lowongan Kerja Umum, Format Ekspor XLSX & Proteksi Role Admin
+
+| Komponen / Fitur | Status Sebelum | Solusi & Hasil Perbaikan | Status |
+| :--- | :--- | :--- | :---: |
+| **Penyederhanaan Lowongan per Industri** | Terdapat 48 formasi spesifik (misal: *Teknisi Alat Berat, Operator Mesin, Kasir*) dengan kualifikasi teknis yang membingungkan pelamar | **Disederhanakan menjadi tepat 1 tombol lowongan per industri** (Total 23 lowongan sistem):<br>• Judul Posisi: `Lowongan Kerja (Umum)`<br>• Formasi: `Umum`<br>• Kualifikasi: *Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.*<br>• Estimasi Gaji: `Ditanyakan pada saat wawancara`<br>• Kuota terakumulasi persis **2.667 orang** sesuai kuota asli masing-masing perusahaan. | **SELESAI** |
+| **Pembersihan Label Formasi pada Kartu Direktori** | Menampilkan badge `Umum (Semua Jurusan) • Penuh Waktu` | Disederhanakan menjadi badge bersih: `Umum` pada setiap kartu industri. Teks `(Semua Jurusan)` dan label berulang dibersihkan. | **SELESAI** |
+| **Sinkronisasi Database Remote Supabase (`job_vacancies`)** | Tabel remote Supabase masih menyimpan 48 baris data posisi spesifik lama | Menjalankan migrasi database otomatis via script Supabase API:<br>1. Menghapus 25 baris posisi spesifik lama yang sudah tidak digunakan.<br>2. Meng-upsert 23 baris lowongan umum terpadu sesuai `INITIAL_VACANCIES`.<br>3. Menaikkan cache buster lokal `STORAGE_VERSION` dari `v4` ke `v5` agar seluruh browser pelamar otomatis memuat data terbaru tanpa sisa cache lama. | **SELESAI** |
+| **Format Ekspor Data (.XLSX Bukan CSV)** | Ekspor sebelumnya menghasilkan string CSV sederhana (`.csv`) yang berisiko terpotong pada delimiter koma/titik-koma | **Mengintegrasikan pustaka industri SheetJS (`xlsx`)**:<br>1. Menghasilkan file workbook asli biner Microsoft Excel (`.xlsx`) multi-sheet:<br>&nbsp;&nbsp;• **Sheet 1**: *Rekap 23 Stand* (Nomor Stand, Perusahaan, Bidang, PIC, Posisi, Kuota, Total Pelamar, Terverifikasi, Wawancara, Diterima, Scan Stand)<br>&nbsp;&nbsp;• **Sheet 2**: *Data Lamaran* (Detail setiap lamaran, data pelamar, stand, posisi, status, waktu)<br>&nbsp;&nbsp;• **Sheet 3**: *Jobseekers Terdaftar* (Nama, NIK, No WA/HP, Email, Asal Sekolah, Jurusan, Tahun Lulus)<br>&nbsp;&nbsp;• **Sheet 4**: *Presensi Barcode Stand* (Log waktu scan barcode stand)<br>2. Auto-sizing lebar kolom pada setiap worksheet agar teks terbaca rapi tanpa overlap.<br>3. Menambahkan tombol ekspor Excel serupa pada **Dashboard Stand Industri** untuk mendownload berkas pelamar stand mereka sendiri. | **SELESAI** |
+| **Hak Akses Tombol "Lihat Gambar Denah Asli"** | Tampil untuk semua pengunjung umum dan pelamar | **Dibatasi secara ketat khusus Role Admin (`$currentUser?.role === 'admin'`)** baik tombol trigger maupun modal backdrop lightbox-nya. Pengunjung umum dan pelamar fokus pada peta interaktif denah lantai. | **SELESAI** |
+| **Pembersihan Simbol Matematika LaTeX (`$\times$`)** | Terdapat string raw LaTeX `$\times$` pada footer halaman | Diganti secara bersih dengan simbol perkalian Unicode resmi `×` (*UNTIDAR × SMK Negeri 1 Magelang*) pada seluruh template. | **SELESAI** |
 
 ---
 

@@ -269,773 +269,371 @@ export const INITIAL_INDUSTRIES = [
 
 export const INITIAL_VACANCIES = [
   {
-    "id": "b0000001-0000-0000-0000-000000000041",
+    "id": "b0000001-0000-0000-0000-000000000001",
     "industry_id": "a0000001-0000-0000-0000-000000000020",
-    "judul_posisi": "Operator Produksi & Pengemasan Sabun",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 110,
+    "kuota": 145,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Tidar Selatan, Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita usia maks 28 tahun, fisik prima, rajin, siap bekerja dalam target tim lini produksi pabrik.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Fotokopi KTP & KK",
-      "Ijazah Terakhir",
-      "Pas Foto 3x4 (2 lembar)"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
-    "id": "b0000001-0000-0000-0000-000000000042",
-    "industry_id": "a0000001-0000-0000-0000-000000000020",
-    "judul_posisi": "Teknisi Pemeliharaan Mesin Pabrik (Maintenance)",
+    "id": "b0000001-0000-0000-0000-000000000002",
+    "industry_id": "a0000001-0000-0000-0000-000000000002",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 20,
+    "kuota": 100,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria usia maks 30 tahun, mampu melakukan perbaikan motor pompa cairan, kompresor, dan mesin filling sachet/botol.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV & Fotokopi Ijazah",
-      "KTP & SKCK Aktif",
-      "Sertifikat Keahlian"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000043",
-    "industry_id": "a0000001-0000-0000-0000-000000000020",
-    "judul_posisi": "Staff Gudang Logistik Bahan Kimia & Sabun",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 15,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Teliti menghitung stok barang jadi, mampu mengoperasikan hand pallet, dan mematuhi SOP keselamatan K3.",
-    "persyaratan": [
-      "Surat Lamaran Kerja",
-      "Fotokopi KTP",
-      "Surat Bebas Narkoba"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000003",
-    "industry_id": "a0000001-0000-0000-0000-000000000002",
-    "judul_posisi": "Terapis Pria & Wanita (Massage & Reflexology)",
+    "industry_id": "a0000001-0000-0000-0000-000000000007",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 70,
+    "kuota": 100,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Cabang Magelang, Yogyakarta & Jateng",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita usia 18-35 tahun, ramah, beretika baik, bersedia mengikuti training gratis bersertifikat.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Fotokopi KTP & Ijazah",
-      "Daftar Riwayat Hidup / CV",
-      "Pas Foto 4x6"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000004",
-    "industry_id": "a0000001-0000-0000-0000-000000000002",
-    "judul_posisi": "Kasir & Front Office Receptionist",
+    "industry_id": "a0000001-0000-0000-0000-000000000003",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 15,
+    "kuota": 60,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Outlet Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Wanita, berpenampilan rapi, ramah melayani tamu, menguasai sistem POS kasir dan Microsoft Office.",
+    "pendidikan": "Umum",
+    "lokasi": "Kota Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV & Foto Full Body",
-      "Fotokopi Ijazah / SKL",
-      "Surat Pengalaman Kerja (jika ada)"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000005",
-    "industry_id": "a0000001-0000-0000-0000-000000000002",
-    "judul_posisi": "Supervisor Operasional Cabang",
+    "industry_id": "a0000001-0000-0000-0000-000000000012",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 15,
+    "kuota": 200,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Jawa Tengah & DIY",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Memiliki jiwa kepemimpinan, mampu mengatur shift kerja terapis, dan berorientasi pada kepuasan pelanggan.",
+    "pendidikan": "Umum",
+    "lokasi": "Boyolali DC",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV Lengkap",
-      "Portofolio / Pengalaman Manajerial",
-      "Fotokopi KTP & Ijazah"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000013",
-    "industry_id": "a0000001-0000-0000-0000-000000000007",
-    "judul_posisi": "Program Kerja Tokutei Ginou / SSW Jepang",
-    "tipe_pekerjaan": "Kontrak Kerja 3-5 Tahun di Jepang",
-    "kuota": 60,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Tokyo, Osaka, Nagoya & Prefektur Jepang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Usia 18-28 tahun, fisik prima, tidak bertato/tindik (pria), bersedia mengikuti pelatihan bahasa Jepang intensif.",
-    "persyaratan": [
-      "KTP & Kartu Keluarga",
-      "Surat Izin Orang Tua",
-      "Ijazah Terakhir",
-      "Medical Check Up"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000014",
-    "industry_id": "a0000001-0000-0000-0000-000000000007",
-    "judul_posisi": "Program Magang Kerja Ginou Jisshuusei (Pabrik & Pertanian)",
-    "tipe_pekerjaan": "Kontrak Magang 3 Tahun di Jepang",
-    "kuota": 40,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kawasan Industri Jepang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pekerja keras, ulet, patuh pada aturan ketat keselamatan kerja di pabrik dan perkebunan modern Jepang.",
-    "persyaratan": [
-      "Fotokopi Dokumen Kependudukan",
-      "CV Lengkap",
-      "Pas Foto 3x4 Background Putih"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000006",
-    "industry_id": "a0000001-0000-0000-0000-000000000003",
-    "judul_posisi": "Sales Jewelry Specialist / Frontliner",
+    "industry_id": "a0000001-0000-0000-0000-000000000014",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 40,
+    "kuota": 5,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gerai HK Gold Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita berpenampilan rapi, jujur, komunikatif, mampu menawarkan perhiasan emas dengan ramah.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV & Foto Diri Rapi",
-      "Fotokopi KTP & Ijazah",
-      "SKCK Aktif Kepolisian"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000007",
-    "industry_id": "a0000001-0000-0000-0000-000000000003",
-    "judul_posisi": "Kasir & Admin Timbangan Emas",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 20,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gerai HK Gold Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Teliti tinggi, terbiasa mencatat arus kas, menghitung berat kadar emas, dan disiplin administrasi.",
-    "persyaratan": [
-      "Surat Lamaran & CV",
-      "Transkrip Nilai / Rapor",
-      "Fotokopi KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000025",
-    "industry_id": "a0000001-0000-0000-0000-000000000012",
-    "judul_posisi": "Store Crew (Pramuniaga & Kasir Gerai)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 130,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gerai Alfamidi Wilayah Magelang, DIY & Boyolali",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Usia maksimal 24 tahun, ramah, berpenampilan bersih menarik, siap bekerja dalam sistem shift.",
-    "persyaratan": [
-      "CV Lengkap & Pas Foto",
-      "Fotokopi KTP & KK",
-      "Surat Keterangan Belum Menikah"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000026",
-    "industry_id": "a0000001-0000-0000-0000-000000000012",
-    "judul_posisi": "Helper & Checker Warehouse DC",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 70,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Distribution Center Boyolali",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria, fisik sehat bugar, teliti mendata muatan palet dan siap bekerja dalam shift logistik malam.",
-    "persyaratan": [
-      "Surat Lamaran",
-      "Fotokopi KTP",
-      "Surat Keterangan Dokter"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000029",
-    "industry_id": "a0000001-0000-0000-0000-000000000014",
-    "judul_posisi": "Sales Counter & Customer Service Bangunan",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 3,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Outlet BIG Muntilan, Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Komunikatif, ramah, memahami dasar material bangunan/interior, dan mampu bernegosiasi dengan pembeli.",
-    "persyaratan": [
-      "CV & Foto Diri Terkini",
-      "Fotokopi Ijazah",
-      "KTP & KK"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000030",
-    "industry_id": "a0000001-0000-0000-0000-000000000014",
-    "judul_posisi": "Staff Logistik & Inventory Bahan Bangunan",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gudang BIG Muntilan",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria, fisik kuat, teliti mencocokkan surat jalan dengan fisik keramik, semen, dan barang berat.",
-    "persyaratan": [
-      "Surat Lamaran Kerja",
-      "Fotokopi KTP & Ijazah",
-      "SKCK Aktif"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000022",
     "industry_id": "a0000001-0000-0000-0000-000000000011",
-    "judul_posisi": "Operator Pelintingan & Kemasan Produk",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 150,
+    "kuota": 200,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Secang, Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita usia 18-35 tahun, memiliki ketelitian dan ketangkasan tangan, tidak memiliki riwayat alergi aroma tembakau.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Fotokopi KTP & KK",
-      "Pas Foto 3x4 (2 lembar)",
-      "Surat Keterangan Sehat"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000023",
-    "industry_id": "a0000001-0000-0000-0000-000000000011",
-    "judul_posisi": "Operator Mesin Sortir & Pengeringan Tembakau",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 35,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Secang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria usia maksimal 30 tahun, memahami dasar pengoperasian mesin konveyor dan motor listrik.",
-    "persyaratan": [
-      "CV & Fotokopi Ijazah",
-      "KTP & SKCK Aktif",
-      "Surat Pengalaman Kerja (jika ada)"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000024",
-    "industry_id": "a0000001-0000-0000-0000-000000000011",
-    "judul_posisi": "Quality Control Tembakau",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 15,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Secang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Teliti menguji kadar air, tekstur rajangan daun tembakau, dan standar kemasan steril.",
-    "persyaratan": [
-      "Daftar Riwayat Hidup",
-      "Transkrip Nilai / Rapor",
-      "Fotokopi KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000015",
-    "industry_id": "a0000001-0000-0000-0000-000000000008",
-    "judul_posisi": "Operator Jahit (Sewing Machine Operator)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 140,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Mertoyudan, Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita usia 18-35 tahun, mampu mengoperasikan mesin jahit jarum 1/2, sabar dan teliti.",
-    "persyaratan": [
-      "Fotokopi KTP & Ijazah",
-      "Pas Foto 3x4 (2 lembar)",
-      "Surat Keterangan Sehat"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000016",
-    "industry_id": "a0000001-0000-0000-0000-000000000008",
-    "judul_posisi": "Staff Quality Control (QC Garmen & Finishing)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 40,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Cermat dalam memeriksa cacat jahitan, kesesuaian ukuran pola (spec), dan kerapian pengemasan pakaian ekspor.",
-    "persyaratan": [
-      "CV Lengkap",
-      "Fotokopi KTP & Ijazah",
-      "SKCK Aktif"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000017",
-    "industry_id": "a0000001-0000-0000-0000-000000000008",
-    "judul_posisi": "Petugas Cutting & Packaging Ekspor",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 20,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Fisik kuat, cekatan, teliti menghitung bundle kain dan melipat produk garmen sesuai instruksi kerja.",
-    "persyaratan": [
-      "Surat Lamaran Kerja",
-      "Fotokopi KTP",
-      "Kartu Keluarga"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000008",
-    "industry_id": "a0000001-0000-0000-0000-000000000004",
-    "judul_posisi": "Program Pelatihan & Penempatan Vokasi Industri",
-    "tipe_pekerjaan": "Kontrak Pelatihan & Penempatan",
-    "kuota": 120,
+    "industry_id": "a0000001-0000-0000-0000-000000000008",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 200,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Magelang & Mitra Industri Nasional",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita lulusan SMK/SMA yang bertekad kuat meningkatkan kompetensi teknis siap kerja industri.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Fotokopi Ijazah / SKL",
-      "Kartu Keluarga & KTP",
-      "Pas Foto 3x4"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000009",
     "industry_id": "a0000001-0000-0000-0000-000000000004",
-    "judul_posisi": "Program Diklat Administrasi Bisnis & Ritel",
-    "tipe_pekerjaan": "Kontrak Pelatihan & Penempatan",
-    "kuota": 80,
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 200,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
+    "pendidikan": "Umum",
     "lokasi": "Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Memiliki minat di bidang administrasi, operasional ritel, dan layanan pelanggan profesional.",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Surat Pendaftaran & CV",
-      "Fotokopi KTP",
-      "Pas Foto Berwarna"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000018",
-    "industry_id": "a0000001-0000-0000-0000-000000000009",
-    "judul_posisi": "Direct Sales Executive & Canvasser Outlet",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 35,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Area Magelang, Temanggung & Purworejo",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita memiliki sepeda motor & SIM C, komunikatif, menyukai tantangan target penjualan kartu perdana & paket data.",
-    "persyaratan": [
-      "CV & Fotokopi SIM C",
-      "Fotokopi KTP & Ijazah",
-      "Pas Foto 4x6"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000019",
-    "industry_id": "a0000001-0000-0000-0000-000000000009",
-    "judul_posisi": "Promotor Digital & Event Representative",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 15,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Booth Mall & Pusat Keramaian Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Aktif di media sosial, percaya diri berbicara di depan umum, mampu menjelaskan promo paket seluler kepada pelanggan.",
-    "persyaratan": [
-      "CV & Foto Diri Menarik",
-      "Fotokopi KTP",
-      "Ijazah Terakhir"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000045",
-    "industry_id": "a0000001-0000-0000-0000-000000000022",
-    "judul_posisi": "Talent Acquisition Consultant",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Regional Jateng & DIY",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Memahami tahapan rekrutmen tenaga kerja massal (mass hiring), screening kandidat, dan komunikasi profesional.",
-    "persyaratan": [
-      "Curriculum Vitae",
-      "Portofolio / Pengalaman Rekrutmen",
-      "Fotokopi Ijazah & KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000046",
-    "industry_id": "a0000001-0000-0000-0000-000000000022",
-    "judul_posisi": "Field Operations Officer (On-Demand Workforce)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 1,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Magelang & Sekitarnya",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Cekatan, mampu memantau kehadiran tenaga kerja lapangan di klien mitra via aplikasi Staffinc.",
-    "persyaratan": [
-      "CV Lengkap",
-      "Fotokopi SIM C & KTP",
-      "SKCK Aktif"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000027",
-    "industry_id": "a0000001-0000-0000-0000-000000000013",
-    "judul_posisi": "Staff Layanan Fasilitas & Office Support",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 4,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gedung Perkantoran Magelang & Yogyakarta",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Disiplin tinggi, bertanggung jawab menjaga kebersihan, kerapian, dan kelancaran sarana kantor.",
-    "persyaratan": [
-      "Fotokopi KTP & KK",
-      "Ijazah Terakhir SMK/SMA",
-      "SKCK Aktif Kepolisian"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000028",
-    "industry_id": "a0000001-0000-0000-0000-000000000013",
-    "judul_posisi": "Petugas Pengamanan / Security Guard",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 3,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Tegas, jujur, memiliki sertifikat Gada Pratama dan KTA aktif, postur tegap.",
-    "persyaratan": [
-      "Fotokopi Ijazah Gada Pratama",
-      "KTA Security",
-      "Surat Bebas Narkoba"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000031",
-    "industry_id": "a0000001-0000-0000-0000-000000000015",
-    "judul_posisi": "Operator Perakitan Body Bus (Assembler)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 25,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik New Armada Mertoyudan, Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Laki-laki usia maks 24 tahun, mampu membaca gambar teknik perakitan bodi kendaraan dan menggunakan perkakas pneumatik.",
-    "persyaratan": [
-      "Fotokopi Ijazah / SKL SMK",
-      "CV & Pas Foto 4x6",
-      "Surat Keterangan Bebas Buta Warna"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000032",
-    "industry_id": "a0000001-0000-0000-0000-000000000015",
-    "judul_posisi": "Teknisi Pengelasan Karoseri (Welder CO2 / MIG)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 10,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Mampu mengelas rangka baja chassis dan bodi bus dengan rapi, kuat, dan lolos uji visual pengelasan.",
-    "persyaratan": [
-      "Sertifikat Kejuruan Las",
-      "KTP & SKCK Aktif",
-      "Portofolio Las"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000033",
-    "industry_id": "a0000001-0000-0000-0000-000000000015",
-    "judul_posisi": "Teknisi Cat & Dempul Bodi (Painting Operator)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 9,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Memahami teknik pendempulan halus, masking, dan spray painting oven untuk permukaan bodi otomotif.",
-    "persyaratan": [
-      "CV Lengkap",
-      "Ijazah SMK",
-      "Fotokopi KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000038",
-    "industry_id": "a0000001-0000-0000-0000-000000000018",
-    "judul_posisi": "Teknisi & Asisten Trainer Mekanik Alat Berat",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Workshop BMC Sleman, DIY",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Memahami sistem hidrolik, engine diesel alat berat excavator/bulldozer, dan disiplin K3 workshop.",
-    "persyaratan": [
-      "Fotokopi Ijazah / Sertifikat Alat Berat",
-      "CV & Pas Foto",
-      "Fotokopi KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000012",
-    "industry_id": "a0000001-0000-0000-0000-000000000006",
-    "judul_posisi": "Konseling Karir & Registrasi Program Diklat Perhotelan",
-    "tipe_pekerjaan": "Bimbingan & Program Diklat Profesi",
-    "kuota": 0,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kampus LPK Platinum Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita yang berminat mendalami karir di bidang perhotelan nasional dan kapal pesiar mewah.",
-    "persyaratan": [
-      "Fotokopi KTP & Kartu Keluarga",
-      "Pas Foto 3x4 (3 lembar)",
-      "Fotokopi Ijazah / SKL"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000044",
-    "industry_id": "a0000001-0000-0000-0000-000000000021",
-    "judul_posisi": "Teknisi Pendingin Ruangan (AC Split & Komersial)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 1,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kota & Kabupaten Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria, memiliki SIM C, menguasai instalasi pipa tembaga AC, pengisian freon R32/R410A, dan cuci AC steam presisi.",
-    "persyaratan": [
-      "CV & Fotokopi SIM C",
-      "Fotokopi Ijazah SMK",
-      "Pas Foto 4x6"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000036",
-    "industry_id": "a0000001-0000-0000-0000-000000000017",
-    "judul_posisi": "Marketing Executive Properti & Perumahan",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 4,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Project Magelang & Sekitarnya",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Percaya diri, menyukai dunia pemasaran properti, memiliki kendaraan sendiri, target-oriented.",
-    "persyaratan": [
-      "CV & Portofolio Penjualan (jika ada)",
-      "Fotokopi KTP & SIM C",
-      "Foto Diri Menarik"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000037",
-    "industry_id": "a0000001-0000-0000-0000-000000000017",
-    "judul_posisi": "Pengawas Lapangan Konstruksi Perumahan",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Site Proyek Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Paham membaca gambar kerja (shop drawing), mengawasi tukang, dan mengontrol mutu cor & struktur bangunan.",
-    "persyaratan": [
-      "Daftar Riwayat Hidup",
-      "Fotokopi Ijazah",
-      "KTP & SKCK Aktif"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000034",
-    "industry_id": "a0000001-0000-0000-0000-000000000016",
-    "judul_posisi": "Asisten Instruktur Perhotelan & Tata Hidang (F&B)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 3,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kampus Sindoro Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Menguasai table setting, mixology dasar, komunikasi santun, dan berpengalaman di hotel minimal bintang 3.",
-    "persyaratan": [
-      "CV & Sertifikat Keahlian Pariwisata",
-      "Ijazah Terakhir",
-      "Pas Foto 4x6"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000035",
-    "industry_id": "a0000001-0000-0000-0000-000000000016",
-    "judul_posisi": "Staff Administrasi Akademik & Hubungan Industri",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Cekatan, menguasai korespondensi formal, pengelolaan berkas magang siswa, dan Microsoft Office.",
-    "persyaratan": [
-      "Surat Lamaran Kerja & CV",
-      "Transkrip Nilai",
-      "Fotokopi KTP"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000020",
-    "industry_id": "a0000001-0000-0000-0000-000000000010",
-    "judul_posisi": "Account Officer (AO) Mekaar",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 80,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Cabang Unit Mekaar Magelang & Sekitarnya",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Khusus Perempuan, usia 18-22 tahun, belum menikah, mampu mengendarai sepeda motor (memiliki SIM C disukai), jujur.",
-    "persyaratan": [
-      "Fotokopi KTP, KK & Ijazah/SKL",
-      "Surat Lamaran & CV",
-      "Surat Izin Orang Tua"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000021",
-    "industry_id": "a0000001-0000-0000-0000-000000000010",
-    "judul_posisi": "Finance Administration Officer (FAO) Mekaar",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 40,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kantor Unit Mekaar Magelang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Perempuan, teliti, menguasai pencatatan kas harian dan Microsoft Excel dengan baik.",
-    "persyaratan": [
-      "CV Lengkap",
-      "Fotokopi Ijazah & Transkrip Rapor",
-      "Fotokopi KTP & KK"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000001",
-    "industry_id": "a0000001-0000-0000-0000-000000000001",
-    "judul_posisi": "Operator Perakitan Mesin Traktor",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 10,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Yogyakarta & Tuksono Kulon Progo",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Laki-laki/Perempuan, usia maksimal 23 tahun, mampu membaca gambar teknik dan memakai alat ukur jangka sorong.",
-    "persyaratan": [
-      "Fotokopi Ijazah / SKL SMK Mesin/Otomotif",
-      "CV & Pas Foto 4x6",
-      "Surat Keterangan Sehat Dokter"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000002",
-    "industry_id": "a0000001-0000-0000-0000-000000000001",
-    "judul_posisi": "Teknisi Pengelasan & Fabrikasi Welder",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 5,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Pabrik Yogyakarta",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Menguasai teknik las busur listrik SMAW atau MIG/GMAW, teliti, tidak buta warna, dan disiplin tinggi.",
-    "persyaratan": [
-      "Sertifikat Uji Kompetensi Las",
-      "Fotokopi KTP & SKCK Aktif",
-      "Portofolio Pengelasan"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000010",
-    "industry_id": "a0000001-0000-0000-0000-000000000005",
-    "judul_posisi": "Cruise Line Shipboard Crew (F&B, Housekeeping, Bar)",
-    "tipe_pekerjaan": "Kontrak Internasional Kapal Pesiar",
-    "kuota": 600,
+    "industry_id": "a0000001-0000-0000-0000-000000000009",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 50,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Kapal Pesiar Karibia, Eropa & Asia Pasifik",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria/Wanita usia 18-35 tahun, bahasa Inggris dasar aktif, sehat jasmani rohani, bebas tato terlihat.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV Bahasa Inggris",
-      "Paspor (jika ada)",
-      "Fotokopi Ijazah Terakhir",
-      "Pas Foto 4x6"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
     "id": "b0000001-0000-0000-0000-000000000011",
+    "industry_id": "a0000001-0000-0000-0000-000000000022",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 3,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Jakarta Selatan",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000012",
+    "industry_id": "a0000001-0000-0000-0000-000000000013",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 7,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Yogyakarta",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000013",
+    "industry_id": "a0000001-0000-0000-0000-000000000015",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 44,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000014",
+    "industry_id": "a0000001-0000-0000-0000-000000000018",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 2,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Yogyakarta",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000015",
+    "industry_id": "a0000001-0000-0000-0000-000000000006",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 0,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000016",
+    "industry_id": "a0000001-0000-0000-0000-000000000021",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 1,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000017",
+    "industry_id": "a0000001-0000-0000-0000-000000000017",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 6,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000018",
+    "industry_id": "a0000001-0000-0000-0000-000000000016",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 5,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000019",
+    "industry_id": "a0000001-0000-0000-0000-000000000010",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 120,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000020",
+    "industry_id": "a0000001-0000-0000-0000-000000000001",
+    "judul_posisi": "Lowongan Kerja (Umum)",
+    "tipe_pekerjaan": "Penuh Waktu",
+    "kuota": 15,
+    "gaji": "Ditanyakan pada saat wawancara",
+    "pendidikan": "Umum",
+    "lokasi": "Yogyakarta",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
+    "persyaratan": [
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
+    ]
+  },
+  {
+    "id": "b0000001-0000-0000-0000-000000000021",
     "industry_id": "a0000001-0000-0000-0000-000000000005",
-    "judul_posisi": "International Hotel Staff (Timur Tengah & Asia Pasifik)",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 400,
+    "kuota": 1000,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Uni Emirat Arab, Qatar, Malaysia, Maladewa",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pekerja keras, antusias berkarir di hotel bintang 4-5 mancanegara, disiplin perhotelan tinggi.",
+    "pendidikan": "Umum",
+    "lokasi": "Yogyakarta",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Curriculum Vitae",
-      "Sertifikat PKL / Pelatihan",
-      "Fotokopi KTP & KK"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
-    "id": "b0000001-0000-0000-0000-000000000039",
+    "id": "b0000001-0000-0000-0000-000000000022",
     "industry_id": "a0000001-0000-0000-0000-000000000019",
-    "judul_posisi": "Pramuniaga & Kasir Toko Retail",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 140,
+    "kuota": 200,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Gerai Indomaret Wilayah Magelang Raya",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Usia maksimal 24 tahun, tinggi min 160 cm (Pria) / 155 cm (Wanita), jujur, tidak bertato, ramah.",
+    "pendidikan": "Umum",
+    "lokasi": "Semarang / Area Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "CV Lengkap & Pas Foto",
-      "Fotokopi KTP & KK",
-      "Surat Bebas Narkoba"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   },
   {
-    "id": "b0000001-0000-0000-0000-000000000040",
-    "industry_id": "a0000001-0000-0000-0000-000000000019",
-    "judul_posisi": "Staff Gudang Logistik (Helper DC)",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 60,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Distribution Center Semarang",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria, fisik sehat bugar, teliti menyusun barang palet gudang dan siap bekerja shift.",
-    "persyaratan": [
-      "Surat Lamaran",
-      "Fotokopi KTP",
-      "Surat Keterangan Dokter"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000047",
+    "id": "b0000001-0000-0000-0000-000000000023",
     "industry_id": "a0000001-0000-0000-0000-000000000023",
-    "judul_posisi": "Teknisi Senior Instalasi HVAC & VRF System",
+    "judul_posisi": "Lowongan Kerja (Umum)",
     "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
+    "kuota": 4,
     "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Proyek Komersial Jawa Tengah",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Pria, berpengalaman memasang ducting, perpipaan refnet VRV/VRF, kabel kontrol, dan brazing pipa tembaga.",
+    "pendidikan": "Umum",
+    "lokasi": "Magelang",
+    "kualifikasi": "Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti tahapan wawancara langsung di booth stand.",
     "persyaratan": [
-      "Fotokopi Ijazah & Sertifikat Keahlian",
-      "CV Lengkap",
-      "Fotokopi KTP & SIM C"
-    ]
-  },
-  {
-    "id": "b0000001-0000-0000-0000-000000000048",
-    "industry_id": "a0000001-0000-0000-0000-000000000023",
-    "judul_posisi": "Maintenance & Troubleshooter AC Komersial",
-    "tipe_pekerjaan": "Penuh Waktu",
-    "kuota": 2,
-    "gaji": "Ditanyakan pada saat wawancara",
-    "pendidikan": "Umum (Semua Jurusan)",
-    "lokasi": "Magelang & Sekitarnya",
-    "kualifikasi": "Terbuka untuk umum semua jurusan. Menguasai pelacakan error kode AC inverter, pembersihan kondensor skala industri, dan kelistrikan 3 phase.",
-    "persyaratan": [
-      "Surat Lamaran Kerja & CV",
-      "Fotokopi KTP & KK",
-      "Pas Foto 3x4"
+      "Curriculum Vitae (CV) & Pas Foto Terbaru",
+      "Fotokopi Ijazah / SKL / Transkrip Nilai",
+      "Fotokopi KTP / Identitas Diri"
     ]
   }
 ];

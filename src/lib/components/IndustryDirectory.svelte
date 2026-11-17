@@ -112,7 +112,7 @@
                 >
                   <div class="vac-info">
                     <span class="vac-name">{vac.judul_posisi}</span>
-                    <span class="text-xs text-muted">{vac.pendidikan} • {vac.tipe_pekerjaan}</span>
+                    <span class="text-xs text-muted">{vac.pendidikan || 'Umum'}</span>
                   </div>
                   <ChevronRight size={16} class="chevron-icon" />
                 </div>

@@ -177,8 +177,8 @@ it('Token QR Pelamar unik dan scannable', () => {
 // ── Test Suite 4: Pelamaran Kerja ke Stand Industri ──
 console.log('\n▶ TEST SUITE 4: Pelamaran Kerja ke 23 Industri Partner');
 
-const quickVacId = 'b0000001-0000-0000-0000-000000000001'; // Operator Perakitan Mesin Traktor
-const dewaveVacId = 'b0000001-0000-0000-0000-000000000003'; // Terapis Massage & Reflexology
+const quickVacId = 'b0000001-0000-0000-0000-000000000020'; // Stand 20 CV Karya Hidup Sentosa (Quick)
+const dewaveVacId = 'b0000001-0000-0000-0000-000000000002'; // Stand 2 DeWave Family Massage
 
 await itAsync('Pelamar berhasil melamar lowongan di Stand A1 (Quick)', async () => {
   const res = await applyJob(quickVacId, applicantUser.id, 'Saya siap ditempatkan di pabrik perakitan traktor.');

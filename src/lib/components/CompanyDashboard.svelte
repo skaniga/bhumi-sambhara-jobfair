@@ -15,8 +15,10 @@
   } from '../supabase.js';
   import { 
     Building2, ScanLine, CheckCircle, Clock, UserCheck, XCircle, Search, Edit, Save, RefreshCw,
-    Briefcase, Plus, Trash2, Edit3, MapPin, Banknote, GraduationCap, Users, CheckCircle2, AlertCircle, X
+    Briefcase, Plus, Trash2, Edit3, MapPin, Banknote, GraduationCap, Users, CheckCircle2, AlertCircle, X,
+    FileSpreadsheet
   } from '@lucide/svelte';
+  import * as XLSX from 'xlsx';
 
   export let onOpenScanner = () => {};
 
@@ -107,6 +109,52 @@
     editMode = false;
   }
 
+  function exportApplicantsExcel() {
+    const data = filteredApplications.map((app, idx) => {
+      const applicant = getApplicant(app.applicant_id);
+      const vac = getVacancy(app.vacancy_id);
+
+      return {
+        "No": idx + 1,
+        "Nomor QR Pelamar": applicant?.qr_code_token || '-',
+        "Nama Lengkap": applicant?.nama_lengkap || 'Pelamar',
+        "Nomor WhatsApp": applicant?.nomor_wa || '-',
+        "Email": applicant?.email || '-',
+        "Asal Sekolah / Kampus": applicant?.asal_sekolah_kampus || '-',
+        "Jurusan": applicant?.jurusan || '-',
+        "Posisi Dilamar": vac?.judul_posisi || '-',
+        "Formasi / Pendidikan": vac?.pendidikan || 'Umum',
+        "Status Seleksi": app.status || 'menunggu',
+        "Tanggal Melamar": app.created_at ? new Date(app.created_at).toLocaleString('id-ID') : '-'
+      };
+    });
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    // Auto fit widths
+    const colWidths = [];
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+      let maxLen = 12;
+      for (let R = range.s.r; R <= range.e.r; ++R) {
+        const cell = ws[XLSX.utils.encode_cell({ r: R, c: C })];
+        if (cell && cell.v) {
+          const str = String(cell.v);
+          if (str.length > maxLen) maxLen = Math.min(str.length, 35);
+        }
+      }
+      colWidths.push({ wch: maxLen + 2 });
+    }
+    ws['!cols'] = colWidths;
+
+    const sheetName = (company?.nomor_stand || 'Pelamar').slice(0, 31);
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+    const safeName = (company?.nama_perusahaan || 'Perusahaan').replace(/[^a-zA-Z0-9]/g, '_');
+    XLSX.writeFile(wb, `Pelamar_${safeName}_${new Date().toISOString().slice(0,10)}.xlsx`);
+  }
+
   // ── Vacancy Management State & Handlers ──
   let showVacancyModal = false;
   let vacancyModalMode = 'create'; // 'create' | 'edit'
@@ -115,7 +163,7 @@
   let vacTipe = 'Penuh Waktu';
   let vacKuota = 5;
   let vacGaji = 'Ditanyakan pada saat wawancara';
-  let vacPendidikan = 'Umum (Semua Jurusan)';
+  let vacPendidikan = 'Umum';
   let vacLokasi = 'Kota & Kab. Magelang';
   let vacKualifikasi = '';
   let vacPersyaratan = '';
@@ -130,10 +178,10 @@
     vacTipe = 'Penuh Waktu';
     vacKuota = 5;
     vacGaji = 'Ditanyakan pada saat wawancara';
-    vacPendidikan = 'Umum (Semua Jurusan)';
+    vacPendidikan = 'Umum';
     vacLokasi = company?.alamat ? company.alamat.split(',')[0] : 'Magelang, Jawa Tengah';
-    vacKualifikasi = 'Terbuka untuk umum semua jurusan. Berintegritas, disiplin, dan siap mengikuti seleksi wawancara di booth stand.';
-    vacPersyaratan = 'Curriculum Vitae (CV) & Pas Foto Terbaru\nFotokopi Ijazah / SKL / Transkrip Nilai\nFotokopi KTP & Kartu Identitas\nSertifikat Keahlian / PKL (jika ada)';
+    vacKualifikasi = 'Terbuka untuk umum seluruh jurusan. Berintegritas, bersemangat kerja tinggi, beretika baik, dan siap mengikuti seleksi wawancara di booth stand.';
+    vacPersyaratan = 'Curriculum Vitae (CV) & Pas Foto Terbaru\nFotokopi Ijazah / SKL / Transkrip Nilai\nFotokopi KTP / Identitas Diri';
     vacModalError = '';
     vacModalSuccess = '';
     showVacancyModal = true;
@@ -146,7 +194,7 @@
     vacTipe = vac.tipe_pekerjaan || 'Penuh Waktu';
     vacKuota = vac.kuota || 1;
     vacGaji = vac.gaji || 'Ditanyakan pada saat wawancara';
-    vacPendidikan = vac.pendidikan || 'Umum (Semua Jurusan)';
+    vacPendidikan = vac.pendidikan || 'Umum';
     vacLokasi = vac.lokasi || 'Magelang';
     vacKualifikasi = vac.kualifikasi || '';
     vacPersyaratan = Array.isArray(vac.persyaratan) ? vac.persyaratan.join('\n') : (vac.persyaratan || '');
@@ -178,7 +226,7 @@
       tipe_pekerjaan: vacTipe,
       kuota: Number(vacKuota),
       gaji: vacGaji.trim() || 'Ditanyakan pada saat wawancara',
-      pendidikan: vacPendidikan.trim() || 'Umum (Semua Jurusan)',
+      pendidikan: vacPendidikan.trim() || 'Umum',
       lokasi: vacLokasi.trim() || 'Magelang',
       kualifikasi: vacKualifikasi.trim(),
       persyaratan: reqList.length > 0 ? reqList : ['CV & Dokumen Pendukung']
@@ -412,6 +460,16 @@
             <option value="diterima">Diterima</option>
             <option value="ditolak">Ditolak</option>
           </select>
+
+          <button 
+            type="button" 
+            class="btn btn-secondary btn-sm" 
+            on:click={exportApplicantsExcel}
+            title="Ekspor daftar pelamar ke format Microsoft Excel (.XLSX)"
+          >
+            <FileSpreadsheet size={15} />
+            <span>Ekspor (.XLSX)</span>
+          </button>
         </div>
       </div>
 

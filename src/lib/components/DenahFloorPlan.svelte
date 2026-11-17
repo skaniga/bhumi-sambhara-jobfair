@@ -1,5 +1,5 @@
 <script>
-  import { industries } from '../supabase.js';
+  import { industries, currentUser } from '../supabase.js';
   import { MapPin, Users, Compass, Eye, X, ExternalLink, ArrowDown, ArrowUp, CheckCircle, Info } from '@lucide/svelte';
 
   export let onSelectBooth = (ind) => {};
@@ -51,14 +51,16 @@
 
     <!-- Action & Filter Bar -->
     <div class="denah-actions-bar">
-      <button 
-        type="button"
-        class="btn-image-modal"
-        on:click={() => showImageModal = true}
-      >
-        <Eye size={16} />
-        <span>Lihat Gambar Denah Asli</span>
-      </button>
+      {#if $currentUser?.role === 'admin'}
+        <button 
+          type="button"
+          class="btn-image-modal"
+          on:click={() => showImageModal = true}
+        >
+          <Eye size={16} />
+          <span>Lihat Gambar Denah Asli</span>
+        </button>
+      {/if}
 
       <div class="zone-filter-bar">
         <button 
@@ -316,8 +318,8 @@
   </div>
 </div>
 
-<!-- Modal Gambar Denah Asli (Denah Fix.jfif) -->
-{#if showImageModal}
+<!-- Modal Gambar Denah Asli (Denah Fix.jfif) - Admin Only -->
+{#if showImageModal && $currentUser?.role === 'admin'}
   <div 
     class="modal-backdrop" 
     on:click={() => showImageModal = false}

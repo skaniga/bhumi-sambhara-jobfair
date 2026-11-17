@@ -86,7 +86,7 @@
           <span class="text-xs text-muted tabular-nums">ID: {$currentUser?.qr_code_token}</span>
         </div>
         <h2 class="heading-md user-fullname">{$currentUser?.nama_lengkap}</h2>
-        <p class="text-xs text-muted">{$currentUser?.asal_sekolah_kampus || 'Belum diisi'} • {$currentUser?.jurusan || 'Semua Jurusan'}</p>
+        <p class="text-xs text-muted">{$currentUser?.asal_sekolah_kampus || 'Belum diisi'} • {$currentUser?.jurusan || 'Umum'}</p>
       </div>
 
       <div class="qr-action-col">
