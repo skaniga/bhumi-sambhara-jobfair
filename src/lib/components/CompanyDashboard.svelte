@@ -114,8 +114,8 @@
   let vacJudul = '';
   let vacTipe = 'Penuh Waktu';
   let vacKuota = 5;
-  let vacGaji = 'Sesuai UMK Magelang';
-  let vacPendidikan = 'SMK / SMA Sederajat';
+  let vacGaji = 'Ditanyakan pada saat wawancara';
+  let vacPendidikan = 'Umum (Semua Jurusan)';
   let vacLokasi = 'Kota & Kab. Magelang';
   let vacKualifikasi = '';
   let vacPersyaratan = '';
@@ -129,11 +129,11 @@
     vacJudul = '';
     vacTipe = 'Penuh Waktu';
     vacKuota = 5;
-    vacGaji = 'Sesuai UMK Magelang';
-    vacPendidikan = 'SMK / SMA Sederajat';
+    vacGaji = 'Ditanyakan pada saat wawancara';
+    vacPendidikan = 'Umum (Semua Jurusan)';
     vacLokasi = company?.alamat ? company.alamat.split(',')[0] : 'Magelang, Jawa Tengah';
-    vacKualifikasi = 'Pria/Wanita, usia 18-28 tahun, disiplin, berintegritas tinggi, dan siap bekerja dalam tim.';
-    vacPersyaratan = 'Curriculum Vitae (CV) & Pas Foto Terbaru\nFotokopi Ijazah / SKL / Transkrip Nilai\nFotokopi KTP & Kartu Keluarga\nSertifikat Keahlian / PKL (jika ada)';
+    vacKualifikasi = 'Terbuka untuk umum semua jurusan. Berintegritas, disiplin, dan siap mengikuti seleksi wawancara di booth stand.';
+    vacPersyaratan = 'Curriculum Vitae (CV) & Pas Foto Terbaru\nFotokopi Ijazah / SKL / Transkrip Nilai\nFotokopi KTP & Kartu Identitas\nSertifikat Keahlian / PKL (jika ada)';
     vacModalError = '';
     vacModalSuccess = '';
     showVacancyModal = true;
@@ -145,8 +145,8 @@
     vacJudul = vac.judul_posisi || '';
     vacTipe = vac.tipe_pekerjaan || 'Penuh Waktu';
     vacKuota = vac.kuota || 1;
-    vacGaji = vac.gaji || 'Sesuai UMK Magelang';
-    vacPendidikan = vac.pendidikan || 'SMK / SMA Sederajat';
+    vacGaji = vac.gaji || 'Ditanyakan pada saat wawancara';
+    vacPendidikan = vac.pendidikan || 'Umum (Semua Jurusan)';
     vacLokasi = vac.lokasi || 'Magelang';
     vacKualifikasi = vac.kualifikasi || '';
     vacPersyaratan = Array.isArray(vac.persyaratan) ? vac.persyaratan.join('\n') : (vac.persyaratan || '');
@@ -177,8 +177,8 @@
       judul_posisi: vacJudul.trim(),
       tipe_pekerjaan: vacTipe,
       kuota: Number(vacKuota),
-      gaji: vacGaji.trim() || 'Sesuai UMK Magelang',
-      pendidikan: vacPendidikan.trim() || 'SMK / SMA Sederajat',
+      gaji: vacGaji.trim() || 'Ditanyakan pada saat wawancara',
+      pendidikan: vacPendidikan.trim() || 'Umum (Semua Jurusan)',
       lokasi: vacLokasi.trim() || 'Magelang',
       kualifikasi: vacKualifikasi.trim(),
       persyaratan: reqList.length > 0 ? reqList : ['CV & Dokumen Pendukung']

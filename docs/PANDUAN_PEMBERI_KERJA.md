@@ -21,35 +21,35 @@ Sebagai perwakilan HRD / Rekruter industri di booth expo, Anda dapat:
 
 ---
 
-## 🔑 Kredensial Login 23 Stand Industri Resmi
+## 🔑 Kredensial Login 23 Stand Industri Resmi (Denah Fix)
 
-Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukkan **Username Stand** (contoh: `HkGoldStandA3`), **Nomor Stand** (`Stand A3` atau `A3`), maupun **Alamat Email**. Tersedia pula **tombol mata (*Eye icon*)** pada kolom kata sandi.
+Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukkan **Nomor Stand Baru** (`Stand 1` s/d `Stand 23`), **Username Stand**, maupun **Alamat Email**. Kode stand lama (`Stand A1` s/d `Stand D5`) dan kata sandi sebelumnya juga tetap didukung penuh untuk kemudahan backward compatibility. Tersedia pula **tombol mata (*Eye icon*)** pada kolom kata sandi.
 
-| Stand Booth | Nama Industri / Perusahaan | Kategori / Bidang Usaha | Username Stand | Alamat Email | Kata Sandi | Kontak WhatsApp |
+| Stand Resmi (Denah Fix) | Nama Industri / Perusahaan | Kategori / Bidang Usaha | Username Stand | Alamat Email | Kata Sandi Resmi | Kontak WhatsApp |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Stand A1** | CV Karya Hidup Sentosa (Quick) | Industri Manufaktur & Perdagangan | `QuickStandA1` | `hrd@quick.co.id` | `QuickStandA1!` | 0811 2701 3215 |
-| **Stand A2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | Jasa Relaksasi & Salon Kecantikan | `DewaveStandA2` | `karir@dewavespa.com` | `DewaveStandA2!` | 0821 3502 4190 |
-| **Stand A3** | HK GOLD | Toko Emas & Perhiasan | `HkGoldStandA3` | `hrd@hkgold.co.id` | `HkGoldStandA3!` | 0813 4287 8303 |
-| **Stand A4** | LPK ATARA | Pendidikan dan Pelatihan Kerja | `AtaraStandA4` | `info@lpkatara.com` | `AtaraStandA4!` | 0821 3054 9549 |
-| **Stand A5** | LPK CAPTAIN'S CLUB YOGYAKARTA | Diklat Perhotelan & Kapal Pesiar | `CaptainsClubStandA5` | `career@captainsclubjogja.com` | `CaptainsClubStandA5!` | 0813 2557 8171 |
-| **Stand A6** | LPK PLATINUM MAGELANG | Pendidikan Perhotelan & Kapal Pesiar | `PlatinumStandA6` | `info@lpkplatinum.com` | `PlatinumStandA6!` | 0819 1767 1025 |
-| **Stand B1** | LPK TERATAI GOGAKUIN | Penyalur Tenaga Kerja ke Jepang | `TerataiStandB1` | `info@terataigogakuin.com` | `TerataiStandB1!` | 0823 2361 0036 |
-| **Stand B2** | PT ANUGERAH ABADI MAGELANG | Garmen & Tekstil Ekspor | `AnugerahAbadiStandB2` | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStandB2!` | 0857 1625 7630 |
-| **Stand B3** | PT KSA XL SMART | Telekomunikasi & Jaringan | `XlSmartStandB3` | `karir@ksaxlsmart.com` | `XlSmartStandB3!` | 0858 0137 8742 |
-| **Stand B4** | PT PERMODALAN NASIONAL MADANI (PNM) | Keuangan & BUMN Pemberdayaan Mikro | `PnmStandB4` | `rekrutmen@pnm.co.id` | `PnmStandB4!` | 0811 8111 2362 |
-| **Stand B5** | PT GISARA TANTRA BERKARYA | Manufaktur Pengolahan Tembakau | `GisaraStandB5` | `hrd@gisaratantra.co.id` | `GisaraStandB5!` | 0852 6153 9626 |
-| **Stand B6** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | Retail Modern & Supermarket | `AlfamidiStandB6` | `karir@alfamidiku.com` | `AlfamidiStandB6!` | 0853 3407 0511 |
-| **Stand C1** | PT SHETLER INDONESIA | Alih Daya / Facility Services (BPO) | `ShelterStandC1` | `recruitment@shelter.co.id` | `ShelterStandC1!` | 0877 6780 1991 |
-| **Stand C2** | PT CLAY JAYA BERSAMA (BIG) | Retail Bahan Bangunan Modern | `ClayJayaStandC2` | `karir@clayjayabersama.com` | `ClayJayaStandC2!` | 0896 8800 9591 |
-| **Stand C3** | PT MEKAR ARMADA JAYA | Manufaktur Karoseri Otomotif | `ArmadaJayaStandC3` | `hrd@mekararmadajaya.com` | `ArmadaJayaStandC3!` | 0853 8562 5000 |
-| **Stand C4** | SINDORO HOTEL COLLEGE MAGELANG | Perhotelan dan Kapal Pesiar | `SindoroStandC4` | `info@sindorohotelcollege.com` | `SindoroStandC4!` | 0895 4058 27080 |
-| **Stand C5** | PT UNILOA ARDIYANTO INVESTAMA | Developer Property & Real Estate | `UniloaStandC5` | `hrd@uniloa.com` | `UniloaStandC5!` | 0813 3756 3335 |
-| **Stand C6** | BMC DHARMADITNA YOGYAKARTA | Pelatihan Mekanik Alat Berat | `BmcStandC6` | `info@bmcdharmaditna.com` | `BmcStandC6!` | 0821 4616 0214 |
-| **Stand D1** | PT. INDOMARCO PRISMATAMA (INDOMARET) | Retail Modern & Distribusi Logistik | `IndomaretStandD1` | `karir@indomaret.co.id` | `IndomaretStandD1!` | 0899 9172 359 |
-| **Stand D2** | LIDAH BUAYA GROUP | Manufaktur Toiletries & Kosmetik | `LidahBuayaStandD2` | `hrd@lidahbuayagroup.com` | `LidahBuayaStandD2!` | 0811 2510 1138 |
-| **Stand D3** | PUTRA TEKNIK AC | Layanan Tata Udara & Pendingin (HVACR) | `PutraTeknikStandD3` | `karir@putrateknikac.com` | `PutraTeknikStandD3!` | 0852 9112 35232 |
-| **Stand D4** | STAFFINC | Penyedia Solusi SDM & Teknologi | `StaffincStandD4` | `careers@staffinc.co` | `StaffincStandD4!` | 0857 1580 1723 |
-| **Stand D5** | PT. CANDI BANGUN PERSADA | Dealer Resmi & Pemasangan HVAC | `CandiBangunStandD5` | `hrd@candibangunpersada.com` | `CandiBangunStandD5!` | 0857 0002 5566 |
+| **Stand 1** | LIDAH BUAYA GROUP | Manufaktur Toiletries & Kosmetik | `LidahBuayaStand1` | `hrd@lidahbuayagroup.com` | `LidahBuayaStand1!` | 0811 2510 1138 |
+| **Stand 2** | DEWAVE FAMILY MASSAGE & BEAUTY SALON | Jasa Relaksasi & Salon Kecantikan | `DewaveStand2` | `karir@dewavespa.com` | `DewaveStand2!` | 0821 3502 4190 |
+| **Stand 3** | LPK TERATAI GOGAKUIN | Penyalur Tenaga Kerja ke Jepang | `TerataiStand3` | `info@terataigogakuin.com` | `TerataiStand3!` | 0823 2361 0036 |
+| **Stand 4** | HK GOLD | Toko Emas & Perhiasan | `HkGoldStand4` | `hrd@hkgold.co.id` | `HkGoldStand4!` | 0813 4287 8303 |
+| **Stand 5** | PT MIDI UTAMA INDONESIA (ALFAMIDI) | Retail Modern & Supermarket | `AlfamidiStand5` | `karir@alfamidiku.com` | `AlfamidiStand5!` | 0853 3407 0511 |
+| **Stand 6** | PT CLAY JAYA BERSAMA (BIG) | Retail Bahan Bangunan Modern | `ClayJayaStand6` | `karir@clayjayabersama.com` | `ClayJayaStand6!` | 0896 8800 9591 |
+| **Stand 7** | PT GISARA TANTRA BERKARYA | Manufaktur Pengolahan Tembakau | `GisaraStand7` | `hrd@gisaratantra.co.id` | `GisaraStand7!` | 0852 6153 9626 |
+| **Stand 8** | PT ANUGERAH ABADI MAGELANG | Garmen & Tekstil Ekspor | `AnugerahAbadiStand8` | `hrd@anugerahabadi.co.id` | `AnugerahAbadiStand8!` | 0857 1625 7630 |
+| **Stand 9** | LPK ATARA | Pendidikan dan Pelatihan Kerja | `AtaraStand9` | `info@lpkatara.com` | `AtaraStand9!` | 0821 3054 9549 |
+| **Stand 10** | PT KSA XL SMART | Telekomunikasi & Jaringan | `XlSmartStand10` | `karir@ksaxlsmart.com` | `XlSmartStand10!` | 0858 0137 8742 |
+| **Stand 11** | STAFFINC | Penyedia Solusi SDM & Teknologi | `StaffincStand11` | `careers@staffinc.co` | `StaffincStand11!` | 0857 1580 1723 |
+| **Stand 12** | PT SHETLER INDONESIA | Alih Daya / Facility Services (BPO) | `ShelterStand12` | `recruitment@shelter.co.id` | `ShelterStand12!` | 0877 6780 1991 |
+| **Stand 13** | PT MEKAR ARMADA JAYA | Manufaktur Karoseri Otomotif | `ArmadaJayaStand13` | `hrd@mekararmadajaya.com` | `ArmadaJayaStand13!` | 0853 8562 5000 |
+| **Stand 14** | BMC DHARMADITNA YOGYAKARTA | Pelatihan Mekanik Alat Berat | `BmcStand14` | `info@bmcdharmaditna.com` | `BmcStand14!` | 0821 4616 0214 |
+| **Stand 15** | LPK PLATINUM MAGELANG | Pendidikan Perhotelan & Kapal Pesiar | `PlatinumStand15` | `info@lpkplatinum.com` | `PlatinumStand15!` | 0819 1767 1025 |
+| **Stand 16** | PUTRA TEKNIK AC | Layanan Tata Udara & Pendingin (HVACR) | `PutraTeknikStand16` | `karir@putrateknikac.com` | `PutraTeknikStand16!` | 0852 9112 35232 |
+| **Stand 17** | PT UNILOA ARDIYANTO INVESTAMA | Developer Property & Real Estate | `UniloaStand17` | `hrd@uniloa.com` | `UniloaStand17!` | 0813 3756 3335 |
+| **Stand 18** | SINDORO HOTEL COLLEGE MAGELANG | Perhotelan dan Kapal Pesiar | `SindoroStand18` | `info@sindorohotelcollege.com` | `SindoroStand18!` | 0895 4058 27080 |
+| **Stand 19** | PT PERMODALAN NASIONAL MADANI (PNM) | Keuangan & BUMN Pemberdayaan Mikro | `PnmStand19` | `rekrutmen@pnm.co.id` | `PnmStand19!` | 0811 8111 2362 |
+| **Stand 20** | CV Karya Hidup Sentosa (Quick) | Industri Manufaktur & Perdagangan | `QuickStand20` | `hrd@quick.co.id` | `QuickStand20!` | 0811 2701 3215 |
+| **Stand 21** | LPK CAPTAIN'S CLUB YOGYAKARTA | Diklat Perhotelan & Kapal Pesiar | `CaptainsClubStand21` | `career@captainsclubjogja.com` | `CaptainsClubStand21!` | 0813 2557 8171 |
+| **Stand 22** | PT. INDOMARCO PRISMATAMA (INDOMARET) | Retail Modern & Distribusi Logistik | `IndomaretStand22` | `karir@indomaret.co.id` | `IndomaretStand22!` | 0899 9172 359 |
+| **Stand 23** | PT. CANDI BANGUN PERSADA | Dealer Resmi & Pemasangan HVAC | `CandiBangunStand23` | `hrd@candibangunpersada.com` | `CandiBangunStand23!` | 0857 0002 5566 |
 
 ---
 

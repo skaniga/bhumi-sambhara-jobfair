@@ -66,21 +66,16 @@ it('Memastikan metadata acara Bhumi Sambhara Expo 2026 otentik', () => {
   assert.equal(EVENT_DETAILS.venue, 'Indoor Graha Krida Wiyata, SMK Negeri 1 Magelang');
 });
 
-it('Memastikan 23 Stand Industri Partner Resmi terdaftar lengkap (Stand A1 s/d D5)', () => {
+it('Memastikan 23 Stand Industri Partner Resmi terdaftar lengkap (Stand 1 s/d Stand 23)', () => {
   const inds = get(industries);
   assert.equal(inds.length, 23, 'Harus tepat 23 industri partner resmi');
   
   const standNumbers = inds.map(i => i.nomor_stand);
-  assert.ok(standNumbers.includes('Stand A1'), 'Quick Traktor harus Stand A1');
-  assert.ok(standNumbers.includes('Stand A2'), 'DeWave harus Stand A2');
-  assert.ok(standNumbers.includes('Stand A3'), 'HK Gold harus Stand A3');
-  assert.ok(standNumbers.includes('Stand A6'), 'LPK Platinum harus Stand A6');
-  assert.ok(standNumbers.includes('Stand B1'), 'LPK Teratai harus Stand B1');
-  assert.ok(standNumbers.includes('Stand B6'), 'Alfamidi harus Stand B6');
-  assert.ok(standNumbers.includes('Stand C1'), 'Shelter harus Stand C1');
-  assert.ok(standNumbers.includes('Stand C3'), 'Mekar Armada harus Stand C3');
-  assert.ok(standNumbers.includes('Stand D1'), 'Indomaret harus Stand D1');
-  assert.ok(standNumbers.includes('Stand D5'), 'Candi Bangun Persada harus Stand D5');
+  for (let i = 1; i <= 23; i++) {
+    assert.ok(standNumbers.includes(`Stand ${i}`), `Harus ada Stand ${i}`);
+  }
+  assert.ok(standNumbers.includes('Stand 20'), 'Quick Traktor harus Stand 20');
+  assert.ok(standNumbers.includes('Stand 2'), 'DeWave harus Stand 2');
 });
 
 it('Memastikan seluruh ID industri dan lowongan bertipe UUID yang valid', () => {
@@ -291,7 +286,7 @@ it('Admin matriks 23 stand memetakan data dengan akurat tanpa duplikasi', () => 
   const inds = get(industries);
   assert.equal(inds.length, 23);
 
-  const quickRow = inds.find(i => i.nomor_stand === 'Stand A1');
+  const quickRow = inds.find(i => i.nomor_stand === 'Stand 20' || i.nomor_stand === 'Stand A1');
   assert.ok(quickRow);
   assert.equal(quickRow.nama_perusahaan, 'CV Karya Hidup Sentosa (Quick)');
 

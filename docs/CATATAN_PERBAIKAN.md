@@ -162,4 +162,39 @@
 
 ---
 
+## 12. Responsivitas Tombol Modal Auth pada Smartphone / Layar Sentuh
+
+| Isu yang Ditemukan | Analisis Penyebab Utama (Root Cause) | Tindakan Perbaikan yang Diterapkan | Status |
+| :--- | :--- | :--- | :--- |
+| **Tombol "Lupa kata sandi?" dan "Daftar di sini" Tidak Merespons pada HP Lain** | Pada `AuthModal.svelte`, terdapat pernyataan reaktif Svelte: `$: if (initialMode && authMode !== initialMode && !email && !password) { authMode = initialMode; }`. Pernyataan ini melacak variabel `authMode` sebagai dependensi reaktif. Ketika pengguna di perangkat mobile/layar sentuh menekan tombol navigasi sementara input email dan password masih kosong, reaktivitas langsung memicu pengembalian nilai `authMode` kembali ke `'login'` dalam hitungan milidetik sebelum pergantian mode sempat dirender. | 1. Memperbaiki logika reaktivitas dengan menyimpan state pelacak mode awal terisolasi (`prevInitialMode`):<br>`let prevInitialMode = initialMode;`<br>`$: if (initialMode !== prevInitialMode) { prevInitialMode = initialMode; authMode = initialMode; }`<br>2. Menambahkan styling ergonomis sentuhan mobile: `padding: 6px 8px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; cursor: pointer;` sehingga area sentuh jari responsif seketika di semua jenis layar smartphone. | **SELESAI** |
+
+---
+
+## 13. Penyeragaman Formasi Lowongan "Umum (Semua Jurusan)" & Gaji "Ditanyakan Saat Wawancara"
+
+| Komponen | Permintaan Pengguna | Implementasi & Penyesuaian Sistem | Status |
+| :--- | :--- | :--- | :--- |
+| **Kualifikasi Formasi / Pendidikan** | Formasi pada seluruh lowongan dibuat untuk **Umum (Semua Jurusan)** agar terbuka luas bagi alumni SMK, SMA, D3, S1, maupun pencari kerja umum. | 1. Memperbarui seluruh **48 posisi lowongan kerja** di `INITIAL_VACANCIES` (`src/lib/initialData.js`) dengan nilai `pendidikan: "Umum (Semua Jurusan)"`.<br>2. Menambahkan keterangan pembuka pada kualifikasi: *"Terbuka untuk umum semua jurusan..."*.<br>3. Menyesuaikan label dan tampilan kartu pada `JobDetailModal.svelte` dan `CompanyDashboard.svelte`. | **SELESAI** |
+| **Remunerasi / Estimasi Upah (Gaji)** | Informasi gaji lowongan diseragamkan menjadi **"Ditanyakan pada saat wawancara"**. | 1. Memperbarui kolom `gaji` pada seluruh 48 lowongan di `src/lib/initialData.js` menjadi `"Ditanyakan pada saat wawancara"`.<br>2. Melakukan update batch langsung ke database PostgreSQL Supabase tabel `job_vacancies` (kolom `gaji_estimasi`) untuk 48 posisi aktif.<br>3. Mencegah error PGRST204 pada Supabase dengan memetakan payload `gaji` ke `gaji_estimasi` secara otomatis di `src/lib/supabase.js`. | **SELESAI** |
+
+---
+
+## 14. Pembaruan Denah Resmi Sesuai Dokumen Final (*Denah Fix.jfif*)
+
+| Parameter Layout | Layout Versi Lama | Layout Resmi Terkalibrasi (*Denah Fix.jfif*) |
+| :--- | :--- | :--- |
+| **Sistem Penomoran Stand** | 4 Zona Huruf (`Stand A1` s/d `Stand D5`) | **Nomor Stand Urut 1 s/d 23 (`Stand 1` s/d `Stand 23`)** |
+| **Sayap Kiri (Barat)** | Stand A1 - A6, Stand C1 - C6 | **Stand 1 s/d Stand 9 (Vertikal dari atas ke bawah):**<br>1. LIDAH BUAYA GROUP<br>2. DEWAVE FAMILY MASSAGE & BEAUTY SALON<br>3. LPK TERATAI GOGAKUIN<br>4. HK GOLD<br>5. PT MIDI UTAMA INDONESIA (ALFAMIDI)<br>6. PT CLAY JAYA BERSAMA (BIG)<br>7. PT GISARA TANTRA BERKARYA<br>8. PT ANUGERAH ABADI MAGELANG<br>9. LPK ATARA |
+| **Area Bawah Sisi Kiri (Barat Daya)** | Gabungan zona C | **Stand 10, Stand 11, Stand 12 (Horizontal):**<br>10. PT KSA XL SMART<br>11. STAFFINC<br>12. PT SHETLER INDONESIA<br>+ Tempat Sampah di pojok |
+| **Pintu Masuk & Meja Registrasi (Tengah Bawah)** | Meja scanner generik | **PINTU MASUK UTAMA** (panah masuk ⬇️) diapit **Meja Registrasi & Scanner QR Panitia** serta meja **Stand KWU (Kewirausahaan Siswa Skanisa)** di sisi kiri dan kanan |
+| **Area Bawah Sisi Kanan (Tenggara)** | Gabungan zona D | **Stand 13, Stand 14, Stand 15 (Horizontal):**<br>13. PT MEKAR ARMADA JAYA<br>14. BMC DHARMADITNA YOGYAKARTA<br>15. LPK PLATINUM MAGELANG |
+| **Sayap Kanan (Timur)** | Stand B1 - B6, Stand D1 - D5 | **Stand 16 s/d Stand 23 (Vertikal):**<br>16. PUTRA TEKNIK AC<br>17. PT UNILOA ARDIYANTO INVESTAMA<br>18. SINDORO HOTEL COLLEGE MAGELANG<br>19. PT PERMODALAN NASIONAL MADANI<br>20. CV Karya Hidup Sentosa (Quick)<br>21. LPK CAPTAIN'S CLUB YOGYAKARTA<br>22. PT. INDOMARCO PRISMATAMA<br>23. PT. CANDI BANGUN PERSADA |
+| **Pintu Keluar** | Jalur keluar umum | **PINTU KELUAR RESMI** (panah keluar ⬇️) di pojok tenggara sebelah Stand 16 + Tempat Sampah |
+| **Panggung Utama & Kursi VIP** | Header teks sederhana | Panggung Utama megah dilengkapi backdrop screen resmi expo, kipas angin kiri-kanan, dan 2 blok **Kursi VIP** |
+| **Area Tengah Hall** | Lorong polos | 2 blok besar **Area Peserta (Tempat Duduk & Antrean)** dengan lorong sentral kunjungan booth |
+| **Pratinjau Gambar Asli (Lightbox Modal)** | Belum ada | Menambahkan tombol **"Lihat Gambar Denah Asli"** yang memunculkan modal resolusi tinggi dari file `/denah-resmi.jpg` serta tautan buka di tab baru. |
+| **Backward-Compatibility Kredensial Stand** | - | Akun stand booth dapat login menggunakan nomor baru (`Stand 1`), nomor lama (`Stand D2`), username alias, maupun email resmi tanpa kendala. |
+
+---
+
 *Disusun dan diperbarui secara otomatis untuk Panitia Penyelenggara Bhumi Sambhara Expo & Jobfair 2026 (K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang).*

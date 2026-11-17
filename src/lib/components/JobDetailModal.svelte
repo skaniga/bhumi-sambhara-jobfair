@@ -75,8 +75,8 @@
       <div class="modal-body">
         <div class="meta-pills">
           <div class="pill">
-            <span class="pill-label">Pendidikan</span>
-            <span class="pill-value">{vacancy.pendidikan}</span>
+            <span class="pill-label">Formasi / Pendidikan</span>
+            <span class="pill-value">{vacancy.pendidikan || 'Umum (Semua Jurusan)'}</span>
           </div>
           <div class="pill">
             <span class="pill-label">Tipe Kerja</span>
@@ -88,7 +88,7 @@
           </div>
           <div class="pill">
             <span class="pill-label">Estimasi Gaji</span>
-            <span class="pill-value">{vacancy.gaji}</span>
+            <span class="pill-value">{vacancy.gaji || 'Ditanyakan pada saat wawancara'}</span>
           </div>
         </div>
 

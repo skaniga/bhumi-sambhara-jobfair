@@ -96,18 +96,13 @@ testCase('KATALOG', 'Total kuota lowongan akumulatif mencapai 2.667 orang', () =
   assert.equal(totalKuota, 2667, `Kuota aktual (${totalKuota}) harus tepat 2.667 sesuai data excel`);
 });
 
-testCase('KATALOG', 'Semua nomor stand teralokasi lengkap (Stand A1 s/d D5)', () => {
+testCase('KATALOG', 'Semua nomor stand teralokasi lengkap (Stand 1 s/d Stand 23)', () => {
   const inds = get(industries);
   const standSet = new Set(inds.map(i => i.nomor_stand));
   
-  // Zona A: A1 - A6
-  for (let i = 1; i <= 6; i++) assert.ok(standSet.has(`Stand A${i}`), `Harus ada Stand A${i}`);
-  // Zona B: B1 - B6
-  for (let i = 1; i <= 6; i++) assert.ok(standSet.has(`Stand B${i}`), `Harus ada Stand B${i}`);
-  // Zona C: C1 - C6
-  for (let i = 1; i <= 6; i++) assert.ok(standSet.has(`Stand C${i}`), `Harus ada Stand C${i}`);
-  // Zona D: D1 - D5
-  for (let i = 1; i <= 5; i++) assert.ok(standSet.has(`Stand D${i}`), `Harus ada Stand D${i}`);
+  for (let i = 1; i <= 23; i++) {
+    assert.ok(standSet.has(`Stand ${i}`), `Harus ada Stand ${i}`);
+  }
 });
 
 // -------------------------------------------------------------
@@ -319,8 +314,8 @@ await testCaseAsync('STAND', 'HRD DeWave memajukan status pelamar: Wawancara -> 
 // -------------------------------------------------------------
 console.log('\n📌 6. PANEL ADMIN & REKAPITULASI ANALITIK');
 
-testCase('ADMIN', 'Matriks 23 Stand Admin mencatat status pelamar di Stand A2 secara akurat', () => {
-  const dewaveInd = get(industries).find(i => i.nomor_stand === 'Stand A2');
+testCase('ADMIN', 'Matriks 23 Stand Admin mencatat status pelamar di Stand 2 secara akurat', () => {
+  const dewaveInd = get(industries).find(i => i.nomor_stand === 'Stand 2' || i.nomor_stand === 'Stand A2');
   assert.ok(dewaveInd);
   
   const vacIds = get(vacancies).filter(v => v.industry_id === dewaveInd.id).map(v => v.id);
@@ -341,20 +336,17 @@ testCase('ADMIN', 'Rekapitulasi total pelamar, lamaran, dan status selesai tanpa
 // -------------------------------------------------------------
 console.log('\n📌 7. DENAH LANTAI GRAHA KRIDA WIYATA');
 
-testCase('DENAH', 'Struktur 4 Zona sesuai layout Graha Krida Wiyata', () => {
-  assert.equal(ZONES.length, 4);
-  const [za, zb, zc, zd] = ZONES;
-  
-  assert.equal(za.id, 'A');
-  assert.equal(za.stands.length, 6, 'Zona A harus 6 stand (A1 - A6)');
-  assert.equal(zb.id, 'B');
-  assert.equal(zb.stands.length, 6, 'Zona B harus 6 stand (B1 - B6)');
-  assert.equal(zc.id, 'C');
-  assert.equal(zc.stands.length, 6, 'Zona C harus 6 stand (C1 - C6)');
-  assert.equal(zd.id, 'D');
-  assert.equal(zd.stands.length, 5, 'Zona D harus 5 stand (D1 - D5)');
-  
-  const totalMapped = za.stands.length + zb.stands.length + zc.stands.length + zd.stands.length;
+testCase('DENAH', 'Struktur 3 Area sesuai Denah Fix Graha Krida Wiyata', () => {
+  const leftWing = ['Stand 1', 'Stand 2', 'Stand 3', 'Stand 4', 'Stand 5', 'Stand 6', 'Stand 7', 'Stand 8', 'Stand 9'];
+  const bottomLeft = ['Stand 10', 'Stand 11', 'Stand 12'];
+  const bottomRight = ['Stand 13', 'Stand 14', 'Stand 15'];
+  const rightWing = ['Stand 23', 'Stand 22', 'Stand 21', 'Stand 20', 'Stand 19', 'Stand 18', 'Stand 17', 'Stand 16'];
+
+  assert.equal(leftWing.length, 9, 'Sayap kiri harus 9 stand');
+  assert.equal(bottomLeft.length + bottomRight.length, 6, 'Area selatan/bawah harus 6 stand');
+  assert.equal(rightWing.length, 8, 'Sayap kanan harus 8 stand');
+
+  const totalMapped = leftWing.length + bottomLeft.length + bottomRight.length + rightWing.length;
   assert.equal(totalMapped, 23, 'Total stand terpetakan di denah harus tepat 23');
 });
 

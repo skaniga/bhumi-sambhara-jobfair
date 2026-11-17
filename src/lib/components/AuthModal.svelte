@@ -20,7 +20,9 @@
   let successMessage = '';
   let loading = false;
 
-  $: if (initialMode && authMode !== initialMode && !email && !password) {
+  let prevInitialMode = initialMode;
+  $: if (initialMode !== prevInitialMode) {
+    prevInitialMode = initialMode;
     authMode = initialMode;
   }
 
@@ -338,15 +340,19 @@
   .forgot-link-inline {
     background: none;
     border: none;
-    padding: 0;
-    font-size: 0.75rem;
+    padding: 6px 4px;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--color-amber-accent);
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
 
-  .forgot-link-inline:hover {
+  .forgot-link-inline:hover, .forgot-link-inline:active {
     text-decoration: underline;
+    opacity: 0.85;
   }
 
   .forgot-notice {
@@ -375,14 +381,18 @@
     background: none;
     border: none;
     color: var(--color-primary);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 4px 0;
+    padding: 8px 4px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
 
-  .btn-back-link:hover {
+  .btn-back-link:hover, .btn-back-link:active {
     text-decoration: underline;
+    opacity: 0.85;
   }
 
   .toggle-mode-row {
@@ -392,20 +402,28 @@
     margin-top: 14px;
     padding-top: 12px;
     border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .toggle-link {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 700;
     color: var(--color-amber-accent);
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: background-color 0.15s ease;
   }
 
-  .toggle-link:hover {
+  .toggle-link:hover, .toggle-link:active {
     text-decoration: underline;
+    background-color: var(--color-surface-subtle);
   }
 
   .alert-box {
