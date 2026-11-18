@@ -100,16 +100,22 @@ Pencari kerja (siswa, alumni, atau umum) dapat mendaftar mandiri secara instan m
    - Setiap dari 23 perusahaan dilengkapi logo asli dari portal dan web resmi masing-masing perusahaan (Quick Traktor, DeWave, HK Gold, Captain's Club, Teratai Gogakuin, XL Axiata, PNM, Alfamidi, Shelter Indonesia, New Armada, Indomaret, Lidah Buaya Group, Staffinc, dsb.).
    - Logo dienkapsulasi ke dalam SVG mandiri sehingga bebas kendala CORS, memuat instan, dan tajam di layar beresolusi tinggi.
 
-3. **Denah 4 Zona Hall Expo (Graha Krida Wiyata)**
-   - **Zona A**: Manufaktur, Jasa & Pelatihan Vokasi (Stand A1 s/d A6).
-   - **Zona B**: Penyalur Global, Garmen, Telekomunikasi, Keuangan & Ritel (Stand B1 s/d B6).
-   - **Zona C**: Alih Daya/BPO, Bahan Bangunan, Karoseri, Perhotelan, Properti & Alat Berat (Stand C1 s/d C6).
-   - **Zona D**: Ritel Modern, Manufaktur Toiletries, Layanan HVACR & Solusi SDM (Stand D1 s/d D5).
+3. **Denah Resmi Terkalibrasi (Graha Krida Wiyata - Stand 1 s/d Stand 23)**
+   - **Panggung Utama Realistis (Mainstage)**: Menampilkan rigging truss aluminium, lampu panggung, video wall LED yang memuat pamflet resmi expo, menara sound line-array, dan tangga panggung.
+   - **Sayap Barat (Kiri)**: Stand 1 s/d Stand 9 (Lidah Buaya, DeWave, Teratai, HK Gold, Alfamidi, Clay Jaya, Gisara, Anugerah Abadi, LPK Atara).
+   - **Area Selatan (Bawah)**: Stand 10 s/d Stand 12, Pintu Masuk Lorong Hall (↖️ ↗️), Stand 13 s/d Stand 15, dan Jalur Keluar (⬇️).
+   - **Area Foyer Depan**: Jejeran Meja Stand KWU Siswa, Meja Registrasi & Scanner QR Presensi, Pintu Gerbang Masuk Peserta (⬆️), Pintu Keluar, dan Tempat Sampah di kedua sudut.
+   - **Sayap Timur (Kanan)**: Stand 16 s/d Stand 23 (Putra Teknik, Uniloa, Sindoro, PNM, Quick, Captain's Club, Indomaret, Candi Bangun Persada).
 
 4. **Navigasi Mobile Ergonomis (Bottom Bar)**
    - Akses navigasi jempol bawah untuk pengunjung expo di smartphone dengan tombol tengah mengambang (*Center Floating Action Button*).
 
-5. **Uji Mutu Senior QA (Automated Test Suite)**
+5. **Ekspor Data Workbook Excel (.xlsx) Multi-Sheet & Unggah Logo Kustom**
+   - Dukungan unduh laporan komprehensif 4 sheet Microsoft Excel (.xlsx) langsung dari browser untuk Admin dan Rekruter Stand.
+   - Fitur unggah logo kustom perusahaan secara instan tersinkronisasi ke PostgreSQL Supabase dan tampil langsung di peta denah, direktori, dan kartu lowongan.
+   - Dukungan pelamar melamar ke banyak mitra industri sekaligus (*Multi-Company Apply*) untuk posisi Lowongan Kerja (Umum).
+
+6. **Uji Mutu Senior QA (Automated Test Suite)**
    - 27 skenario pengujian komprehensif lolos **100% PASS** mencakup integritas kuota, validitas parser SVG, keamanan multi-role, isolasi data stand, dan pipeline seleksi kandidat.
 
 ---

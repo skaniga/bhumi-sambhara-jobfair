@@ -95,6 +95,16 @@ Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukk
 4. **Membuka Lowongan Baru**: Klik tombol **+ Tambah Lowongan Baru** di kanan atas untuk mempublikasikan posisi lowongan tambahan secara langsung.
 5. **Menutup / Menghapus Lowongan**: Klik tombol **Hapus / Tutup** pada kartu lowongan jika kuota telah terpenuhi atau posisi sudah ditutup.
 
-### 6. Lupa Kata Sandi Akun Stand
+### 6. Mengubah Logo Perusahaan & Informasi Profil Stand
+1. Pada header Dashboard Stand, klik tombol **Edit Stand**.
+2. **Unggah Logo Baru**: Klik tombol **Ganti Logo** untuk memilih file gambar logo perusahaan (format PNG, JPG, atau SVG). Logo baru akan langsung tersimpan ke Supabase dan otomatis tampil di kartu direktori, denah lantai expo, dan daftar lowongan.
+3. **Ubah PIC & Kontak WhatsApp**: Masukkan nama PIC rekruter dan nomor WhatsApp aktif agar panitia dan pelamar dapat menghubungi Anda dengan cepat.
+4. **Alamat Kantor & Deskripsi**: Sesuaikan alamat resmi dan profil singkat perusahaan, lalu klik **Simpan Profil Stand**.
+
+### 7. Ekspor Data Pelamar Stand ke Format Excel (.xlsx)
+1. Di tab **Daftar Pelamar Stand**, klik tombol hijau **Ekspor Excel (.xlsx)**.
+2. File spreadsheet resmi Microsoft Excel akan otomatis diunduh, memuat daftar nama pelamar, NIK, nomor WhatsApp, email, asal sekolah/kampus, link CV digital, status wawancara, dan tanggal verifikasi fisik di stand Anda.
+
+### 8. Lupa Kata Sandi Akun Stand
 * Jika perwakilan stand lupa kata sandi, klik tautan **Lupa kata sandi?** pada modal login.
 * Masukkan username stand (contoh: `HkGoldStandA3` atau `A3`). Sistem akan mengonfirmasi identitas stand dan mengarahkan kembali ke kata sandi resmi pada Buku Panduan ini atau meja sekretariat Panitia BKK / UNTIDAR di Graha Krida Wiyata.

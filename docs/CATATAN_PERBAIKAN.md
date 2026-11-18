@@ -210,4 +210,43 @@
 
 ---
 
+---
+
+## 16. Fitur Pengunggahan Logo Kustom & Sinkronisasi Visual Menyeluruh
+
+| Komponen / Masalah | Analisis Masalah | Solusi & Hasil Perbaikan | Status |
+| :--- | :--- | :--- | :---: |
+| **Ganti Logo Perusahaan di Web Tidak Berubah** | Logo di direktori kartu, denah floor plan, dan tabel admin sebelumnya di-hardcode ke `/companies/${id}.svg` sehingga ketika perusahaan mengunggah gambar logo baru di dashboard stand, tampilan web tetap menampilkan SVG lama. | 1. Memperbarui seluruh komponen UI (`IndustryDirectory.svelte`, `DenahFloorPlan.svelte`, dan `AdminDashboard.svelte`) untuk memprioritaskan properti dinamis: `ind.logo_url || '/companies/' + ind.id + '.svg?v=3'`.<br>2. Menambahkan file reader Base64 dan input file gambar di `CompanyDashboard.svelte` yang langsung menyimpan URL data gambar ke Supabase tabel `industries.logo_url`.<br>3. Kini ketika perusahaan (misalnya *Putra Teknik AC* atau *PT Clay Jaya Bersama*) mengunggah logo resmi baru mereka, logo langsung tampil secara konsisten di kartu lowongan, direktori industri, denah stand, maupun dashboard admin. | **SELESAI** |
+| **Penyimpanan Alamat & Email Perusahaan pada Supabase (`PGRST204`)** | Ketika mengedit profil stand, sistem mengirim field `email` dan `alamat`, namun kolom di tabel remote PostgreSQL Supabase bernama `email_resmi` dan `alamat_kantor`. | Memetakan dan mem-whitelist atribut di `src/lib/supabase.js`: `email -> email_resmi` dan `alamat -> alamat_kantor`. Perubahan nama PIC, kontak telepon, dan alamat kini tersimpan permanen dan tidak ter-reset ke default saat sinkronisasi data. | **SELESAI** |
+
+---
+
+## 17. Dukungan Pelamar Melamar ke Banyak Perusahaan & Pembersihan Lowongan Remote
+
+| Fitur / Permintaan | Status Sebelum | Solusi & Implementasi Sistem | Status |
+| :--- | :--- | :--- | :---: |
+| **Pelamar Melamar Lebih dari 1 Perusahaan** | Karena semua 23 posisi diseragamkan dengan nama "Lowongan Kerja (Umum)", validasi unik sebelumnya mencegah pelamar melamar posisi berjudul sama di perusahaan lain. | 1. Memperbaiki aturan validasi di `applyJob()`: Validasi kini memeriksa kombinasi `applicant_id + industry_id`.<br>2. Pelamar diperbolehkan melamar ke **banyak perusahaan sekaligus** (misal: melamar ke Quick, Alfamidi, Indomaret, dsb.) dengan posisi "Lowongan Kerja (Umum)".<br>3. Proteksi tetap aktif untuk mencegah pelamar melamar dua kali ke perusahaan yang sama. | **SELESAI** |
+| **Pembersihan Sisa Lowongan Duplikat di Supabase** | Beberapa stand (Stand 11 Staffinc, Stand 16 Putra Teknik, Stand 10 XL Smart) masih menyimpan riwayat lowongan spesifik lama di tabel remote Supabase. | 1. Melakukan migrasi database: Menghubungkan seluruh 38 lamaran pelamar aktif ke lowongan umum masing-masing stand sehingga tidak ada berkas lamaran yang hilang.<br>2. Menghapus 11 baris sisa lowongan spesifik lama.<br>3. Database kini berisi tepat **23 baris lowongan umum terpadu** (1 per stand) berstatus aktif. | **SELESAI** |
+| **Dashboard Stand: Lamaran Pelamar Baru Muncul Otomatis** | Setelah pelamar mendaftar, HRD perusahaan seperti Lidah Buaya dan Putra Teknik terkadang harus me-refresh halaman berulang kali agar lamaran masuk. | Menambahkan pemicu sinkronisasi otomatis `onMount(syncFromSupabase)` di `CompanyDashboard.svelte` dan pembaruan data real-time saat login user berganti. Seluruh lamaran masuk terdeteksi seketika di dashboard HRD. | **SELESAI** |
+
+---
+
+## 18. Ekspansi Alias Kredensial Login Stand (Bebas Salah Ketik)
+
+| Kredensial Stand | Permasalahan Login | Perbaikan yang Diterapkan | Status |
+| :--- | :--- | :--- | :---: |
+| **Login PT Alfamidi & LPK Akatara Masuk ke Akun Lain** | Input user seperti `"Pt alfamidi"` atau `"Lpk akatara"` tidak cocok dengan username camelCase standar (`AlfamidiStandB6` / `AtaraStandA4`), sehingga terlempar ke fallback stand pertama (Quick). | 1. Memperluas pemetaan alias kredensial pada `OFFICIAL_STAND_CREDENTIALS` (`src/lib/constants.js`) untuk mencakup variasi nama perusahaan lengkap dengan prefiks `PT`, `LPK`, `CV`, huruf kecil, spasi, maupun saltasi ejaan:<br>&nbsp;&nbsp;• `'pt alfamidi'`, `'alfamidi'`, `'pt midi utama indonesia'` -> Stand 5 (Stand B6)<br>&nbsp;&nbsp;• `'lpk akatara'`, `'akatara'`, `'lpk atara'`, `'atara'` -> Stand 9 (Stand A4)<br>&nbsp;&nbsp;• `'putra teknik'`, `'putra teknik ac'` -> Stand 16 (Stand D3)<br>&nbsp;&nbsp;• `'lidah buaya'`, `'lidah buaya group'` -> Stand 1 (Stand D2)<br>2. Menaikkan versi cache `STORAGE_VERSION` ke `v6` agar seluruh browser memuat dictionary alias baru tanpa tersangkut cache lama. | **SELESAI** |
+
+---
+
+## 19. Desain Panggung Utama Megah (Realistic Stage) & Kalibrasi Area Foyer Bawah Sesuai Denah Asli
+
+| Elemen Peta Denah | Bentuk Sebelumnya | Desain Baru Terkalibrasi Sesuai Denah Resmi (*Denah Fix.jfif*) | Status |
+| :--- | :--- | :--- | :---: |
+| **Panggung Utama (Paling Atas)** | Kotak teks hitam 1 baris sederhana | **Desain Panggung Expo Realistis (Live Event Mainstage)**:<br>1. **Rigging Truss & Lighting Bar**: Rangka aluminium rigging panggung atas dengan lampu sorot panggung (`💡 Spot`).<br>2. **Layar LED Video Wall Raksasa**: Menampilkan **Pamflet Resmi Acara Bhumi Sambhara Expo & Jobfair 2026** resolusi tinggi dengan efek bezel LED dan visual overlay metadata acara.<br>3. **Audio Line-Array Flank Towers**: Menara speaker audio line-array profesional kiri dan kanan lengkap dengan grill subwoofer dan blower pendingin panggung.<br>4. **Stage Apron & Platform Deck**: Panggung kayu dengan tangga akses di sisi barat dan timur (*tangga kiri & tangga kanan*). | **SELESAI** |
+| **Area Hall Bawah: Baris Stand 10 s/d 15 & Pintu** | Kolom 3 kotak yang menumpuk tidak sesuai layout asli | **Baris Lorong Selatan (Upper Hall Row)**:<br>• **Sisi Kiri**: Stand 10 (XL Smart), Stand 11 (Staffinc), Stand 12 (Shetler Indonesia).<br>• **Pintu Masuk Lorong Hall**: Jalur pintu "MASUK" di tengah dengan dua panah melengkung (↖️ ↗️) menuju koridor utama.<br>• **Sisi Kanan**: Stand 13 (Mekar Armada Jaya), Stand 14 (BMC Dharmaditna), Stand 15 (Platinum Magelang).<br>• **Jalur Keluar**: Jalur "KELUAR" dengan panah tegak lurus ke bawah (⬇️). | **SELESAI** |
+| **Area Foyer Depan (Lower Foyer Strip)** | Gabungan tidak teratur | **Area Foyer Depan (Persis Sketsa Dokumen Final)**:<br>• **Sayap Kiri Foyer**: Tempat Sampah hijau (`🗑️`) di pojok barat daya + Jejeran meja bertaplak motif **Stand KWU Siswa** (`🪑 🪑 🪑 🪑 🪑`) + **Meja Registrasi & Scanner QR** (`🪑📋`) persis di sebelah kiri pintu masuk.<br>• **Pintu Gerbang Utama Masuk**: **PINTU MASUK PESERTA** (`⬆️`) menyambut kedatangan jobseekers dari luar gedung.<br>• **Sayap Kanan Foyer**: Jejeran meja **Stand KWU Siswa** + **Pintu Keluar** (`⬇️`) + Tempat Sampah hijau (`🗑️`) di pojok tenggara. | **SELESAI** |
+
+---
+
 *Disusun dan diperbarui secara otomatis untuk Panitia Penyelenggara Bhumi Sambhara Expo & Jobfair 2026 (K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang).*

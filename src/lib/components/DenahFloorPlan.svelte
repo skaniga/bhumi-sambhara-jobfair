@@ -83,20 +83,64 @@
 
   <!-- Floor Map Visual Arena -->
   <div class="card floor-stage-card">
-    <!-- PANGGUNG UTAMA & VIP SEATS (TOP) -->
-    <div class="stage-section">
-      <div class="kipas-box left-fan">
-        <span>🌀 Kipas Angin</span>
+    <!-- PANGGUNG UTAMA & VIP SEATS (TOP) - REALISTIC EXPO STAGE -->
+    <div class="stage-section stage-realistic">
+      <div class="stage-wing-tower left-tower">
+        <div class="tower-speaker">
+          <span class="speaker-label">🔊 Line Array</span>
+          <div class="speaker-grill"></div>
+        </div>
+        <div class="kipas-box left-fan">
+          <span>🌀 Kipas Angin</span>
+        </div>
       </div>
 
-      <div class="panggung-utama">
-        <span class="stage-tag">BHUMI SAMBHARA EXPO &amp; JOBFAIR 2026</span>
-        <h3 class="stage-title">PANGGUNG UTAMA &amp; SCREEN RESMI</h3>
-        <span class="text-xs stage-loc">Graha Krida Wiyata SMK Negeri 1 Magelang</span>
+      <div class="panggung-utama-real">
+        <!-- Stage Rigging Truss with Spotlights -->
+        <div class="stage-truss-bar">
+          <div class="truss-lights">
+            <span class="truss-light">💡 Spot</span>
+            <span class="truss-light">💡 Spot</span>
+          </div>
+          <span class="truss-title">⚡ RIGGING &amp; LIGHTING PANGGUNG EXPO 2026</span>
+          <div class="truss-lights">
+            <span class="truss-light">💡 Spot</span>
+            <span class="truss-light">💡 Spot</span>
+          </div>
+        </div>
+
+        <!-- Stage LED Screen with Official Event Flyer -->
+        <div class="stage-led-screen">
+          <img src="/pamflet-jobfair-2026.jpg" alt="Pamflet Resmi Bhumi Sambhara Expo 2026" class="stage-flyer-img" />
+          <div class="stage-screen-overlay">
+            <div class="screen-badge-top">
+              <span class="stage-tag">BHUMI SAMBHARA EXPO &amp; JOBFAIR 2026</span>
+            </div>
+            <div class="screen-meta-bottom">
+              <h3 class="stage-title">PANGGUNG UTAMA &amp; SCREEN RESMI</h3>
+              <span class="stage-loc">Graha Krida Wiyata SMK Negeri 1 Magelang • K1 Pariwisata UNTIDAR × SKANISA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage Platform Deck / Apron -->
+        <div class="stage-platform-deck">
+          <div class="stage-step left-step"> tangga </div>
+          <div class="stage-apron-center">
+            <span class="stage-apron-text">🏛️ PANGGUNG UTAMA EXPO • GRAHA KRIDA WIYATA</span>
+          </div>
+          <div class="stage-step right-step"> tangga </div>
+        </div>
       </div>
 
-      <div class="kipas-box right-fan">
-        <span>🌀 Kipas Angin</span>
+      <div class="stage-wing-tower right-tower">
+        <div class="tower-speaker">
+          <span class="speaker-label">🔊 Line Array</span>
+          <div class="speaker-grill"></div>
+        </div>
+        <div class="kipas-box right-fan">
+          <span>🌀 Kipas Angin</span>
+        </div>
       </div>
     </div>
 
@@ -209,15 +253,16 @@
       {/if}
     </div>
 
-    <!-- BOTTOM SECTION: STAND 10-12, ENTRANCE & REGISTRATION, STAND 13-15, EXIT -->
+    <!-- BOTTOM SECTION: EXACT LAYOUT ACCORDING TO OFFICIAL DENAH FIX SKETCH -->
     {#if activeZone === 'all' || activeZone === 'bottom'}
       <div class="bottom-arena-wrap">
         <div class="bottom-header">
-          <span class="wing-title">AREA SELATAN (BAWAH) • PINTU MASUK, REGISTRASI &amp; BOOTH 10 s/d 15</span>
+          <span class="wing-title">AREA SELATAN (BAWAH) • PINTU MASUK, REGISTRASI, STAND KWU &amp; BOOTH 10 s/d 15</span>
         </div>
 
-        <div class="bottom-three-col">
-          <!-- Stand 10, 11, 12 + Trash Can -->
+        <!-- Upper Row: Stand 10-12 | PINTU MASUK ↖️ ↗️ | Stand 13-15 | PINTU KELUAR ⬇️ -->
+        <div class="bottom-hall-row">
+          <!-- Stand 10, 11, 12 Block (West of Entrance) -->
           <div class="bottom-cluster left-bottom-cluster">
             <div class="cluster-sub-title">SISI BARAT DAYA (STAND 10 - 12)</div>
             <div class="booth-row-grid">
@@ -242,45 +287,21 @@
                 </div>
               {/each}
             </div>
-            <div class="trash-indicator">
-              <span>🗑️ Tempat Sampah</span>
+          </div>
+
+          <!-- Central Entrance Passageway ("Masuk" with arrows ↖️ ↗️ into Hall) -->
+          <div class="center-masuk-portal">
+            <div class="masuk-arrows-row">
+              <span class="masuk-arrow">↖️</span>
+              <span class="masuk-arrow">↗️</span>
+            </div>
+            <div class="masuk-label-badge">
+              <span class="masuk-title">MASUK</span>
+              <span class="masuk-sub">Akses Masuk ke Hall</span>
             </div>
           </div>
 
-          <!-- Center: KWU, Registration Desk, Entrance -->
-          <div class="bottom-center-cluster">
-            <div class="kwu-row">
-              <div class="kwu-stand">
-                <span class="kwu-tag">STAND KWU</span>
-                <span class="kwu-desc">Kewirausahaan Siswa</span>
-              </div>
-              <div class="kwu-stand">
-                <span class="kwu-tag">STAND KWU</span>
-                <span class="kwu-desc">Kewirausahaan Siswa</span>
-              </div>
-            </div>
-
-            <!-- Meja Registrasi -->
-            <div class="registration-desk">
-              <CheckCircle size={18} class="reg-icon" />
-              <div class="reg-text">
-                <span class="reg-title">MEJA REGISTRASI &amp; SCANNER QR</span>
-                <span class="reg-sub">Panitia BKK &amp; Mahasiswa UNTIDAR</span>
-              </div>
-            </div>
-
-            <!-- Pintu Masuk -->
-            <div class="entrance-gate">
-              <ArrowDown size={18} class="gate-icon in" />
-              <div class="gate-info">
-                <span class="gate-title">PINTU MASUK PESERTA</span>
-                <span class="gate-sub">Jalur Masuk Expo Graha Krida Wiyata</span>
-              </div>
-              <ArrowDown size={18} class="gate-icon in" />
-            </div>
-          </div>
-
-          <!-- Stand 13, 14, 15 + Exit Gate + Trash Can -->
+          <!-- Stand 13, 14, 15 Block (East of Entrance) -->
           <div class="bottom-cluster right-bottom-cluster">
             <div class="cluster-sub-title">SISI TENGGARA (STAND 13 - 15)</div>
             <div class="booth-row-grid">
@@ -305,19 +326,72 @@
                 </div>
               {/each}
             </div>
+          </div>
 
-            <!-- Pintu Keluar & Trash -->
-            <div class="exit-gate-wrap">
-              <div class="exit-gate">
-                <ArrowDown size={18} class="gate-icon out" />
-                <div class="gate-info">
-                  <span class="gate-title out-title">PINTU KELUAR</span>
-                  <span class="gate-sub">Jalur Keluar Peserta</span>
-                </div>
+          <!-- Exit Passageway ("Keluar" with arrow ⬇️) -->
+          <div class="right-keluar-portal">
+            <div class="keluar-arrow-row">
+              <ArrowDown size={24} class="gate-icon out" />
+            </div>
+            <div class="keluar-label-badge">
+              <span class="keluar-title">KELUAR</span>
+              <span class="keluar-sub">Jalur Keluar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Row: Foyer Front (Stand KWU, Meja Registrasi, Pintu Masuk, Stand KWU, Pintu Keluar, Tempat Sampah) -->
+        <div class="bottom-foyer-strip">
+          <!-- Left Section: Trash Can + Stand KWU + Meja Registrasi -->
+          <div class="foyer-block-left">
+            <div class="trash-box">
+              <span class="trash-emoji">🗑️</span>
+              <span class="trash-text">Tempat Sampah</span>
+            </div>
+
+            <div class="kwu-tables-deck">
+              <div class="table-sprites">🪑 🪑 🪑 🪑 🪑</div>
+              <span class="kwu-label">Stand KWU</span>
+            </div>
+
+            <!-- Meja Registrasi (Immediately Left of Masuk Entrance) -->
+            <div class="meja-registrasi-booth">
+              <div class="reg-table-graphic">🪑📋</div>
+              <div class="reg-info">
+                <span class="reg-main-title">Meja Registrasi</span>
+                <span class="reg-sub-title">Scanner QR &amp; Presensi</span>
               </div>
-              <div class="trash-indicator">
-                <span>🗑️ Tempat Sampah</span>
+            </div>
+          </div>
+
+          <!-- Center Entrance Doorway from Outside -->
+          <div class="foyer-gate-portal">
+            <div class="gate-sign-box">
+              <span class="gate-arrow-up">⬆️</span>
+              <div class="gate-text-col">
+                <span class="gate-headline">PINTU MASUK PESERTA</span>
+                <span class="gate-caption">Pintu Gerbang Graha Krida Wiyata</span>
               </div>
+              <span class="gate-arrow-up">⬆️</span>
+            </div>
+          </div>
+
+          <!-- Right Section: Stand KWU + Exit Door + Trash Can -->
+          <div class="foyer-block-right">
+            <div class="kwu-tables-deck">
+              <div class="table-sprites">🪑 🪑 🪑 🪑 🪑</div>
+              <span class="kwu-label">Stand KWU</span>
+            </div>
+
+            <!-- Pintu Keluar Doorway -->
+            <div class="exit-door-box">
+              <ArrowDown size={18} class="gate-icon out" />
+              <span class="exit-door-label">Pintu Keluar</span>
+            </div>
+
+            <div class="trash-box">
+              <span class="trash-emoji">🗑️</span>
+              <span class="trash-text">Tempat Sampah</span>
             </div>
           </div>
         </div>
@@ -504,50 +578,211 @@
     border-radius: var(--radius-lg);
   }
 
-  /* Stage Section */
-  .stage-section {
+  /* Realistic Stage Section */
+  .stage-section.stage-realistic {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: stretch;
+    justify-content: center;
     gap: 16px;
   }
 
-  .kipas-box {
-    background-color: #E2E8F0;
-    color: #475569;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 8px 14px;
+  .stage-wing-tower {
+    width: 110px;
+    background-color: #1E293B;
+    border: 2px solid #334155;
     border-radius: var(--radius-md);
-    border: 1px dashed #94A3B8;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
   }
 
-  .panggung-utama {
-    flex: 1;
-    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-    color: #FFFFFF;
+  .tower-speaker {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .speaker-label {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: #F8FAFC;
+    letter-spacing: 0.04em;
+  }
+
+  .speaker-grill {
+    height: 90px;
+    width: 100%;
+    background: repeating-linear-gradient(0deg, #0F172A, #0F172A 3px, #334155 3px, #334155 6px);
+    border-radius: 4px;
+    border: 1px solid #475569;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  .stage-wing-tower .kipas-box {
+    background-color: #0F172A;
+    color: #94A3B8;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 6px 4px;
+    border-radius: 4px;
+    border: 1px dashed #475569;
     text-align: center;
-    padding: 16px 20px;
-    border-radius: var(--radius-md);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-    border-bottom: 4px solid #D97706;
+    width: 100%;
+  }
+
+  .panggung-utama-real {
+    flex: 1;
+    max-width: 820px;
+    background: #0B1120;
+    border: 2px solid #1E293B;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+  }
+
+  .stage-truss-bar {
+    background: linear-gradient(90deg, #1E293B 0%, #334155 50%, #1E293B 100%);
+    padding: 6px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #D97706;
+    color: #F1F5F9;
+  }
+
+  .truss-title {
+    font-size: 0.6875rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #FCD34D;
+  }
+
+  .truss-lights {
+    display: flex;
+    gap: 8px;
+  }
+
+  .truss-light {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: #FEF08A;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .stage-led-screen {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background-color: #020617;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stage-flyer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: brightness(0.95) contrast(1.05);
+    transition: transform 0.3s ease;
+  }
+
+  .stage-led-screen:hover .stage-flyer-img {
+    transform: scale(1.02);
+  }
+
+  .stage-screen-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, transparent 45%, rgba(15, 23, 42, 0.88) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px 16px;
+    pointer-events: none;
+  }
+
+  .screen-badge-top {
+    display: flex;
+    justify-content: center;
   }
 
   .stage-tag {
-    font-size: 0.75rem;
-    font-weight: 800;
+    font-size: 0.6875rem;
+    font-weight: 900;
     letter-spacing: 0.08em;
-    color: #F59E0B;
+    color: #FFFFFF;
+    background: rgba(217, 119, 6, 0.9);
+    padding: 3px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .screen-meta-bottom {
+    text-align: center;
   }
 
   .stage-title {
     font-size: 1.125rem;
-    font-weight: 800;
-    margin: 4px 0;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 0.04em;
+    margin: 0 0 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   }
 
   .stage-loc {
-    color: #94A3B8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #CBD5E1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .stage-platform-deck {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(180deg, #78350F 0%, #451A03 100%);
+    border-top: 3px solid #D97706;
+    padding: 6px 12px;
+    color: #FEF3C7;
+  }
+
+  .stage-step {
+    background: #292524;
+    color: #D6D3D1;
+    font-size: 0.625rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid #78716C;
+    letter-spacing: 0.05em;
+  }
+
+  .stage-apron-center {
+    flex: 1;
+    text-align: center;
+  }
+
+  .stage-apron-text {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #FDE68A;
+    letter-spacing: 0.05em;
   }
 
   /* VIP Zone */
@@ -783,28 +1018,33 @@
     text-align: center;
   }
 
-  .bottom-three-col {
+  /* Bottom Hall Row: 10-12 | Masuk | 13-15 | Keluar */
+  .bottom-hall-row {
     display: grid;
-    grid-template-columns: 1.1fr 1fr 1.1fr;
-    gap: 16px;
+    grid-template-columns: 1.1fr 140px 1.1fr 90px;
+    gap: 12px;
     align-items: stretch;
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    padding: 12px;
+    border-radius: var(--radius-md);
   }
 
   .bottom-cluster {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .cluster-sub-title {
     font-size: 0.6875rem;
     font-weight: 800;
-    color: #64748B;
+    color: #475569;
     text-align: center;
-    background-color: #F8FAFC;
+    background-color: #FFFFFF;
     padding: 4px;
     border-radius: 4px;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #CBD5E1;
   }
 
   .booth-row-grid {
@@ -813,141 +1053,230 @@
     gap: 8px;
   }
 
-  .trash-indicator {
-    text-align: center;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    color: #166534;
-    background-color: #DCFCE7;
-    border: 1px solid #86EFAC;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-
-  /* Center Bottom: KWU, Registration, Entrance */
-  .bottom-center-cluster {
+  .center-masuk-portal {
+    background-color: #ECFDF5;
+    border: 2px dashed #059669;
+    border-radius: var(--radius-sm);
+    padding: 10px 6px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .masuk-arrows-row {
+    font-size: 1.25rem;
+    display: flex;
+    gap: 8px;
+  }
+
+  .masuk-title {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 900;
+    color: #065F46;
+    letter-spacing: 0.06em;
+  }
+
+  .masuk-sub {
+    display: block;
+    font-size: 0.625rem;
+    color: #059669;
+    font-weight: 600;
+  }
+
+  .right-keluar-portal {
+    background-color: #FEF2F2;
+    border: 2px dashed #EF4444;
+    border-radius: var(--radius-sm);
+    padding: 10px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .keluar-title {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 900;
+    color: #991B1B;
+    letter-spacing: 0.06em;
+  }
+
+  .keluar-sub {
+    display: block;
+    font-size: 0.625rem;
+    color: #DC2626;
+    font-weight: 600;
+  }
+
+  /* Bottom Foyer Strip: KWU, Meja Registrasi, Pintu Gerbang, Trash */
+  .bottom-foyer-strip {
+    display: grid;
+    grid-template-columns: 1.1fr 200px 1.1fr;
+    gap: 12px;
+    align-items: center;
+    background-color: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .foyer-block-left {
+    display: flex;
+    align-items: center;
     gap: 10px;
     justify-content: space-between;
   }
 
-  .kwu-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .kwu-stand {
-    background-color: #FFFBEB;
-    border: 1px dashed #D97706;
-    padding: 8px 6px;
-    border-radius: 4px;
-    text-align: center;
+  .trash-box {
     display: flex;
     flex-direction: column;
-  }
-
-  .kwu-tag {
-    font-size: 0.6875rem;
-    font-weight: 800;
-    color: #B45309;
-  }
-
-  .kwu-desc {
-    font-size: 0.625rem;
-    color: #78350F;
-  }
-
-  .registration-desk {
-    background-color: #EFF6FF;
-    border: 2px solid #3B82F6;
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    display: flex;
     align-items: center;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  :global(.reg-icon) {
-    color: #2563EB;
+    background-color: #DCFCE7;
+    border: 1px solid #86EFAC;
+    border-radius: 6px;
+    padding: 4px 6px;
     flex-shrink: 0;
   }
 
-  .reg-text {
+  .trash-emoji {
+    font-size: 1.125rem;
+  }
+
+  .trash-text {
+    font-size: 0.5625rem;
+    font-weight: 800;
+    color: #166534;
+    white-space: nowrap;
+  }
+
+  .kwu-tables-deck {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFBEB;
+    border: 1px dashed #D97706;
+    border-radius: 6px;
+    padding: 6px 8px;
+    text-align: center;
+  }
+
+  .table-sprites {
+    font-size: 0.8125rem;
+    letter-spacing: 2px;
+  }
+
+  .kwu-label {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: #92400E;
+    margin-top: 2px;
+  }
+
+  .meja-registrasi-booth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #EFF6FF;
+    border: 2px solid #2563EB;
+    border-radius: 6px;
+    padding: 6px 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
+  }
+
+  .reg-table-graphic {
+    font-size: 1.25rem;
+  }
+
+  .reg-info {
     display: flex;
     flex-direction: column;
   }
 
-  .reg-title {
+  .reg-main-title {
     font-size: 0.75rem;
     font-weight: 800;
     color: #1E40AF;
+    white-space: nowrap;
   }
 
-  .reg-sub {
-    font-size: 0.6875rem;
+  .reg-sub-title {
+    font-size: 0.625rem;
     color: #3B82F6;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
-  .entrance-gate {
-    background-color: #ECFDF5;
-    border: 2px solid #10B981;
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
+  .foyer-gate-portal {
+    display: flex;
+    justify-content: center;
+  }
+
+  .gate-sign-box {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 8px;
+    background-color: #059669;
+    color: #FFFFFF;
+    padding: 8px 14px;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(5, 150, 105, 0.25);
   }
 
-  :global(.gate-icon.in) {
-    color: #059669;
+  .gate-arrow-up {
+    font-size: 1.125rem;
   }
 
-  .gate-info {
+  .gate-text-col {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    display: flex;
-    flex-direction: column;
   }
 
-  .gate-title {
-    font-size: 0.8125rem;
-    font-weight: 800;
-    color: #065F46;
+  .gate-headline {
+    font-size: 0.75rem;
+    font-weight: 900;
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
-  .gate-sub {
-    font-size: 0.6875rem;
-    color: #059669;
+  .gate-caption {
+    font-size: 0.5625rem;
+    color: #D1FAE5;
+    white-space: nowrap;
   }
 
-  /* Exit Gate */
-  .exit-gate-wrap {
+  .foyer-block-right {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
   }
 
-  .exit-gate {
+  .exit-door-box {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     background-color: #FEF2F2;
     border: 2px solid #EF4444;
-    border-radius: var(--radius-sm);
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    flex-shrink: 0;
   }
 
-  :global(.gate-icon.out) {
-    color: #DC2626;
-  }
-
-  .out-title {
+  .exit-door-label {
+    font-size: 0.6875rem;
+    font-weight: 800;
     color: #991B1B;
+    white-space: nowrap;
   }
 
   /* Image Modal */
@@ -986,8 +1315,15 @@
     .hall-layout-grid {
       grid-template-columns: 1fr;
     }
-    .bottom-three-col {
+    .bottom-hall-row {
       grid-template-columns: 1fr;
+    }
+    .bottom-foyer-strip {
+      grid-template-columns: 1fr;
+    }
+    .foyer-block-left, .foyer-block-right {
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .vip-zone {
       grid-template-columns: 1fr;
@@ -995,8 +1331,15 @@
     .vip-corridor {
       display: none;
     }
-    .stage-section {
+    .stage-section.stage-realistic {
       flex-direction: column;
+    }
+    .stage-wing-tower {
+      width: 100%;
+      flex-direction: row;
+    }
+    .speaker-grill {
+      height: 40px;
     }
     .kipas-box {
       width: 100%;

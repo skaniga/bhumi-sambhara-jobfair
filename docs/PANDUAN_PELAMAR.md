@@ -61,12 +61,15 @@ Sebagai pelamar (siswa, alumni SMK/SMA/Universitas, atau masyarakat umum), Anda 
 ### 4. Menjelajahi 23 Stand & Mengajukan Lamaran
 1. Buka menu **Portal Expo** atau **23 Mitra Industri**.
 2. Gunakan kolom pencarian atau filter kategori bidang industri (Manufaktur, Retail, Pendidikan, Perhotelan, Otomotif, HVAC, dll.).
-3. Anda juga dapat membuka tab **Denah Stand** untuk melihat penempatan posisi booth di Graha Krida Wiyata dan mengklik salah satu stand.
-4. Klik pada salah satu lowongan yang Anda minati untuk melihat kualifikasi, kuota penerimaan, persyaratan dokumen, dan estimasi gaji.
+3. Anda juga dapat membuka tab **Denah Stand** untuk melihat penempatan posisi booth di Graha Krida Wiyata (Stand 1 s/d Stand 23) dan mengklik salah satu stand.
+4. Klik pada tombol **Lowongan Kerja (Umum)** di perusahaan yang Anda minati untuk melihat kualifikasi, kuota penerimaan, persyaratan dokumen, dan estimasi gaji (*Ditanyakan pada saat wawancara*).
 5. Klik **Kirim Lamaran Sekarang**:
-   - Tulis catatan motivasi singkat untuk perusahaan.
-   - Konfirmasi pengiriman.
-6. Status lamaran Anda akan tercatat sebagai **Menunggu Review**.
+   - Tulis catatan motivasi singkat untuk perusahaan (opsional).
+   - Konfirmasi pengiriman lamaran.
+6. **Melamar ke Banyak Perusahaan (Multi-Apply)**:
+   - Anda **diperbolehkan melamar ke lebih dari 1 perusahaan** sekaligus (misal: Anda dapat melamar ke CV Quick, PT Alfamidi, PT Indomarco, PT PNM, PT Mekar Armada Jaya, dll.).
+   - Pelamar hanya dibatasi tidak dapat melamar dua kali ke *perusahaan yang sama*.
+7. Status lamaran Anda akan tercatat sebagai **Menunggu Review** dan dapat dipantau di tab **Lamaran Saya**.
 
 ---
 

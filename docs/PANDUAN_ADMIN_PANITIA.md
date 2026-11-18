@@ -60,6 +60,14 @@ Di bagian bawah dashboard, terdapat tabel matriks seluruh 23 stand:
 * Kolom pencarian: Ketik nama stand atau industri untuk memfilter tabel secara instan.
 * Tombol **Perbarui** (ikon putar): Klik untuk menarik sinkronisasi data terkini dari server Supabase secara live.
 
-### 6. Mengekspor Laporan ke CSV / Excel
-* Klik tombol **Ekspor Data (CSV)** di bagian atas halaman admin.
-* File spreadsheet lengkap akan terunduh otomatis ke komputer panitia dengan format penamaan `Rekapitulasi_Bhumi_Sambhara_Jobfair_2026_<timestamp>.csv`.
+### 6. Mengekspor Laporan ke Workbook Excel (.xlsx) Multi-Sheet
+* Klik tombol hijau **Ekspor Data (.xlsx)** di bagian atas halaman admin.
+* File spreadsheet asli Microsoft Excel terunduh otomatis (`Rekapitulasi_Bhumi_Sambhara_Jobfair_2026_<timestamp>.xlsx`) berisi **4 Worksheet Terpisah**:
+  1. **Sheet 1 (Rekap 23 Stand)**: Nomor Stand 1 s/d 23, Nama Perusahaan, Bidang Usaha, PIC & Kontak WhatsApp, Total Pelamar, Jumlah Terverifikasi, Wawancara, Lolos Diterima, dan Total Scan Barcode Stand.
+  2. **Sheet 2 (Data Lamaran)**: Rincian setiap berkas lamaran yang diajukan peserta, tanggal melamar, status terakhir, dan catatan rekruter.
+  3. **Sheet 3 (Jobseekers Terdaftar)**: Database seluruh pencari kerja terdaftar (Nama, NIK/NISN, No WA/HP, Email, Asal Sekolah/Kampus, Jurusan, Tahun Kelulusan, Ringkasan CV, Link Portofolio).
+  4. **Sheet 4 (Presensi Barcode Stand)**: Rekam jejak timestamp kehadiran fisik peserta saat dipindai di masing-masing stand booth.
+
+### 7. Memantau Denah Interaktif & Pratinjau Denah Asli (Admin Only)
+* Denah Interaktif Graha Krida Wiyata menampilkan visual panggung pameran realistis (*Rigging Truss, Lampu Sorot, Layar LED Pamflet Resmi Expo, dan Sound Line-Array*), Area Duduk & Antrean Peserta, serta Area Foyer Selatan (*Stand 10-15, Pintu Masuk ↖️ ↗️, Pintu Keluar ⬇️, Meja Registrasi Scanner QR, dan Stand KWU Siswa*).
+* **Fitur Khusus Admin**: Di samping filter zona denah, tersedia tombol eksklusif **"Lihat Gambar Denah Asli"** untuk membuka modal resolusi tinggi dari sketsa cetak biru panitia (*Denah Fix.jfif*). Tombol dan modal ini hanya dapat diakses oleh akun Role Admin.
