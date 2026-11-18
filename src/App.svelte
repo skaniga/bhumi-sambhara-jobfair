@@ -213,7 +213,7 @@
           <span class="badge badge-terverifikasi">Sistem Scan Barcode QR Terpadu</span>
         </div>
         <p class="text-xs text-muted text-right">
-          Dikembangkan untuk Seleksi Karir Terbuka Pelajar & Umum
+          Dikembangkan oleh <a href="https://www.nineteendev.xyz/" target="_blank" rel="noopener noreferrer" class="footer-dev-link">NineteenDev</a>
         </p>
       </div>
     </div>
@@ -289,6 +289,18 @@
 
   .text-right {
     text-align: right;
+  }
+
+  .footer-dev-link {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .footer-dev-link:hover {
+    color: #1D4ED8;
   }
 
   @media (max-width: 768px) {
