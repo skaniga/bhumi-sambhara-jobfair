@@ -48,8 +48,14 @@
     }
   });
 
-  // Jika user logout ($currentUser menjadi null), otomatis arahkan kembali ke halaman awal web (portal)
-  $: if (!$currentUser) {
+  // Strict Role & Route Guards (Defense-in-Depth)
+  $: if (activeTab === 'admin' && $currentUser?.role !== 'admin') {
+    activeTab = 'portal';
+  }
+  $: if (activeTab === 'dashboard_perusahaan' && $currentUser?.role !== 'pemberi_kerja' && $currentUser?.role !== 'admin') {
+    activeTab = 'portal';
+  }
+  $: if (activeTab === 'profil_pelamar' && !$currentUser) {
     activeTab = 'portal';
   }
 
@@ -112,17 +118,41 @@
         }}
       />
     {:else if activeTab === 'profil_pelamar'}
-      <ApplicantProfile 
-        onOpenQrCard={() => isQrCardOpen = true}
-      />
+      {#if $currentUser}
+        <ApplicantProfile 
+          onOpenQrCard={() => isQrCardOpen = true}
+        />
+      {:else}
+        <div class="container" style="padding: 60px 16px; text-align: center;">
+          <h3 class="heading-md">Silakan Masuk Akun</h3>
+          <p class="text-sm text-muted" style="margin: 12px 0 20px;">Halaman profil pelamar hanya dapat diakses setelah mendaftar atau masuk akun.</p>
+          <button class="btn btn-primary" on:click={() => isAuthOpen = true}>Masuk / Daftar Akun</button>
+        </div>
+      {/if}
     {:else if activeTab === 'dashboard_perusahaan'}
-      <CompanyDashboard 
-        onOpenScanner={() => isScannerOpen = true}
-      />
+      {#if $currentUser?.role === 'pemberi_kerja' || $currentUser?.role === 'admin'}
+        <CompanyDashboard 
+          onOpenScanner={() => isScannerOpen = true}
+        />
+      {:else}
+        <div class="container" style="padding: 60px 16px; text-align: center;">
+          <h3 class="heading-md">Akses Khusus Mitra Industri</h3>
+          <p class="text-sm text-muted" style="margin: 12px 0 20px;">Halaman ini hanya dapat diakses oleh akun resmi HRD Stand Industri.</p>
+          <button class="btn btn-secondary" on:click={() => activeTab = 'portal'}>Kembali ke Beranda</button>
+        </div>
+      {/if}
     {:else if activeTab === 'admin'}
-      <AdminDashboard 
-        onOpenScanner={() => isScannerOpen = true}
-      />
+      {#if $currentUser?.role === 'admin'}
+        <AdminDashboard 
+          onOpenScanner={() => isScannerOpen = true}
+        />
+      {:else}
+        <div class="container" style="padding: 60px 16px; text-align: center;">
+          <h3 class="heading-md">Akses Terbatas Panitia</h3>
+          <p class="text-sm text-muted" style="margin: 12px 0 20px;">Panel kendali dan rekapitulasi data hanya dapat diakses oleh Panitia Resmi.</p>
+          <button class="btn btn-secondary" on:click={() => activeTab = 'portal'}>Kembali ke Beranda</button>
+        </div>
+      {/if}
     {/if}
   </main>
 
