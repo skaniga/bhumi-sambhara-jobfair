@@ -10,6 +10,7 @@ import {
   logoutUser, 
   updateProfile, 
   updateCompany, 
+  deleteUserAccount,
   applyJob, 
   updateApplicationStatus, 
   recordStandScan, 
@@ -22,6 +23,12 @@ import {
   standAttendances,
   generateUUID
 } from '../src/lib/supabase.js';
+import {
+  applicantNotifications,
+  unreadNotificationCount,
+  markNotificationRead,
+  buildWhatsAppInterviewUrl
+} from '../src/lib/notifications.js';
 import { get } from 'svelte/store';
 import { INITIAL_INDUSTRIES, INITIAL_VACANCIES, EVENT_DETAILS } from '../src/lib/initialData.js';
 
@@ -305,6 +312,58 @@ it('Admin matriks 23 stand memetakan data dengan akurat tanpa duplikasi', () => 
   const quickApps = get(applications).filter(a => quickVacIds.includes(a.vacancy_id));
   assert.equal(quickApps.length, 1);
   assert.equal(quickApps[0].status, 'diterima');
+});
+
+// ── Test Suite 7: Notifikasi Pelamar & Hapus Akun oleh Admin BKK ──
+console.log('\n▶ TEST SUITE 7: Notifikasi Panggilan Wawancara & Hapus Akun BKK');
+
+await itAsync('Pelamar menerima notifikasi saat dipanggil wawancara dan bisa menandai dibaca', async () => {
+  // Panggil pelamar wawancara di Stand 2 (DeWave)
+  const appDewave = get(applications).find(a => a.applicant_id === applicantUser.id && a.vacancy_id === dewaveVacId);
+  await updateApplicationStatus(appDewave.id, 'wawancara', 'Silakan menuju meja 1 Stand 2 sekarang', companyUser.id);
+
+  // Login kembali sebagai pelamar
+  await loginUser(applicantUser.email, 'Password123!');
+  const notifs = get(applicantNotifications);
+  const interviewNotif = notifs.find(n => n.appId === appDewave.id && n.status === 'wawancara');
+  assert.ok(interviewNotif, 'Pelamar harus menerima notifikasi panggilan wawancara');
+  assert.match(interviewNotif.title, /Panggilan Wawancara/i);
+  assert.equal(interviewNotif.isRead, false);
+
+  const unreadBefore = get(unreadNotificationCount);
+  assert.ok(unreadBefore >= 1);
+
+  markNotificationRead(interviewNotif.key);
+  const unreadAfter = get(unreadNotificationCount);
+  assert.equal(unreadAfter, unreadBefore - 1);
+
+  const dewaveInd = get(industries).find(i => i.id === 'a0000001-0000-0000-0000-000000000002');
+  const waUrl = buildWhatsAppInterviewUrl(get(currentUser), dewaveInd, { judul_posisi: 'Lowongan Kerja (Umum)' }, 'Meja 1');
+  assert.ok(waUrl.startsWith('https://wa.me/6285812345678?text='));
+});
+
+await itAsync('Pelamar biasa ditolak saat mencoba menghapus akun lain', async () => {
+  const res = await deleteUserAccount(companyUser.id);
+  assert.equal(res.success, false);
+  assert.match(res.error, /Admin/i);
+});
+
+await itAsync('Admin BKK dapat menghapus akun uji coba beserta lamaran & presensinya, tetapi tidak bisa menghapus dirinya sendiri', async () => {
+  await loginUser('bkk@skanisa.sch.id', 'SuperAdminBkk2026!');
+  const activeAdmin = get(currentUser);
+  assert.equal(activeAdmin.role, 'admin');
+
+  // Cegah hapus diri sendiri
+  const selfRes = await deleteUserAccount(activeAdmin.id);
+  assert.equal(selfRes.success, false);
+
+  // Hapus akun pelamar uji coba
+  const delRes = await deleteUserAccount(applicantUser.id);
+  assert.equal(delRes.success, true);
+
+  assert.ok(!get(allUsers).some(u => u.id === applicantUser.id), 'Akun pelamar harus hilang dari allUsers');
+  assert.ok(!get(applications).some(a => a.applicant_id === applicantUser.id), 'Lamaran pelamar harus ikut terhapus');
+  assert.ok(!get(standAttendances).some(s => s.applicant_id === applicantUser.id), 'Presensi stand pelamar harus ikut terhapus');
 });
 
 console.log('\n====================================================');

@@ -1,11 +1,45 @@
 <script>
   import { currentUser, logoutUser } from '../supabase.js';
-  import { Briefcase, QrCode, Shield, User, LogOut, LogIn, Building2, ScanLine, Compass, Grid, MapPin } from '@lucide/svelte';
+  import {
+    applicantNotifications,
+    unreadNotificationCount,
+    markNotificationRead,
+    markAllNotificationsRead,
+    browserNotifPermission,
+    requestBrowserNotificationPermission
+  } from '../notifications.js';
+  import { Briefcase, QrCode, Shield, User, LogOut, LogIn, Building2, ScanLine, Compass, Grid, MapPin, Bell, CheckCheck, X } from '@lucide/svelte';
 
   export let activeTab = 'portal';
   export let onOpenAuth = () => {};
   export let onOpenScanner = () => {};
   export let onOpenQrCard = () => {};
+
+  let isNotifOpen = false;
+
+  function toggleNotifPanel() {
+    isNotifOpen = !isNotifOpen;
+  }
+
+  function handleSelectNotification(notif) {
+    markNotificationRead(notif.key);
+    isNotifOpen = false;
+    activeTab = 'profil_pelamar';
+  }
+
+  function formatNotifTime(iso) {
+    if (!iso) return '';
+    try {
+      return new Date(iso).toLocaleString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return '';
+    }
+  }
 </script>
 
 <header class="navbar">
@@ -71,6 +105,82 @@
     <div class="nav-actions">
       {#if $currentUser}
         {#if $currentUser.role === 'pelamar'}
+          <div class="notif-wrap">
+            <button
+              type="button"
+              class="btn-notif-bell {$unreadNotificationCount > 0 ? 'has-unread' : ''}"
+              on:click={toggleNotifPanel}
+              title="Notifikasi Panggilan Wawancara & Status Lamaran"
+              aria-label="Notifikasi Pelamar"
+            >
+              <Bell size={18} />
+              {#if $unreadNotificationCount > 0}
+                <span class="notif-badge tabular-nums">{$unreadNotificationCount > 9 ? '9+' : $unreadNotificationCount}</span>
+              {/if}
+            </button>
+
+            {#if isNotifOpen}
+              <div class="notif-backdrop" on:click={() => isNotifOpen = false} role="button" tabindex="-1" aria-label="Tutup panel notifikasi" on:keydown={(e) => e.key === 'Escape' && (isNotifOpen = false)}></div>
+              <div class="notif-dropdown" role="dialog" aria-label="Daftar Notifikasi Pelamar">
+                <div class="notif-dropdown-header">
+                  <div>
+                    <span class="notif-header-title">Notifikasi Pelamar</span>
+                    <span class="text-xs text-muted">Panggilan wawancara & status lamaran</span>
+                  </div>
+                  <div class="notif-header-actions">
+                    {#if $unreadNotificationCount > 0}
+                      <button type="button" class="notif-mark-all" on:click={markAllNotificationsRead} title="Tandai semua dibaca">
+                        <CheckCheck size={14} />
+                        <span>Baca semua</span>
+                      </button>
+                    {/if}
+                    <button type="button" class="notif-close-btn" on:click={() => isNotifOpen = false} aria-label="Tutup">
+                      <X size={16} />
+                    </button>
+                  </div>
+                </div>
+
+                {#if $browserNotifPermission === 'default'}
+                  <div class="notif-perm-bar">
+                    <span class="text-xs">Aktifkan notifikasi perangkat agar tidak terlewat panggilan wawancara.</span>
+                    <button type="button" class="btn btn-amber btn-sm" on:click={requestBrowserNotificationPermission}>
+                      Aktifkan
+                    </button>
+                  </div>
+                {/if}
+
+                <div class="notif-list">
+                  {#if $applicantNotifications.length === 0}
+                    <div class="notif-empty">
+                      <Bell size={24} class="text-muted" />
+                      <p class="text-xs text-muted">Belum ada notifikasi panggilan wawancara atau verifikasi stand.</p>
+                    </div>
+                  {:else}
+                    {#each $applicantNotifications as notif}
+                      <button
+                        type="button"
+                        class="notif-item {notif.isRead ? '' : 'unread'} notif-status-{notif.status}"
+                        on:click={() => handleSelectNotification(notif)}
+                      >
+                        <div class="notif-item-top">
+                          <span class="notif-item-title">{notif.title}</span>
+                          {#if !notif.isRead}
+                            <span class="notif-unread-dot"></span>
+                          {/if}
+                        </div>
+                        <p class="notif-item-msg">{notif.message}</p>
+                        {#if notif.note}
+                          <p class="notif-item-note">Catatan HRD: {notif.note}</p>
+                        {/if}
+                        <span class="notif-item-time">{formatNotifTime(notif.timestamp)}</span>
+                      </button>
+                    {/each}
+                  {/if}
+                </div>
+              </div>
+            {/if}
+          </div>
+
           <button class="btn btn-secondary btn-sm" on:click={onOpenQrCard} title="Buka Kartu Peserta & QR Code">
             <QrCode size={16} />
             <span class="action-btn-label">Kartu QR</span>
@@ -295,6 +405,213 @@
     flex-shrink: 0;
   }
 
+  .notif-wrap {
+    position: relative;
+  }
+
+  .btn-notif-bell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: #FFFFFF;
+    color: var(--color-text-main);
+    transition: all 0.15s ease;
+  }
+
+  .btn-notif-bell:hover {
+    background-color: var(--color-surface-muted);
+    border-color: var(--color-border-strong);
+  }
+
+  .btn-notif-bell.has-unread {
+    border-color: #FBBF24;
+    background-color: #FFFBEB;
+    color: #B45309;
+  }
+
+  .notif-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background-color: #DC2626;
+    color: #FFFFFF;
+    font-size: 0.625rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+  }
+
+  .notif-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: transparent;
+  }
+
+  .notif-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(360px, calc(100vw - 24px));
+    max-height: 72vh;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .notif-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface-subtle);
+  }
+
+  .notif-header-title {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .notif-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .notif-mark-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--color-info);
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .notif-mark-all:hover {
+    background-color: #DBEAFE;
+  }
+
+  .notif-close-btn {
+    padding: 4px;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+  }
+
+  .notif-perm-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    background-color: #FFFBEB;
+    border-bottom: 1px solid #FDE68A;
+    color: #92400E;
+  }
+
+  .notif-list {
+    overflow-y: auto;
+    max-height: 54vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notif-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 28px 16px;
+  }
+
+  .notif-item {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: background-color 0.15s ease;
+    width: 100%;
+  }
+
+  .notif-item:hover {
+    background-color: var(--color-surface-subtle);
+  }
+
+  .notif-item.unread {
+    background-color: #EFF6FF;
+  }
+
+  .notif-item.unread.notif-status-wawancara {
+    background-color: #FFFBEB;
+  }
+
+  .notif-item.unread.notif-status-diterima {
+    background-color: #F0FDF4;
+  }
+
+  .notif-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .notif-item-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .notif-unread-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #DC2626;
+    flex-shrink: 0;
+  }
+
+  .notif-item-msg {
+    font-size: 0.75rem;
+    color: var(--color-text-main);
+    line-height: 1.4;
+  }
+
+  .notif-item-note {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .notif-item-time {
+    font-size: 0.6875rem;
+    color: var(--color-text-light);
+  }
+
   .user-badge-wrap {
     display: flex;
     align-items: center;
@@ -410,7 +727,33 @@
     }
   }
 
+  @media (max-width: 640px) {
+    .notif-dropdown {
+      position: fixed;
+      top: 68px;
+      left: 12px;
+      right: 12px;
+      width: auto;
+    }
+  }
+
   @media (max-width: 480px) {
+    .nav-container {
+      gap: 8px;
+    }
+    .brand {
+      min-width: 0;
+      gap: 6px;
+    }
+    .brand-logo-img {
+      height: 32px;
+    }
+    .brand-title {
+      font-size: 0.8125rem;
+    }
+    .brand-subtitle {
+      font-size: 0.625rem;
+    }
     .action-btn-label {
       display: none;
     }

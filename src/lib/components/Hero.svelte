@@ -193,8 +193,10 @@
   }
 
   .hero-brand-svg {
-    height: 52px;
+    height: auto;
+    max-height: 52px;
     width: auto;
+    max-width: 100%;
     display: block;
   }
 
@@ -203,6 +205,11 @@
     grid-template-columns: 1.35fr 1fr;
     gap: 32px;
     align-items: center;
+  }
+
+  .hero-content, .hero-pamflet-card {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .institution-tag {
@@ -482,7 +489,28 @@
       grid-template-columns: 1fr;
     }
     .hero-brand-svg {
-      height: 42px;
+      max-height: 42px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .meta-item {
+      max-width: 100%;
+      white-space: normal;
+      word-break: break-word;
+    }
+    .pamflet-card-body {
+      padding: 14px;
+    }
+    .stats-mini-grid {
+      gap: 6px;
+    }
+    .mini-stat {
+      padding: 6px;
+      min-width: 0;
+    }
+    .mini-num {
+      font-size: 1rem;
     }
   }
 </style>

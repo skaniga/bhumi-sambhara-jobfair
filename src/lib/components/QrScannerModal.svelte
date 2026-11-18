@@ -19,6 +19,7 @@
   /** @type {any} */
   let scannedApplicant = null;
   let verificationSuccess = false;
+  let verificationMessage = '';
   let errorMessage = '';
 
   function playSuccessFeedback() {
@@ -72,7 +73,10 @@
         { facingMode: "environment" },
         {
           fps: 10,
-          qrbox: { width: 250, height: 250 }
+          qrbox: (viewfinderWidth, viewfinderHeight) => {
+            const side = Math.max(150, Math.min(240, Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.72)));
+            return { width: side, height: side };
+          }
         },
         (decodedText) => {
           handleScanSuccess(decodedText);
@@ -128,12 +132,14 @@
     scannedApplicant = user;
     errorMessage = '';
     verificationSuccess = false;
+    verificationMessage = '';
     stopScanning();
   }
 
   async function resetScan() {
     scannedApplicant = null;
     verificationSuccess = false;
+    verificationMessage = '';
     errorMessage = '';
     setTimeout(() => {
       startScanning();
@@ -148,6 +154,7 @@
     const res = await recordStandScan(indId, scannedApplicant.id, 'Verifikasi kehadiran fisik di stand booth.', verifierId);
     if (res.success) {
       verificationSuccess = true;
+      verificationMessage = 'Kehadiran dan verifikasi di stand berhasil dicatat ke sistem!';
     }
   }
 
@@ -155,34 +162,37 @@
     if (!scannedApplicant) return;
     const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
     const compVacancies = $vacancies.filter(v => v.industry_id === indId).map(v => v.id);
-    
-    // Find application
-    const app = $applications.find(a => a.applicant_id === scannedApplicant.id && compVacancies.includes(a.vacancy_id));
-    if (app) {
-      await updateApplicationStatus(app.id, 'wawancara', 'Dipanggil wawancara langsung di meja booth.', $currentUser?.id);
-      verificationSuccess = true;
-    } else {
-      // Also record stand presence
-      await handleVerifyPresence();
-      verificationSuccess = true;
+    const note = `Dipanggil wawancara langsung di meja booth ${targetIndustry?.nomor_stand || ''}.`.trim();
+
+    // Find existing application or create walk-in application first
+    let app = $applications.find(a => a.applicant_id === scannedApplicant.id && compVacancies.includes(a.vacancy_id));
+    if (!app) {
+      await recordStandScan(indId, scannedApplicant.id, note, $currentUser?.id || null);
+      app = $applications.find(a => a.applicant_id === scannedApplicant.id && compVacancies.includes(a.vacancy_id));
     }
+
+    if (app) {
+      await updateApplicationStatus(app.id, 'wawancara', note, $currentUser?.id);
+    }
+
+    verificationSuccess = true;
+    verificationMessage = `Panggilan wawancara dikirim! Notifikasi langsung diteruskan ke akun ${scannedApplicant.nama_lengkap}.`;
   }
 </script>
 
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
   <div class="modal-content scanner-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
-      <div style="flex: 1;">
+      <div class="scanner-header-info">
         <h3 class="heading-sm">Scanner QR Barcode Pelamar</h3>
         {#if $currentUser?.role === 'admin'}
-          <div class="admin-scanner-select-row" style="margin-top: 6px;">
-            <label class="text-xs text-muted" for="scannerStandSelect" style="display: block; margin-bottom: 2px;">
+          <div class="admin-scanner-select-row">
+            <label class="text-xs text-muted scanner-select-label" for="scannerStandSelect">
               Target Stand Booth:
             </label>
             <select 
               id="scannerStandSelect" 
-              class="input-field" 
-              style="font-size: 0.8125rem; padding: 4px 8px; max-width: 320px;"
+              class="input-field scanner-stand-select" 
               bind:value={selectedAdminStandId}
             >
               {#each $industries as ind}
@@ -191,12 +201,12 @@
             </select>
           </div>
         {:else}
-          <p class="text-xs text-muted">
+          <p class="text-xs text-muted scanner-stand-text">
             Stand: <strong>{targetIndustry?.nomor_stand || 'Stand Industri'}</strong> • {targetIndustry?.nama_perusahaan || 'Pemberi Kerja'}
           </p>
         {/if}
       </div>
-      <button class="btn-close" on:click={onClose}>
+      <button class="btn-close" on:click={onClose} aria-label="Tutup">
         <X size={20} />
       </button>
     </div>
@@ -279,7 +289,7 @@
           {#if verificationSuccess}
             <div class="alert-box alert-success mt-3">
               <CheckCircle size={18} />
-              <span class="text-xs font-semibold">Kehadiran dan Verifikasi di Stand Berhasil Dicatat ke Sistem!</span>
+              <span class="text-xs font-semibold">{verificationMessage || 'Kehadiran dan Verifikasi di Stand Berhasil Dicatat ke Sistem!'}</span>
             </div>
           {/if}
 
@@ -311,7 +321,41 @@
 
 <style>
   .scanner-modal {
-    max-width: 540px;
+    max-width: min(540px, calc(100vw - 20px));
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .scanner-header-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-scanner-select-row {
+    margin-top: 6px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .scanner-select-label {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .scanner-stand-select {
+    font-size: 0.8125rem;
+    padding: 6px 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .scanner-stand-text {
+    word-break: break-word;
+  }
+
+  .scanner-body {
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   .camera-viewport-wrap {
@@ -319,7 +363,9 @@
     border-radius: var(--radius-md);
     overflow: hidden;
     position: relative;
-    min-height: 240px;
+    min-height: 220px;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -327,6 +373,24 @@
 
   .camera-stream {
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  :global(#qr-reader-region),
+  :global(#qr-reader-region > div),
+  :global(#qr-reader-region video),
+  :global(#qr-reader-region canvas),
+  :global(#qr-reader-region img) {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  :global(#qr-reader-region video) {
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
   }
 
   .camera-fallback {
@@ -335,6 +399,8 @@
     flex-direction: column;
     align-items: center;
     color: #FFFFFF;
+    text-align: center;
+    padding: 12px;
   }
 
   .manual-input-section {
@@ -347,13 +413,22 @@
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .input-row .input-field {
+    flex: 1;
+    min-width: 0;
   }
 
   .scanned-result-card {
     background-color: #FFFFFF;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: 18px;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .result-top {
@@ -361,6 +436,13 @@
     align-items: center;
     gap: 14px;
     margin-bottom: 16px;
+    min-width: 0;
+  }
+
+  .user-details {
+    min-width: 0;
+    flex: 1;
+    word-break: break-word;
   }
 
   .user-avatar-box {
@@ -372,11 +454,13 @@
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
+    flex-shrink: 0;
   }
 
   .user-title {
     margin: 4px 0 2px;
     color: var(--color-primary);
+    word-break: break-word;
   }
 
   .user-specs-grid {
@@ -392,6 +476,7 @@
   .spec-row {
     display: flex;
     flex-direction: column;
+    min-width: 0;
   }
 
   .spec-label {
@@ -405,6 +490,7 @@
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--color-text-main);
+    word-break: break-word;
   }
 
   .summary-box {
@@ -412,6 +498,7 @@
     background-color: var(--color-surface-subtle);
     border-radius: var(--radius-sm);
     margin-bottom: 14px;
+    word-break: break-word;
   }
 
   .action-buttons-row {
@@ -429,6 +516,7 @@
     padding: 10px 14px;
     border-radius: var(--radius-md);
     margin-top: 12px;
+    word-break: break-word;
   }
 
   .alert-warning {
@@ -450,5 +538,28 @@
   .btn-close {
     padding: 6px;
     color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .input-row {
+      flex-direction: column;
+    }
+    .input-row .btn {
+      width: 100%;
+    }
+    .user-specs-grid {
+      grid-template-columns: 1fr;
+    }
+    .scanned-result-card {
+      padding: 14px;
+    }
+    .action-buttons-row {
+      flex-direction: column;
+    }
+    .action-buttons-row .btn {
+      width: 100%;
+      white-space: normal;
+    }
   }
 </style>

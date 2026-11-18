@@ -1,6 +1,12 @@
 <script>
   import { currentUser, updateProfile, applications, vacancies, industries, standAttendances, syncFromSupabase } from '../supabase.js';
-  import { User, QrCode, Save, Briefcase, CheckCircle, ExternalLink, Clock, Building2, RefreshCw, Check } from '@lucide/svelte';
+  import {
+    applicantNotifications,
+    markNotificationRead,
+    browserNotifPermission,
+    requestBrowserNotificationPermission
+  } from '../notifications.js';
+  import { User, QrCode, Save, Briefcase, CheckCircle, ExternalLink, Clock, Building2, RefreshCw, Check, Bell } from '@lucide/svelte';
 
   export let onOpenQrCard = () => {};
 
@@ -38,6 +44,7 @@
 
   $: myApplications = $applications.filter(a => a.applicant_id === $currentUser?.id);
   $: myAttendances = $standAttendances.filter(a => a.applicant_id === $currentUser?.id);
+  $: priorityNotifications = $applicantNotifications.filter(n => n.status === 'wawancara' || n.status === 'diterima');
 
   function getVacancy(vacId) {
     return $vacancies.find(v => v.id === vacId);
@@ -101,6 +108,49 @@
       </div>
     </div>
   </div>
+
+  <!-- Banner Notifikasi Panggilan Wawancara / Lolos Seleksi -->
+  {#if priorityNotifications.length > 0}
+    <div class="interview-alerts-stack">
+      {#each priorityNotifications as notif}
+        <div class="interview-alert-card alert-{notif.status}">
+          <div class="interview-alert-icon">
+            <Bell size={20} />
+          </div>
+          <div class="interview-alert-body">
+            <div class="interview-alert-top">
+              <span class="badge badge-{notif.status}">
+                {notif.status === 'wawancara' ? 'PANGGILAN WAWANCARA' : 'LOLOS DITERIMA'}
+              </span>
+              <span class="badge badge-stand">{notif.stand}</span>
+            </div>
+            <h3 class="interview-alert-title">{notif.companyName} — {notif.position}</h3>
+            <p class="text-xs interview-alert-msg">{notif.message}</p>
+            {#if notif.note}
+              <p class="text-xs interview-alert-note">Catatan HRD: {notif.note}</p>
+            {/if}
+          </div>
+          {#if !notif.isRead}
+            <button type="button" class="btn btn-secondary btn-sm" on:click={() => markNotificationRead(notif.key)}>
+              <Check size={14} /> Dimengerti
+            </button>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/if}
+
+  {#if $browserNotifPermission === 'default'}
+    <div class="notif-optin-strip">
+      <div class="notif-optin-left">
+        <Bell size={16} />
+        <span class="text-xs">Aktifkan notifikasi browser agar Anda langsung mendapat pemberitahuan saat dipanggil wawancara oleh HRD stand.</span>
+      </div>
+      <button type="button" class="btn btn-amber btn-sm" on:click={requestBrowserNotificationPermission}>
+        Aktifkan Notifikasi
+      </button>
+    </div>
+  {/if}
 
   <div class="profile-columns">
     <!-- Form Data Diri -->
@@ -254,6 +304,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    max-width: 100%;
   }
 
   .user-hero-row {
@@ -273,15 +324,26 @@
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
+    flex-shrink: 0;
   }
 
   .user-details {
     flex-grow: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  .qr-action-col {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .badge-role-row {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 4px;
   }
@@ -292,10 +354,113 @@
     margin-bottom: 2px;
   }
 
+  /* Interview & Acceptance Notification Banners */
+  .interview-alerts-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .interview-alert-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid #FCD34D;
+    border-left: 5px solid #D97706;
+    background-color: #FFFBEB;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+  }
+
+  .interview-alert-card.alert-diterima {
+    border-color: #86EFAC;
+    border-left-color: #15803D;
+    background-color: #F0FDF4;
+  }
+
+  .interview-alert-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #D97706;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .alert-diterima .interview-alert-icon {
+    background-color: #15803D;
+  }
+
+  .interview-alert-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .interview-alert-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .interview-alert-title {
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 2px;
+  }
+
+  .interview-alert-msg {
+    color: var(--color-text-main);
+    line-height: 1.45;
+  }
+
+  .interview-alert-note {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .notif-optin-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+    background-color: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: var(--radius-md);
+    color: #1E40AF;
+  }
+
+  .notif-optin-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+  }
+
   .profile-columns {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
     gap: 24px;
+  }
+
+  .form-card, .applications-card {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .form-actions {
@@ -359,6 +524,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     background-color: #FFFFFF;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
@@ -373,6 +539,7 @@
     background-color: var(--color-surface-subtle);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    flex-wrap: wrap;
   }
 
   .timeline-badge-col {
@@ -381,6 +548,8 @@
 
   .timeline-body {
     flex-grow: 1;
+    min-width: 0;
+    word-break: break-word;
   }
 
   .timeline-title-row {
@@ -413,6 +582,16 @@
   @media (max-width: 900px) {
     .profile-columns {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .profile-layout {
+      padding: 16px 12px 60px;
+      gap: 16px;
+    }
+    .qr-action-col {
+      width: 100%;
     }
   }
 </style>

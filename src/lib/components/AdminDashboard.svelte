@@ -1,12 +1,120 @@
 <script>
-  import { industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase, updateCompany } from '../supabase.js';
-  import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search, RefreshCw, MapPin, Save, X, AlertCircle, CheckCircle2 } from '@lucide/svelte';
+  import { onMount } from 'svelte';
+  import {
+    currentUser,
+    industries,
+    vacancies,
+    applications,
+    allUsers,
+    standAttendances,
+    syncFromSupabase,
+    updateCompany,
+    deleteUserAccount
+  } from '../supabase.js';
+  import {
+    Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search,
+    RefreshCw, MapPin, Save, X, AlertCircle, CheckCircle2, Trash2, Building2
+  } from '@lucide/svelte';
   import * as XLSX from 'xlsx';
 
   export let onOpenScanner = () => {};
 
+  onMount(() => {
+    syncFromSupabase();
+  });
+
+  const VALID_ADMIN_SUBTABS = ['stand', 'akun'];
+  function loadInitialAdminSubtab() {
+    if (typeof window === 'undefined') return 'stand';
+    try {
+      const saved = sessionStorage.getItem('bhumi_admin_subtab') || '';
+      return VALID_ADMIN_SUBTABS.includes(saved) ? saved : 'stand';
+    } catch {
+      return 'stand';
+    }
+  }
+
+  let activeAdminTab = loadInitialAdminSubtab(); // 'stand' | 'akun'
+  $: if (typeof window !== 'undefined' && VALID_ADMIN_SUBTABS.includes(activeAdminTab)) {
+    try {
+      sessionStorage.setItem('bhumi_admin_subtab', activeAdminTab);
+    } catch {}
+  }
+
   let filterSearch = '';
   let syncing = false;
+
+  // Filter & Delete Account Management State (BKK Admin)
+  let userSearch = '';
+  let userRoleFilter = 'all';
+  let showDeleteUserModal = false;
+  let userToDelete = null;
+  let deletingUser = false;
+  let deleteUserError = '';
+  let deleteUserSuccess = '';
+
+  function openDeleteUserModal(user) {
+    userToDelete = user;
+    deleteUserError = '';
+    deleteUserSuccess = '';
+    showDeleteUserModal = true;
+  }
+
+  function closeDeleteUserModal() {
+    showDeleteUserModal = false;
+    userToDelete = null;
+    deleteUserError = '';
+  }
+
+  async function handleConfirmDeleteUser() {
+    if (!userToDelete) return;
+    deletingUser = true;
+    deleteUserError = '';
+
+    const deletedName = userToDelete.nama_lengkap || userToDelete.email;
+    const res = await deleteUserAccount(userToDelete.id);
+    deletingUser = false;
+
+    if (res?.success) {
+      showDeleteUserModal = false;
+      userToDelete = null;
+      deleteUserSuccess = `Akun "${deletedName}" berhasil dihapus beserta riwayat lamaran & presensinya.`;
+      setTimeout(() => {
+        deleteUserSuccess = '';
+      }, 5000);
+    } else {
+      deleteUserError = res?.error || 'Gagal menghapus akun.';
+    }
+  }
+
+  $: filteredUsers = $allUsers
+    .filter(u => {
+      const matchesRole = userRoleFilter === 'all' || u.role === userRoleFilter;
+      if (!matchesRole) return false;
+      if (!userSearch.trim()) return true;
+      const q = userSearch.trim().toLowerCase();
+      return (u.nama_lengkap || '').toLowerCase().includes(q) ||
+             (u.email || '').toLowerCase().includes(q) ||
+             (u.nomor_wa || '').toLowerCase().includes(q) ||
+             (u.nik_nisn || '').toLowerCase().includes(q) ||
+             (u.asal_sekolah_kampus || '').toLowerCase().includes(q) ||
+             (u.qr_code_token || '').toLowerCase().includes(q);
+    })
+    .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+
+  function getUserAppCount(userId) {
+    return $applications.filter(a => a.applicant_id === userId || a.user_id === userId).length;
+  }
+
+  function getUserAttendanceCount(userId) {
+    return $standAttendances.filter(s => s.applicant_id === userId || s.user_id === userId).length;
+  }
+
+  function getCompanyName(companyId) {
+    if (!companyId) return '-';
+    const ind = $industries.find(i => i.id === companyId);
+    return ind ? `${ind.nomor_stand} • ${ind.nama_perusahaan}` : '-';
+  }
 
   // Modal Edit Alamat Pemberi Kerja (Admin)
   let showAddressModal = false;
@@ -138,17 +246,17 @@
       "Nomor Registrasi (QR)": u.qr_code_token || '-',
       "Nama Lengkap": u.nama_lengkap || '-',
       "Email": u.email || '-',
-      "No HP / WhatsApp": u.no_hp || '-',
-      "NIK": u.nik || '-',
+      "No HP / WhatsApp": u.nomor_wa || u.no_hp || '-',
+      "NIK": u.nik_nisn || u.nik || '-',
       "Asal Sekolah / Kampus": u.asal_sekolah_kampus || '-',
       "Jurusan": u.jurusan || '-',
-      "Tahun Lulus": u.tahun_lulus || '-',
-      "Total Lamaran Dikirim": $applications.filter(a => a.user_id === u.id).length
+      "Pendidikan Terakhir": u.pendidikan_terakhir || '-',
+      "Total Lamaran Dikirim": $applications.filter(a => a.applicant_id === u.id || a.user_id === u.id).length
     }));
 
     // 3. Data Detail Seluruh Lamaran
     const applicationsData = $applications.map((app, idx) => {
-      const applicant = $allUsers.find(u => u.id === app.user_id);
+      const applicant = $allUsers.find(u => u.id === (app.applicant_id || app.user_id));
       const vac = $vacancies.find(v => v.id === app.vacancy_id);
       const ind = vac ? $industries.find(i => i.id === vac.industry_id) : null;
 
@@ -159,17 +267,17 @@
         "Perusahaan": ind?.nama_perusahaan || '-',
         "Posisi Dilamar": vac?.judul_posisi || '-',
         "Nama Pelamar": applicant?.nama_lengkap || '-',
-        "Nomor HP": applicant?.no_hp || '-',
+        "Nomor HP": applicant?.nomor_wa || applicant?.no_hp || '-',
         "Email": applicant?.email || '-',
         "Asal Sekolah/Kampus": applicant?.asal_sekolah_kampus || '-',
         "Status Lamaran": app.status || 'terdaftar',
-        "Tanggal Melamar": app.created_at ? new Date(app.created_at).toLocaleString('id-ID') : '-'
+        "Tanggal Melamar": (app.waktu_melamar || app.created_at) ? new Date(app.waktu_melamar || app.created_at).toLocaleString('id-ID') : '-'
       };
     });
 
     // 4. Presensi Kunjungan Stand
     const attendancesData = $standAttendances.map((att, idx) => {
-      const applicant = $allUsers.find(u => u.id === att.user_id);
+      const applicant = $allUsers.find(u => u.id === (att.applicant_id || att.user_id));
       const ind = $industries.find(i => i.id === att.industry_id);
 
       return {
@@ -314,8 +422,31 @@
     </div>
   </div>
 
-  <!-- 23 Stand Matrix Table -->
-  <div class="card matrix-card">
+  <!-- Admin Sub-Tab Navigation -->
+  <div class="admin-tabs-bar">
+    <button
+      type="button"
+      class="admin-tab-btn {activeAdminTab === 'stand' ? 'active' : ''}"
+      on:click={() => activeAdminTab = 'stand'}
+    >
+      <Building2 size={16} />
+      <span>Rekapitulasi 23 Stand</span>
+      <span class="admin-tab-badge tabular-nums">{$industries.length}</span>
+    </button>
+    <button
+      type="button"
+      class="admin-tab-btn {activeAdminTab === 'akun' ? 'active' : ''}"
+      on:click={() => activeAdminTab = 'akun'}
+    >
+      <Users size={16} />
+      <span>Kelola & Hapus Akun</span>
+      <span class="admin-tab-badge tabular-nums">{$allUsers.length}</span>
+    </button>
+  </div>
+
+  <!-- TAB 1: 23 Stand Matrix Table -->
+  {#if activeAdminTab === 'stand'}
+  <div class="card matrix-card animate-fade-in">
     <div class="matrix-header-row">
       <div>
         <h3 class="heading-md">Rekapitulasi 23 Stand Industri Expo</h3>
@@ -403,7 +534,192 @@
       </table>
     </div>
   </div>
+  {/if}
+
+  <!-- TAB 2: Kelola & Hapus Akun Terdaftar (Khusus BKK Admin) -->
+  {#if activeAdminTab === 'akun'}
+    <div class="card matrix-card animate-fade-in">
+      <div class="matrix-header-row">
+        <div>
+          <h3 class="heading-md">Kelola & Hapus Akun Terdaftar</h3>
+          <p class="text-xs text-muted">
+            Akun Admin BKK dapat meninjau dan menghapus akun uji coba, duplikat, atau akun pelamar/stand yang tidak valid.
+          </p>
+        </div>
+
+        <div class="account-filter-controls">
+          <div class="matrix-search">
+            <Search size={16} class="text-muted" />
+            <input
+              type="text"
+              placeholder="Cari nama, email, WA, NIK..."
+              bind:value={userSearch}
+              class="matrix-input"
+            />
+          </div>
+
+          <select class="input-field role-filter-select" bind:value={userRoleFilter}>
+            <option value="all">Semua Peran ({$allUsers.length})</option>
+            <option value="pelamar">Pelamar ({$allUsers.filter(u => u.role === 'pelamar').length})</option>
+            <option value="pemberi_kerja">Pemberi Kerja ({$allUsers.filter(u => u.role === 'pemberi_kerja').length})</option>
+            <option value="admin">Admin ({$allUsers.filter(u => u.role === 'admin').length})</option>
+          </select>
+        </div>
+      </div>
+
+      {#if deleteUserSuccess}
+        <div class="alert-box alert-success mb-3">
+          <CheckCircle2 size={16} />
+          <span class="text-xs">{deleteUserSuccess}</span>
+        </div>
+      {/if}
+
+      {#if filteredUsers.length === 0}
+        <div class="empty-users-box">
+          <Users size={32} class="text-muted" />
+          <p class="text-xs text-muted mt-1">Belum ada akun terdaftar yang cocok dengan filter pencarian.</p>
+        </div>
+      {:else}
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Akun Pengguna</th>
+                <th>Peran</th>
+                <th>Kontak & Asal / Stand</th>
+                <th>Aktivitas</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each filteredUsers as user (user.id)}
+                {@const isSelf = $currentUser?.id === user.id || ($currentUser?.email && user.email && $currentUser.email.toLowerCase() === user.email.toLowerCase())}
+                {@const appCnt = getUserAppCount(user.id)}
+                {@const attCnt = getUserAttendanceCount(user.id)}
+                <tr>
+                  <td>
+                    <div class="user-account-cell">
+                      <span class="perusahaan-cell">{user.nama_lengkap || 'Tanpa Nama'}</span>
+                      <span class="text-xs text-muted">{user.email || '-'}</span>
+                      {#if user.qr_code_token}
+                        <span class="text-xs text-light tabular-nums">{user.qr_code_token}</span>
+                      {/if}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge {user.role === 'admin' ? 'badge-terverifikasi' : user.role === 'pemberi_kerja' ? 'badge-stand' : 'badge-wawancara'}">
+                      {user.role === 'admin' ? 'Admin BKK' : user.role === 'pemberi_kerja' ? 'Pemberi Kerja' : 'Pelamar'}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="user-account-cell">
+                      <span class="text-xs tabular-nums">WA: {user.nomor_wa || '-'}</span>
+                      {#if user.role === 'pemberi_kerja'}
+                        <span class="text-xs text-muted">{getCompanyName(user.company_id)}</span>
+                      {:else}
+                        <span class="text-xs text-muted">{user.asal_sekolah_kampus || 'Belum diisi'} {user.jurusan ? `(${user.jurusan})` : ''}</span>
+                      {/if}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-account-cell">
+                      <span class="text-xs font-semibold tabular-nums">{appCnt} Lamaran</span>
+                      <span class="text-xs text-muted tabular-nums">{attCnt} Scan Stand</span>
+                    </div>
+                  </td>
+                  <td>
+                    {#if isSelf}
+                      <span class="text-xs text-muted">Akun Aktif</span>
+                    {:else}
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        on:click={() => openDeleteUserModal(user)}
+                        title="Hapus akun {user.nama_lengkap || user.email}"
+                      >
+                        <Trash2 size={13} />
+                        <span>Hapus Akun</span>
+                      </button>
+                    {/if}
+                  </td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      {/if}
+    </div>
+  {/if}
 </div>
+
+<!-- Modal Konfirmasi Hapus Akun (Admin BKK) -->
+{#if showDeleteUserModal && userToDelete}
+  <div
+    class="modal-backdrop"
+    on:click={closeDeleteUserModal}
+    role="button"
+    tabindex="0"
+    on:keydown={(e) => e.key === 'Escape' && closeDeleteUserModal()}
+  >
+    <div
+      class="modal-content admin-address-modal"
+      on:click|stopPropagation
+      on:keydown|stopPropagation
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-ditolak">Konfirmasi Hapus Akun</span>
+          <h3 class="heading-md mt-1">Hapus Akun Terdaftar?</h3>
+          <p class="text-xs text-muted">Tindakan ini akan menghapus data profil, lamaran, dan presensi akun ini.</p>
+        </div>
+        <button type="button" class="btn-close" on:click={closeDeleteUserModal} aria-label="Tutup">
+          <X size={20} />
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="delete-user-summary">
+          <div class="summary-line">
+            <span class="text-xs text-muted">Nama:</span>
+            <span class="text-sm font-bold">{userToDelete.nama_lengkap || '-'}</span>
+          </div>
+          <div class="summary-line">
+            <span class="text-xs text-muted">Email:</span>
+            <span class="text-xs font-semibold">{userToDelete.email || '-'}</span>
+          </div>
+          <div class="summary-line">
+            <span class="text-xs text-muted">Peran:</span>
+            <span class="text-xs font-semibold">{userToDelete.role}</span>
+          </div>
+          <div class="summary-line">
+            <span class="text-xs text-muted">Data Terkait:</span>
+            <span class="text-xs">{getUserAppCount(userToDelete.id)} lamaran &amp; {getUserAttendanceCount(userToDelete.id)} presensi stand</span>
+          </div>
+        </div>
+
+        {#if deleteUserError}
+          <div class="alert-box alert-danger mt-2">
+            <AlertCircle size={16} />
+            <span class="text-xs">{deleteUserError}</span>
+          </div>
+        {/if}
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" on:click={closeDeleteUserModal} disabled={deletingUser}>
+          Batal
+        </button>
+        <button type="button" class="btn btn-danger-solid btn-sm" on:click={handleConfirmDeleteUser} disabled={deletingUser}>
+          <Trash2 size={14} />
+          <span>{deletingUser ? 'Menghapus...' : 'Ya, Hapus Akun'}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}
 
 <!-- Modal Edit Alamat Pemberi Kerja (Admin) -->
 {#if showAddressModal && editingCompany}
@@ -747,8 +1063,163 @@
     background-color: var(--color-amber-accent);
   }
 
+  .admin-tabs-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 2px;
+  }
+
+  .admin-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: -4px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .admin-tab-btn:hover {
+    color: var(--color-primary);
+    background-color: rgba(15, 23, 42, 0.03);
+  }
+
+  .admin-tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: 700;
+    background-color: #FFFFFF;
+  }
+
+  .admin-tab-badge {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text-muted);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .admin-tab-btn.active .admin-tab-badge {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .account-filter-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .role-filter-select {
+    width: auto;
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+  }
+
+  .user-account-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .empty-users-box {
+    text-align: center;
+    padding: 36px 16px;
+    background-color: var(--color-surface-subtle);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-outline-danger {
+    background-color: transparent;
+    color: #BE123C;
+    border: 1px solid #FECDD3;
+  }
+
+  .btn-outline-danger:hover {
+    background-color: #FFF1F2;
+    border-color: #FDA4AF;
+  }
+
+  .btn-danger-solid {
+    background-color: #BE123C;
+    color: #FFFFFF;
+    border: 1px solid #9F1239;
+  }
+
+  .btn-danger-solid:hover {
+    background-color: #9F1239;
+  }
+
+  .delete-user-summary {
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .mt-2 { margin-top: 8px; }
+
   @media (max-width: 800px) {
+    .admin-layout {
+      padding: 16px 12px 60px;
+      gap: 16px;
+    }
+    .admin-titles {
+      min-width: 0;
+      width: 100%;
+    }
+    .tag-row {
+      flex-wrap: wrap;
+    }
     .admin-hero-actions {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .zone-grid {
+      grid-template-columns: 1fr;
+    }
+    .zone-map-card,
+    .matrix-card {
+      padding: 16px;
+    }
+    .account-filter-controls {
+      width: 100%;
+    }
+    .matrix-search {
+      width: 100%;
+      flex: 1 1 200px;
+    }
+    .matrix-input {
+      width: 100%;
+      min-width: 0;
+    }
+    .role-filter-select {
       width: 100%;
     }
   }

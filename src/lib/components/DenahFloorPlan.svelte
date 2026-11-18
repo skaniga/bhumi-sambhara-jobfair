@@ -654,6 +654,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
     border-bottom: 2px solid #D97706;
     color: #F1F5F9;
   }
@@ -1348,12 +1350,54 @@
   }
 
   @media (max-width: 640px) {
+    .denah-container {
+      padding: 16px 12px 60px;
+    }
+    .denah-header {
+      padding: 16px;
+    }
+    .floor-stage-card {
+      padding: 12px;
+      overflow: hidden;
+    }
+    .panggung-utama-real {
+      max-width: 100%;
+      width: 100%;
+    }
+    .stage-platform-deck {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+    .stage-title {
+      font-size: 0.95rem;
+    }
+    .hall-wing,
+    .booth-card,
+    .bottom-cluster,
+    .bottom-arena-wrap {
+      min-width: 0;
+      max-width: 100%;
+    }
     .booth-card {
-      grid-template-columns: 70px 40px 1fr;
+      grid-template-columns: 64px 38px 1fr;
       padding: 8px 10px;
+      gap: 8px;
     }
     .booth-row-grid {
       grid-template-columns: 1fr;
+    }
+    .gate-headline,
+    .gate-caption,
+    .reg-main-title,
+    .reg-sub-title,
+    .walkway-label {
+      white-space: normal;
+      word-break: break-word;
+    }
+    .gate-sign-box {
+      padding: 8px 10px;
+      max-width: 100%;
     }
   }
 </style>

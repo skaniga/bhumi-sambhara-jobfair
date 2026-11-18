@@ -315,4 +315,10 @@
     border: 1px solid #FECDD3;
     color: #9F1239;
   }
+
+  @media (max-width: 480px) {
+    .meta-pills {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

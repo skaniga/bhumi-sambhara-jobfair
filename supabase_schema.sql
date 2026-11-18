@@ -138,7 +138,7 @@ CREATE POLICY "Allow vacancy updates" ON public.job_vacancies FOR UPDATE USING (
 DROP POLICY IF EXISTS "Allow vacancy deletes" ON public.job_vacancies;
 CREATE POLICY "Allow vacancy deletes" ON public.job_vacancies FOR DELETE USING (true);
 
--- Profiles: Public Read & Insert, Owner Update
+-- Profiles: Public Read & Insert, Owner Update, Admin Delete
 DROP POLICY IF EXISTS "Allow profile inserts" ON public.profiles;
 CREATE POLICY "Allow profile inserts" ON public.profiles FOR INSERT WITH CHECK (true);
 
@@ -148,7 +148,10 @@ CREATE POLICY "Allow profile reads" ON public.profiles FOR SELECT USING (true);
 DROP POLICY IF EXISTS "Allow profile updates" ON public.profiles;
 CREATE POLICY "Allow profile updates" ON public.profiles FOR UPDATE USING (true);
 
--- Applications: Insert, Read, Update
+DROP POLICY IF EXISTS "Allow profile deletes" ON public.profiles;
+CREATE POLICY "Allow profile deletes" ON public.profiles FOR DELETE USING (true);
+
+-- Applications: Insert, Read, Update, Delete
 DROP POLICY IF EXISTS "Allow application inserts" ON public.job_applications;
 CREATE POLICY "Allow application inserts" ON public.job_applications FOR INSERT WITH CHECK (true);
 
@@ -158,7 +161,10 @@ CREATE POLICY "Allow application reads" ON public.job_applications FOR SELECT US
 DROP POLICY IF EXISTS "Allow application updates" ON public.job_applications;
 CREATE POLICY "Allow application updates" ON public.job_applications FOR UPDATE USING (true);
 
--- Stand Attendances: Insert, Read, Upsert
+DROP POLICY IF EXISTS "Allow application deletes" ON public.job_applications;
+CREATE POLICY "Allow application deletes" ON public.job_applications FOR DELETE USING (true);
+
+-- Stand Attendances: Insert, Read, Upsert, Delete
 DROP POLICY IF EXISTS "Allow attendance inserts" ON public.stand_attendances;
 CREATE POLICY "Allow attendance inserts" ON public.stand_attendances FOR INSERT WITH CHECK (true);
 
@@ -167,3 +173,6 @@ CREATE POLICY "Allow attendance reads" ON public.stand_attendances FOR SELECT US
 
 DROP POLICY IF EXISTS "Allow attendance updates" ON public.stand_attendances;
 CREATE POLICY "Allow attendance updates" ON public.stand_attendances FOR UPDATE USING (true);
+
+DROP POLICY IF EXISTS "Allow attendance deletes" ON public.stand_attendances;
+CREATE POLICY "Allow attendance deletes" ON public.stand_attendances FOR DELETE USING (true);

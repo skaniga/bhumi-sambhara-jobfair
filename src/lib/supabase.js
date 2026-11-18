@@ -439,10 +439,13 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
 
 export function logoutUser() {
   currentUser.set(null);
-  // Clear persistent local user cache immediately
+  // Clear persistent local user cache & saved tab state immediately
   if (typeof window !== 'undefined') {
     try {
       localStorage.removeItem(STORAGE_PREFIX + 'current_user');
+      sessionStorage.removeItem('bhumi_active_tab');
+      sessionStorage.removeItem('bhumi_company_subtab');
+      sessionStorage.removeItem('bhumi_admin_subtab');
     } catch (e) {}
   }
   if (supabase) {
@@ -547,6 +550,86 @@ export async function updateProfile(updatedData) {
     }
   }
   return { success: true };
+}
+
+// ── Admin: Delete Registered User Account ──
+export async function deleteUserAccount(userId) {
+  const actor = get(currentUser);
+  if (!actor || actor.role !== 'admin') {
+    return { success: false, error: 'Hanya akun Admin / Panitia BKK yang dapat menghapus akun.' };
+  }
+  if (!userId) {
+    return { success: false, error: 'ID akun tidak valid.' };
+  }
+  if (actor.id === userId) {
+    return { success: false, error: 'Tidak dapat menghapus akun Admin yang sedang aktif digunakan.' };
+  }
+
+  if (supabase) {
+    try {
+      // Check whether profile currently exists in Supabase
+      const { data: existingRow } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', userId)
+        .maybeSingle();
+
+      // Clean up dependent records defensively before deleting profile
+      await supabase.from('job_applications').delete().eq('applicant_id', userId);
+      await supabase.from('stand_attendances').delete().eq('applicant_id', userId);
+
+      const { data: deletedRows, error } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId)
+        .select('id');
+
+      if (error) {
+        console.warn('Supabase deleteUserAccount error:', error.message);
+        return { success: false, error: `Gagal menghapus akun di server: ${error.message}` };
+      }
+
+      if (existingRow && (!deletedRows || deletedRows.length === 0)) {
+        return {
+          success: false,
+          error: 'Penghapusan akun ditolak oleh kebijakan RLS Supabase pada tabel profiles. Jalankan policy DELETE "Allow profile deletes" di Supabase SQL Editor.'
+        };
+      }
+    } catch (e) {
+      console.warn('Supabase deleteUserAccount notice:', e);
+      return { success: false, error: e.message || 'Gagal menghapus akun dari server.' };
+    }
+  }
+
+  // Update local reactive stores & localStorage cache
+  allUsers.update(list => list.filter(u => u.id !== userId));
+  applications.update(list => list.filter(a => a.applicant_id !== userId));
+  standAttendances.update(list => list.filter(s => s.applicant_id !== userId));
+
+  return { success: true };
+}
+
+// ── Lightweight Sync for Applicant Live Notifications ──
+export async function syncApplicantApplications(applicantId) {
+  if (!supabase || !applicantId) return [];
+  try {
+    const { data, error } = await supabase
+      .from('job_applications')
+      .select('*')
+      .eq('applicant_id', applicantId)
+      .order('waktu_melamar', { ascending: false });
+
+    if (!error && data) {
+      applications.update(list => {
+        const others = list.filter(a => a.applicant_id !== applicantId);
+        return [...data, ...others];
+      });
+      return data;
+    }
+  } catch (e) {
+    console.warn('syncApplicantApplications notice:', e);
+  }
+  return [];
 }
 
 // ── Company Profile Updates ──

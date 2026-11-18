@@ -14,10 +14,11 @@
     deleteVacancy
   } from '../supabase.js';
   import { onMount } from 'svelte';
+  import { buildWhatsAppInterviewUrl } from '../notifications.js';
   import { 
     Building2, ScanLine, CheckCircle, Clock, UserCheck, XCircle, Search, Edit, Save, RefreshCw,
     Briefcase, Plus, Trash2, Edit3, MapPin, Banknote, GraduationCap, Users, CheckCircle2, AlertCircle, X,
-    FileSpreadsheet
+    FileSpreadsheet, Bell, MessageCircle
   } from '@lucide/svelte';
   import * as XLSX from 'xlsx';
 
@@ -27,8 +28,74 @@
     await syncFromSupabase();
   });
 
+  const VALID_COMPANY_SUBTABS = ['pelamar', 'lowongan', 'alamat'];
+  function loadInitialSubtab() {
+    if (typeof window === 'undefined') return 'pelamar';
+    try {
+      const saved = sessionStorage.getItem('bhumi_company_subtab') || '';
+      return VALID_COMPANY_SUBTABS.includes(saved) ? saved : 'pelamar';
+    } catch {
+      return 'pelamar';
+    }
+  }
+
   let editMode = false;
-  let activeTab = 'pelamar'; // 'pelamar' | 'lowongan' | 'alamat'
+  let activeTab = loadInitialSubtab(); // 'pelamar' | 'lowongan' | 'alamat'
+  $: if (typeof window !== 'undefined' && VALID_COMPANY_SUBTABS.includes(activeTab)) {
+    try {
+      sessionStorage.setItem('bhumi_company_subtab', activeTab);
+    } catch {}
+  }
+
+  // Interview Call Notification Modal state
+  let showInterviewModal = false;
+  let interviewTargetApp = null;
+  let interviewTargetApplicant = null;
+  let interviewTargetVacancy = null;
+  let interviewNote = '';
+  let interviewSending = false;
+  let interviewSentSuccess = false;
+
+  function openInterviewModal(app, applicant, vac) {
+    interviewTargetApp = app;
+    interviewTargetApplicant = applicant;
+    interviewTargetVacancy = vac;
+    interviewNote = app.catatan_industri && !app.catatan_industri.startsWith('Catatan Pelamar:')
+      ? app.catatan_industri
+      : `Silakan segera menuju booth ${company?.nomor_stand || 'Stand Industri'} untuk sesi wawancara langsung.`;
+    interviewSending = false;
+    interviewSentSuccess = false;
+    showInterviewModal = true;
+  }
+
+  function closeInterviewModal() {
+    showInterviewModal = false;
+    interviewTargetApp = null;
+    interviewTargetApplicant = null;
+    interviewTargetVacancy = null;
+    interviewSentSuccess = false;
+  }
+
+  async function handleConfirmInterviewCall(openWaAfter = false) {
+    if (!interviewTargetApp) return;
+    interviewSending = true;
+    const noteToSend = (interviewNote || '').trim() || `Dipanggil wawancara di booth ${company?.nomor_stand || ''}.`;
+    await updateApplicationStatus(interviewTargetApp.id, 'wawancara', noteToSend, $currentUser?.id);
+    interviewSending = false;
+    interviewSentSuccess = true;
+
+    if (openWaAfter && interviewTargetApplicant?.nomor_wa) {
+      const waUrl = buildWhatsAppInterviewUrl(interviewTargetApplicant, company, interviewTargetVacancy, noteToSend);
+      if (waUrl && typeof window !== 'undefined') {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }
+    }
+
+    setTimeout(() => {
+      closeInterviewModal();
+    }, 900);
+  }
+
   let filterStatus = 'all';
   let searchQuery = '';
   let syncing = false;
@@ -702,11 +769,22 @@
                       </button>
                       <button 
                         class="btn btn-sm btn-amber" 
-                        title="Panggil Wawancara"
-                        on:click={() => handleStatusChange(app.id, 'wawancara')}
+                        title="Panggil Wawancara & Kirim Notifikasi ke Pelamar"
+                        on:click={() => openInterviewModal(app, applicant, vac)}
                       >
-                        Wawancara
+                        <Bell size={13} /> Wawancara
                       </button>
+                      {#if app.status === 'wawancara' && applicant?.nomor_wa}
+                        <a
+                          href={buildWhatsAppInterviewUrl(applicant, company, vac, app.catatan_industri)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="btn btn-sm btn-wa-outline"
+                          title="Kirim pesan panggilan wawancara via WhatsApp"
+                        >
+                          <MessageCircle size={13} /> WA
+                        </a>
+                      {/if}
                       <button 
                         class="btn btn-sm btn-primary" 
                         title="Terima Lamaran"
@@ -1022,6 +1100,75 @@
         </button>
         <button type="button" class="btn btn-primary" on:click={handleSaveVacancy} disabled={vacModalLoading}>
           {vacModalLoading ? 'Menyimpan...' : vacancyModalMode === 'create' ? 'Terbitkan Lowongan' : 'Simpan Perubahan'}
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Modal Panggilan Wawancara & Notifikasi Pelamar -->
+{#if showInterviewModal && interviewTargetApp}
+  <div class="modal-backdrop" on:click={closeInterviewModal} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && closeInterviewModal()}>
+    <div class="modal-content interview-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-wawancara">Notifikasi Panggilan Wawancara</span>
+          <h3 class="heading-md mt-1">Panggil {interviewTargetApplicant?.nama_lengkap || 'Pelamar'}</h3>
+          <p class="text-xs text-muted">
+            {interviewTargetVacancy?.judul_posisi || 'Lowongan Kerja'} • {company?.nomor_stand} ({company?.nama_perusahaan})
+          </p>
+        </div>
+        <button type="button" class="btn-close" on:click={closeInterviewModal} aria-label="Tutup">
+          <X size={20} />
+        </button>
+      </div>
+
+      <div class="modal-body">
+        {#if interviewSentSuccess}
+          <div class="alert-box alert-success">
+            <CheckCircle2 size={16} />
+            <span class="text-xs">Panggilan wawancara berhasil dikirim! Notifikasi langsung muncul di akun pelamar.</span>
+          </div>
+        {/if}
+
+        <div class="input-group">
+          <label class="input-label" for="interviewNoteInput">Catatan / Arahan Wawancara untuk Pelamar</label>
+          <textarea
+            id="interviewNoteInput"
+            class="input-field"
+            rows="3"
+            placeholder="Contoh: Silakan datang ke meja wawancara 2 di booth Stand 4 pukul 11.00 WIB membawa CV..."
+            bind:value={interviewNote}
+          ></textarea>
+          <p class="text-xs text-muted">
+            Pesan ini akan tampil pada notifikasi real-time di portal pelamar dan juga dapat dikirim lewat WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" on:click={closeInterviewModal} disabled={interviewSending}>
+          Batal
+        </button>
+        {#if interviewTargetApplicant?.nomor_wa}
+          <button
+            type="button"
+            class="btn btn-wa-solid btn-sm"
+            on:click={() => handleConfirmInterviewCall(true)}
+            disabled={interviewSending}
+          >
+            <MessageCircle size={15} />
+            <span>Panggil + Kirim WA</span>
+          </button>
+        {/if}
+        <button
+          type="button"
+          class="btn btn-amber btn-sm"
+          on:click={() => handleConfirmInterviewCall(false)}
+          disabled={interviewSending}
+        >
+          <Bell size={15} />
+          <span>{interviewSending ? 'Mengirim...' : 'Kirim Panggilan Wawancara'}</span>
         </button>
       </div>
     </div>
@@ -1731,15 +1878,103 @@
     background-color: var(--color-surface-muted);
   }
 
+  .interview-modal {
+    max-width: min(520px, calc(100vw - 20px));
+    width: 100%;
+  }
+
+  .btn-wa-outline {
+    background-color: #F0FDF4;
+    color: #15803D;
+    border: 1px solid #86EFAC;
+  }
+
+  .btn-wa-outline:hover {
+    background-color: #DCFCE7;
+  }
+
+  .btn-wa-solid {
+    background-color: #16A34A;
+    color: #FFFFFF;
+    border: 1px solid #15803D;
+  }
+
+  .btn-wa-solid:hover {
+    background-color: #15803D;
+  }
+
   .mt-1 { margin-top: 4px; }
   .mt-3 { margin-top: 12px; }
   .mb-2 { margin-bottom: 8px; }
   .max-w-md { max-width: 440px; }
 
   @media (max-width: 768px) {
-    .stand-actions {
-      align-items: flex-start;
+    .company-dashboard-layout {
+      padding: 16px 12px 60px;
+      gap: 16px;
+    }
+
+    .stand-main-info {
+      min-width: 0;
       width: 100%;
+      word-break: break-word;
+    }
+
+    .stand-actions {
+      align-items: stretch;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-tracker-box {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px 14px;
+      gap: 10px;
+    }
+
+    .pipeline-connector {
+      display: none;
+    }
+
+    .table-controls {
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .search-mini {
+      flex: 1 1 180px;
+      min-width: 0;
+    }
+
+    .mini-search-input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .select-filter {
+      flex: 1 1 150px;
+      min-width: 0;
+    }
+
+    .action-buttons-cell {
+      flex-wrap: wrap;
+    }
+
+    .logo-upload-row {
+      flex-wrap: wrap;
+    }
+
+    .applicants-table-card,
+    .vacancy-management-card,
+    .address-management-card {
+      padding: 16px;
+    }
+
+    .modal-footer {
+      flex-wrap: wrap;
+      padding: 12px 16px;
     }
 
     .grid-2, .grid-3 {

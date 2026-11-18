@@ -355,8 +355,21 @@
   }
 
   @media (max-width: 500px) {
+    .id-card-body {
+      padding: 14px;
+    }
+    .pass-header {
+      padding: 12px 14px;
+      flex-wrap: wrap;
+    }
     .pass-main {
       flex-direction: column;
+      padding: 14px;
+    }
+    .applicant-meta {
+      width: 100%;
+      min-width: 0;
+      word-break: break-word;
     }
   }
 
