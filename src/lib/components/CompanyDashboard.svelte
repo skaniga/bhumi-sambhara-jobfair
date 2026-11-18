@@ -13,6 +13,7 @@
     createVacancy,
     deleteVacancy
   } from '../supabase.js';
+  import { onMount } from 'svelte';
   import { 
     Building2, ScanLine, CheckCircle, Clock, UserCheck, XCircle, Search, Edit, Save, RefreshCw,
     Briefcase, Plus, Trash2, Edit3, MapPin, Banknote, GraduationCap, Users, CheckCircle2, AlertCircle, X,
@@ -22,11 +23,20 @@
 
   export let onOpenScanner = () => {};
 
+  onMount(async () => {
+    await syncFromSupabase();
+  });
+
   let editMode = false;
   let activeTab = 'pelamar'; // 'pelamar' | 'lowongan'
   let filterStatus = 'all';
   let searchQuery = '';
   let syncing = false;
+
+  // Logo upload state
+  let editLogoUrl = '';
+  let logoPreview = '';
+  let logoUploading = false;
 
   async function handleRefresh() {
     syncing = true;
@@ -54,6 +64,8 @@
     editPic = company.kontak_pic;
     editEmail = company.email;
     editAlamat = company.alamat;
+    editLogoUrl = company.logo_url || '';
+    logoPreview = company.logo_url || '';
   }
 
   // Company vacancies
@@ -104,9 +116,40 @@
       deskripsi: editDeskripsi,
       kontak_pic: editPic,
       email: editEmail,
-      alamat: editAlamat
+      alamat: editAlamat,
+      logo_url: logoPreview || null
     });
     editMode = false;
+  }
+
+  function handleLogoFile(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Harap pilih file gambar (JPG, PNG, SVG, WebP)');
+      return;
+    }
+    if (file.size > 500 * 1024) {
+      alert('Ukuran file logo maksimal 500 KB. Harap kompres gambar terlebih dahulu.');
+      return;
+    }
+    logoUploading = true;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      logoPreview = e.target.result;
+      editLogoUrl = e.target.result;
+      logoUploading = false;
+    };
+    reader.onerror = () => {
+      alert('Gagal membaca file. Coba lagi.');
+      logoUploading = false;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleRemoveLogo() {
+    logoPreview = '';
+    editLogoUrl = '';
   }
 
   function exportApplicantsExcel() {
@@ -270,7 +313,7 @@
     <div class="stand-hero-content">
       <div class="stand-logo-col">
         {#if company?.id}
-          <img src="/companies/{company.id}.svg?v=3" alt="{company?.nama_perusahaan || 'Logo'}" class="company-stand-logo-img" />
+          <img src={company.logo_url || `/companies/${company.id}.svg?v=3`} alt="{company?.nama_perusahaan || 'Logo'}" class="company-stand-logo-img" />
         {/if}
         <span class="badge badge-stand text-sm mt-1">{company?.nomor_stand}</span>
       </div>
@@ -368,9 +411,40 @@
           <textarea id="editDeskripsiPerusahaan" class="input-field" rows="2" bind:value={editDeskripsi}></textarea>
         </div>
 
+        <!-- Logo Upload Section -->
+        <div class="input-group">
+          <label class="input-label" for="logoFileInput">Logo Perusahaan</label>
+          <div class="logo-upload-row">
+            {#if logoPreview}
+              <img src={logoPreview} alt="Preview Logo" class="logo-preview-thumb" />
+            {:else}
+              <img src="/companies/{company?.id}.svg?v=3" alt="Logo Default" class="logo-preview-thumb logo-default" />
+            {/if}
+            <div class="logo-upload-actions">
+              <label class="btn btn-secondary btn-sm logo-file-label" for="logoFileInput">
+                {logoUploading ? '⏳ Memuat...' : '📁 Pilih Gambar Baru'}
+              </label>
+              <input
+                id="logoFileInput"
+                type="file"
+                accept="image/*"
+                class="logo-file-input-hidden"
+                on:change={handleLogoFile}
+                disabled={logoUploading}
+              />
+              {#if logoPreview}
+                <button class="btn btn-sm" style="color:#dc2626;border-color:#dc2626;" on:click={handleRemoveLogo}>
+                  🗑 Hapus Logo Custom
+                </button>
+              {/if}
+              <p class="text-xs text-muted">Maks. 500 KB. Format: JPG, PNG, SVG, WebP.</p>
+            </div>
+          </div>
+        </div>
+
         <div class="form-save-row">
-          <button class="btn btn-primary btn-sm" on:click={handleSaveCompanyProfile}>
-            <Save size={14} /> Simpan Data Stand
+          <button class="btn btn-primary btn-sm" on:click={handleSaveCompanyProfile} disabled={logoUploading}>
+            <Save size={14} /> {logoUploading ? 'Memuat logo...' : 'Simpan Data Stand'}
           </button>
         </div>
       </div>
@@ -937,6 +1011,43 @@
     margin-top: 20px;
     padding-top: 16px;
     border-top: 1px solid var(--color-border);
+  }
+
+  .logo-upload-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 6px;
+  }
+
+  .logo-preview-thumb {
+    width: 80px;
+    height: 56px;
+    object-fit: contain;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: #f9fafb;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+
+  .logo-default {
+    opacity: 0.6;
+  }
+
+  .logo-upload-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .logo-file-label {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .logo-file-input-hidden {
+    display: none;
   }
 
   .form-save-row {

@@ -119,11 +119,23 @@ export async function syncFromSupabase() {
     if (!indErr && indData && indData.length > 0) {
       const mergedInds = INITIAL_INDUSTRIES.map(init => {
         const remote = indData.find(d => d.id === init.id);
-        return remote ? { ...init, ...remote } : init;
+        if (!remote) return init;
+        // Map Supabase column names → frontend field names
+        return {
+          ...init,
+          ...remote,
+          alamat:  remote.alamat_kantor  ?? init.alamat,
+          email:   remote.email_resmi    ?? init.email,
+          logo_url: remote.logo_url      ?? null
+        };
       });
       for (const r of indData) {
         if (!mergedInds.some(m => m.id === r.id)) {
-          mergedInds.push(r);
+          mergedInds.push({
+            ...r,
+            alamat: r.alamat_kantor ?? '',
+            email:  r.email_resmi   ?? ''
+          });
         }
       }
       mergedInds.sort((a, b) => parseStandNum(a.nomor_stand) - parseStandNum(b.nomor_stand));
@@ -138,27 +150,22 @@ export async function syncFromSupabase() {
       .select('*')
       .order('created_at', { ascending: true });
     if (!vacErr && vacData && vacData.length > 0) {
-      const mergedVacs = [...INITIAL_VACANCIES];
+      // Which industries already have at least one vacancy in Supabase?
+      const indIdsInDb = new Set(vacData.map(v => v.industry_id));
+
+      // Start from INITIAL_VACANCIES only for industries NOT yet in Supabase
+      const mergedVacs = INITIAL_VACANCIES.filter(iv => !indIdsInDb.has(iv.industry_id));
+
       for (const v of vacData) {
-        const idx = mergedVacs.findIndex(mv => mv.id === v.id);
-        if (idx >= 0) {
-          mergedVacs[idx] = { 
-            ...mergedVacs[idx], 
-            ...v,
-            gaji: v.gaji || v.gaji_estimasi || mergedVacs[idx].gaji,
-            kuota: v.kuota || v.kuota_penerimaan || mergedVacs[idx].kuota,
-            lokasi: v.lokasi || v.lokasi_penempatan || mergedVacs[idx].lokasi,
-            pendidikan: v.pendidikan || mergedVacs[idx].pendidikan || 'Umum'
-          };
-        } else {
-          mergedVacs.push({
-            ...v,
-            gaji: v.gaji || v.gaji_estimasi || 'Ditanyakan pada saat wawancara',
-            pendidikan: v.pendidikan || 'Umum',
-            kuota: v.kuota || v.kuota_penerimaan || 1,
-            lokasi: v.lokasi || v.lokasi_penempatan || 'Magelang'
-          });
-        }
+        const initMatch = INITIAL_VACANCIES.find(iv => iv.id === v.id);
+        mergedVacs.push({
+          ...(initMatch || {}),
+          ...v,
+          gaji:      v.gaji      || v.gaji_estimasi      || (initMatch?.gaji)  || 'Ditanyakan pada saat wawancara',
+          kuota:     v.kuota     || v.kuota_penerimaan   || (initMatch?.kuota) || 1,
+          lokasi:    v.lokasi    || v.lokasi_penempatan   || (initMatch?.lokasi)|| 'Magelang',
+          pendidikan: v.pendidikan || (initMatch?.pendidikan) || 'Umum'
+        });
       }
       vacancies.set(mergedVacs);
     } else {
@@ -275,6 +282,8 @@ export async function loginUser(emailOrUsername, password) {
     };
 
     currentUser.set(standUser);
+    // Sync fresh data (applications, profiles) now that user is authenticated
+    syncFromSupabase().catch(() => {});
     return { success: true, user: standUser };
   }
 
@@ -290,6 +299,7 @@ export async function loginUser(emailOrUsername, password) {
         nomor_wa: '0812 3456 7890'
       };
       currentUser.set(adminUser);
+      syncFromSupabase().catch(() => {});
       return { success: true, user: adminUser };
     } else {
       return { success: false, error: 'Kata sandi akun Admin tidak cocok.' };
@@ -313,6 +323,7 @@ export async function loginUser(emailOrUsername, password) {
 
         if (prof) {
           currentUser.set(prof);
+          syncFromSupabase().catch(() => {});
           return { success: true, user: prof };
         }
       } else if (error) {
@@ -331,6 +342,7 @@ export async function loginUser(emailOrUsername, password) {
 
           if (prof) {
             currentUser.set(prof);
+            syncFromSupabase().catch(() => {});
             return { success: true, user: prof };
           }
         }
@@ -539,10 +551,29 @@ export async function updateProfile(updatedData) {
 
 // ── Company Profile Updates ──
 export async function updateCompany(companyId, companyData) {
+  // Update local store immediately (optimistic)
   industries.update(list => list.map(ind => ind.id === companyId ? { ...ind, ...companyData } : ind));
+
   if (supabase) {
     try {
-      await supabase.from('industries').update(companyData).eq('id', companyId);
+      // Build a safe payload with correct Supabase column names
+      const payload = {};
+      if (companyData.nama_perusahaan  !== undefined) payload.nama_perusahaan  = companyData.nama_perusahaan;
+      if (companyData.bidang_industri  !== undefined) payload.bidang_industri  = companyData.bidang_industri;
+      if (companyData.nomor_stand      !== undefined) payload.nomor_stand      = companyData.nomor_stand;
+      if (companyData.deskripsi        !== undefined) payload.deskripsi        = companyData.deskripsi;
+      if (companyData.kontak_pic       !== undefined) payload.kontak_pic       = companyData.kontak_pic;
+      if (companyData.website          !== undefined) payload.website          = companyData.website;
+      // logo_url: allow explicit null to clear logo
+      if ('logo_url' in companyData)                 payload.logo_url         = companyData.logo_url;
+      // Map frontend aliases → actual Supabase column names
+      if (companyData.alamat_kantor    !== undefined) payload.alamat_kantor    = companyData.alamat_kantor;
+      else if (companyData.alamat      !== undefined) payload.alamat_kantor    = companyData.alamat;
+      if (companyData.email_resmi      !== undefined) payload.email_resmi      = companyData.email_resmi;
+      else if (companyData.email       !== undefined) payload.email_resmi      = companyData.email;
+
+      const { error } = await supabase.from('industries').update(payload).eq('id', companyId);
+      if (error) console.warn('Supabase updateCompany error:', error.message);
     } catch (e) {
       console.warn('Supabase updateCompany notice:', e);
     }
@@ -631,9 +662,28 @@ export async function deleteVacancy(vacancyId) {
 // ── Job Applications ──
 export async function applyJob(vacancyId, applicantId, coverNote = '') {
   const currentApps = get(applications);
-  const already = currentApps.find(a => a.vacancy_id === vacancyId && a.applicant_id === applicantId);
-  if (already) {
-    return { success: false, error: 'Anda sudah melamar posisi ini sebelumnya.' };
+  const currentVacs = get(vacancies);
+
+  // Find this vacancy to get its industry_id
+  const targetVac = currentVacs.find(v => v.id === vacancyId);
+
+  // Block duplicate: same vacancy + same applicant
+  const alreadySameVac = currentApps.find(a => a.vacancy_id === vacancyId && a.applicant_id === applicantId);
+  if (alreadySameVac) {
+    return { success: false, error: 'Anda sudah melamar ke posisi ini di stand ini.' };
+  }
+
+  // Also block if applicant already applied to ANY vacancy at the same company
+  if (targetVac?.industry_id) {
+    const sameCompanyVacIds = currentVacs
+      .filter(v => v.industry_id === targetVac.industry_id)
+      .map(v => v.id);
+    const alreadySameCompany = currentApps.find(
+      a => sameCompanyVacIds.includes(a.vacancy_id) && a.applicant_id === applicantId
+    );
+    if (alreadySameCompany) {
+      return { success: false, error: 'Anda sudah mengirimkan lamaran ke perusahaan ini. Silakan datangi booth stand untuk proses selanjutnya.' };
+    }
   }
 
   const newApp = {

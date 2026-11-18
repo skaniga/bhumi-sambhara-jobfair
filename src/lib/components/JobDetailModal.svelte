@@ -1,5 +1,5 @@
 <script>
-  import { currentUser, applications, applyJob } from '../supabase.js';
+  import { currentUser, applications, vacancies, applyJob } from '../supabase.js';
   import { X, Building2, MapPin, Briefcase, GraduationCap, CheckCircle, AlertCircle, Share2 } from '@lucide/svelte';
 
   /** @type {any} */
@@ -25,8 +25,13 @@
     }
   }
 
-  $: existingApplication = ($currentUser && vacancy)
-    ? $applications.find(a => a.vacancy_id === vacancy.id && a.applicant_id === $currentUser.id)
+  // Check if applicant has applied to ANY vacancy at this company (not just this specific vacancy)
+  $: companyVacancyIds = industry
+    ? $vacancies.filter(v => v.industry_id === industry.id).map(v => v.id)
+    : (vacancy ? [vacancy.id] : []);
+
+  $: existingApplication = ($currentUser && industry)
+    ? $applications.find(a => companyVacancyIds.includes(a.vacancy_id) && a.applicant_id === $currentUser.id)
     : null;
 
   async function handleApply() {
@@ -128,15 +133,17 @@
           <div class="applied-banner">
             <CheckCircle size={18} color="#15803D" />
             <div>
-              <p class="text-xs font-semibold">Anda telah melamar posisi ini.</p>
+              <p class="text-xs font-semibold">✅ Lamaran ke {industry?.nama_perusahaan || 'perusahaan ini'} sudah terkirim.</p>
               <p class="text-xs text-muted">
-                Status saat ini: 
+                Status:
                 <span class="badge badge-{existingApplication.status}">
                   {existingApplication.status === 'menunggu' ? 'Menunggu di Stand' :
                    existingApplication.status === 'terverifikasi_stand' ? 'Terverifikasi Hadir di Stand' :
-                   existingApplication.status === 'wawancara' ? 'Panggilan Wawancara' : existingApplication.status}
+                   existingApplication.status === 'wawancara' ? 'Panggilan Wawancara' :
+                   existingApplication.status === 'diterima' ? 'Lolos Diterima' : existingApplication.status}
                 </span>
               </p>
+              <p class="text-xs text-muted mt-1">Silakan kunjungi booth <strong>{industry?.nomor_stand}</strong> untuk verifikasi fisik. Anda masih bisa melamar ke perusahaan lain.</p>
             </div>
           </div>
         {:else}
