@@ -1,6 +1,6 @@
 <script>
   import { currentUser, logoutUser } from '../supabase.js';
-  import { Briefcase, QrCode, Shield, User, LogOut, LogIn, Building2, ScanLine, Compass, Grid } from '@lucide/svelte';
+  import { Briefcase, QrCode, Shield, User, LogOut, LogIn, Building2, ScanLine, Compass, Grid, MapPin } from '@lucide/svelte';
 
   export let activeTab = 'portal';
   export let onOpenAuth = () => {};
@@ -127,7 +127,7 @@
     class="bottom-nav-item {activeTab === 'denah' ? 'active' : ''}"
     on:click={() => activeTab = 'denah'}
   >
-    <Compass size={20} />
+    <MapPin size={20} />
     <span>Denah</span>
   </button>
 

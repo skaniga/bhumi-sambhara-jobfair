@@ -269,7 +269,9 @@
   <div class="card stand-hero-card">
     <div class="stand-hero-content">
       <div class="stand-logo-col">
-        <img src="/companies/{company?.id}.svg?v=3" alt="{company?.nama_perusahaan}" class="company-stand-logo-img" />
+        {#if company?.id}
+          <img src="/companies/{company.id}.svg?v=3" alt="{company?.nama_perusahaan || 'Logo'}" class="company-stand-logo-img" />
+        {/if}
         <span class="badge badge-stand text-sm mt-1">{company?.nomor_stand}</span>
       </div>
 

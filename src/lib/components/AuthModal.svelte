@@ -215,7 +215,7 @@
             <KeyRound size={24} class="text-amber" />
           </div>
           <p class="text-xs text-muted">
-            Masukkan alamat email akun pelamar Anda untuk menerima tautan reset kata sandi, atau masukkan Username Stand Industri (contoh: <code>HkGoldStandA3</code>).
+            Masukkan alamat email akun pelamar Anda untuk menerima tautan reset kata sandi, atau masukkan Username Stand Industri (contoh: <code>HkGoldStand4</code>).
           </p>
         </div>
       {/if}
@@ -229,7 +229,7 @@
             id="authEmailInput"
             type="text" 
             class="input-field" 
-            placeholder={authMode === 'register' ? 'nama@email.com' : 'nama@email.com / HkGoldStandA3'} 
+            placeholder={authMode === 'register' ? 'nama@email.com' : 'nama@email.com / HkGoldStand4'} 
             bind:value={email}
             on:keydown={(e) => e.key === 'Enter' && (authMode === 'forgot' ? handleSubmit() : null)}
           />

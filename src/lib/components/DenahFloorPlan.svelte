@@ -139,7 +139,9 @@
                   <span class="badge badge-stand font-bold">{st}</span>
                 </div>
                 <div class="booth-logo-box">
-                  <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                  {#if ind?.id}
+                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                  {/if}
                 </div>
                 <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
                 <span class="booth-sector-sub">{ind?.bidang_industri || ''}</span>
@@ -194,7 +196,9 @@
                   <span class="badge badge-stand font-bold">{st}</span>
                 </div>
                 <div class="booth-logo-box">
-                  <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                  {#if ind?.id}
+                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                  {/if}
                 </div>
                 <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
                 <span class="booth-sector-sub">{ind?.bidang_industri || ''}</span>
@@ -230,7 +234,9 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    {#if ind?.id}
+                      <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                    {/if}
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
                 </div>
@@ -291,7 +297,9 @@
                     <span class="badge badge-stand font-bold">{st}</span>
                   </div>
                   <div class="booth-logo-box">
-                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan}" class="booth-img" />
+                    {#if ind?.id}
+                      <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                    {/if}
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
                 </div>

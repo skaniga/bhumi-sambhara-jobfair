@@ -1,12 +1,15 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { Html5Qrcode } from 'html5-qrcode';
-  import { allUsers, currentUser, recordStandScan, updateApplicationStatus, applications, vacancies, lookupApplicant } from '../supabase.js';
+  import { allUsers, currentUser, recordStandScan, updateApplicationStatus, applications, vacancies, lookupApplicant, industries } from '../supabase.js';
   import { X, Camera, CheckCircle, AlertCircle, User, Briefcase, Search, Scan } from '@lucide/svelte';
 
   export let onClose = () => {};
   /** @type {any} */
   export let currentIndustry = null;
+
+  let selectedAdminStandId = currentIndustry?.id || $currentUser?.company_id || ($industries[0]?.id || 'a0000001-0000-0000-0000-000000000001');
+  $: targetIndustry = currentIndustry || $industries.find(i => i.id === selectedAdminStandId) || $industries[0];
 
   let scannerElementId = 'qr-reader-region';
   /** @type {any} */
@@ -139,7 +142,7 @@
 
   async function handleVerifyPresence() {
     if (!scannedApplicant) return;
-    const indId = currentIndustry ? currentIndustry.id : ($currentUser?.company_id || 'ind-01');
+    const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
     const verifierId = $currentUser ? $currentUser.id : null;
 
     const res = await recordStandScan(indId, scannedApplicant.id, 'Verifikasi kehadiran fisik di stand booth.', verifierId);
@@ -150,7 +153,7 @@
 
   async function handleCallInterview() {
     if (!scannedApplicant) return;
-    const indId = currentIndustry ? currentIndustry.id : ($currentUser?.company_id || 'ind-01');
+    const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
     const compVacancies = $vacancies.filter(v => v.industry_id === indId).map(v => v.id);
     
     // Find application
@@ -169,11 +172,29 @@
 <div class="modal-backdrop" on:click={onClose} role="button" tabindex="0" on:keydown={(e) => e.key === 'Escape' && onClose()}>
   <div class="modal-content scanner-modal" on:click|stopPropagation on:keydown|stopPropagation role="dialog" aria-modal="true" tabindex="-1">
     <div class="modal-header">
-      <div>
+      <div style="flex: 1;">
         <h3 class="heading-sm">Scanner QR Barcode Pelamar</h3>
-        <p class="text-xs text-muted">
-          Stand: <strong>{currentIndustry?.nomor_stand || 'Stand Industri'}</strong> • {currentIndustry?.nama_perusahaan || 'Pemberi Kerja'}
-        </p>
+        {#if $currentUser?.role === 'admin'}
+          <div class="admin-scanner-select-row" style="margin-top: 6px;">
+            <label class="text-xs text-muted" for="scannerStandSelect" style="display: block; margin-bottom: 2px;">
+              Target Stand Booth:
+            </label>
+            <select 
+              id="scannerStandSelect" 
+              class="input-field" 
+              style="font-size: 0.8125rem; padding: 4px 8px; max-width: 320px;"
+              bind:value={selectedAdminStandId}
+            >
+              {#each $industries as ind}
+                <option value={ind.id}>{ind.nomor_stand} • {ind.nama_perusahaan}</option>
+              {/each}
+            </select>
+          </div>
+        {:else}
+          <p class="text-xs text-muted">
+            Stand: <strong>{targetIndustry?.nomor_stand || 'Stand Industri'}</strong> • {targetIndustry?.nama_perusahaan || 'Pemberi Kerja'}
+          </p>
+        {/if}
       </div>
       <button class="btn-close" on:click={onClose}>
         <X size={20} />
