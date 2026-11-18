@@ -212,7 +212,7 @@
           <span class="badge badge-stand">23 Mitra Industri Terverifikasi</span>
           <span class="badge badge-terverifikasi">Sistem Scan Barcode QR Terpadu</span>
         </div>
-        <p class="text-xs text-muted text-right">
+        <p class="text-xs text-muted text-right dev-credit-row">
           Dikembangkan oleh <a href="https://www.nineteendev.xyz/" target="_blank" rel="noopener noreferrer" class="footer-dev-link">NineteenDev</a>
         </p>
       </div>
@@ -291,25 +291,42 @@
     text-align: right;
   }
 
+  .dev-credit-row {
+    font-size: 0.8125rem;
+    color: #475569;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
   .footer-dev-link {
-    color: var(--color-primary);
-    font-weight: 700;
+    color: #1D4ED8;
+    font-weight: 800;
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
     transition: color 0.15s ease;
   }
 
   .footer-dev-link:hover {
-    color: #1D4ED8;
+    color: #1E40AF;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
+    .app-footer {
+      padding-top: 24px;
+      padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
     .footer-content {
       flex-direction: column;
       align-items: flex-start;
+      gap: 16px;
     }
     .footer-right {
       align-items: flex-start;
+      width: 100%;
+      gap: 8px;
+    }
+    .footer-meta {
+      width: 100%;
     }
     .text-right {
       text-align: left;
