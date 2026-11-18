@@ -95,7 +95,7 @@ export const applicantNotifications = derived(
       const standName = ind?.nomor_stand || 'Stand Industri';
       const companyName = ind?.nama_perusahaan || 'Mitra Industri';
       const position = vac?.judul_posisi || 'Lowongan Kerja';
-      const key = `${app.id}:${app.status}`;
+      const key = `${app.id}:${app.status}:${app.waktu_verifikasi || ''}`;
       const meta = buildNotificationMeta(app.status, standName, companyName, position);
 
       items.push({
@@ -114,7 +114,7 @@ export const applicantNotifications = derived(
       });
     }
 
-    items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    items.sort((a, b) => (new Date(b.timestamp).getTime() || 0) - (new Date(a.timestamp).getTime() || 0));
     return items;
   }
 );
@@ -175,6 +175,9 @@ function playNotificationChime() {
       osc.start(now + idx * 0.12);
       osc.stop(now + idx * 0.12 + 0.18);
     });
+    setTimeout(() => {
+      ctx.close().catch(() => {});
+    }, 500);
   } catch {
     // Audio playback may be blocked prior to user gesture; ignore safely
   }

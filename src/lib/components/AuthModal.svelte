@@ -77,12 +77,23 @@
     loading = true;
 
     if (authMode === 'register') {
-      if (!nama) {
+      if (!nama.trim()) {
         errorMessage = 'Mohon cantumkan nama lengkap Anda.';
         loading = false;
         return;
       }
-      const res = await registerUser(nama, email, password, role, role === 'pemberi_kerja' ? companyId : null);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        errorMessage = 'Format alamat email tidak valid. Contoh: nama@gmail.com';
+        loading = false;
+        return;
+      }
+      if (password.length < 6) {
+        errorMessage = 'Kata sandi minimal 6 karakter.';
+        loading = false;
+        return;
+      }
+      const safeRole = role === 'pemberi_kerja' ? 'pemberi_kerja' : 'pelamar';
+      const res = await registerUser(nama, email, password, safeRole, safeRole === 'pemberi_kerja' ? companyId : null);
       loading = false;
       if (res.success) {
         onSuccess(res.user);
@@ -193,7 +204,6 @@
           <select id="regPeranSelect" class="input-field" bind:value={role}>
             <option value="pelamar">Pelamar (Siswa / Alumni / Umum)</option>
             <option value="pemberi_kerja">Pemberi Kerja (Perwakilan Stand Industri)</option>
-            <option value="admin">Panitia Acara (BKK / UNTIDAR)</option>
           </select>
         </div>
 
@@ -239,7 +249,9 @@
       {#if authMode !== 'forgot' && authMode !== 'new_password'}
         <div class="input-group">
           <div class="password-label-row">
-            <label class="input-label mb-0" for="authPasswordInput">Kata Sandi</label>
+            <label class="input-label mb-0" for="authPasswordInput">
+              {authMode === 'register' ? 'Kata Sandi (Min. 6 Karakter)' : 'Kata Sandi'}
+            </label>
             {#if authMode === 'login'}
               <button type="button" class="forgot-link-inline" on:click={() => setMode('forgot')}>
                 Lupa kata sandi?

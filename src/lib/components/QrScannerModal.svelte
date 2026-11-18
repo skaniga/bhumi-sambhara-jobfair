@@ -2,7 +2,8 @@
   import { onMount, onDestroy } from 'svelte';
   import { Html5Qrcode } from 'html5-qrcode';
   import { allUsers, currentUser, recordStandScan, updateApplicationStatus, applications, vacancies, lookupApplicant, industries } from '../supabase.js';
-  import { X, Camera, CheckCircle, AlertCircle, User, Briefcase, Search, Scan } from '@lucide/svelte';
+  import { buildWhatsAppInterviewUrl } from '../notifications.js';
+  import { X, Camera, CheckCircle, AlertCircle, User, Briefcase, Search, Scan, MessageCircle } from '@lucide/svelte';
 
   export let onClose = () => {};
   /** @type {any} */
@@ -15,10 +16,14 @@
   /** @type {any} */
   let html5QrCode = null;
   let isScanning = false;
+  let isDestroyed = false;
+  let isProcessingScan = false;
+  let actionLoading = false;
   let manualInput = '';
   /** @type {any} */
   let scannedApplicant = null;
   let verificationSuccess = false;
+  let interviewCalled = false;
   let verificationMessage = '';
   let errorMessage = '';
 
@@ -43,6 +48,9 @@
           gain.connect(ctx.destination);
           osc.start();
           osc.stop(ctx.currentTime + 0.12);
+          setTimeout(() => {
+            ctx.close().catch(() => {});
+          }, 300);
         }
       }
     } catch (e) {
@@ -61,11 +69,12 @@
   });
 
   onDestroy(() => {
+    isDestroyed = true;
     stopScanning();
   });
 
   async function startScanning() {
-    if (!html5QrCode) return;
+    if (!html5QrCode || isDestroyed) return;
     try {
       isScanning = true;
       errorMessage = '';
@@ -85,6 +94,9 @@
           // ignore stream frame errors
         }
       );
+      if (isDestroyed) {
+        await stopScanning();
+      }
     } catch (err) {
       console.warn('Start camera failed:', err);
       isScanning = false;
@@ -104,34 +116,43 @@
   }
 
   async function handleScanSuccess(rawText) {
-    let token = rawText.trim();
+    if (isProcessingScan || scannedApplicant) return;
+    isProcessingScan = true;
     try {
-      const parsed = JSON.parse(rawText);
-      if (parsed.token) token = parsed.token;
-      if (parsed.applicant_id) token = parsed.applicant_id;
-    } catch (e) {
-      // plain text token
-    }
+      let token = (rawText || '').trim();
+      if (!token) return;
+      try {
+        const parsed = JSON.parse(rawText);
+        if (parsed.token) token = parsed.token;
+        if (parsed.applicant_id) token = parsed.applicant_id;
+      } catch (e) {
+        // plain text token
+      }
 
-    playSuccessFeedback();
-    const found = await lookupApplicant(token);
-    if (found) {
-      selectApplicant(found);
-    } else {
-      errorMessage = `Kode token atau NIK "${token}" tidak terdaftar dalam database peserta expo.`;
+      const found = await lookupApplicant(token);
+      if (found) {
+        playSuccessFeedback();
+        selectApplicant(found);
+      } else {
+        errorMessage = `Kode token atau NIK "${token}" tidak terdaftar dalam database peserta expo.`;
+      }
+    } finally {
+      isProcessingScan = false;
     }
   }
 
   function handleManualSubmit() {
-    if (!manualInput.trim()) return;
-    handleScanSuccess(manualInput.trim());
+    if (!manualInput.trim() || isProcessingScan) return;
+    const val = manualInput.trim();
     manualInput = '';
+    handleScanSuccess(val);
   }
 
   function selectApplicant(user) {
     scannedApplicant = user;
     errorMessage = '';
     verificationSuccess = false;
+    interviewCalled = false;
     verificationMessage = '';
     stopScanning();
   }
@@ -139,44 +160,51 @@
   async function resetScan() {
     scannedApplicant = null;
     verificationSuccess = false;
+    interviewCalled = false;
     verificationMessage = '';
     errorMessage = '';
+    isProcessingScan = false;
+    actionLoading = false;
     setTimeout(() => {
-      startScanning();
+      if (!isDestroyed) startScanning();
     }, 150);
   }
 
   async function handleVerifyPresence() {
-    if (!scannedApplicant) return;
-    const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
-    const verifierId = $currentUser ? $currentUser.id : null;
+    if (!scannedApplicant || actionLoading) return;
+    actionLoading = true;
+    errorMessage = '';
+    try {
+      const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
+      const verifierId = $currentUser ? $currentUser.id : null;
 
-    const res = await recordStandScan(indId, scannedApplicant.id, 'Verifikasi kehadiran fisik di stand booth.', verifierId);
-    if (res.success) {
-      verificationSuccess = true;
-      verificationMessage = 'Kehadiran dan verifikasi di stand berhasil dicatat ke sistem!';
+      const res = await recordStandScan(indId, scannedApplicant.id, 'Verifikasi kehadiran fisik di stand booth.', verifierId, 'terverifikasi_stand');
+      if (res.success) {
+        verificationSuccess = true;
+        verificationMessage = 'Kehadiran dan verifikasi di stand berhasil dicatat ke sistem!';
+      }
+    } finally {
+      actionLoading = false;
     }
   }
 
   async function handleCallInterview() {
-    if (!scannedApplicant) return;
-    const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
-    const compVacancies = $vacancies.filter(v => v.industry_id === indId).map(v => v.id);
-    const note = `Dipanggil wawancara langsung di meja booth ${targetIndustry?.nomor_stand || ''}.`.trim();
+    if (!scannedApplicant || actionLoading) return;
+    actionLoading = true;
+    errorMessage = '';
+    try {
+      const indId = targetIndustry?.id || ($currentUser?.company_id || $industries[0]?.id);
+      const note = `Dipanggil wawancara langsung di meja booth ${targetIndustry?.nomor_stand || ''}.`.trim();
 
-    // Find existing application or create walk-in application first
-    let app = $applications.find(a => a.applicant_id === scannedApplicant.id && compVacancies.includes(a.vacancy_id));
-    if (!app) {
-      await recordStandScan(indId, scannedApplicant.id, note, $currentUser?.id || null);
-      app = $applications.find(a => a.applicant_id === scannedApplicant.id && compVacancies.includes(a.vacancy_id));
+      const res = await recordStandScan(indId, scannedApplicant.id, note, $currentUser?.id || null, 'wawancara');
+      if (res.success) {
+        verificationSuccess = true;
+        interviewCalled = true;
+        verificationMessage = `Panggilan wawancara dikirim! Notifikasi langsung diteruskan ke akun ${scannedApplicant.nama_lengkap}.`;
+      }
+    } finally {
+      actionLoading = false;
     }
-
-    if (app) {
-      await updateApplicationStatus(app.id, 'wawancara', note, $currentUser?.id);
-    }
-
-    verificationSuccess = true;
-    verificationMessage = `Panggilan wawancara dikirim! Notifikasi langsung diteruskan ke akun ${scannedApplicant.nama_lengkap}.`;
   }
 </script>
 
@@ -294,15 +322,27 @@
           {/if}
 
           <div class="action-buttons-row">
-            <button class="btn btn-secondary" on:click={resetScan}>
+            <button class="btn btn-secondary" on:click={resetScan} disabled={actionLoading}>
               Scan Pelamar Lain
             </button>
 
-            <button class="btn btn-amber" on:click={handleCallInterview}>
-              Panggil Wawancara
+            {#if interviewCalled && scannedApplicant?.nomor_wa}
+              <a
+                href={buildWhatsAppInterviewUrl(scannedApplicant, targetIndustry, { judul_posisi: 'Lowongan Kerja (Umum)' }, `Dipanggil wawancara langsung di meja booth ${targetIndustry?.nomor_stand || ''}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-wa-solid"
+              >
+                <MessageCircle size={16} />
+                <span>Kirim WA Panggilan</span>
+              </a>
+            {/if}
+
+            <button class="btn btn-amber" on:click={handleCallInterview} disabled={actionLoading}>
+              {actionLoading ? 'Memproses...' : interviewCalled ? 'Panggil Ulang Wawancara' : 'Panggil Wawancara'}
             </button>
 
-            <button class="btn btn-primary" on:click={handleVerifyPresence} disabled={verificationSuccess}>
+            <button class="btn btn-primary" on:click={handleVerifyPresence} disabled={verificationSuccess || actionLoading}>
               <CheckCircle size={16} />
               <span>{verificationSuccess ? 'Sudah Terverifikasi' : 'Verifikasi Hadir di Stand'}</span>
             </button>
@@ -539,6 +579,16 @@
     padding: 6px;
     color: var(--color-text-muted);
     flex-shrink: 0;
+  }
+
+  .btn-wa-solid {
+    background-color: #16A34A;
+    color: #FFFFFF;
+    border: 1px solid #15803D;
+  }
+
+  .btn-wa-solid:hover {
+    background-color: #15803D;
   }
 
   @media (max-width: 480px) {

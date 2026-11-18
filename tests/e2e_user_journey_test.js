@@ -348,6 +348,35 @@ await itAsync('Pelamar biasa ditolak saat mencoba menghapus akun lain', async ()
   assert.match(res.error, /Admin/i);
 });
 
+await itAsync('Validasi pendaftaran menolak email tidak valid dan kata sandi kurang dari 6 karakter', async () => {
+  const badEmail = await registerUser('Test User', 'bukan-email', 'Password123!', 'pelamar');
+  assert.equal(badEmail.success, false);
+  const shortPass = await registerUser('Test User', `short.${Date.now()}@skanisa.sch.id`, '1234', 'pelamar');
+  assert.equal(shortPass.success, false);
+});
+
+await itAsync('Scan barcode walk-in + Panggil Wawancara langsung membuat status wawancara dan notifikasi pelamar', async () => {
+  const walkInEmail = `walkin.${Date.now()}@skanisa.sch.id`;
+  const regRes = await registerUser('Rina Walkin', walkInEmail, 'WalkinPass2026!', 'pelamar');
+  assert.equal(regRes.success, true);
+  const walkInUser = regRes.user;
+
+  // Lookup dengan token case-insensitive & email
+  const foundByToken = await lookupApplicant(walkInUser.qr_code_token.toLowerCase());
+  assert.equal(foundByToken?.id, walkInUser.id);
+  const foundByEmail = await lookupApplicant(walkInEmail.toUpperCase());
+  assert.equal(foundByEmail?.id, walkInUser.id);
+
+  // HRD Stand 4 (HK Gold) scan walk-in & langsung panggil wawancara
+  const hkGoldId = 'a0000001-0000-0000-0000-000000000003';
+  const scanRes = await recordStandScan(hkGoldId, walkInUser.id, 'Dipanggil wawancara langsung di Stand 4', companyUser.id, 'wawancara');
+  assert.equal(scanRes.success, true);
+
+  const notifs = get(applicantNotifications);
+  const interviewNotif = notifs.find(n => n.status === 'wawancara' && n.stand === 'Stand 4');
+  assert.ok(interviewNotif, 'Pelamar walk-in harus langsung menerima notifikasi panggilan wawancara Stand 4');
+});
+
 await itAsync('Admin BKK dapat menghapus akun uji coba beserta lamaran & presensinya, tetapi tidak bisa menghapus dirinya sendiri', async () => {
   await loginUser('bkk@skanisa.sch.id', 'SuperAdminBkk2026!');
   const activeAdmin = get(currentUser);

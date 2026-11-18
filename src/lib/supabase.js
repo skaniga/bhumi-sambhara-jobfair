@@ -175,6 +175,20 @@ export async function syncFromSupabase() {
     // 3. Fetch applications (Scoped by role for high-concurrency efficiency & privacy)
     const curUser = get(currentUser);
     if (curUser) {
+      // Verify registered pelamar profile still exists (handles remote deletion by Admin BKK)
+      if (curUser.role === 'pelamar') {
+        const { data: selfProf, error: selfErr } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('id', curUser.id)
+          .maybeSingle();
+
+        if (!selfErr && !selfProf) {
+          logoutUser();
+          return;
+        }
+      }
+
       let appQuery = supabase.from('job_applications').select('*');
       if (curUser.role === 'pelamar') {
         appQuery = appQuery.eq('applicant_id', curUser.id);
@@ -266,9 +280,12 @@ export async function loginUser(emailOrUsername, password) {
       return { success: false, error: 'Kata sandi stand tidak cocok.' };
     }
 
-    // Try finding existing profile or build designated stand profile
+    // Try finding existing stand profile or build designated stand profile
     const usersList = get(allUsers);
-    const existing = usersList.find(u => u.email.toLowerCase() === standCred.email.toLowerCase() || u.company_id === standCred.company_id);
+    const existing = usersList.find(u =>
+      u.role === 'pemberi_kerja' &&
+      ((u.email || '').toLowerCase() === standCred.email.toLowerCase() || u.company_id === standCred.company_id)
+    );
     
     const standUser = existing || {
       id: generateUUID(),
@@ -326,6 +343,12 @@ export async function loginUser(emailOrUsername, password) {
           syncFromSupabase().catch(() => {});
           return { success: true, user: prof };
         }
+        // Auth user exists, but profile was removed by Admin BKK
+        supabase.auth.signOut().catch(() => {});
+        return {
+          success: false,
+          error: 'Akun ini telah dihapus oleh panitia atau profilnya belum tersedia. Silakan daftar ulang atau hubungi panitia.'
+        };
       } else if (error) {
         // If error is "Email not confirmed", Supabase ALREADY confirmed the password is valid!
         // We log the applicant in using their profile so on-site applicants are never locked out at the event.
@@ -345,6 +368,10 @@ export async function loginUser(emailOrUsername, password) {
             syncFromSupabase().catch(() => {});
             return { success: true, user: prof };
           }
+          return {
+            success: false,
+            error: 'Akun ini telah dihapus oleh panitia atau profilnya belum tersedia. Silakan daftar ulang atau hubungi panitia.'
+          };
         }
 
         const errMsg = error.message === 'Invalid login credentials'
@@ -354,15 +381,18 @@ export async function loginUser(emailOrUsername, password) {
       }
     } catch (err) {
       console.warn('Supabase direct login notice:', err);
+      return { success: false, error: 'Gagal menghubungi server login. Periksa koneksi internet Anda.' };
     }
   }
 
-  // 4. Check local users list (for applicants registered locally)
-  const usersList = get(allUsers);
-  const found = usersList.find(u => u.email.toLowerCase() === cleanLower);
-  if (found) {
-    currentUser.set(found);
-    return { success: true, user: found };
+  // 4. Local offline/test fallback ONLY when Supabase is not configured
+  if (!supabase) {
+    const usersList = get(allUsers);
+    const found = usersList.find(u => (u.email || '').toLowerCase() === cleanLower);
+    if (found) {
+      currentUser.set(found);
+      return { success: true, user: found };
+    }
   }
 
   return { 
@@ -379,14 +409,25 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
     return { success: false, error: 'Alamat email dan kata sandi wajib diisi.' };
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(cleanEmail)) {
+    return { success: false, error: 'Format alamat email tidak valid. Contoh: nama@gmail.com' };
+  }
+
+  if (password.length < 6) {
+    return { success: false, error: 'Kata sandi minimal 6 karakter.' };
+  }
+
   const usersList = get(allUsers);
 
-  const exists = usersList.find(u => u.email.toLowerCase() === cleanEmail);
+  const exists = usersList.find(u => (u.email || '').toLowerCase() === cleanEmail);
   if (exists) {
     return { success: false, error: 'Alamat email ini sudah terdaftar sebelumnya.' };
   }
 
-  const qrToken = 'BSJ2026-' + (role === 'pelamar' ? 'PEL' : 'IND') + '-' + Math.floor(10000 + Math.random() * 90000);
+  const makeQrToken = () =>
+    'BSJ2026-' + (role === 'pelamar' ? 'PEL' : 'IND') + '-' +
+    Math.random().toString(36).slice(2, 8).toUpperCase();
 
   const newUser = {
     id: generateUUID(),
@@ -402,9 +443,18 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
     link_cv_portofolio: '',
     ringkasan_profil: '',
     company_id: companyId,
-    qr_code_token: qrToken,
+    qr_code_token: makeQrToken(),
     created_at: new Date().toISOString()
   };
+
+  async function insertProfileWithRetry(userObj) {
+    let { error: profErr } = await supabase.from('profiles').insert([userObj]);
+    if (profErr && profErr.code === '23505' && (profErr.message || '').includes('qr_code_token')) {
+      userObj.qr_code_token = makeQrToken();
+      ({ error: profErr } = await supabase.from('profiles').insert([userObj]));
+    }
+    return profErr;
+  }
 
   // If Supabase Auth is active
   if (supabase) {
@@ -424,10 +474,60 @@ export async function registerUser(nama, email, password, role = 'pelamar', comp
 
       if (!authErr && authData?.user) {
         newUser.user_id = authData.user.id;
-        await supabase.from('profiles').insert([newUser]);
+        const profErr = await insertProfileWithRetry(newUser);
+        if (profErr) {
+          if (profErr.code === '23505' && (profErr.message || '').includes('email')) {
+            return { success: false, error: 'Alamat email ini sudah terdaftar sebelumnya. Silakan langsung masuk.' };
+          }
+          return { success: false, error: `Gagal menyimpan profil pendaftaran: ${profErr.message}` };
+        }
+      } else if (authErr) {
+        const msg = (authErr.message || '').toLowerCase();
+        if (msg.includes('already registered') || msg.includes('already exists')) {
+          const { data: existingProf } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('email', cleanEmail)
+            .maybeSingle();
+
+          if (existingProf) {
+            return { success: false, error: 'Alamat email ini sudah terdaftar sebelumnya. Silakan langsung masuk.' };
+          }
+
+          // Profile was previously deleted by Admin BKK; allow re-creation if password matches auth.users
+          const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({
+            email: cleanEmail,
+            password: password
+          });
+          if (!signInErr && signInData?.user) {
+            newUser.user_id = signInData.user.id;
+            const profErr = await insertProfileWithRetry(newUser);
+            if (profErr) {
+              return { success: false, error: `Gagal membuat ulang profil: ${profErr.message}` };
+            }
+          } else {
+            return {
+              success: false,
+              error: 'Email ini pernah terdaftar sebelumnya. Gunakan kata sandi lama Anda untuk mendaftar ulang atau gunakan alamat email lain.'
+            };
+          }
+        } else if (msg.includes('rate limit')) {
+          return {
+            success: false,
+            error: 'Terlalu banyak permintaan pendaftaran dari jaringan ini. Silakan tunggu 1 menit lalu coba lagi.'
+          };
+        } else {
+          return {
+            success: false,
+            error: authErr.message || 'Gagal mendaftarkan akun. Periksa data dan koneksi internet Anda.'
+          };
+        }
+      } else {
+        return { success: false, error: 'Gagal membuat akun di server autentikasi. Silakan coba lagi.' };
       }
     } catch (e) {
       console.warn('Supabase register sync notice:', e);
+      return { success: false, error: e.message || 'Koneksi ke server pendaftaran gagal. Coba lagi.' };
     }
   }
 
@@ -449,6 +549,10 @@ export function logoutUser() {
     } catch (e) {}
   }
   if (supabase) {
+    // Wipe cached PII on shared booth devices when logging out in production
+    allUsers.set([]);
+    applications.set([]);
+    standAttendances.set([]);
     supabase.auth.signOut().catch(() => {});
   }
 }
@@ -561,7 +665,11 @@ export async function deleteUserAccount(userId) {
   if (!userId) {
     return { success: false, error: 'ID akun tidak valid.' };
   }
-  if (actor.id === userId) {
+  const targetUser = get(allUsers).find(u => u.id === userId);
+  const isSameEmail = Boolean(
+    actor.email && targetUser?.email && actor.email.toLowerCase() === targetUser.email.toLowerCase()
+  );
+  if (actor.id === userId || isSameEmail) {
     return { success: false, error: 'Tidak dapat menghapus akun Admin yang sedang aktif digunakan.' };
   }
 
@@ -574,7 +682,11 @@ export async function deleteUserAccount(userId) {
         .eq('id', userId)
         .maybeSingle();
 
-      // Clean up dependent records defensively before deleting profile
+      // Clear verifier/scanner references first to avoid FK constraint errors on HRD/Admin accounts
+      await supabase.from('job_applications').update({ verified_by: null }).eq('verified_by', userId);
+      await supabase.from('stand_attendances').update({ scanned_by: null }).eq('scanned_by', userId);
+
+      // Clean up dependent applicant records defensively before deleting profile
       await supabase.from('job_applications').delete().eq('applicant_id', userId);
       await supabase.from('stand_attendances').delete().eq('applicant_id', userId);
 
@@ -800,22 +912,38 @@ export async function applyJob(vacancyId, applicantId, coverNote = '') {
 
   if (supabase) {
     try {
-      await supabase.from('job_applications').insert([newApp]);
+      const { error } = await supabase.from('job_applications').insert([newApp]);
+      if (error) {
+        // Roll back optimistic entry when remote insert fails
+        applications.update(list => list.filter(a => a.id !== newApp.id));
+        if (error.code === '23505') {
+          syncApplicantApplications(applicantId).catch(() => {});
+          return { success: false, error: 'Anda sudah melamar ke posisi ini sebelumnya.' };
+        }
+        console.warn('Supabase applyJob error:', error.message);
+        return { success: false, error: 'Gagal mengirim lamaran ke server. Periksa koneksi Anda lalu coba lagi.' };
+      }
     } catch (e) {
+      applications.update(list => list.filter(a => a.id !== newApp.id));
       console.warn('Supabase applyJob notice:', e);
+      return { success: false, error: 'Koneksi ke server terputus saat mengirim lamaran. Silakan coba lagi.' };
     }
   }
   return { success: true, application: newApp };
 }
 
 export async function updateApplicationStatus(applicationId, newStatus, notes = '', verifiedBy = null) {
+  const verifiedAt = new Date().toISOString();
+  const existingApp = get(applications).find(a => a.id === applicationId);
+  const finalNotes = notes || existingApp?.catatan_industri || '';
+
   applications.update(list => list.map(app => {
     if (app.id === applicationId) {
       return {
         ...app,
         status: newStatus,
-        catatan_industri: notes || app.catatan_industri,
-        waktu_verifikasi: new Date().toISOString(),
+        catatan_industri: finalNotes,
+        waktu_verifikasi: verifiedAt,
         verified_by: verifiedBy || app.verified_by
       };
     }
@@ -824,30 +952,44 @@ export async function updateApplicationStatus(applicationId, newStatus, notes = 
 
   if (supabase) {
     try {
-      await supabase.from('job_applications').update({
+      // Official stand/admin logins may use an ephemeral UUID not present in public.profiles.
+      // Only send verified_by if that profile exists, and retry with null on FK error (23503).
+      const safeVerifiedBy = verifiedBy && get(allUsers).some(u => u.id === verifiedBy) ? verifiedBy : null;
+      const payload = {
         status: newStatus,
-        catatan_industri: notes,
-        waktu_verifikasi: new Date().toISOString(),
-        verified_by: verifiedBy
-      }).eq('id', applicationId);
+        catatan_industri: finalNotes,
+        waktu_verifikasi: verifiedAt,
+        verified_by: safeVerifiedBy
+      };
+
+      let { error } = await supabase.from('job_applications').update(payload).eq('id', applicationId);
+      if (error && (error.code === '23503' || (error.message || '').includes('verified_by'))) {
+        ({ error } = await supabase.from('job_applications').update({ ...payload, verified_by: null }).eq('id', applicationId));
+      }
+      if (error) {
+        console.warn('Supabase updateApplicationStatus error:', error.message);
+        return { success: false, error: error.message };
+      }
     } catch (e) {
       console.warn('Supabase updateApplicationStatus notice:', e);
+      return { success: false, error: e.message || 'Gagal memperbarui status lamaran.' };
     }
   }
   return { success: true };
 }
 
 // ── Stand Barcode Attendance Verification ──
-export async function recordStandScan(industryId, applicantId, notes = '', scannedBy = null) {
+export async function recordStandScan(industryId, applicantId, notes = '', scannedBy = null, targetStatus = 'terverifikasi_stand') {
   const attendances = get(standAttendances);
   const existing = attendances.find(a => a.industry_id === industryId && a.applicant_id === applicantId);
+  const safeScannedBy = scannedBy && get(allUsers).some(u => u.id === scannedBy) ? scannedBy : null;
 
   const newRecord = {
     id: existing ? existing.id : generateUUID(),
     industry_id: industryId,
     applicant_id: applicantId,
     scanned_at: new Date().toISOString(),
-    scanned_by: scannedBy,
+    scanned_by: safeScannedBy,
     catatan_petugas: notes || 'Hadir dan diverifikasi fisik di stand booth.'
   };
 
@@ -859,44 +1001,81 @@ export async function recordStandScan(industryId, applicantId, notes = '', scann
 
   if (supabase) {
     try {
-      await supabase.from('stand_attendances').upsert([newRecord]);
+      let { error } = await supabase
+        .from('stand_attendances')
+        .upsert([newRecord], { onConflict: 'industry_id,applicant_id' });
+      if (error && (error.code === '23503' || (error.message || '').includes('scanned_by'))) {
+        ({ error } = await supabase
+          .from('stand_attendances')
+          .upsert([{ ...newRecord, scanned_by: null }], { onConflict: 'industry_id,applicant_id' }));
+      }
+      if (error) console.warn('Supabase recordStandScan error:', error.message);
     } catch (e) {
       console.warn('Supabase recordStandScan notice:', e);
     }
   }
 
-  // Find existing applications for this industry
+  // Find existing applications for this industry (check local store + live Supabase so recent online applications are never duplicated)
   const currentVacancies = get(vacancies).filter(v => v.industry_id === industryId);
   const vacIds = currentVacancies.map(v => v.id);
-  const existingApps = get(applications).filter(a => a.applicant_id === applicantId && vacIds.includes(a.vacancy_id));
+  let existingApps = get(applications).filter(a => a.applicant_id === applicantId && vacIds.includes(a.vacancy_id));
+
+  if (supabase && vacIds.length > 0 && existingApps.length === 0) {
+    try {
+      const { data: remoteApps, error: remoteErr } = await supabase
+        .from('job_applications')
+        .select('*')
+        .eq('applicant_id', applicantId)
+        .in('vacancy_id', vacIds);
+
+      if (!remoteErr && remoteApps && remoteApps.length > 0) {
+        existingApps = remoteApps;
+        applications.update(list => {
+          const existingIds = new Set(list.map(a => a.id));
+          const toAdd = remoteApps.filter(a => !existingIds.has(a.id));
+          return [...toAdd, ...list];
+        });
+      }
+    } catch (e) {
+      console.warn('Supabase fetch existing apps during scan notice:', e);
+    }
+  }
 
   if (existingApps.length > 0) {
     for (const app of existingApps) {
-      const nextStatus = app.status === 'menunggu' ? 'terverifikasi_stand' : app.status;
+      const nextStatus =
+        targetStatus === 'wawancara'
+          ? 'wawancara'
+          : (app.status === 'menunggu' ? 'terverifikasi_stand' : app.status);
       await updateApplicationStatus(
         app.id,
         nextStatus,
         notes || 'Telah scan barcode dan diverifikasi langsung di stand booth.',
-        scannedBy
+        safeScannedBy
       );
     }
   } else if (currentVacancies.length > 0) {
     // Walk-in candidate: automatically register application for primary vacancy of this stand
     const primaryVac = currentVacancies[0];
+    const nowIso = new Date().toISOString();
     const walkInApp = {
       id: generateUUID(),
       vacancy_id: primaryVac.id,
       applicant_id: applicantId,
-      status: 'terverifikasi_stand',
+      status: targetStatus === 'wawancara' ? 'wawancara' : 'terverifikasi_stand',
       catatan_industri: notes || 'Pendaftaran & Verifikasi On-the-spot di Stand ' + (primaryVac.lokasi || ''),
-      waktu_melamar: new Date().toISOString(),
-      waktu_verifikasi: new Date().toISOString(),
-      verified_by: scannedBy
+      waktu_melamar: nowIso,
+      waktu_verifikasi: nowIso,
+      verified_by: safeScannedBy
     };
     applications.update(list => [walkInApp, ...list]);
     if (supabase) {
       try {
-        await supabase.from('job_applications').insert([walkInApp]);
+        let { error } = await supabase.from('job_applications').insert([walkInApp]);
+        if (error && (error.code === '23503' || (error.message || '').includes('verified_by'))) {
+          ({ error } = await supabase.from('job_applications').insert([{ ...walkInApp, verified_by: null }]));
+        }
+        if (error) console.warn('Supabase walk-in app error:', error.message);
       } catch (e) {
         console.warn('Supabase walk-in app notice:', e);
       }
@@ -908,24 +1087,38 @@ export async function recordStandScan(industryId, applicantId, notes = '', scann
 
 // ── Live Applicant Lookup (Local + Supabase Cloud Fallback) ──
 export async function lookupApplicant(tokenOrId) {
-  const query = tokenOrId.trim();
+  const query = (tokenOrId || '').trim();
+  if (!query) return null;
+
+  const queryLower = query.toLowerCase();
   const localList = get(allUsers);
   let found = localList.find(u => 
-    u.qr_code_token === query || 
-    u.nik_nisn === query || 
+    (u.qr_code_token || '').toLowerCase() === queryLower || 
+    (u.nik_nisn || '') === query || 
     u.id === query ||
-    u.email.toLowerCase() === query.toLowerCase()
+    (u.email || '').toLowerCase() === queryLower
   );
 
   if (found) return found;
 
-  // Query Supabase directly
+  // Query Supabase directly (ONLY match UUID column `id` when query is a valid UUID to avoid PostgreSQL 22P02 error)
   if (supabase) {
     try {
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(query);
+      const safeQ = query.replace(/[,()]/g, '');
+      const orClauses = [
+        `qr_code_token.ilike.${safeQ}`,
+        `nik_nisn.eq.${safeQ}`,
+        `email.ilike.${safeQ}`
+      ];
+      if (isUuid) {
+        orClauses.push(`id.eq.${safeQ}`);
+      }
+
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .or(`qr_code_token.eq.${query},nik_nisn.eq.${query},id.eq.${query},email.eq.${query}`)
+        .or(orClauses.join(','))
         .limit(1);
 
       if (!error && data && data.length > 0) {

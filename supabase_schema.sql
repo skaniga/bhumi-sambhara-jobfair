@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS public.job_applications (
   catatan_industri TEXT,
   waktu_melamar TIMESTAMPTZ DEFAULT NOW(),
   waktu_verifikasi TIMESTAMPTZ,
-  verified_by UUID REFERENCES public.profiles(id),
+  verified_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
   UNIQUE (vacancy_id, applicant_id)
 );
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS public.stand_attendances (
   industry_id UUID NOT NULL REFERENCES public.industries(id) ON DELETE CASCADE,
   applicant_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   scanned_at TIMESTAMPTZ DEFAULT NOW(),
-  scanned_by UUID REFERENCES public.profiles(id),
+  scanned_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
   catatan_petugas TEXT,
   UNIQUE (industry_id, applicant_id)
 );

@@ -29,14 +29,14 @@
   }
 
   $: filteredIndustries = $industries.filter(ind => {
-    const q = searchQuery.toLowerCase();
+    const q = (searchQuery || '').toLowerCase();
     const matchesSearch = 
-      !searchQuery ||
-      ind.nama_perusahaan.toLowerCase().includes(q) ||
-      ind.nomor_stand.toLowerCase().includes(q) ||
-      ind.bidang_industri.toLowerCase().includes(q) ||
+      !q ||
+      (ind.nama_perusahaan || '').toLowerCase().includes(q) ||
+      (ind.nomor_stand || '').toLowerCase().includes(q) ||
+      (ind.bidang_industri || '').toLowerCase().includes(q) ||
       (ind.alamat || '').toLowerCase().includes(q) ||
-      $vacancies.some(v => v.industry_id === ind.id && v.judul_posisi.toLowerCase().includes(q));
+      $vacancies.some(v => v.industry_id === ind.id && (v.judul_posisi || '').toLowerCase().includes(q));
 
     const matchesSector = matchesCategory(ind, selectedSector);
 

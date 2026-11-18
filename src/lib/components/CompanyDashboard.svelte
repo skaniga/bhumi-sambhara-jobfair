@@ -55,6 +55,7 @@
   let interviewNote = '';
   let interviewSending = false;
   let interviewSentSuccess = false;
+  let interviewError = '';
 
   function openInterviewModal(app, applicant, vac) {
     interviewTargetApp = app;
@@ -65,6 +66,7 @@
       : `Silakan segera menuju booth ${company?.nomor_stand || 'Stand Industri'} untuk sesi wawancara langsung.`;
     interviewSending = false;
     interviewSentSuccess = false;
+    interviewError = '';
     showInterviewModal = true;
   }
 
@@ -74,14 +76,22 @@
     interviewTargetApplicant = null;
     interviewTargetVacancy = null;
     interviewSentSuccess = false;
+    interviewError = '';
   }
 
   async function handleConfirmInterviewCall(openWaAfter = false) {
-    if (!interviewTargetApp) return;
+    if (!interviewTargetApp || interviewSending) return;
     interviewSending = true;
+    interviewError = '';
     const noteToSend = (interviewNote || '').trim() || `Dipanggil wawancara di booth ${company?.nomor_stand || ''}.`;
-    await updateApplicationStatus(interviewTargetApp.id, 'wawancara', noteToSend, $currentUser?.id);
+    const res = await updateApplicationStatus(interviewTargetApp.id, 'wawancara', noteToSend, $currentUser?.id);
     interviewSending = false;
+
+    if (!res?.success) {
+      interviewError = res?.error || 'Gagal menyimpan panggilan wawancara ke server. Periksa koneksi Anda.';
+      return;
+    }
+
     interviewSentSuccess = true;
 
     if (openWaAfter && interviewTargetApplicant?.nomor_wa) {
@@ -103,9 +113,11 @@
   // Dedicated Edit Alamat state
   let alamatInput = '';
   let alamatCompanyId = '';
+  let alamatDirty = false;
   let alamatSaving = false;
   let alamatError = '';
   let alamatSuccess = '';
+  let profileSaveError = '';
 
   // Logo upload state
   let editLogoUrl = '';
@@ -145,8 +157,13 @@
   $: if (company && company.id !== alamatCompanyId) {
     alamatCompanyId = company.id;
     alamatInput = company.alamat || '';
+    alamatDirty = false;
     alamatError = '';
     alamatSuccess = '';
+  }
+
+  $: if (company && !alamatDirty) {
+    alamatInput = company.alamat || '';
   }
 
   // Company vacancies
@@ -160,10 +177,11 @@
   $: filteredApplications = compApplications.filter(app => {
     const applicant = $allUsers.find(u => u.id === app.applicant_id);
     const vac = $vacancies.find(v => v.id === app.vacancy_id);
+    const q = (searchQuery || '').toLowerCase();
 
-    const matchesSearch = !searchQuery || 
-      (applicant && applicant.nama_lengkap.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (vac && vac.judul_posisi.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesSearch = !q || 
+      (applicant?.nama_lengkap || '').toLowerCase().includes(q) ||
+      (vac?.judul_posisi || '').toLowerCase().includes(q);
 
     const matchesStatus = filterStatus === 'all' || app.status === filterStatus;
 
@@ -174,7 +192,10 @@
   $: compAttendances = $standAttendances.filter(s => s.industry_id === company?.id);
   $: totalStandScans = compAttendances.length;
   $: totalPendaftar = compApplications.length;
-  $: totalTerverifikasi = Math.max(compApplications.filter(a => a.status === 'terverifikasi_stand').length, totalStandScans);
+  $: totalTerverifikasi = Math.max(
+    compApplications.filter(a => a.status === 'terverifikasi_stand' || a.status === 'wawancara' || a.status === 'diterima').length,
+    totalStandScans
+  );
   $: totalWawancara = compApplications.filter(a => a.status === 'wawancara').length;
   $: totalDiterima = compApplications.filter(a => a.status === 'diterima').length;
 
@@ -191,6 +212,7 @@
   }
 
   async function handleSaveCompanyProfile() {
+    profileSaveError = '';
     const trimmedAlamat = (editAlamat || '').trim();
     const res = await updateCompany(company.id, {
       nama_perusahaan: (editNama || '').trim(),
@@ -204,19 +226,24 @@
     });
     if (res?.success !== false) {
       alamatInput = trimmedAlamat;
+      alamatDirty = false;
       editMode = false;
+    } else {
+      profileSaveError = res?.error || 'Gagal menyimpan profil stand.';
     }
   }
 
   function openAddressTab() {
     activeTab = 'alamat';
     alamatInput = company?.alamat || '';
+    alamatDirty = false;
     alamatError = '';
     alamatSuccess = '';
   }
 
   function handleResetAddress() {
     alamatInput = company?.alamat || '';
+    alamatDirty = false;
     alamatError = '';
     alamatSuccess = '';
   }
@@ -246,6 +273,7 @@
     if (res?.success) {
       editAlamat = trimmed;
       alamatInput = trimmed;
+      alamatDirty = false;
       alamatSuccess = 'Alamat pemberi kerja berhasil diperbarui dan disinkronkan ke portal!';
       setTimeout(() => {
         alamatSuccess = '';
@@ -301,7 +329,7 @@
         "Posisi Dilamar": vac?.judul_posisi || '-',
         "Formasi / Pendidikan": vac?.pendidikan || 'Umum',
         "Status Seleksi": app.status || 'menunggu',
-        "Tanggal Melamar": app.created_at ? new Date(app.created_at).toLocaleString('id-ID') : '-'
+        "Tanggal Melamar": (app.waktu_melamar || app.created_at) ? new Date(app.waktu_melamar || app.created_at).toLocaleString('id-ID') : '-'
       };
     });
 
@@ -598,6 +626,13 @@
           </div>
         </div>
 
+        {#if profileSaveError}
+          <div class="alert-box alert-danger mb-3">
+            <AlertCircle size={16} />
+            <span class="text-xs">{profileSaveError}</span>
+          </div>
+        {/if}
+
         <div class="form-save-row">
           <button class="btn btn-primary btn-sm" on:click={handleSaveCompanyProfile} disabled={logoUploading}>
             <Save size={14} /> {logoUploading ? 'Memuat logo...' : 'Simpan Data Stand'}
@@ -677,7 +712,7 @@
     <div class="card applicants-table-card animate-fade-in">
       <div class="table-header-row">
         <div>
-          <h3 class="heading-md">Daftar Pelamar di Stand {company?.nomor_stand}</h3>
+          <h3 class="heading-md">Daftar Pelamar di {company?.nomor_stand}</h3>
           <p class="text-xs text-muted">Verifikasi kehadiran dan proses seleksi berkas pelamar secara langsung di tempat.</p>
         </div>
 
@@ -941,6 +976,7 @@
           rows="3"
           placeholder="Contoh: Jl. Mayjen Bambang Soegeng No. 8, Mertoyudan, Magelang, Jawa Tengah"
           bind:value={alamatInput}
+          on:input={() => alamatDirty = true}
         ></textarea>
         <p class="text-xs text-muted">
           Disarankan mencantumkan nama jalan, nomor gedung/kawasan, kecamatan, dan kota/kabupaten agar mudah dikenali pelamar.
@@ -981,7 +1017,7 @@
           <h3 class="heading-md">
             {vacancyModalMode === 'create' ? 'Tambah Lowongan Kerja Baru' : 'Edit Lowongan Kerja'}
           </h3>
-          <p class="text-xs text-muted">{company?.nama_perusahaan} (Stand {company?.nomor_stand})</p>
+          <p class="text-xs text-muted">{company?.nama_perusahaan} ({company?.nomor_stand})</p>
         </div>
         <button class="btn-close" on:click={() => showVacancyModal = false} aria-label="Tutup">
           <X size={20} />
@@ -1124,6 +1160,13 @@
       </div>
 
       <div class="modal-body">
+        {#if interviewError}
+          <div class="alert-box alert-danger">
+            <AlertCircle size={16} />
+            <span class="text-xs">{interviewError}</span>
+          </div>
+        {/if}
+
         {#if interviewSentSuccess}
           <div class="alert-box alert-success">
             <CheckCircle2 size={16} />

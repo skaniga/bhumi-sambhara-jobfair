@@ -118,17 +118,17 @@
 
             <div class="meta-item">
               <span class="meta-label">NIK / NISN</span>
-              <span class="meta-val tabular-nums">{$currentUser?.nik_nisn || '3308011204040003'}</span>
+              <span class="meta-val tabular-nums">{$currentUser?.nik_nisn || 'Belum diisi'}</span>
             </div>
 
             <div class="meta-item">
               <span class="meta-label">Asal Lembaga</span>
-              <span class="meta-val">{$currentUser?.asal_sekolah_kampus || 'SMK Negeri 1 Magelang'}</span>
+              <span class="meta-val">{$currentUser?.asal_sekolah_kampus || 'Belum diisi'}</span>
             </div>
 
             <div class="meta-item">
               <span class="meta-label">Jurusan / Kompetensi</span>
-              <span class="meta-val">{$currentUser?.jurusan || 'Teknik Kendaraan Ringan'}</span>
+              <span class="meta-val">{$currentUser?.jurusan || 'Umum / Belum diisi'}</span>
             </div>
 
             <div class="meta-item">

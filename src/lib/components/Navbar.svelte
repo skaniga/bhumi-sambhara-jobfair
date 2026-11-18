@@ -202,7 +202,7 @@
           </span>
         </div>
 
-        <button class="btn-logout" on:click={() => { logoutUser(); activeTab = 'portal'; }} title="Keluar Akun">
+        <button class="btn-logout" on:click={() => { isNotifOpen = false; logoutUser(); activeTab = 'portal'; }} title="Keluar Akun">
           <LogOut size={16} />
         </button>
       {:else}
@@ -257,7 +257,12 @@
         class="bottom-nav-item {activeTab === 'profil_pelamar' ? 'active' : ''}"
         on:click={() => activeTab = 'profil_pelamar'}
       >
-        <User size={20} />
+        <span class="bottom-nav-icon-wrap">
+          <User size={20} />
+          {#if $unreadNotificationCount > 0}
+            <span class="bottom-nav-dot"></span>
+          {/if}
+        </span>
         <span>Profil</span>
       </button>
     {:else if $currentUser.role === 'pemberi_kerja'}
@@ -697,6 +702,22 @@
 
   .bottom-nav-item:hover, .bottom-nav-item.active {
     color: var(--color-primary);
+  }
+
+  .bottom-nav-icon-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .bottom-nav-dot {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #DC2626;
+    border: 1.5px solid #FFFFFF;
   }
 
   .center-fab {
