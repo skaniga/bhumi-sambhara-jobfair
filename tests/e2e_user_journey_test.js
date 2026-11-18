@@ -267,6 +267,17 @@ await itAsync('HRD Quick menerima pelamar setelah tes wawancara lolos', async ()
   assert.equal(updated.status, 'diterima');
 });
 
+await itAsync('Pemberi kerja dapat memperbarui alamat kantor perusahaan secara langsung', async () => {
+  const quickIndId = 'a0000001-0000-0000-0000-000000000001';
+  const newAddress = 'Jl. Magelang KM 6.5 No. 144, Sleman, D.I. Yogyakarta';
+  const res = await updateCompany(quickIndId, { alamat: newAddress, alamat_kantor: newAddress });
+  assert.equal(res.success, true);
+
+  const updatedCompany = get(industries).find(i => i.id === quickIndId);
+  assert.equal(updatedCompany.alamat, newAddress);
+  assert.equal(updatedCompany.alamat_kantor, newAddress);
+});
+
 // ── Test Suite 6: Panel Kendali Admin & Output Analitik ──
 console.log('\n▶ TEST SUITE 6: Panel Kendali Admin & Output Analitik');
 

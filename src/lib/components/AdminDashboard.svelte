@@ -1,12 +1,64 @@
 <script>
-  import { industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase } from '../supabase.js';
-  import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search, RefreshCw } from '@lucide/svelte';
+  import { industries, vacancies, applications, allUsers, standAttendances, syncFromSupabase, updateCompany } from '../supabase.js';
+  import { Shield, Download, ScanLine, Users, CheckCircle, Briefcase, FileSpreadsheet, Search, RefreshCw, MapPin, Save, X, AlertCircle, CheckCircle2 } from '@lucide/svelte';
   import * as XLSX from 'xlsx';
 
   export let onOpenScanner = () => {};
 
   let filterSearch = '';
   let syncing = false;
+
+  // Modal Edit Alamat Pemberi Kerja (Admin)
+  let showAddressModal = false;
+  let editingCompany = null;
+  let adminAddressInput = '';
+  let adminAddressSaving = false;
+  let adminAddressError = '';
+  let adminAddressSuccess = '';
+
+  function openEditAddressModal(row) {
+    editingCompany = row;
+    adminAddressInput = row.alamat || '';
+    adminAddressError = '';
+    adminAddressSuccess = '';
+    showAddressModal = true;
+  }
+
+  function closeEditAddressModal() {
+    showAddressModal = false;
+    editingCompany = null;
+    adminAddressError = '';
+    adminAddressSuccess = '';
+  }
+
+  async function handleAdminSaveAddress() {
+    adminAddressError = '';
+    adminAddressSuccess = '';
+    const trimmed = (adminAddressInput || '').trim();
+
+    if (!trimmed) {
+      adminAddressError = 'Mohon masukkan alamat lengkap kantor / perusahaan.';
+      return;
+    }
+
+    if (!editingCompany?.id) return;
+
+    adminAddressSaving = true;
+    const res = await updateCompany(editingCompany.id, {
+      alamat: trimmed,
+      alamat_kantor: trimmed
+    });
+    adminAddressSaving = false;
+
+    if (res?.success) {
+      adminAddressSuccess = 'Alamat pemberi kerja berhasil diperbarui!';
+      setTimeout(() => {
+        closeEditAddressModal();
+      }, 700);
+    } else {
+      adminAddressError = res?.error || 'Gagal menyimpan alamat perusahaan.';
+    }
+  }
 
   async function handleRefresh() {
     syncing = true;
@@ -35,6 +87,7 @@
       stand: ind.nomor_stand,
       perusahaan: ind.nama_perusahaan,
       bidang: ind.bidang_industri,
+      alamat: ind.alamat || '',
       pic: ind.kontak_pic,
       logo_url: ind.logo_url,
       totalVacs: vacs.length,
@@ -44,9 +97,11 @@
     };
   }).filter(item => {
     if (!filterSearch) return true;
-    return item.stand.toLowerCase().includes(filterSearch.toLowerCase()) ||
-           item.perusahaan.toLowerCase().includes(filterSearch.toLowerCase()) ||
-           item.bidang.toLowerCase().includes(filterSearch.toLowerCase());
+    const q = filterSearch.toLowerCase();
+    return item.stand.toLowerCase().includes(q) ||
+           item.perusahaan.toLowerCase().includes(q) ||
+           item.bidang.toLowerCase().includes(q) ||
+           item.alamat.toLowerCase().includes(q);
   });
 
   function exportExcel() {
@@ -64,6 +119,7 @@
         "Nomor Stand": ind.nomor_stand,
         "Nama Perusahaan": ind.nama_perusahaan,
         "Bidang Industri": ind.bidang_industri,
+        "Alamat Kantor": ind.alamat || '-',
         "PIC Kontak": ind.kontak_pic,
         "Jumlah Posisi": vacs.length,
         "Total Kuota Formasi": vacs.reduce((acc, v) => acc + (Number(v.kuota) || 0), 0),
@@ -282,12 +338,13 @@
         <thead>
           <tr>
             <th>Nomor Stand</th>
-            <th>Nama Perusahaan</th>
+            <th>Nama Perusahaan & Alamat</th>
             <th>Bidang Industri</th>
             <th>Lowongan Dibuka</th>
             <th>Total Pendaftar</th>
             <th>Terverifikasi Hadir</th>
             <th>Rasio Verifikasi</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -300,7 +357,13 @@
               <td>
                 <div class="admin-company-cell">
                   <img src={row.logo_url || `/companies/${row.id}.svg?v=3`} alt="{row.perusahaan}" class="admin-logo-micro" />
-                  <span class="perusahaan-cell">{row.perusahaan}</span>
+                  <div class="admin-company-meta">
+                    <span class="perusahaan-cell">{row.perusahaan}</span>
+                    <span class="admin-address-sub" title={row.alamat || 'Alamat belum diisi'}>
+                      <MapPin size={11} />
+                      <span>{row.alamat || 'Alamat belum diisi'}</span>
+                    </span>
+                  </div>
                 </div>
               </td>
               <td>
@@ -323,6 +386,17 @@
                   <span class="text-xs text-muted tabular-nums">{rasio}%</span>
                 </div>
               </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  on:click={() => openEditAddressModal(row)}
+                  title="Edit alamat kantor {row.perusahaan}"
+                >
+                  <MapPin size={13} />
+                  <span>Edit Alamat</span>
+                </button>
+              </td>
             </tr>
           {/each}
         </tbody>
@@ -330,6 +404,77 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Edit Alamat Pemberi Kerja (Admin) -->
+{#if showAddressModal && editingCompany}
+  <div
+    class="modal-backdrop"
+    on:click={closeEditAddressModal}
+    role="button"
+    tabindex="0"
+    on:keydown={(e) => e.key === 'Escape' && closeEditAddressModal()}
+  >
+    <div
+      class="modal-content admin-address-modal"
+      on:click|stopPropagation
+      on:keydown|stopPropagation
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-stand font-bold">{editingCompany.stand}</span>
+          <h3 class="heading-md mt-1">Edit Alamat Pemberi Kerja</h3>
+          <p class="text-xs text-muted">{editingCompany.perusahaan}</p>
+        </div>
+        <button type="button" class="btn-close" on:click={closeEditAddressModal} aria-label="Tutup">
+          <X size={20} />
+        </button>
+      </div>
+
+      <div class="modal-body">
+        {#if adminAddressError}
+          <div class="alert-box alert-danger mb-3">
+            <AlertCircle size={16} />
+            <span class="text-xs">{adminAddressError}</span>
+          </div>
+        {/if}
+
+        {#if adminAddressSuccess}
+          <div class="alert-box alert-success mb-3">
+            <CheckCircle2 size={16} />
+            <span class="text-xs">{adminAddressSuccess}</span>
+          </div>
+        {/if}
+
+        <div class="input-group">
+          <label class="input-label" for="adminEditAddressInput">Alamat Lengkap Kantor / Perusahaan *</label>
+          <textarea
+            id="adminEditAddressInput"
+            class="input-field"
+            rows="3"
+            placeholder="Contoh: Jl. Pemuda No. 78, Kota Magelang, Jawa Tengah"
+            bind:value={adminAddressInput}
+          ></textarea>
+          <p class="text-xs text-muted">
+            Perubahan alamat akan langsung disinkronkan ke direktori 23 mitra industri dan detail lowongan di portal.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" on:click={closeEditAddressModal} disabled={adminAddressSaving}>
+          Batal
+        </button>
+        <button type="button" class="btn btn-primary" on:click={handleAdminSaveAddress} disabled={adminAddressSaving}>
+          <Save size={15} />
+          <span>{adminAddressSaving ? 'Menyimpan...' : 'Simpan Alamat'}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}
 
 <style>
   .admin-layout {
@@ -416,6 +561,66 @@
     align-items: center;
     gap: 10px;
   }
+
+  .admin-company-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .admin-address-sub {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-address-modal {
+    max-width: 540px;
+  }
+
+  .btn-close {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-close:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-muted);
+  }
+
+  .alert-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;
+  }
+
+  .alert-danger {
+    background-color: #FFF1F2;
+    border: 1px solid #FECDD3;
+    color: #9F1239;
+  }
+
+  .alert-success {
+    background-color: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #065F46;
+  }
+
+  .mb-3 { margin-bottom: 12px; }
 
   .admin-logo-micro {
     width: 68px;

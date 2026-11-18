@@ -160,7 +160,7 @@
   {#if activeVacancy}
     <JobDetailModal 
       vacancy={activeVacancy} 
-      industry={activeIndustry}
+      industry={$industries.find(i => i.id === activeIndustry?.id) || activeIndustry}
       onClose={handleCloseVacancyModal}
       onRequireAuth={() => { activeVacancy = null; isAuthOpen = true; }}
     />

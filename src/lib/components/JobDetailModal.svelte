@@ -118,6 +118,16 @@
           <p class="block-desc text-xs">{vacancy.lokasi}</p>
         </div>
 
+        {#if industry?.alamat}
+          <div class="info-block">
+            <h4 class="block-title">Alamat Kantor Perusahaan</h4>
+            <p class="block-desc text-xs address-inline">
+              <MapPin size={14} class="address-inline-icon" />
+              <span>{industry.alamat}</span>
+            </p>
+          </div>
+        {/if}
+
         {#if statusMessage}
           <div class="alert-box {isError ? 'alert-danger' : 'alert-success'}">
             {#if isError}
@@ -247,6 +257,18 @@
     font-size: 0.875rem;
     color: var(--color-text-main);
     line-height: 1.5;
+  }
+
+  .address-inline {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  :global(.address-inline-icon) {
+    color: var(--color-amber-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .req-list {

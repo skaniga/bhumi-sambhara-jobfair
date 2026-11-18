@@ -551,8 +551,20 @@ export async function updateProfile(updatedData) {
 
 // ── Company Profile Updates ──
 export async function updateCompany(companyId, companyData) {
+  const normalizedData = { ...companyData };
+  if (companyData.alamat_kantor !== undefined && companyData.alamat === undefined) {
+    normalizedData.alamat = companyData.alamat_kantor;
+  } else if (companyData.alamat !== undefined && companyData.alamat_kantor === undefined) {
+    normalizedData.alamat_kantor = companyData.alamat;
+  }
+  if (companyData.email_resmi !== undefined && companyData.email === undefined) {
+    normalizedData.email = companyData.email_resmi;
+  } else if (companyData.email !== undefined && companyData.email_resmi === undefined) {
+    normalizedData.email_resmi = companyData.email;
+  }
+
   // Update local store immediately (optimistic)
-  industries.update(list => list.map(ind => ind.id === companyId ? { ...ind, ...companyData } : ind));
+  industries.update(list => list.map(ind => ind.id === companyId ? { ...ind, ...normalizedData } : ind));
 
   if (supabase) {
     try {
@@ -573,9 +585,13 @@ export async function updateCompany(companyId, companyData) {
       else if (companyData.email       !== undefined) payload.email_resmi      = companyData.email;
 
       const { error } = await supabase.from('industries').update(payload).eq('id', companyId);
-      if (error) console.warn('Supabase updateCompany error:', error.message);
+      if (error) {
+        console.warn('Supabase updateCompany error:', error.message);
+        return { success: false, error: error.message };
+      }
     } catch (e) {
       console.warn('Supabase updateCompany notice:', e);
+      return { success: false, error: e.message || 'Gagal menyinkronkan data perusahaan.' };
     }
   }
   return { success: true };

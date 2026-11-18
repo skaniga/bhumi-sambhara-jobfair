@@ -28,10 +28,17 @@
   });
 
   let editMode = false;
-  let activeTab = 'pelamar'; // 'pelamar' | 'lowongan'
+  let activeTab = 'pelamar'; // 'pelamar' | 'lowongan' | 'alamat'
   let filterStatus = 'all';
   let searchQuery = '';
   let syncing = false;
+
+  // Dedicated Edit Alamat state
+  let alamatInput = '';
+  let alamatCompanyId = '';
+  let alamatSaving = false;
+  let alamatError = '';
+  let alamatSuccess = '';
 
   // Logo upload state
   let editLogoUrl = '';
@@ -58,14 +65,21 @@
   let editAlamat = '';
 
   $: if (company && !editMode) {
-    editNama = company.nama_perusahaan;
-    editStand = company.nomor_stand;
-    editDeskripsi = company.deskripsi;
-    editPic = company.kontak_pic;
-    editEmail = company.email;
-    editAlamat = company.alamat;
+    editNama = company.nama_perusahaan || '';
+    editStand = company.nomor_stand || '';
+    editDeskripsi = company.deskripsi || '';
+    editPic = company.kontak_pic || '';
+    editEmail = company.email || '';
+    editAlamat = company.alamat || '';
     editLogoUrl = company.logo_url || '';
     logoPreview = company.logo_url || '';
+  }
+
+  $: if (company && company.id !== alamatCompanyId) {
+    alamatCompanyId = company.id;
+    alamatInput = company.alamat || '';
+    alamatError = '';
+    alamatSuccess = '';
   }
 
   // Company vacancies
@@ -110,16 +124,68 @@
   }
 
   async function handleSaveCompanyProfile() {
-    await updateCompany(company.id, {
-      nama_perusahaan: editNama,
-      nomor_stand: editStand,
-      deskripsi: editDeskripsi,
-      kontak_pic: editPic,
-      email: editEmail,
-      alamat: editAlamat,
+    const trimmedAlamat = (editAlamat || '').trim();
+    const res = await updateCompany(company.id, {
+      nama_perusahaan: (editNama || '').trim(),
+      nomor_stand: (editStand || '').trim(),
+      deskripsi: (editDeskripsi || '').trim(),
+      kontak_pic: (editPic || '').trim(),
+      email: (editEmail || '').trim(),
+      alamat: trimmedAlamat,
+      alamat_kantor: trimmedAlamat,
       logo_url: logoPreview || null
     });
-    editMode = false;
+    if (res?.success !== false) {
+      alamatInput = trimmedAlamat;
+      editMode = false;
+    }
+  }
+
+  function openAddressTab() {
+    activeTab = 'alamat';
+    alamatInput = company?.alamat || '';
+    alamatError = '';
+    alamatSuccess = '';
+  }
+
+  function handleResetAddress() {
+    alamatInput = company?.alamat || '';
+    alamatError = '';
+    alamatSuccess = '';
+  }
+
+  async function handleSaveAddress() {
+    alamatError = '';
+    alamatSuccess = '';
+    const trimmed = (alamatInput || '').trim();
+
+    if (!trimmed) {
+      alamatError = 'Mohon masukkan alamat lengkap kantor / perusahaan terlebih dahulu.';
+      return;
+    }
+
+    if (!company?.id) {
+      alamatError = 'Data perusahaan tidak ditemukan.';
+      return;
+    }
+
+    alamatSaving = true;
+    const res = await updateCompany(company.id, {
+      alamat: trimmed,
+      alamat_kantor: trimmed
+    });
+    alamatSaving = false;
+
+    if (res?.success) {
+      editAlamat = trimmed;
+      alamatInput = trimmed;
+      alamatSuccess = 'Alamat pemberi kerja berhasil diperbarui dan disinkronkan ke portal!';
+      setTimeout(() => {
+        alamatSuccess = '';
+      }, 4000);
+    } else {
+      alamatError = res?.error || 'Gagal memperbarui alamat perusahaan. Silakan coba lagi.';
+    }
   }
 
   function handleLogoFile(event) {
@@ -322,6 +388,13 @@
         <h2 class="heading-lg company-title">{company?.nama_perusahaan}</h2>
         <p class="text-xs text-muted">{company?.bidang_industri} • PIC: {company?.kontak_pic} ({company?.email})</p>
         <p class="text-sm ind-desc mt-1">{company?.deskripsi}</p>
+        <div class="stand-address-row">
+          <MapPin size={14} class="stand-address-icon" />
+          <span class="text-xs text-muted">{company?.alamat || 'Alamat kantor belum diisi'}</span>
+          <button type="button" class="stand-address-edit-link" on:click={openAddressTab}>
+            Ubah Alamat
+          </button>
+        </div>
       </div>
 
       <div class="stand-actions">
@@ -333,6 +406,11 @@
         <button class="btn btn-amber" on:click={onOpenScanner}>
           <ScanLine size={18} />
           <span>Scan Barcode Pelamar</span>
+        </button>
+
+        <button class="btn btn-secondary btn-sm {activeTab === 'alamat' ? 'btn-active-outline' : ''}" on:click={openAddressTab}>
+          <MapPin size={14} />
+          <span>Edit Alamat</span>
         </button>
 
         <button class="btn btn-secondary btn-sm" on:click={() => editMode = !editMode}>
@@ -404,6 +482,17 @@
             <label class="input-label" for="editKontakPic">Kontak WhatsApp PIC</label>
             <input id="editKontakPic" type="text" class="input-field tabular-nums" bind:value={editPic} />
           </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="editAlamatPerusahaan">Alamat Kantor / Perusahaan</label>
+          <textarea
+            id="editAlamatPerusahaan"
+            class="input-field"
+            rows="2"
+            placeholder="Contoh: Jl. Pemuda No. 78, Kota Magelang, Jawa Tengah"
+            bind:value={editAlamat}
+          ></textarea>
         </div>
 
         <div class="input-group">
@@ -505,6 +594,14 @@
       <Briefcase size={16} />
       <span>Kelola Lowongan Aktif</span>
       <span class="tab-badge">{compVacancies.length}</span>
+    </button>
+    <button 
+      type="button"
+      class="tab-btn {activeTab === 'alamat' ? 'active' : ''}" 
+      on:click={openAddressTab}
+    >
+      <MapPin size={16} />
+      <span>Edit Alamat</span>
     </button>
   </div>
 
@@ -722,6 +819,79 @@
       {/if}
     </div>
   {/if}
+
+  <!-- TAB 3: Edit Alamat Pemberi Kerja -->
+  {#if activeTab === 'alamat'}
+    <div class="card address-management-card animate-fade-in">
+      <div class="table-header-row">
+        <div>
+          <h3 class="heading-md">Edit Alamat Pemberi Kerja — {company?.nama_perusahaan}</h3>
+          <p class="text-xs text-muted">
+            Perbarui alamat resmi kantor atau lokasi perusahaan Anda. Perubahan akan langsung tampil di direktori 23 mitra industri dan detail lowongan.
+          </p>
+        </div>
+        <span class="badge badge-stand font-bold">{company?.nomor_stand}</span>
+      </div>
+
+      <div class="current-address-preview">
+        <span class="preview-label">Alamat Saat Ini di Portal</span>
+        <div class="preview-value-row">
+          <MapPin size={15} class="stand-address-icon" />
+          <span>{company?.alamat || 'Belum ada alamat yang tersimpan'}</span>
+        </div>
+      </div>
+
+      {#if alamatError}
+        <div class="alert-box alert-danger mb-3">
+          <AlertCircle size={16} />
+          <span class="text-xs">{alamatError}</span>
+        </div>
+      {/if}
+
+      {#if alamatSuccess}
+        <div class="alert-box alert-success mb-3">
+          <CheckCircle2 size={16} />
+          <span class="text-xs">{alamatSuccess}</span>
+        </div>
+      {/if}
+
+      <div class="input-group">
+        <label class="input-label" for="companyAddressTextarea">Alamat Lengkap Kantor / Perusahaan *</label>
+        <textarea
+          id="companyAddressTextarea"
+          class="input-field"
+          rows="3"
+          placeholder="Contoh: Jl. Mayjen Bambang Soegeng No. 8, Mertoyudan, Magelang, Jawa Tengah"
+          bind:value={alamatInput}
+        ></textarea>
+        <p class="text-xs text-muted">
+          Disarankan mencantumkan nama jalan, nomor gedung/kawasan, kecamatan, dan kota/kabupaten agar mudah dikenali pelamar.
+        </p>
+      </div>
+
+      <div class="address-form-actions">
+        {#if (alamatInput || '').trim() !== (company?.alamat || '').trim()}
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            on:click={handleResetAddress}
+            disabled={alamatSaving}
+          >
+            Batal / Kembalikan
+          </button>
+        {/if}
+        <button
+          type="button"
+          class="btn btn-primary"
+          on:click={handleSaveAddress}
+          disabled={alamatSaving}
+        >
+          <Save size={16} />
+          <span>{alamatSaving ? 'Menyimpan...' : 'Simpan Alamat Perusahaan'}</span>
+        </button>
+      </div>
+    </div>
+  {/if}
 </div>
 
 <!-- Modal Form: Add / Edit Vacancy -->
@@ -908,6 +1078,39 @@
   .ind-desc {
     color: var(--color-text-muted);
     max-width: 600px;
+  }
+
+  .stand-address-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  :global(.stand-address-icon) {
+    color: var(--color-amber-accent);
+    flex-shrink: 0;
+  }
+
+  .stand-address-edit-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-amber-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-left: 4px;
+    padding: 2px 4px;
+  }
+
+  .stand-address-edit-link:hover {
+    color: var(--color-amber-dark);
+  }
+
+  .btn-active-outline {
+    border-color: var(--color-primary);
+    background-color: var(--color-surface-muted);
+    color: var(--color-primary);
   }
 
   .stand-actions {
@@ -1108,9 +1311,53 @@
   /* ── Tabs Navigation ── */
   .tabs-nav-bar {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     border-bottom: 2px solid var(--color-border);
     padding-bottom: 2px;
+  }
+
+  /* ── Address Management Section ── */
+  .address-management-card {
+    padding: 24px;
+  }
+
+  .current-address-preview {
+    background-color: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .preview-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .preview-value-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    line-height: 1.45;
+  }
+
+  .address-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
   }
 
   .tab-btn {

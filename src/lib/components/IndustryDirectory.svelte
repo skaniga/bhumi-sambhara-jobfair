@@ -29,12 +29,14 @@
   }
 
   $: filteredIndustries = $industries.filter(ind => {
+    const q = searchQuery.toLowerCase();
     const matchesSearch = 
       !searchQuery ||
-      ind.nama_perusahaan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ind.nomor_stand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ind.bidang_industri.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      $vacancies.some(v => v.industry_id === ind.id && v.judul_posisi.toLowerCase().includes(searchQuery.toLowerCase()));
+      ind.nama_perusahaan.toLowerCase().includes(q) ||
+      ind.nomor_stand.toLowerCase().includes(q) ||
+      ind.bidang_industri.toLowerCase().includes(q) ||
+      (ind.alamat || '').toLowerCase().includes(q) ||
+      $vacancies.some(v => v.industry_id === ind.id && v.judul_posisi.toLowerCase().includes(q));
 
     const matchesSector = matchesCategory(ind, selectedSector);
 
@@ -123,7 +125,7 @@
           <div class="card-bottom">
             <div class="loc-text">
               <MapPin size={13} />
-              <span>{ind.alamat}</span>
+              <span>{ind.alamat || 'Alamat belum diisi'}</span>
             </div>
           </div>
         </div>

@@ -95,11 +95,11 @@ Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukk
 4. **Membuka Lowongan Baru**: Klik tombol **+ Tambah Lowongan Baru** di kanan atas untuk mempublikasikan posisi lowongan tambahan secara langsung.
 5. **Menutup / Menghapus Lowongan**: Klik tombol **Hapus / Tutup** pada kartu lowongan jika kuota telah terpenuhi atau posisi sudah ditutup.
 
-### 6. Mengubah Logo Perusahaan & Informasi Profil Stand
-1. Pada header Dashboard Stand, klik tombol **Edit Stand**.
-2. **Unggah Logo Baru**: Klik tombol **Ganti Logo** untuk memilih file gambar logo perusahaan (format PNG, JPG, atau SVG). Logo baru akan langsung tersimpan ke Supabase dan otomatis tampil di kartu direktori, denah lantai expo, dan daftar lowongan.
-3. **Ubah PIC & Kontak WhatsApp**: Masukkan nama PIC rekruter dan nomor WhatsApp aktif agar panitia dan pelamar dapat menghubungi Anda dengan cepat.
-4. **Alamat Kantor & Deskripsi**: Sesuaikan alamat resmi dan profil singkat perusahaan, lalu klik **Simpan Profil Stand**.
+### 6. Mengubah Alamat Kantor, Logo Perusahaan & Informasi Profil Stand
+1. **Menu Edit Alamat Cepat**: Klik tombol **Edit Alamat** di bagian atas Dashboard Stand atau buka tab **Edit Alamat** (di sebelah tab *Kelola Lowongan Aktif*), masukkan alamat lengkap kantor/perusahaan Anda, lalu klik **Simpan Alamat Perusahaan**.
+2. **Edit Profil Stand Lengkap**: Pada header Dashboard Stand, klik tombol **Edit Profil Stand**.
+3. **Unggah Logo Baru**: Klik tombol **Pilih Gambar Baru** untuk memilih file gambar logo perusahaan (format PNG, JPG, SVG, atau WebP). Logo baru akan langsung tersimpan ke Supabase dan otomatis tampil di kartu direktori, denah lantai expo, dan daftar lowongan.
+4. **Ubah PIC, Alamat & Deskripsi**: Sesuaikan nama perusahaan, kontak PIC WhatsApp, **Alamat Kantor / Perusahaan**, dan profil singkat perusahaan, lalu klik **Simpan Data Stand**.
 
 ### 7. Ekspor Data Pelamar Stand ke Format Excel (.xlsx)
 1. Di tab **Daftar Pelamar Stand**, klik tombol hijau **Ekspor Excel (.xlsx)**.
