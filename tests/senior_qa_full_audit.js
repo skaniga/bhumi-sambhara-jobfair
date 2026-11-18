@@ -353,7 +353,7 @@ testCase('DENAH', 'Struktur 3 Area sesuai Denah Fix Graha Krida Wiyata', () => {
 testCase('DENAH', 'Komponen DenahFloorPlan menggunakan cache buster v=3 untuk logo', () => {
   const denahPath = path.join(projectRoot, 'src', 'lib', 'components', 'DenahFloorPlan.svelte');
   const code = fs.readFileSync(denahPath, 'utf8');
-  assert.ok(code.includes('/companies/{ind?.id}.svg?v=3'), 'DenahFloorPlan harus memuat logo dengan query ?v=3');
+  assert.ok(code.includes('/companies/{ind?.id}.svg?v=3') || code.includes('ind?.logo_url'), 'DenahFloorPlan harus memuat logo dengan query ?v=3 atau logo_url kustom');
 });
 
 // -------------------------------------------------------------

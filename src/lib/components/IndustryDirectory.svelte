@@ -86,7 +86,7 @@
         <div class="card industry-card">
           <div class="card-top">
             <div class="company-banner-wrap">
-              <img src="/companies/{ind.id}.svg?v=3" alt="{ind.nama_perusahaan}" class="company-card-banner" />
+              <img src={ind.logo_url || `/companies/${ind.id}.svg?v=3`} alt="{ind.nama_perusahaan}" class="company-card-banner" />
             </div>
             <div class="ind-badge-row">
               <span class="badge badge-stand font-bold">{ind.nomor_stand}</span>

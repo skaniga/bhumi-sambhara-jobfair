@@ -36,6 +36,7 @@
       perusahaan: ind.nama_perusahaan,
       bidang: ind.bidang_industri,
       pic: ind.kontak_pic,
+      logo_url: ind.logo_url,
       totalVacs: vacs.length,
       totalPendaftar: indApps.length,
       totalTerverifikasi: verifiedApps.length,
@@ -298,7 +299,7 @@
               </td>
               <td>
                 <div class="admin-company-cell">
-                  <img src="/companies/{row.id}.svg?v=3" alt="{row.perusahaan}" class="admin-logo-micro" />
+                  <img src={row.logo_url || `/companies/${row.id}.svg?v=3`} alt="{row.perusahaan}" class="admin-logo-micro" />
                   <span class="perusahaan-cell">{row.perusahaan}</span>
                 </div>
               </td>

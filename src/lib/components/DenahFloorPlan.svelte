@@ -140,7 +140,7 @@
                 </div>
                 <div class="booth-logo-box">
                   {#if ind?.id}
-                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                    <img src={ind?.logo_url || `/companies/${ind?.id}.svg?v=3`} alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
                   {/if}
                 </div>
                 <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="booth-logo-box">
                   {#if ind?.id}
-                    <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                    <img src={ind?.logo_url || `/companies/${ind?.id}.svg?v=3`} alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
                   {/if}
                 </div>
                 <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
@@ -235,7 +235,7 @@
                   </div>
                   <div class="booth-logo-box">
                     {#if ind?.id}
-                      <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                      <img src={ind?.logo_url || `/companies/${ind?.id}.svg?v=3`} alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
                     {/if}
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
@@ -298,7 +298,7 @@
                   </div>
                   <div class="booth-logo-box">
                     {#if ind?.id}
-                      <img src="/companies/{ind?.id}.svg?v=3" alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
+                      <img src={ind?.logo_url || `/companies/${ind?.id}.svg?v=3`} alt="{ind?.nama_perusahaan || 'Logo'}" class="booth-img" />
                     {/if}
                   </div>
                   <span class="booth-company-name">{ind?.nama_perusahaan || 'Mitra Industri'}</span>
