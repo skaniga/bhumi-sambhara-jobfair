@@ -164,7 +164,7 @@ export async function syncFromSupabase() {
           gaji:      v.gaji      || v.gaji_estimasi      || (initMatch?.gaji)  || 'Ditanyakan pada saat wawancara',
           kuota:     v.kuota     || v.kuota_penerimaan   || (initMatch?.kuota) || 1,
           lokasi:    v.lokasi    || v.lokasi_penempatan   || (initMatch?.lokasi)|| 'Magelang',
-          pendidikan: v.pendidikan || (initMatch?.pendidikan) || 'Umum'
+          pendidikan: v.pendidikan || v.pendidikan_minimal || (initMatch?.pendidikan) || 'Umum'
         });
       }
       vacancies.set(mergedVacs);
@@ -795,6 +795,14 @@ export async function updateCompany(companyId, companyData) {
 // ── Active Job Vacancies Management ──
 export async function updateVacancy(vacancyId, vacancyData) {
   vacancies.update(list => list.map(v => v.id === vacancyId ? { ...v, ...vacancyData } : v));
+
+  // Persist pendidikan to localStorage so it survives page refresh even if DB column missing
+  try {
+    const stored = JSON.parse(localStorage.getItem('bsj_vac_pendidikan') || '{}');
+    if (vacancyData.pendidikan) stored[vacancyId] = vacancyData.pendidikan;
+    localStorage.setItem('bsj_vac_pendidikan', JSON.stringify(stored));
+  } catch (_) {}
+
   if (supabase) {
     try {
       const payload = { ...vacancyData };
@@ -810,7 +818,10 @@ export async function updateVacancy(vacancyId, vacancyData) {
         payload.lokasi_penempatan = payload.lokasi;
         delete payload.lokasi;
       }
-      delete payload.pendidikan;
+      if ('pendidikan' in payload) {
+        payload.pendidikan_minimal = payload.pendidikan;
+        delete payload.pendidikan;
+      }
       await supabase.from('job_vacancies').update(payload).eq('id', vacancyId);
     } catch (e) {
       console.warn('Supabase updateVacancy notice:', e);
@@ -845,6 +856,7 @@ export async function createVacancy(companyId, vacancyData) {
         tipe_pekerjaan: newVac.tipe_pekerjaan,
         kuota_penerimaan: newVac.kuota,
         gaji_estimasi: newVac.gaji,
+        pendidikan_minimal: newVac.pendidikan,
         lokasi_penempatan: newVac.lokasi,
         kualifikasi: newVac.kualifikasi,
         persyaratan: newVac.persyaratan,

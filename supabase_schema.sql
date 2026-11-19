@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS public.job_vacancies (
   tipe_pekerjaan TEXT NOT NULL DEFAULT 'Penuh Waktu',
   kuota_penerimaan INTEGER DEFAULT 10,
   gaji_estimasi TEXT,
+  pendidikan_minimal TEXT DEFAULT 'Umum',
   kualifikasi TEXT NOT NULL,
   persyaratan TEXT[],
   lokasi_penempatan TEXT NOT NULL,
