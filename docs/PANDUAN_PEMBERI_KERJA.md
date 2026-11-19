@@ -80,10 +80,11 @@ Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukk
    - Menampilkan biodata lengkap, asal sekolah/kampus, jurusan, dan tautan CV/portofolio pelamar.
    - *Catatan*: Jika perangkat tidak memiliki kamera atau QR rusak, gunakan kolom input manual NIK / Token di bawah jendela scanner.
 
-### 4. Melakukan Wawancara On-The-Spot
+### 4. Melakukan Wawancara On-The-Spot & Notifikasi Pelamar
 1. Jika pelamar memenuhi kualifikasi awal, klik tombol **Panggil Wawancara**.
-2. Lakukan wawancara singkat atau tes tertulis di booth.
-3. Setelah wawancara:
+2. **Notifikasi Otomatis Terkirim**: Sistem secara instan mengirimkan notifikasi panggilan wawancara langsung ke akun pelamar beserta nomor booth dan instruksi kehadiran di stand.
+3. Lakukan wawancara singkat atau tes tertulis di booth.
+4. Setelah wawancara:
    - Klik **Terima Pelamar** jika dinyatakan lolos ke tahap berikutnya.
    - Klik **Tolak** jika belum sesuai kualifikasi.
    - Berikan catatan industri pada kolom yang tersedia sebagai rekam jejak.
@@ -91,7 +92,11 @@ Sistem login mendukung fleksibilitas **Multi-Format Input**: Anda dapat memasukk
 ### 5. Mengelola & Mengedit Lowongan Kerja Aktif
 1. Pada Dashboard Stand, klik tab **Kelola Lowongan Aktif** (terletak di sebelah tab *Daftar Pelamar Stand*).
 2. Anda dapat memantau seluruh lowongan aktif perusahaan Anda beserta rincian kuota, gaji, kualifikasi, dan jumlah pelamar yang masuk.
-3. **Mengubah / Edit Lowongan**: Klik tombol **Edit Lowongan** pada posisi yang ingin diubah. Anda dapat menyesuaikan kuota pelamar, rentang gaji, kualifikasi, maupun berkas persyaratan.
+3. **Mengubah / Edit Lowongan**: Klik tombol **Edit Lowongan** pada posisi yang ingin diubah. Anda dapat menyesuaikan:
+   - **Judul Posisi Lowongan** & **Tipe Ikatan Kerja** (Penuh Waktu, Kontrak, Magang).
+   - **Kuota Rekrutmen** & **Estimasi Gaji/Upah**.
+   - **Pendidikan Minimal**: Dapat diubah sesuai kriteria stand (contoh: `SMK / SMA`, `D3`, `S1`, atau `Umum`) dan tersimpan permanen ke sistem.
+   - **Kualifikasi Khusus Pelamar** & **Persyaratan Berkas**.
 4. **Membuka Lowongan Baru**: Klik tombol **+ Tambah Lowongan Baru** di kanan atas untuk mempublikasikan posisi lowongan tambahan secara langsung.
 5. **Menutup / Menghapus Lowongan**: Klik tombol **Hapus / Tutup** pada kartu lowongan jika kuota telah terpenuhi atau posisi sudah ditutup.
 

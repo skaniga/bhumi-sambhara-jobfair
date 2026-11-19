@@ -80,3 +80,12 @@ Sebagai pelamar (siswa, alumni SMK/SMA/Universitas, atau masyarakat umum), Anda 
 4. Petugas HRD akan memindai QR Code Anda menggunakan kamera laptop/hp mereka.
 5. Status lamaran Anda di web akan otomatis berubah secara instan menjadi **Terverifikasi di Stand**.
 6. Ikuti sesi wawancara langsung atau pengarahan teknis berikutnya dari tim rekruter di booth.
+
+---
+
+### 6. Menerima Notifikasi Panggilan Wawancara
+1. Saat tim HRD memanggil Anda untuk wawancara di booth, **ikon lonceng notifikasi** pada bilah navigasi akan memunculkan tanda panggilan aktif.
+2. Klik ikon lonceng untuk melihat detail:
+   - Nama perusahaan & nomor stand booth yang memanggil.
+   - Waktu panggilan dan pesan pengarahan dari rekruter.
+3. Datangi booth yang memanggil dan klik **Tandai Dibaca** pada notifikasi. Status lamaran Anda akan otomatis diperbarui menjadi **Wawancara Booth**.

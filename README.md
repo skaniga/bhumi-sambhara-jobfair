@@ -115,8 +115,13 @@ Pencari kerja (siswa, alumni, atau umum) dapat mendaftar mandiri secara instan m
    - Fitur unggah logo kustom perusahaan secara instan tersinkronisasi ke PostgreSQL Supabase dan tampil langsung di peta denah, direktori, dan kartu lowongan.
    - Dukungan pelamar melamar ke banyak mitra industri sekaligus (*Multi-Company Apply*) untuk posisi Lowongan Kerja (Umum).
 
-6. **Uji Mutu Senior QA (Automated Test Suite)**
-   - 27 skenario pengujian komprehensif lolos **100% PASS** mencakup integritas kuota, validitas parser SVG, keamanan multi-role, isolasi data stand, dan pipeline seleksi kandidat.
+6. **Sistem Notifikasi Panggilan Wawancara & Kustomisasi Pendidikan Stand**
+   - Panggilan wawancara dari stand booth memicu notifikasi real-time ke akun pelamar dengan tanda lonceng di navbar.
+   - Stand industri dapat menyesuaikan kualifikasi pendidikan minimal (Umum, SMA/SMK, D3, S1) dan alamat kantor secara dinamis dengan persistensi penuh ke database Supabase.
+   - Perlindungan safe-area padding mobile untuk memastikan footer dan atribusi NineteenDev tampil leluasa tanpa terhalang fixed bottom bar.
+
+7. **Uji Mutu Senior QA (Automated Test Suite)**
+   - 28 skenario pengujian komprehensif lolos **100% PASS** mencakup integritas kuota, validitas parser SVG, keamanan multi-role, isolasi data stand, notifikasi wawancara, dan pipeline seleksi kandidat.
 
 ---
 

@@ -71,3 +71,11 @@ Di bagian bawah dashboard, terdapat tabel matriks seluruh 23 stand:
 ### 7. Memantau Denah Interaktif & Pratinjau Denah Asli (Admin Only)
 * Denah Interaktif Graha Krida Wiyata menampilkan visual panggung pameran realistis (*Rigging Truss, Lampu Sorot, Layar LED Pamflet Resmi Expo, dan Sound Line-Array*), Area Duduk & Antrean Peserta, serta Area Foyer Selatan (*Stand 10-15, Pintu Masuk ↖️ ↗️, Pintu Keluar ⬇️, Meja Registrasi Scanner QR, dan Stand KWU Siswa*).
 * **Fitur Khusus Admin**: Di samping filter zona denah, tersedia tombol eksklusif **"Lihat Gambar Denah Asli"** untuk membuka modal resolusi tinggi dari sketsa cetak biru panitia (*Denah Fix.jfif*). Tombol dan modal ini hanya dapat diakses oleh akun Role Admin.
+
+### 8. Pembersihan Akun Pelamar Uji Coba (Clean-up Testing)
+* Pada tab **Jobseekers Terdaftar** di Dashboard Admin, panitia BKK & UNTIDAR dapat menghapus akun-akun yang dibuat saat uji coba sistem sebelum acara dimulai.
+* Penghapusan akun berjalan secara aman (*Foreign Key Safety*): data lamaran dan riwayat presensi yang berelasi dengan akun uji coba tersebut otomatis dibersihkan tanpa mempengaruhi data pelamar sesungguhnya.
+* Sistem memblokir admin agar tidak dapat menghapus akun panitia itu sendiri demi menjaga keamanan kendali sistem.
+
+### 9. Manajemen Alamat Kantor Mitra Industri
+* Panitia dapat memverifikasi dan memperbarui data alamat kantor dari 23 stand industri melalui menu **Edit Alamat Stand** di Dashboard Admin untuk keperluan koordinasi resmi dan surat-menyurat panitia BKK/UNTIDAR.

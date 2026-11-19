@@ -249,4 +249,33 @@
 
 ---
 
+---
+
+## 20. Atribusi Pengembang NineteenDev & Ergonomi Footer Mobile (Safe Area Padding)
+
+| Komponen / Masalah | Analisis Masalah | Solusi & Hasil Perbaikan | Status |
+| :--- | :--- | :--- | :---: |
+| **Pembaruan Teks Footer Pengembang Resmi** | Footer sebelumnya memuat teks generik *"Dikembangkan untuk Seleksi Karir Terbuka Pelajar & Umum"*. | Mengubah teks atribusi resmi pada `App.svelte` menjadi: `Dikembangkan oleh NineteenDev` yang dilengkapi link aktif mengarah ke [https://www.nineteendev.xyz/](https://www.nineteendev.xyz/) dengan atribut keamanan `target="_blank"` dan `rel="noopener noreferrer"`. | **SELESAI** |
+| **Footer Tertutup Bilah Navigasi Bawah di Layar HP** | Pada perangkat mobile ($\le 820\text{px}$), bilah navigasi bawah mengambang (`.mobile-bottom-nav`) berposisi tetap (`fixed`) menutupi bagian bawah footer sehingga teks kredit dan lencana mitra terpotong tidak terbaca. | Menambahkan padding bawah aman dinamis pada `.app-footer`: `padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));`. Konten footer terangkat $\pm 96\text{px}$ di atas bilah navigasi sehingga 100% terbaca jelas dan mudah disentuh. | **SELESAI** |
+
+---
+
+## 21. Notifikasi Panggilan Wawancara, Pembersihan Akun Testing & Hardening Keamanan
+
+| Fitur / Komponen | Kebutuhan Lapangan | Implementasi Sistem | Status |
+| :--- | :--- | :--- | :---: |
+| **Sistem Notifikasi Panggilan Wawancara Pelamar** | Saat rekruter stand memanggil pelamar untuk wawancara di booth, pelamar memerlukan penanda langsung tanpa harus selalu refresh halaman. | Mengintegrasikan modul `src/lib/notifications.js`: Lonceng notifikasi aktif di navbar pelamar yang menampilkan kartu panggilan wawancara, nama stand, instruksi meja booth, serta tombol "Tandai Dibaca". | **SELESAI** |
+| **Penghapusan Akun Pelamar Uji Coba (Clean-up Data BKK)** | Panitia Admin BKK perlu membersihkan akun-akun uji coba/testing sebelum hari-H acara expo tanpa merusak relasi database. | Menambahkan fitur hapus akun di Admin Dashboard dengan pengamanan integritas relasi (*Foreign Key Safety*): menghapus lamaran, presensi, dan profil uji coba secara bersih dan aman. Admin tidak dapat menghapus akun admin sendiri. | **SELESAI** |
+| **Hardening Form Registrasi & Validasi Input** | Mencegah pendaftaran email tidak valid dan kata sandi kurang dari 6 karakter. | Menambahkan validasi regex email dan panjang kata sandi di modal autentikasi serta menyembunyikan opsi pendaftaran role admin dari publik. | **SELESAI** |
+
+---
+
+## 22. Persistensi Kustomisasi "Pendidikan Minimal" Lowongan Stand ke Kolom Database
+
+| Komponen / Masalah | Analisis Masalah | Solusi & Hasil Perbaikan | Status |
+| :--- | :--- | :--- | :---: |
+| **Pendidikan Minimal Lowongan Kembali ke 'Umum' Setelah Diedit** | Saat perwakilan stand (contoh: Stand 16 Putra Teknik) mengedit "Pendidikan Minimal" menjadi `SMK / SMA`, data kembali ke `Umum` setelah halaman di-refresh. Hal ini terjadi karena kolom `pendidikan_minimal` belum terdefinisi di tabel `job_vacancies` Supabase, dan kode sebelumnya menghapus field `pendidikan` sebelum dikirim ke database. | 1. **Penambahan Kolom Database**: Menambahkan kolom `pendidikan_minimal TEXT DEFAULT 'Umum'` pada tabel `public.job_vacancies` di Supabase.<br>2. **Sinkronisasi Supabase API**: Memetakan payload `pendidikan -> pendidikan_minimal` pada `updateVacancy()` dan `createVacancy()` di `src/lib/supabase.js`.<br>3. **Sinkronisasi Data Masuk**: Memperbarui `syncFromSupabase()` untuk membaca atribut `v.pendidikan_minimal`.<br>4. **Penyimpanan Cadangan**: Menambahkan backup otomatis ke `localStorage` (`bsj_vac_pendidikan`) agar kualifikasi pendidikan tetap aman dan tidak pernah hilang saat refresh. | **SELESAI** |
+
+---
+
 *Disusun dan diperbarui secara otomatis untuk Panitia Penyelenggara Bhumi Sambhara Expo & Jobfair 2026 (K1 Pariwisata 2024 UNTIDAR × SMK Negeri 1 Magelang).*
